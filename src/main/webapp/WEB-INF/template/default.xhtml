@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+<f:metadata>
+    <ui:insert name="metadata"/>
+</f:metadata>
+
+<h:head>
+    <title><ui:insert name="title">SE Projekt</ui:insert></title>
+    <ui:insert name="head"/>
+    <h:outputStylesheet library="webjars" name="primeflex/2.0.0/primeflex.min.css" />
+</h:head>
+<h:body>
+    <div class="p-grid">
+        <div class="p-col">
+            <ui:include src="defaultMenu.xhtml"/>
+        </div>
+    </div>
+
+    <div class="p-grid">
+        <div class="p-col-10">
+            <ui:insert name="content">
+                <i class="pi pi-exclamation-triangle"/> [Content Template "content" will be inserted here]
+            </ui:insert>
+        </div>
+        <div class="p-col-2">
+            <ui:insert name="rechts">
+                <i class="pi pi-exclamation-triangle"/> [Side Template "rechts" will be inserted here]
+            </ui:insert>
+        </div>
+    </div>
+    <div class="p-grid">
+        <div class="p-col">
+            <ui:insert name="footer">
+                <i class="pi pi-exclamation-triangle"/> [Footer Template "footer" will be inserted here]
+            </ui:insert>
+        </div>
+    </div>
+</h:body>
+</html>

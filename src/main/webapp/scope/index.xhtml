@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/WEB-INF/template/default.xhtml">
+    <ui:define name="content">
+
+        #{requestCounterOverview.incrementCounter()}
+        #{applicationScopedOverview.counter}<br/>
+        #{sessionScopedOverview.counter}<br/>
+        #{requestCounterOverview.counter}<br/>
+
+
+    </ui:define>
+
+
+    <ui:define name="rechts"/>
+    <ui:define name="footer"/>
+
+</ui:composition>

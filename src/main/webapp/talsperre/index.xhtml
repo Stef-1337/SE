@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template/default.xhtml">
+    <ui:define name="content">
+
+        <style type="text/css">
+            .product-item .product-item-content {
+                border: 1px solid var(--surface-d);
+                border-radius: 3px;
+                margin: .3rem;
+                text-align: center;
+                padding: 2rem 0;
+            }
+
+            .product-image {
+                border-radius: 10px;
+            }
+
+            .product-item .product-image {
+                width: 50%;
+                box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)
+            }
+
+        </style>
+        #{talsperreOverview.loadInfo()}
+        <p:messages id="messages" showDetail="true" closable="true">
+            <p:autoUpdate/>
+        </p:messages>
+        <p:dataTable value="#{talsperreOverview.talsperren}" var="talsperre" rowKey="#{talsperre.id}" stripedRows="true">
+            <f:facet name="header">
+                Klicke auf die Lupe, für mehr Details.
+            </f:facet>
+            <p:column width="300">
+                <p:graphicImage library="talsperren" name="#{talsperre.imageID}_small.jpg"
+                                styleClass="product-image"/>
+            </p:column>
+            <p:column headerText="Name" width="150">
+                <h:outputText value="#{talsperre.name}talsperre"/>
+            </p:column>
+            <p:column headerText="Stauinhalt" width="100">
+                <h:outputText value="#{talsperreOverview.getLast(talsperre.id).stauinhalt} Mio. m³"/>
+            </p:column>
+            <p:column headerText="Zufluss" width="100">
+                <h:outputText value="#{talsperreOverview.getLast(talsperre.id).zufluss} Tsd. m³"/>
+            </p:column>
+            <p:column headerText="Abfluss" width="100">
+                <h:outputText value="#{talsperreOverview.getLast(talsperre.id).abgabe} Tsd. m³"/>
+            </p:column>
+            <p:column >
+                <p:linkButton type="button" icon="pi pi-search" styleClass="rounded-button p-mr-2"
+                              outcome="/talsperre/detail.jsf">
+                    <f:param name="idTalsperre" value="#{talsperre.id}"/>
+                </p:linkButton>
+
+            </p:column>
+
+        </p:dataTable>
+
+
+    </ui:define>
+    <ui:define name="rechts">
+
+
+    </ui:define>
+    <ui:define name="footer">
+
+
+    </ui:define>
+</ui:composition>

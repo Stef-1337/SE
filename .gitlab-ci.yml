@@ -1,0 +1,17 @@
+stages:
+ - make
+
+War:
+  stage: make
+  script:
+    - mvn package
+  artifacts:
+    paths:
+      - target/*.war
+    expire_in: 1 week
+  tags:
+    - build
+    - java-maven
+  image: "ohw/ise-bl/maven-jfx8"
+
+
