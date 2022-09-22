@@ -155,7 +155,7 @@
                 <artifactId>wildfly-maven-plugin</artifactId>
                 <version>2.1.0.Beta1</version>
                 <configuration>
-                    <hostname>172.28.GG.10</hostname>
+                    <hostname>172.28.19.10</hostname>
                     <port>9990</port>
                     <username>seuser</username>
                     <password>youshouldchangeme</password>
