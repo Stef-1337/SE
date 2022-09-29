@@ -133,7 +133,6 @@ public class TalsperrendatenLineChartView {
         yLeftLabel.setFontColor("rgb(65, 139, 178)");
         linearAxes.setScaleLabel(yLeftLabel);
 
-
         CartesianLinearAxes linearAxes2 = new CartesianLinearAxes();
         linearAxes2.setId("small-scale");
         linearAxes2.setPosition("right");
@@ -146,10 +145,7 @@ public class TalsperrendatenLineChartView {
         cScales.addYAxesData(linearAxes);
         cScales.addYAxesData(linearAxes2);
 
-
         options.setScales(cScales);
-
-
 
         Title title = new Title();
         title.setDisplay(true);
@@ -189,7 +185,6 @@ public class TalsperrendatenLineChartView {
             init(key,"Seit Beginn der Aufzeichnung", idTalsperre);
         }
 
-
         return lineModelList.get(key);
     }
 
@@ -201,6 +196,7 @@ public class TalsperrendatenLineChartView {
         if (!lineModelList.containsKey(key)) {
             init(key,"14 Tage", idTalsperre, old , now);
         }
+
         return lineModelList.get(key);
     }
 
