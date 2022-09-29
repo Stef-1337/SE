@@ -192,5 +192,13 @@ public class TalsperrendatenLineChartView {
         return lineModelList.get(key);
     }
 
+    public LineChartModel getLineModel14d(int idTalsperre) {
+        String key = idTalsperre + "#14d";
+        if (!lineModelList.containsKey(key)) {
+            init(key,"14 Tage", idTalsperre, 96*14);
+        }
+        return lineModelList.get(key);
+    }
+
 
 }

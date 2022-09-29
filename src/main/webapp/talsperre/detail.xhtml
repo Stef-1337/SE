@@ -16,6 +16,7 @@
         Stauinhalt: #{talsperreDetailview.getStatus().stauinhalt}
 
         <p:lineChart model="#{talsperrendatenLineChartView.getLineModel24h(talsperreDetailview.idTalsperre)}"/>
+        <p:lineChart model="#{talsperrendatenLineChartView.getLineModel14d(talsperreDetailview.idTalsperre)}"/>
 
     </ui:define>
     <ui:define name="footer">
