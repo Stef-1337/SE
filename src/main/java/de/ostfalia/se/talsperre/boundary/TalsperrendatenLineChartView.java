@@ -15,6 +15,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -194,8 +195,11 @@ public class TalsperrendatenLineChartView {
 
     public LineChartModel getLineModel14d(int idTalsperre) {
         String key = idTalsperre + "#14d";
+        ZoneId zone = ZoneId.of("Europe/Berlin");
+        LocalDateTime old = LocalDateTime.now(zone).minusDays(14);
+        LocalDateTime now = LocalDateTime.now(zone);
         if (!lineModelList.containsKey(key)) {
-            init(key,"14 Tage", idTalsperre, 96*14);
+            init(key,"14 Tage", idTalsperre, old , now);
         }
         return lineModelList.get(key);
     }
