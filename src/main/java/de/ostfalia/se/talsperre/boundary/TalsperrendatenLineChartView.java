@@ -188,13 +188,18 @@ public class TalsperrendatenLineChartView {
         return lineModelList.get(key);
     }
 
+    /**
+     * Erstellt Grafik aus den vorhandenen Daten der letzten 14 Tage
+     * @param idTalsperre
+     * @return
+     */
     public LineChartModel getLineModel14d(int idTalsperre) {
         String key = idTalsperre + "#14d";
         ZoneId zone = ZoneId.of("Europe/Berlin");
         LocalDateTime old = LocalDateTime.now(zone).minusDays(14);
         LocalDateTime now = LocalDateTime.now(zone);
         if (!lineModelList.containsKey(key)) {
-            init(key,"14 Tage", idTalsperre, old , now);
+            init(key,"14 Tage", idTalsperre, old, now);
         }
 
         return lineModelList.get(key);
