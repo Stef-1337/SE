@@ -15,6 +15,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -132,7 +133,6 @@ public class TalsperrendatenLineChartView {
         yLeftLabel.setFontColor("rgb(65, 139, 178)");
         linearAxes.setScaleLabel(yLeftLabel);
 
-
         CartesianLinearAxes linearAxes2 = new CartesianLinearAxes();
         linearAxes2.setId("small-scale");
         linearAxes2.setPosition("right");
@@ -145,10 +145,7 @@ public class TalsperrendatenLineChartView {
         cScales.addYAxesData(linearAxes);
         cScales.addYAxesData(linearAxes2);
 
-
         options.setScales(cScales);
-
-
 
         Title title = new Title();
         title.setDisplay(true);
@@ -188,6 +185,22 @@ public class TalsperrendatenLineChartView {
             init(key,"Seit Beginn der Aufzeichnung", idTalsperre);
         }
 
+        return lineModelList.get(key);
+    }
+
+    /**
+     * Erstellt Grafik aus den vorhandenen Daten der letzten 14 Tage
+     * @param idTalsperre
+     * @return
+     */
+    public LineChartModel getLineModel14d(int idTalsperre) {
+        String key = idTalsperre + "#14d";
+        ZoneId zone = ZoneId.of("Europe/Berlin");
+        LocalDateTime old = LocalDateTime.now(zone).minusDays(14);
+        LocalDateTime now = LocalDateTime.now(zone);
+        if (!lineModelList.containsKey(key)) {
+            init(key,"14 Tage", idTalsperre, old, now);
+        }
 
         return lineModelList.get(key);
     }
