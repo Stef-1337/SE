@@ -38,4 +38,5 @@ public class Talsperre {
     @Column(name = "ImageID")
     String imageID;
 
+
 }
