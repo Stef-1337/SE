@@ -8,6 +8,24 @@
         "env": []
     },
     {
+        "id": "761b7822d1bdbcf4",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "e2ef3a3223c455b4",
+        "type": "hue-bridge",
+        "name": "Philips hue",
+        "bridge": "192.168.178.100",
+        "key": "CeD2DnSgEmuxTy4JNjKB2JE5a1dIwlFWlQUyYmZG",
+        "worker": "3000",
+        "autoupdates": true,
+        "disableupdates": false
+    },
+    {
         "id": "6b63792c5d87d3ac",
         "type": "inject",
         "z": "d3325e68657b7e84",
@@ -118,6 +136,22 @@
             [
                 "907a12fa47149882"
             ]
+        ]
+    },
+    {
+        "id": "b6f0f20202b5a72f",
+        "type": "hue-light",
+        "z": "761b7822d1bdbcf4",
+        "name": "Hue color lamp 2",
+        "bridge": "e2ef3a3223c455b4",
+        "lightid": "44b1ffae-de9f-4d53-8ad2-483e6de05529",
+        "colornamer": true,
+        "skipevents": false,
+        "initevents": false,
+        "x": 450,
+        "y": 260,
+        "wires": [
+            []
         ]
     }
 ]
