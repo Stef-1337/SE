@@ -21,29 +21,103 @@
                 "vt": "str"
             }
         ],
-        "repeat": "",
+        "repeat": "10",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 780,
-        "y": 320,
+        "x": 710,
+        "y": 300,
         "wires": [
-            []
+            [
+                "805abc58175683e4"
+            ]
         ]
     },
     {
-        "id": "fb79036065cb2e79",
-        "type": "status",
+        "id": "cadbf18075cdda24",
+        "type": "debug",
+        "z": "d3325e68657b7e84",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1260,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "805abc58175683e4",
+        "type": "function",
+        "z": "d3325e68657b7e84",
+        "name": "function 1",
+        "func": "msg.payload = \"Hello World\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1000,
+        "y": 320,
+        "wires": [
+            [
+                "cadbf18075cdda24",
+                "9f979c520c52b5ac"
+            ]
+        ]
+    },
+    {
+        "id": "66d362b8e019ef97",
+        "type": "http in",
         "z": "d3325e68657b7e84",
         "name": "",
-        "scope": null,
-        "x": 1200,
-        "y": 420,
+        "url": "/helloWorld",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 720,
+        "y": 460,
         "wires": [
-            []
+            [
+                "805abc58175683e4"
+            ]
+        ]
+    },
+    {
+        "id": "907a12fa47149882",
+        "type": "http response",
+        "z": "d3325e68657b7e84",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 1510,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "9f979c520c52b5ac",
+        "type": "template",
+        "z": "d3325e68657b7e84",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<!DOCTYPE html>\n<html lang=\"de\">\n  <body>\n    <div id=\"container\">\n       {{payload}}\n    </div>\n</body>\n  <style media=\"screen\">\n    @import url('https://fonts.googleapis.com/css?family=Roboto:700');\n    body {\n     margin:0px;\n     font-family:'Roboto';\n     text-align:center;\n}\n    #container {\n     color:#999;\n     text-transform: uppercase;\n     font-size:36px;\n     font-weight:bold;\n     padding-top:200px;\n     position:fixed;\n     width:100%;\n     bottom:45%;\n     display:block;\n     -webkit-animation:colorchange 6s infinite alternate;\n    }\n    @-webkit-keyframes colorchange {\n     0% {color: #F3616F;}\n     33% {color: #FCA364;}\n     66% {color: #FCC564;}\n     100% {color: #F3616F;}\n    }\n  </style>\n</html>",
+        "output": "str",
+        "x": 1140,
+        "y": 580,
+        "wires": [
+            [
+                "907a12fa47149882"
+            ]
         ]
     }
 ]
