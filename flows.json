@@ -148,10 +148,97 @@
         "colornamer": true,
         "skipevents": false,
         "initevents": false,
-        "x": 450,
-        "y": 260,
+        "x": 1090,
+        "y": 440,
         "wires": [
             []
+        ]
+    },
+    {
+        "id": "8d836798214f07ef",
+        "type": "switch",
+        "z": "761b7822d1bdbcf4",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 650,
+        "y": 440,
+        "wires": [
+            [
+                "c66c5af780f86ec7"
+            ],
+            [
+                "4f3e6db1b62379d1"
+            ]
+        ]
+    },
+    {
+        "id": "4f3e6db1b62379d1",
+        "type": "change",
+        "z": "761b7822d1bdbcf4",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "false",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 830,
+        "y": 560,
+        "wires": [
+            [
+                "b6f0f20202b5a72f"
+            ]
+        ]
+    },
+    {
+        "id": "c66c5af780f86ec7",
+        "type": "change",
+        "z": "761b7822d1bdbcf4",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 830,
+        "y": 380,
+        "wires": [
+            [
+                "b6f0f20202b5a72f"
+            ]
         ]
     }
 ]
