@@ -16,6 +16,14 @@
         "env": []
     },
     {
+        "id": "e799cd98f2cc7fbd",
+        "type": "tab",
+        "label": "Flow 3",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "e2ef3a3223c455b4",
         "type": "hue-bridge",
         "name": "Philips hue",
@@ -240,5 +248,166 @@
                 "b6f0f20202b5a72f"
             ]
         ]
+    },
+    {
+        "id": "2cfb013a57f61f52",
+        "type": "http in",
+        "z": "e799cd98f2cc7fbd",
+        "name": "",
+        "url": "/lamp",
+        "method": "put",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 240,
+        "y": 300,
+        "wires": [
+            [
+                "a08b83119a979885"
+            ]
+        ]
+    },
+    {
+        "id": "a08b83119a979885",
+        "type": "function",
+        "z": "e799cd98f2cc7fbd",
+        "name": "function 3",
+        "func": "msg.rejectUnauthorized = false;\n\nmsg.headers = {}\n\nmsg.url = \"https://192.168.178.100/api/tywc9QwDJIH5DJkrw92WdfkWnUq0ANxk0hVqOYA8/lights/4/state/\";\nmsg.method = \"PUT\"\n//msg.payload = { \"on\": true, \"sat\": 254, \"bri\": 254, \"hue\": 10010 };\nmsg.headers[\"content-type\"] = \"application/json\"\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 500,
+        "y": 300,
+        "wires": [
+            [
+                "ae12d19f3567f3a1"
+            ]
+        ]
+    },
+    {
+        "id": "ae12d19f3567f3a1",
+        "type": "http request",
+        "z": "e799cd98f2cc7fbd",
+        "name": "",
+        "method": "use",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 730,
+        "y": 300,
+        "wires": [
+            [
+                "79b039e73f2ea661"
+            ]
+        ]
+    },
+    {
+        "id": "79b039e73f2ea661",
+        "type": "function",
+        "z": "e799cd98f2cc7fbd",
+        "name": "function 4",
+        "func": "msg.payload = \"Test\"\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 920,
+        "y": 300,
+        "wires": [
+            [
+                "0406398f6cba0161"
+            ]
+        ]
+    },
+    {
+        "id": "0406398f6cba0161",
+        "type": "http response",
+        "z": "e799cd98f2cc7fbd",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 1110,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "8161db7b07ef44c7",
+        "type": "http in",
+        "z": "e799cd98f2cc7fbd",
+        "name": "",
+        "url": "lamp",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 240,
+        "y": 380,
+        "wires": [
+            [
+                "3b6f87b8e86f25df"
+            ]
+        ]
+    },
+    {
+        "id": "3b6f87b8e86f25df",
+        "type": "function",
+        "z": "e799cd98f2cc7fbd",
+        "name": "function 5",
+        "func": "msg.rejectUnauthorized = false;\n\nmsg.headers = {}\n\nmsg.url = \"https://192.168.178.100/api/tywc9QwDJIH5DJkrw92WdfkWnUq0ANxk0hVqOYA8/lights/4/\";\nmsg.method = \"GET\"\nmsg.headers[\"content-type\"] = \"application/json\"\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 500,
+        "y": 380,
+        "wires": [
+            [
+                "1df0caa40f668ec4"
+            ]
+        ]
+    },
+    {
+        "id": "1df0caa40f668ec4",
+        "type": "http request",
+        "z": "e799cd98f2cc7fbd",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 750,
+        "y": 380,
+        "wires": [
+            [
+                "be4bc0a56f8d6949"
+            ]
+        ]
+    },
+    {
+        "id": "be4bc0a56f8d6949",
+        "type": "http response",
+        "z": "e799cd98f2cc7fbd",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 1010,
+        "y": 380,
+        "wires": []
     }
 ]
