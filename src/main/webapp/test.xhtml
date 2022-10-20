@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/WEB-INF/template/default.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+
+
+        <h1>Startseite </h1>
+        Für die Beispiele das Menü benutzen.
+        <br></br>
+        <br></br>
+
+        <h2>Lampe</h2>
+        <br></br>
+
+        <h5>Floating Label</h5>
+
+        <p:inputText value="#{LampControllerView.name}" onchange="submit()" valueChangeListener="#{LampControllerView.localeChanged}" />  <br/>
+        <h:outputText value="#{LampControllerView.name}"/>
+<!--        <span class="ui-float-label">-->
+<!--       <p:inputText value="#{LampControllerView.name}"/>-->
+<!--       <p:outputLabel for="@previous" value="#{LampControllerView.name}"/>-->
+<!--   </span>-->
+
+        <!--        <form action="adapterServlet" method="post">-->
+        <!--            <input type="submit" name="licht_an" value="Licht an" />-->
+        <!--            <input type="submit" name="licht_aus" value="Licht aus" />-->
+        <!--            <input type="submit" name="licht_" value="Licht" />-->
+        <!--        </form>-->
+
+<!--        <style>-->
+<!--            button.ui-button {-->
+<!--                margin-right: .5rem;-->
+<!--            }-->
+<!--        </style>-->
+
+<!--        <div class="card">-->
+
+<!--            <p:growl>-->
+<!--                <p:autoUpdate/>-->
+<!--            </p:growl>-->
+
+<!--            <h:form>-->
+
+<!--                <h5>Name der Lampe</h5>-->
+<!--                <p:inputText/>-->
+
+
+<!--                <p:growl id="msg"/>-->
+
+<!--                <h5 class="mt-0">On/Off</h5>-->
+<!--                <p:toggleSwitch value="#{LampControllerView.toggleSwitch}"/>-->
+
+<!--                <p:growl id="growl" showDetail="true"/>-->
+
+<!--                <h5 class="mt-0">Brightness1</h5>-->
+<!--                <h:panelGrid columns="1" style="margin-bottom: 10px">-->
+<!--                    <p:inputText id="txt" value="#{sliderView.number1}"/>-->
+<!--                    <p:slider for="txt" range="false"/>-->
+<!--                </h:panelGrid>-->
+
+<!--                <div class="card">-->
+<!--                    <div class="grid text-center">-->
+
+<!--                        <div class="field col-12 md:col-4">-->
+<!--                            <h5>Brightness2</h5>-->
+<!--                            <div class="knob-container  ui-corner-all">-->
+<!--                                <p:knob value="#{LampControllerView.brightness}"/>-->
+<!--                                    <p:ajax listener="#{LampControllerView.setBrightness(paramValues)}"/>-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+<!--                    </div>-->
+<!--                </div>-->
+
+
+<!--                <h5>Bestätigen</h5>-->
+<!--                <p:commandButton type="button" value="Submit"/>-->
+
+
+<!--            </h:form>-->
+<!--        </div>-->
+
+
+    </ui:define>
+    <ui:define name="rechts">
+
+
+    </ui:define>
+    <ui:define name="footer">
+
+
+    </ui:define>
+</ui:composition>
