@@ -19,77 +19,16 @@
 
         <h5>Floating Label</h5>
 
-<!--        <p:inputText id="inputname" value="#{lampControllerView.name}" onchange="requestSu" valueChangeListener="#{lampControllerView.localeChanged}">-->
-<!--        <p:inputText id="inputName" valueChangeListener="#{lampControllerView.localeChanged}"/>-->
-<!--&lt;!&ndash;            <p:ajax listener="#{lampControllerView.localeChanged}"/>&ndash;&gt;-->
-<!--        <p:commandButton  type="button" value="ok">-->
-<!--            <p:ajax execute = "inputName" listener="#{lampControllerView.localeChanged}" render = "outputName" />-->
-<!--        </p:commandButton>-->
-<!--        <br/>-->
-<!--        <h:outputText id="outputName" value="#{lampControllerView.name}"/>-->
-<!--&lt;!&ndash;        <span class="ui-float-label">&ndash;&gt;-->
-<!--       <p:inputText value="#{LampControllerView.name}"/>-->
-<!--       <p:outputLabel for="@previous" value="#{LampControllerView.name}"/>-->
-<!--   </span>-->
-
-        <!--        <form action="adapterServlet" method="post">-->
-        <!--            <input type="submit" name="licht_an" value="Licht an" />-->
-        <!--            <input type="submit" name="licht_aus" value="Licht aus" />-->
-        <!--            <input type="submit" name="licht_" value="Licht" />-->
-        <!--        </form>-->
-
-<!--        <style>-->
-<!--            button.ui-button {-->
-<!--                margin-right: .5rem;-->
-<!--            }-->
-<!--        </style>-->
-
-<!--        <div class="card">-->
-
-<!--            <p:growl>-->
-<!--                <p:autoUpdate/>-->
-<!--            </p:growl>-->
-
-<!--            <h:form>-->
-
-<!--                <h5>Name der Lampe</h5>-->
-<!--                <p:inputText/>-->
-
-
-<!--                <p:growl id="msg"/>-->
-
-<!--                <h5 class="mt-0">On/Off</h5>-->
-<!--                <p:toggleSwitch value="#{LampControllerView.toggleSwitch}"/>-->
-
-<!--                <p:growl id="growl" showDetail="true"/>-->
-
-<!--                <h5 class="mt-0">Brightness1</h5>-->
-<!--                <h:panelGrid columns="1" style="margin-bottom: 10px">-->
-<!--                    <p:inputText id="txt" value="#{sliderView.number1}"/>-->
-<!--                    <p:slider for="txt" range="false"/>-->
-<!--                </h:panelGrid>-->
-
-<!--                <div class="card">-->
-<!--                    <div class="grid text-center">-->
-
-<!--                        <div class="field col-12 md:col-4">-->
-<!--                            <h5>Brightness2</h5>-->
-<!--                            <div class="knob-container  ui-corner-all">-->
-<!--                                <p:knob value="#{LampControllerView.brightness}"/>-->
-<!--                                    <p:ajax listener="#{LampControllerView.setBrightness(paramValues)}"/>-->
-<!--                            </div>-->
-<!--                        </div>-->
-
-<!--                    </div>-->
-<!--                </div>-->
-
-
-<!--                <h5>Bestätigen</h5>-->
-<!--                <p:commandButton type="button" value="Submit"/>-->
-
-
-<!--            </h:form>-->
-<!--        </div>-->
+        <h:form>
+            <p:inputText id="inputName" onchange="submit()" valueChangeListener="#{lampControllerView.localeChanged}">
+                <f:ajax execute = "inputName" render = "outputName" />
+            </p:inputText>
+            <p:commandButton  type="button" value="ok">
+                <f:ajax execute = "inputName" render = "outputName" />
+            </p:commandButton>
+            <br/>
+            <p:outputLabel id = "outputName" value="#{lampControllerView.name}"/>
+        </h:form>
 
 
     </ui:define>
