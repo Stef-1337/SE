@@ -19,9 +19,15 @@
 
         <h5>Floating Label</h5>
 
-        <p:inputText value="#{LampControllerView.name}" onchange="submit()" valueChangeListener="#{LampControllerView.localeChanged}" />  <br/>
-        <h:outputText value="#{LampControllerView.name}"/>
-<!--        <span class="ui-float-label">-->
+<!--        <p:inputText id="inputname" value="#{lampControllerView.name}" onchange="requestSu" valueChangeListener="#{lampControllerView.localeChanged}">-->
+<!--        <p:inputText id="inputName" valueChangeListener="#{lampControllerView.localeChanged}"/>-->
+<!--&lt;!&ndash;            <p:ajax listener="#{lampControllerView.localeChanged}"/>&ndash;&gt;-->
+<!--        <p:commandButton  type="button" value="ok">-->
+<!--            <p:ajax execute = "inputName" listener="#{lampControllerView.localeChanged}" render = "outputName" />-->
+<!--        </p:commandButton>-->
+<!--        <br/>-->
+<!--        <h:outputText id="outputName" value="#{lampControllerView.name}"/>-->
+<!--&lt;!&ndash;        <span class="ui-float-label">&ndash;&gt;-->
 <!--       <p:inputText value="#{LampControllerView.name}"/>-->
 <!--       <p:outputLabel for="@previous" value="#{LampControllerView.name}"/>-->
 <!--   </span>-->

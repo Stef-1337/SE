@@ -1,6 +1,8 @@
 package de.ostfalia.s1.lamp.boundary;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
@@ -9,7 +11,8 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 
-@ManagedBean(name = "lampControllerView", eager = true)
+//@ManagedBean(name = "lampControllerView")
+@Named
 @ViewScoped
 public class LampControllerView implements Serializable {
 
