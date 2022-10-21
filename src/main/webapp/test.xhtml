@@ -20,14 +20,44 @@
         <h5>Floating Label</h5>
 
         <h:form>
-            <p:inputText id="inputName" onchange="submit()" valueChangeListener="#{lampControllerView.localeChanged}">
-                <f:ajax execute = "inputName" render = "outputName" />
+
+            <p:inputText id="inputName" onchange="submit()" valueChangeListener="#{lampControllerView.nameChanged}">
+                <f:ajax execute="inputName" render="outputName"/>
             </p:inputText>
-            <p:commandButton  type="button" value="ok">
-                <f:ajax execute = "inputName" render = "outputName" />
-            </p:commandButton>
             <br/>
-            <p:outputLabel id = "outputName" value="#{lampControllerView.name}"/>
+            <p:outputLabel id="outputName" value="#{lampControllerView.name}"/>
+            <br/>
+            <br/>
+
+            <div class="card">
+                <div class="grid text-center">
+                    <div class="field col-12 md:col-4">
+                        <h5 style="margin-top:0">Brightness</h5>
+                        <p:knob value="#{lampControllerView.brightness}">
+                            <p:ajax listener="#{lampControllerView.brightnessChanged}"/>
+                        </p:knob>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h5 class="mt-0">Inline</h5>
+                <p:colorPicker value="#{lampControllerView.color}" mode="inline">
+                    <p:ajax listener="#{lampControllerView.colorChanged}"/>
+                    <f:ajax render="outputColor" />
+                </p:colorPicker>
+            </div>
+
+            <p:outputLabel id="outputColor" value="#{lampControllerView.color}"/>
+
+
+            <!-- Command Button zum Senden der Anfrage-->
+
+            <!--            <p:commandButton  type="button" value="ok">-->
+            <!--                <f:ajax execute = "inputName" render = "outputName" />-->
+            <!--            </p:commandButton>-->
+
+
         </h:form>
 
 

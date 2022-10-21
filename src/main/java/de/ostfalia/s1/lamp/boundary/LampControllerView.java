@@ -1,11 +1,10 @@
 package de.ostfalia.s1.lamp.boundary;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
+import org.primefaces.component.colorpicker.ColorPicker;
+
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -18,7 +17,8 @@ public class LampControllerView implements Serializable {
 
     private String name = "lampe1";
     private boolean toggleSwitch;
-    private int brightness;
+    private int brightness = 50;
+    private String color;
 
     public String getName() {
         return name;
@@ -28,7 +28,7 @@ public class LampControllerView implements Serializable {
         this.name = name;
     }
 
-    public void localeChanged(ValueChangeEvent e) {
+    public void nameChanged(ValueChangeEvent e) {
         name = e.getNewValue().toString();
     }
 
@@ -48,7 +48,22 @@ public class LampControllerView implements Serializable {
         this.brightness = brightness;
     }
 
-    public void onChange() {
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "You have selected: " + brightness, null));
+    public void brightnessChanged(ValueChangeEvent e) {
+        brightness = Integer.valueOf(e.getNewValue().toString());
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public void colorChanged(AjaxBehaviorEvent e) {
+        ColorPicker picker = (ColorPicker) e.getComponent();
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Color changed: " + picker.getValue(), null);
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+        color = e.getComponent().toString();
     }
 }
