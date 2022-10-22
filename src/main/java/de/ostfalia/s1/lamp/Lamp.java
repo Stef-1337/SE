@@ -9,6 +9,7 @@ public class Lamp implements ILamp, Serializable {
     private String name = "lampe1";
     private boolean toggleSwitch;
     private float intensity = 50;
+    private float intensityPercentage = 50;
     private String hex = "9c9de0";
     private String colorList = "9c9de0";
     private Color color;
@@ -46,6 +47,7 @@ public class Lamp implements ILamp, Serializable {
     @Override
     public void setIntensity(float intensity) throws IOException {
         this.intensity = intensity;
+        this.intensityPercentage = (float) (intensity/2.5);
     }
 
     @Override
@@ -55,7 +57,7 @@ public class Lamp implements ILamp, Serializable {
 
     @Override
     public float getIntensity() throws IOException {
-        return this.intensity;
+        return this.intensityPercentage;
     }
 
     @Override

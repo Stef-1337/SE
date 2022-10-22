@@ -14,13 +14,14 @@ import java.net.URL;
 import java.util.Set;
 
 public class Requester {
+
     protected static final String base = "http://172.28.19.10:1880/lamp";
 
     //  protected static final URL state = new URL("http://192.168.0.235/api/z9S2a53sZ8ZGA0LT0S0E-6gtBe9bWXKuubaqpDqN/lights/3/state");
     public Requester() {
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
         Requester bridge = new Requester();
         Lamp lamp = new Lamp(false, 154, 7778, 254, new double[]{0.5330,0.4273}, "Stehlampe rechts");
         Jsonb jsonb = JsonbBuilder.create();
@@ -83,7 +84,7 @@ public class Requester {
         os.close();
     }
 
-    private JsonObject getState(URL url) throws IOException, Exception {
+    JsonObject getState(URL url) throws IOException, Exception {
         HttpURLConnection connection = null;
         JsonObject jsonObject = null;
         try {
