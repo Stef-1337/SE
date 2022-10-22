@@ -1,0 +1,413 @@
+[
+    {
+        "id": "d3325e68657b7e84",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "761b7822d1bdbcf4",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "e799cd98f2cc7fbd",
+        "type": "tab",
+        "label": "Flow 3",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "e2ef3a3223c455b4",
+        "type": "hue-bridge",
+        "name": "Philips hue",
+        "bridge": "192.168.178.100",
+        "key": "CeD2DnSgEmuxTy4JNjKB2JE5a1dIwlFWlQUyYmZG",
+        "worker": "3000",
+        "autoupdates": true,
+        "disableupdates": false
+    },
+    {
+        "id": "6b63792c5d87d3ac",
+        "type": "inject",
+        "z": "d3325e68657b7e84",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "10",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 710,
+        "y": 300,
+        "wires": [
+            [
+                "805abc58175683e4"
+            ]
+        ]
+    },
+    {
+        "id": "cadbf18075cdda24",
+        "type": "debug",
+        "z": "d3325e68657b7e84",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1260,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "805abc58175683e4",
+        "type": "function",
+        "z": "d3325e68657b7e84",
+        "name": "function 1",
+        "func": "msg.payload = \"Hello World\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1000,
+        "y": 320,
+        "wires": [
+            [
+                "cadbf18075cdda24",
+                "9f979c520c52b5ac"
+            ]
+        ]
+    },
+    {
+        "id": "66d362b8e019ef97",
+        "type": "http in",
+        "z": "d3325e68657b7e84",
+        "name": "",
+        "url": "/helloWorld",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 720,
+        "y": 460,
+        "wires": [
+            [
+                "805abc58175683e4"
+            ]
+        ]
+    },
+    {
+        "id": "907a12fa47149882",
+        "type": "http response",
+        "z": "d3325e68657b7e84",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 1510,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "9f979c520c52b5ac",
+        "type": "template",
+        "z": "d3325e68657b7e84",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<!DOCTYPE html>\n<html lang=\"de\">\n  <body>\n    <div id=\"container\">\n       {{payload}}\n    </div>\n</body>\n  <style media=\"screen\">\n    @import url('https://fonts.googleapis.com/css?family=Roboto:700');\n    body {\n     margin:0px;\n     font-family:'Roboto';\n     text-align:center;\n}\n    #container {\n     color:#999;\n     text-transform: uppercase;\n     font-size:36px;\n     font-weight:bold;\n     padding-top:200px;\n     position:fixed;\n     width:100%;\n     bottom:45%;\n     display:block;\n     -webkit-animation:colorchange 6s infinite alternate;\n    }\n    @-webkit-keyframes colorchange {\n     0% {color: #F3616F;}\n     33% {color: #FCA364;}\n     66% {color: #FCC564;}\n     100% {color: #F3616F;}\n    }\n  </style>\n</html>",
+        "output": "str",
+        "x": 1140,
+        "y": 580,
+        "wires": [
+            [
+                "907a12fa47149882"
+            ]
+        ]
+    },
+    {
+        "id": "b6f0f20202b5a72f",
+        "type": "hue-light",
+        "z": "761b7822d1bdbcf4",
+        "name": "Hue color lamp 2",
+        "bridge": "e2ef3a3223c455b4",
+        "lightid": "44b1ffae-de9f-4d53-8ad2-483e6de05529",
+        "colornamer": true,
+        "skipevents": false,
+        "initevents": false,
+        "x": 1090,
+        "y": 440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8d836798214f07ef",
+        "type": "switch",
+        "z": "761b7822d1bdbcf4",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 650,
+        "y": 440,
+        "wires": [
+            [
+                "c66c5af780f86ec7"
+            ],
+            [
+                "4f3e6db1b62379d1"
+            ]
+        ]
+    },
+    {
+        "id": "4f3e6db1b62379d1",
+        "type": "change",
+        "z": "761b7822d1bdbcf4",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "false",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 830,
+        "y": 560,
+        "wires": [
+            [
+                "b6f0f20202b5a72f"
+            ]
+        ]
+    },
+    {
+        "id": "c66c5af780f86ec7",
+        "type": "change",
+        "z": "761b7822d1bdbcf4",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 830,
+        "y": 380,
+        "wires": [
+            [
+                "b6f0f20202b5a72f"
+            ]
+        ]
+    },
+    {
+        "id": "2cfb013a57f61f52",
+        "type": "http in",
+        "z": "e799cd98f2cc7fbd",
+        "name": "",
+        "url": "/lamp",
+        "method": "put",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 240,
+        "y": 300,
+        "wires": [
+            [
+                "a08b83119a979885"
+            ]
+        ]
+    },
+    {
+        "id": "a08b83119a979885",
+        "type": "function",
+        "z": "e799cd98f2cc7fbd",
+        "name": "function 3",
+        "func": "msg.rejectUnauthorized = false;\n\nmsg.headers = {}\n\nmsg.url = \"https://192.168.178.100/api/tywc9QwDJIH5DJkrw92WdfkWnUq0ANxk0hVqOYA8/lights/4/state/\";\nmsg.method = \"PUT\"\n//msg.payload = { \"on\": true, \"sat\": 254, \"bri\": 254, \"hue\": 10010 };\nmsg.headers[\"content-type\"] = \"application/json\"\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 500,
+        "y": 300,
+        "wires": [
+            [
+                "ae12d19f3567f3a1"
+            ]
+        ]
+    },
+    {
+        "id": "ae12d19f3567f3a1",
+        "type": "http request",
+        "z": "e799cd98f2cc7fbd",
+        "name": "",
+        "method": "use",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 730,
+        "y": 300,
+        "wires": [
+            [
+                "79b039e73f2ea661"
+            ]
+        ]
+    },
+    {
+        "id": "79b039e73f2ea661",
+        "type": "function",
+        "z": "e799cd98f2cc7fbd",
+        "name": "function 4",
+        "func": "msg.payload = \"Test\"\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 920,
+        "y": 300,
+        "wires": [
+            [
+                "0406398f6cba0161"
+            ]
+        ]
+    },
+    {
+        "id": "0406398f6cba0161",
+        "type": "http response",
+        "z": "e799cd98f2cc7fbd",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 1110,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "8161db7b07ef44c7",
+        "type": "http in",
+        "z": "e799cd98f2cc7fbd",
+        "name": "",
+        "url": "lamp",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 240,
+        "y": 380,
+        "wires": [
+            [
+                "3b6f87b8e86f25df"
+            ]
+        ]
+    },
+    {
+        "id": "3b6f87b8e86f25df",
+        "type": "function",
+        "z": "e799cd98f2cc7fbd",
+        "name": "function 5",
+        "func": "msg.rejectUnauthorized = false;\n\nmsg.headers = {}\n\nmsg.url = \"https://192.168.178.100/api/tywc9QwDJIH5DJkrw92WdfkWnUq0ANxk0hVqOYA8/lights/4/\";\nmsg.method = \"GET\"\nmsg.headers[\"content-type\"] = \"application/json\"\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 500,
+        "y": 380,
+        "wires": [
+            [
+                "1df0caa40f668ec4"
+            ]
+        ]
+    },
+    {
+        "id": "1df0caa40f668ec4",
+        "type": "http request",
+        "z": "e799cd98f2cc7fbd",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 750,
+        "y": 380,
+        "wires": [
+            [
+                "be4bc0a56f8d6949"
+            ]
+        ]
+    },
+    {
+        "id": "be4bc0a56f8d6949",
+        "type": "http response",
+        "z": "e799cd98f2cc7fbd",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 1010,
+        "y": 380,
+        "wires": []
+    }
+]
