@@ -1,7 +1,9 @@
 package de.ostfalia.s1.lamp;
 
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import java.io.IOException;
 
 @Named
 @ViewScoped
@@ -16,6 +18,12 @@ public class LampController {
     public void setAdapter(Java2NodeRedLampAdapter adapter) {
         this.adapter = adapter;
     }
+
+    public void switchChanged(ValueChangeEvent e) throws IOException {
+        adapter.lampe.setState(Boolean.valueOf(e.getNewValue().toString()));
+    }
+
+
 
 
 
