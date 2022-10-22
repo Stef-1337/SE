@@ -57,6 +57,9 @@ public class Lamp implements ILamp, Serializable {
 
     @Override
     public float getIntensity() throws IOException {
+        return this.intensity;
+    }
+    public float getIntensityPercentage() throws IOException {
         return this.intensityPercentage;
     }
 
