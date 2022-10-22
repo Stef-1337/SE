@@ -26,7 +26,7 @@ public class Requester {
     public Requester() {
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         Requester requester = new Requester();
         JsonObject state = requester.getState(new URL("http://127.0.0.1:1880/lamp"));
         JsonObject s = state.getJsonObject("state");
