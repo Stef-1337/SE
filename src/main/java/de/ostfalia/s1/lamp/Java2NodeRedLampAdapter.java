@@ -12,6 +12,7 @@ import java.io.Serializable;
 public class Java2NodeRedLampAdapter implements ILamp, Serializable {
 
     Lamp lampe = new Lamp();
+    Requester requester = new Requester();
 
     @Override
     public void switchOn() throws IOException {
