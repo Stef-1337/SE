@@ -86,8 +86,8 @@ public class Java2NodeRedLampAdapter implements ILamp, Serializable {
         System.out.println(s.toString());
         lampe.setState(s.getBoolean("on"));
         lampe.setIntensity(s.getInt("bri"));
-        lampe.setColor(getXYtoRGB(stringToList(s.getString("xy"))));
-        lampe.setName(s.getString("name"));
+//        lampe.setColor(getXYtoRGB(stringToList(s.getString("xy"))));
+//        lampe.setName(s.getString("name"));
     }
 
     public List<Double> stringToList(String xy){
