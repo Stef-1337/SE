@@ -49,13 +49,13 @@
 
             <div class="card">
                 <h5 class="mt-0">Inline</h5>
-                <p:colorPicker value="#{lampControllerView.color}" mode="inline">
-                    <p:ajax listener="#{lampControllerView.colorChanged}"/>
-                    <f:ajax render="outputColor"/>
+                <p:colorPicker id="inputColor" value="#{lampControllerView.color}" mode="inline"
+                               valueChangeListener="#{lampControllerView.colorChanged}">
+                    <f:ajax execute="inputColor"  render="outputColor" />
                 </p:colorPicker>
             </div>
 
-            <p:outputLabel id="outputColor" value="#{lampControllerView.color}"/>
+            <p:outputLabel id="outputColor" value="#{lampControllerView.colorList}"/>
 
 
             <!-- Command Button zum Senden der Anfrage-->
