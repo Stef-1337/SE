@@ -6,6 +6,15 @@ import javax.json.JsonReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import javax.json.*;
+import javax.json.bind.Jsonb;
+import javax.json.bind.JsonbBuilder;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.ProtocolException;
 import java.net.URL;
 
 public class Requester {
@@ -15,6 +24,13 @@ public class Requester {
 
     //  protected static final URL state = new URL("http://192.168.0.235/api/z9S2a53sZ8ZGA0LT0S0E-6gtBe9bWXKuubaqpDqN/lights/3/state");
     public Requester() {
+    }
+
+    public static void main(String[] args) {
+        Requester requester = new Requester();
+        JsonObject state = requester.getState(new URL("http://127.0.0.1:1880/lamp"));
+        JsonObject s = state.getJsonObject("state");
+        System.out.println(s.toString());
     }
 
 
