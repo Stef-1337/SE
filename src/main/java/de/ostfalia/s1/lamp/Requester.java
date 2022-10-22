@@ -1,15 +1,14 @@
 package de.ostfalia.s1.lamp;
 
 
-import javax.json.*;
-import javax.json.bind.Jsonb;
-import javax.json.bind.JsonbBuilder;
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.ProtocolException;
 import java.net.URL;
-import java.util.Set;
 
 public class Lamp {
     protected static final String base = "http://127.0.0.1:1880/lamp";
@@ -19,7 +18,7 @@ public class Lamp {
     }
 
     public static void main(String[] args) throws HueException, IOException {
-        HueBridge bridge = new HueBridge();
+        Lamp bridge = new Lamp();
 //        Lamp lamp = new Lamp(false, 154, 7778, 254, new double[]{0.5330,0.4273}, "Stehlampe rechts"); //brightness von 1 - 255
 //        Jsonb jsonb = JsonbBuilder.create();
 //        String result = jsonb.toJson(lamp);
@@ -44,7 +43,7 @@ public class Lamp {
 //        System.out.println(lamp.name);
     }
 
-    private HttpURLConnection setupConnection(URL url, String method) throws IOException, ProtocolException {
+    private HttpURLConnection setupConnection(URL url, String method) throws IOException {
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setDoOutput(true);
         connection.setRequestMethod(method);
@@ -52,7 +51,7 @@ public class Lamp {
         return connection;
     }
 
-    private void setState(String json, URL url) throws IOException, ProtocolException, HueException {
+    private void setState(String json, URL url) throws IOException, HueException {
         HttpURLConnection connection = null;
         try {
             connection = setupConnection(url, "PUT");
@@ -85,7 +84,7 @@ public class Lamp {
         os.close();
     }
 
-    private JsonObject getState(URL url) throws IOException, ProtocolException, HueException {
+    private JsonObject getState(URL url) throws IOException, HueException {
         HttpURLConnection connection = null;
         JsonObject jsonObject = null;
         try {
