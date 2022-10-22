@@ -29,6 +29,13 @@
             <br/>
             <br/>
 
+            <h5 class="mt-0">On/Off</h5>
+            <p:toggleSwitch id="inputToggle" value="#{lampControllerView.toggleSwitch}">
+                <f:ajax execute="inputToggle" render="outputToggle"/>
+            </p:toggleSwitch>
+
+            <p:outputLabel id="outputToggle" value="#{lampControllerView.toggleSwitch}"/>
+
             <div class="card">
                 <div class="grid text-center">
                     <div class="field col-12 md:col-4">
@@ -44,7 +51,7 @@
                 <h5 class="mt-0">Inline</h5>
                 <p:colorPicker value="#{lampControllerView.color}" mode="inline">
                     <p:ajax listener="#{lampControllerView.colorChanged}"/>
-                    <f:ajax render="outputColor" />
+                    <f:ajax render="outputColor"/>
                 </p:colorPicker>
             </div>
 

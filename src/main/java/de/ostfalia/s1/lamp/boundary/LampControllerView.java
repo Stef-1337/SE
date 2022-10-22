@@ -40,6 +40,10 @@ public class LampControllerView implements Serializable {
         this.toggleSwitch = toggleSwitch;
     }
 
+    public void switchChanged(ValueChangeEvent e) {
+        toggleSwitch = Boolean.valueOf(e.getNewValue().toString());
+    }
+
     public int getBrightness() {
         return brightness;
     }
