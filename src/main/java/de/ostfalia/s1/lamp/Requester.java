@@ -15,7 +15,8 @@ import java.util.Set;
 
 public class Requester {
 
-    protected static final String base = "http://172.28.19.10:1880/lamp";
+    protected static final String base = "http://127.0.0.1:1880/lamp";
+//    protected static final String base = "http://172.28.19.10:1880/lamp";
 
     //  protected static final URL state = new URL("http://192.168.0.235/api/z9S2a53sZ8ZGA0LT0S0E-6gtBe9bWXKuubaqpDqN/lights/3/state");
     public Requester() {
@@ -79,10 +80,5 @@ public class Requester {
         URL url = new URL(base);
 //        URL url = new URL(base + "/lights/" + Integer.toString(lamp) + "/state");
         setState(json, url);
-    }
-
-    public JsonObject getAllScenes() throws Exception {
-        URL url = new URL(base + "/scenes/");
-        return getState(url);
     }
 }

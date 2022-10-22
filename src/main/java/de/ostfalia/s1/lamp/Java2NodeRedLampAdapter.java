@@ -73,11 +73,17 @@ public class Java2NodeRedLampAdapter implements ILamp, Serializable {
         Jsonb jsonb = JsonbBuilder.create();
         String result = jsonb.toJson(new RequestObject(lampe.getState(), lampe.getIntensity(),
                 getRGBtoXY(lampe.getColor()), lampe.getName()));
-        requester.setLampState(4, result);
+        requester.setLampState(3, result);
+    }
+
+    public static void main(String[] args) throws Exception {
+        Java2NodeRedLampAdapter j = new Java2NodeRedLampAdapter();
+        j.getRequest();
     }
 
     public void getRequest() throws Exception {
         JsonObject s = requester.getState(new URL(requester.base)).getJsonObject("state");
+        System.out.println(s.toString());
         lampe.setState(s.getBoolean("on"));
         lampe.setIntensity(s.getInt("bri"));
         lampe.setColor(getXYtoRGB(stringToList(s.getString("xy"))));

@@ -6,9 +6,9 @@ import java.io.Serializable;
 
 public class Lamp implements ILamp, Serializable {
 
-    private String name = "lampe1";
-    private boolean toggleSwitch;
-    private float intensity = 50;
+    private String name = "Stehlampe rechts";
+    private boolean toggleSwitch = false;
+    private float intensity = 127;
     private float intensityPercentage = 50;
     private String hex = "9c9de0";
     private String colorList = "9c9de0";
