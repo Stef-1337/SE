@@ -22,16 +22,9 @@ public class LampControllerView implements Serializable {
     private boolean toggleSwitch;
     private int brightness = 50;
     private String color = "9c9de0";
-
-    public String getColorList() {
-        return colorList;
-    }
-
-    public void setColorList(String colorList) {
-        this.colorList = colorList;
-    }
-
     private String colorList = "9c9de0";
+
+
 
     public String getName() {
         return name;
@@ -83,6 +76,7 @@ public class LampControllerView implements Serializable {
 //        FacesContext.getCurrentInstance().addMessage(null, msg);
         color = e.getNewValue().toString();
         colorList = getRGBtoXY(Color.decode(color)).toString();
+//        colorList = Color.decode(color).toString();
     }
 
     public static List<Double> getRGBtoXY(Color c) {

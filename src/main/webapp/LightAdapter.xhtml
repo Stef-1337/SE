@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template/default.xhtml">
+    <ui:define name="content">
+
+        <style type="text/css">
+            .product-item .product-item-content {
+                border: 1px solid var(--surface-d);
+                border-radius: 3px;
+                margin: .3rem;
+                text-align: center;
+                padding: 2rem 0;
+            }
+
+            .product-image {
+                border-radius: 10px;
+            }
+
+            .product-item .product-image {
+                width: 50%;
+                box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)
+            }
+
+        </style>
+
+
+        <h1>Startseite </h1>
+        Für die Beispiele das Menü benutzen.
+        <br></br>
+        <br></br>
+
+        <h2>Lampe</h2>
+        <br></br>
+
+        <h5>Floating Label</h5>
+
+        <h:form>
+
+            <p:inputText id="inputName" onchange="submit()" valueChangeListener="#{lampControllerView.nameChanged}">
+                <f:ajax execute="inputName" render="outputName"/>
+            </p:inputText>
+            <br/>
+            <p:outputLabel id="outputName" value="#{lampControllerView.name}"/>
+            <br/>
+            <br/>
+
+            <h5 class="mt-0">On/Off</h5>
+            <p:toggleSwitch id="inputToggle" value="#{lampControllerView.toggleSwitch}">
+                <f:ajax execute="inputToggle" render="outputToggle"/>
+            </p:toggleSwitch>
+
+            <p:outputLabel id="outputToggle" value="#{lampControllerView.toggleSwitch}"/>
+
+            <div class="card">
+                <div class="grid text-center">
+                    <div class="field col-12 md:col-4">
+                        <h5 style="margin-top:0">Brightness</h5>
+                        <p:knob id="inputBrightness" value="#{lampControllerView.brightness}"
+                                valueChangeListener="#{lampControllerView.brightnessChanged}">
+                            <f:ajax execute="inputBrightness" render="outputBrightness"/>
+                        </p:knob>
+                    </div>
+                </div>
+            </div>
+
+            <p:outputLabel id="outputBrightness" value="#{lampControllerView.brightness}"/>
+
+            <div class="card">
+                <h5 class="mt-0">Inline</h5>
+                <p:colorPicker id="inputColor" value="#{lampControllerView.color}" mode="inline"
+                               valueChangeListener="#{lampControllerView.colorChanged}">
+                    <f:ajax execute="inputColor" render="outputColor"/>
+                </p:colorPicker>
+            </div>
+
+            <p:outputLabel id="outputColor" value="#{lampControllerView.colorList}"/>
+
+            <p:dataTable id="table" stripedRows="true">
+                <f:facet name="header">
+                    Status der Lampen
+                </f:facet>
+                <p:column headerText="Name" width="150">
+                    <h:outputText value="#{lampControllerView.name}talsperre"/>
+                </p:column>
+                <p:column headerText="Helligkeit" width="100">
+                    <h:outputText value="#{talsperreOverview.getLast(talsperre.id).stauinhalt} Mio. m³"/>
+                </p:column>
+                <p:column headerText="Zufluss" width="100">
+                    <h:outputText value="#{talsperreOverview.getLast(talsperre.id).zufluss} Tsd. m³"/>
+                </p:column>
+                <p:column headerText="Abfluss" width="100">
+                    <h:outputText value="#{talsperreOverview.getLast(talsperre.id).abgabe} Tsd. m³"/>
+                </p:column>
+                <p:column>
+                    <p:linkButton type="button" icon="pi pi-search" styleClass="rounded-button p-mr-2"
+                                  outcome="/talsperre/detail.jsf">
+                        <f:param name="idTalsperre" value="#{talsperre.id}"/>
+                    </p:linkButton>
+
+                </p:column>
+
+            </p:dataTable>
+
+
+            <!-- Command Button zum Senden der Anfrage-->
+
+            <!--            <p:commandButton  type="button" value="ok">-->
+            <!--                <f:ajax execute = "inputName" render = "outputName" />-->
+            <!--            </p:commandButton>-->
+
+
+        </h:form>
+
+
+    </ui:define>
+    <ui:define name="rechts">
+
+
+    </ui:define>
+    <ui:define name="footer">
+
+
+    </ui:define>
+</ui:composition>
