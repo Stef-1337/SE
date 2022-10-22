@@ -3,15 +3,10 @@ package de.ostfalia.s1.lamp;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
-import javax.json.JsonString;
-import javax.json.bind.Jsonb;
-import javax.json.bind.JsonbBuilder;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
-import java.net.ProtocolException;
 import java.net.URL;
-import java.util.Set;
 
 public class Requester {
 
@@ -23,7 +18,7 @@ public class Requester {
     }
 
 
-    private HttpURLConnection setupConnection(URL url, String method) throws IOException{
+    private HttpURLConnection setupConnection(URL url, String method) throws IOException {
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setDoOutput(true);
         connection.setRequestMethod(method);
@@ -60,7 +55,7 @@ public class Requester {
         os.close();
     }
 
-    JsonObject getState(URL url) throws IOException, Exception {
+    JsonObject getState(URL url) throws Exception {
         HttpURLConnection connection = null;
         JsonObject jsonObject = null;
         try {
