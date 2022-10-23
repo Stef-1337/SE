@@ -1,13 +1,17 @@
 package de.ostfalia.s1.lamp;
 
+
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
+import javax.json.Json;
 import javax.json.JsonObject;
+import javax.json.JsonReader;
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
 import java.awt.*;
 import java.io.IOException;
 import java.io.Serializable;
+import java.io.StringReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,85 +28,16 @@ public class Java2NodeRedLampAdapter implements ILamp, Serializable {
     Lamp lampe = new Lamp();
     Requester r = new Requester();
 
-    @Override
-    public void switchOn() throws IOException {
-        lampe.switchOn();
-    }
-
-    @Override
-    public void switchOn(float intensity) throws IOException {
-        lampe.switchOn();
-    }
-
-    @Override
-    public void switchOn(Color color) throws IOException {
-        lampe.switchOn();
-    }
-
-    @Override
-    public void switchOff() throws IOException {
-        lampe.switchOn();
-    }
-
-    @Override
-    public void setColor(Color color) throws IOException {
-        lampe.setColor(color);
-    }
-
-    @Override
-    public void setIntensity(float intensity) throws IOException {
-        lampe.setIntensity(intensity);
-    }
-
-    @Override
-    public Color getColor() throws IOException {
-        return lampe.getColor();
-    }
-
-    @Override
-    public float getIntensity() throws IOException {
-        return lampe.getIntensity();
-    }
-
-    @Override
-    public boolean getState() throws IOException {
-        return lampe.getState();
-    }
-
-    public void putRequest() throws Exception {
-        Jsonb jsonb = JsonbBuilder.create();
-        String result = jsonb.toJson(new RequestObject(lampe.getState(), lampe.getIntensity(),
-                getRGBtoXY(lampe.getColor()), lampe.getName()));
-        r.setLampState(3, result);
-    }
-
     public static void main(String[] args) throws Exception {
         Java2NodeRedLampAdapter j = new Java2NodeRedLampAdapter();
         j.getRequest();
     }
 
-    public void getRequest() throws Exception {
-        JsonObject state = r.getState(new URL(r.base));
-        String string = state.toString().s
-        JsonObject s1 = state.getJsonObject("state");
-        JsonObject s2 = state.getJsonObject("name");
-        System.out.println(state.toString());
-        System.out.println(s1.toString());
-        System.out.println(s2.toString());
-//        JsonObject s = requester.getState(new URL(requester.base)).getJsonObject("state");
-//        System.out.println(s.toString());
-//        lampe.setState(s.getBoolean("on"));
-//        lampe.setIntensity(s.getInt("bri"));
-//        lampe.setColor(getXYtoRGB(stringToList(s.getString("xy"))));
-//        lampe.setName(s.getString("name"));
-    }
-
-    public List<Double> stringToList(String xy){
-        xy = xy.substring(1, xy.length() - 2);
-        Stream<String> stringStream = Arrays.stream(xy.split(","));
-        List<Double> doubleList = new ArrayList<>(2);
-        stringStream.forEach(e  -> doubleList.add(Double.valueOf(e)));
-        return doubleList;
+    private static JsonObject jsonFromString(String jsonObjectStr) {
+        JsonReader jsonReader = Json.createReader(new StringReader(jsonObjectStr));
+        JsonObject object = jsonReader.readObject();
+        jsonReader.close();
+        return object;
     }
 
     public static List<Double> getRGBtoXY(Color c) {
@@ -159,6 +94,100 @@ public class Java2NodeRedLampAdapter implements ILamp, Serializable {
             xyAsList.add(d);
         }
         return xyAsList;
+    }
+
+    @Override
+    public void switchOn() throws IOException {
+        lampe.switchOn();
+    }
+
+    @Override
+    public void switchOn(float intensity) throws IOException {
+        lampe.switchOn();
+    }
+
+    @Override
+    public void switchOn(Color color) throws IOException {
+        lampe.switchOn();
+    }
+
+    @Override
+    public void switchOff() throws IOException {
+        lampe.switchOn();
+    }
+
+    @Override
+    public Color getColor() throws IOException {
+        return lampe.getColor();
+    }
+
+    @Override
+    public void setColor(Color color) throws IOException {
+        lampe.setColor(color);
+    }
+
+    @Override
+    public float getIntensity() throws IOException {
+        return lampe.getIntensity();
+    }
+
+    @Override
+    public void setIntensity(float intensity) throws IOException {
+        lampe.setIntensity(intensity);
+    }
+
+    @Override
+    public boolean getState() throws IOException {
+        return lampe.getState();
+    }
+
+    public void putRequest() throws Exception {
+        Jsonb jsonb = JsonbBuilder.create();
+        String result = jsonb.toJson(new RequestObject(lampe.getState(), lampe.getIntensity(),
+                getRGBtoXY(lampe.getColor()), lampe.getName()));
+        r.setLampState(3, result);
+    }
+
+    public void getRequest() throws Exception {
+        JsonObject state = r.getState(new URL(r.base));
+        JsonObject s1 = state.getJsonObject("state");
+        JsonObject s2 = jsonFromString("{" + state.toString().split("\"type\":\"Extended color light\",")[1].split(",")[0] + "}");
+
+        System.out.println(state.toString());
+        System.out.println(s1.toString());
+        System.out.println(s2.toString());
+        lampe.setState(s1.getBoolean("on"));
+        lampe.setIntensity(s1.getInt("bri"));
+        lampe.setName(s2.getString("name"));
+        System.out.println(stringToList(getXyString(s1)));
+//        System.out.println(s1.getString("xy"));
+
+//        System.out.println(stringToList(s2.getString("xy")).toString());
+//        lampe.setColor(getXYtoRGB(stringToList(s1.getString("xy"))));
+    }
+
+    public List<Double> stringToList(String xy) {
+        xy = xy.substring(6, xy.length() - 1);
+        Stream<String> stringStream = Arrays.stream(xy.split(","));
+        List<Double> doubleList = new ArrayList<>(2);
+        stringStream.forEach(e -> doubleList.add(Double.valueOf(e)));
+        return doubleList;
+    }
+
+    public String getXyString (JsonObject jsonObject){
+        Stream<String> stringStream = Arrays.stream(jsonObject.toString().split(","));
+        List<String> strings = stringStream.filter(e -> e.contains("[") || e.contains("]")).toList();
+        StringBuilder stringBuilder = new StringBuilder();
+        int i = 0;
+        for (String s:
+             strings) {
+            stringBuilder.append(s);
+            if (i == 0){
+                stringBuilder.append(',');
+                i++;
+            }
+        }
+        return stringBuilder.toString();
     }
 
     public Color getXYtoRGB(List<Double> list) throws IOException {
