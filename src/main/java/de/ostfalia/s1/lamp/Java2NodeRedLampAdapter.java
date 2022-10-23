@@ -25,12 +25,16 @@ import static java.lang.Math.pow;
 @SessionScoped
 public class Java2NodeRedLampAdapter implements ILamp, Serializable {
 
-    Lamp lampe = new Lamp();
-    Requester r = new Requester();
+
+    private static Lamp lampe = new Lamp();
+    private Requester r = new Requester();
 
     public static void main(String[] args) throws Exception {
         Java2NodeRedLampAdapter j = new Java2NodeRedLampAdapter();
-        j.getRequest();
+        for (HueColor hc : lampe.getHueColorList()) {
+            System.out.println(hc.toString());
+        }
+//        j.getRequest();
     }
 
     private static JsonObject jsonFromString(String jsonObjectStr) {
@@ -94,6 +98,22 @@ public class Java2NodeRedLampAdapter implements ILamp, Serializable {
             xyAsList.add(d);
         }
         return xyAsList;
+    }
+
+    public Lamp getLampe() {
+        return lampe;
+    }
+
+    public void setLampe(Lamp lampe) {
+        this.lampe = lampe;
+    }
+
+    public Requester getR() {
+        return r;
+    }
+
+    public void setR(Requester r) {
+        this.r = r;
     }
 
     @Override
@@ -180,15 +200,15 @@ public class Java2NodeRedLampAdapter implements ILamp, Serializable {
         return doubleList;
     }
 
-    public String getXyString (JsonObject jsonObject){
+    public String getXyString(JsonObject jsonObject) {
         Stream<String> stringStream = Arrays.stream(jsonObject.toString().split(","));
         List<String> strings = stringStream.filter(e -> e.contains("[") || e.contains("]")).toList();
         StringBuilder stringBuilder = new StringBuilder();
         int i = 0;
-        for (String s:
-             strings) {
+        for (String s :
+                strings) {
             stringBuilder.append(s);
-            if (i == 0){
+            if (i == 0) {
                 stringBuilder.append(',');
                 i++;
             }
@@ -206,22 +226,34 @@ public class Java2NodeRedLampAdapter implements ILamp, Serializable {
 //        float X = (float) ((Y / y) * x);
 //        float Z = (float) ((Y / y) * z);
 //
-        float r = 3.240479f * x - 1.53715f * y - 0.498535f * z;
-        float g = -0.969256f * x + 1.875991f * y + 0.041556f * z;
-        float b = 0.055648f * x - 0.204043f * y + 1.057311f * z;
+        float Y = lampe.getIntensity(); // The given brightness value
 
-        if ( r > 0.0031308 )
-            r = 1.055f * ( (float)Math.pow(r, 0.4166f) ) - 0.055f;
+        float X = (Y / y) * x;
+
+        float Z = (Y / y) * z;
+
+//        float r = 3.240479f * x - 1.53715f * y - 0.498535f * z;
+//        float g = -0.969256f * x + 1.875991f * y + 0.041556f * z;
+//        float b = 0.055648f * x - 0.204043f * y + 1.057311f * z;
+
+        float r = X * 1.4628067f - Y * 0.1840623f - Z * 0.2743606f;
+
+        float g = -X * 0.5217933f + Y * 1.4472381f + Z * 0.0677227f;
+
+        float b = X * 0.0349342f - Y * 0.0968930f + Z * 1.2884099f;
+
+        if (r > 0.0031308)
+            r = 1.055f * ((float) Math.pow(r, 0.4166f)) - 0.055f;
         else
             r = 12.92f * r;
 
-        if ( g > 0.0031308 )
-            g = 1.055f * ( (float)Math.pow(g, 0.4166f) ) - 0.055f;
+        if (g > 0.0031308)
+            g = 1.055f * ((float) Math.pow(g, 0.4166f)) - 0.055f;
         else
             g = 12.92f * g;
 
-        if ( b > 0.0031308 )
-            b = 1.055f * ( (float)Math.pow(b, 0.4166f) ) - 0.055f;
+        if (b > 0.0031308)
+            b = 1.055f * ((float) Math.pow(b, 0.4166f)) - 0.055f;
         else
             b = 12.92f * b;
 

@@ -20,7 +20,7 @@ public class LampController {
     }
 
     public void switchChanged(ValueChangeEvent e) throws IOException {
-        adapter.lampe.setState(Boolean.valueOf(e.getNewValue().toString()));
+        adapter.getLampe().setState(Boolean.valueOf(e.getNewValue().toString()));
     }
 
 
