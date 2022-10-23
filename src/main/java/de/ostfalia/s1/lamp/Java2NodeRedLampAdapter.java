@@ -2,6 +2,7 @@ package de.ostfalia.s1.lamp;
 
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.model.SelectItem;
 import javax.inject.Named;
 import javax.json.Json;
 import javax.json.JsonObject;
@@ -31,7 +32,7 @@ public class Java2NodeRedLampAdapter implements ILamp, Serializable {
 
     public static void main(String[] args) throws Exception {
         Java2NodeRedLampAdapter j = new Java2NodeRedLampAdapter();
-//        j.getRequest();
+        j.getRequest();
     }
 
     private static JsonObject jsonFromString(String jsonObjectStr) {
@@ -179,6 +180,12 @@ public class Java2NodeRedLampAdapter implements ILamp, Serializable {
         lampe.setState(s1.getBoolean("on"));
         lampe.setIntensity(s1.getInt("bri"));
         lampe.setName(s2.getString("name"));
+        List<Float> floatList = stringToList(getXyString(s1));
+        lampe.setColor(getMatchingColor(floatList.get(0), floatList.get(1)));
+        float x = floatList.get(0);
+        float y = floatList.get(1);
+        
+      
 
         lampe.setColor(getXYtoRGB(stringToList("\"xy\":[0.3015,0.3057]")));
         System.out.println(lampe.getColor().toString());
@@ -190,6 +197,19 @@ public class Java2NodeRedLampAdapter implements ILamp, Serializable {
 
 //        System.out.println(stringToList(s2.getString("xy")).toString());
 //        lampe.setColor(getXYtoRGB(stringToList(s1.getString("xy"))));
+    }
+
+    public String getMatchingColor(float x, float y){
+        String s;
+        for (SelectItem selectItem : lampe.getColors()) {
+            System.out.println(selectItem.getValue().toString());
+            if (selectItem.toString().contains((String.valueOf(x))) &&
+                    selectItem.toString().contains((String.valueOf(y)))){
+                s = selectItem.toString();
+                return s;
+            }
+        }
+        return null;
     }
 
     public List<Float> stringToList(String xy) {

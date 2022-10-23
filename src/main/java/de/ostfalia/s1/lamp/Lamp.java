@@ -3,17 +3,23 @@ package de.ostfalia.s1.lamp;
 import org.primefaces.event.SelectEvent;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.ApplicationScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.model.SelectItem;
-import javax.faces.model.SelectItemGroup;
+import javax.faces.model.*;
+import javax.inject.Named;
 import java.awt.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
+@Named
+@ApplicationScoped
 public class Lamp implements ILamp, Serializable {
 
     private String name = "Stehlampe rechts";
@@ -32,10 +38,31 @@ public class Lamp implements ILamp, Serializable {
     private float x;
     private float y;
     private Colors cat;
+    HashMap<String, List<Float>> xyWerte = new HashMap<>();
+
+
 
     public Lamp() {
+        initHashmap();
         init();
+
     }
+
+    public void initHashmap(){
+        try (BufferedReader br = new BufferedReader(new FileReader("src/main/java/de/ostfalia/s1/lamp/Farbcodes.csv"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(";");
+                List<Float> floatList = new ArrayList<>(2);
+                floatList.add(Float.valueOf(values[5]));
+                floatList.add(Float.valueOf(values[6]));
+                xyWerte.put(values[0], floatList);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        }
 
     public String getColorname() {
         return colorname;
