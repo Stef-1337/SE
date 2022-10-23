@@ -159,18 +159,24 @@ public class Java2NodeRedLampAdapter implements ILamp, Serializable {
         lampe.setState(s1.getBoolean("on"));
         lampe.setIntensity(s1.getInt("bri"));
         lampe.setName(s2.getString("name"));
+
+        lampe.setColor(getXYtoRGB(stringToList("\"xy\":[0.3015,0.3057]")));
+        System.out.println(lampe.getColor().toString());
+
+        lampe.setColor(getXYtoRGB(stringToList(getXyString(s1))));
         System.out.println(stringToList(getXyString(s1)));
+        System.out.println(lampe.getColor().toString());
 //        System.out.println(s1.getString("xy"));
 
 //        System.out.println(stringToList(s2.getString("xy")).toString());
 //        lampe.setColor(getXYtoRGB(stringToList(s1.getString("xy"))));
     }
 
-    public List<Double> stringToList(String xy) {
+    public List<Float> stringToList(String xy) {
         xy = xy.substring(6, xy.length() - 1);
         Stream<String> stringStream = Arrays.stream(xy.split(","));
-        List<Double> doubleList = new ArrayList<>(2);
-        stringStream.forEach(e -> doubleList.add(Double.valueOf(e)));
+        List<Float> doubleList = new ArrayList<>(2);
+        stringStream.forEach(e -> doubleList.add(Float.valueOf(e)));
         return doubleList;
     }
 
@@ -190,23 +196,39 @@ public class Java2NodeRedLampAdapter implements ILamp, Serializable {
         return stringBuilder.toString();
     }
 
-    public Color getXYtoRGB(List<Double> list) throws IOException {
-        double x = list.get(0);
-        double y = list.get(1);
-        float z = (float) (1.0f - x - y);
-        float Y = lampe.getIntensity();
-        float X = (float) ((Y / y) * x);
-        float Z = (float) ((Y / y) * z);
-        float r = X * 1.4628067f - Y * 0.1840623f - Z * 0.2743606f;
-        float g = -X * 0.5217933f + Y * 1.4472381f + Z * 0.0677227f;
-        float b = X * 0.0349342f - Y * 0.0968930f + Z * 1.2884099f;
-        r = r <= 0.0031308f ? 12.92f * r : (float) ((1.0f + 0.055f) * pow(r, (1.0f / 2.4f)) - 0.055f);
+    public Color getXYtoRGB(List<Float> list) throws IOException {
+        float x = list.get(0);
+        float y = list.get(1);
+        float z = (1.0f - x - y);
 
-        g = g <= 0.0031308f ? 12.92f * g : (float) ((1.0f + 0.055f) * pow(g, (1.0f / 2.4f)) - 0.055f);
+//        float z = (float) (1.0f - x - y);
+//        float Y = lampe.getIntensity();
+//        float X = (float) ((Y / y) * x);
+//        float Z = (float) ((Y / y) * z);
+//
+        float r = 3.240479f * x - 1.53715f * y - 0.498535f * z;
+        float g = -0.969256f * x + 1.875991f * y + 0.041556f * z;
+        float b = 0.055648f * x - 0.204043f * y + 1.057311f * z;
 
-        b = b <= 0.0031308f ? 12.92f * b : (float) ((1.0f + 0.055f) * pow(b, (1.0f / 2.4f)) - 0.055f);
+        if ( r > 0.0031308 )
+            r = 1.055f * ( (float)Math.pow(r, 0.4166f) ) - 0.055f;
+        else
+            r = 12.92f * r;
 
-        return new Color(r, g, b);
+        if ( g > 0.0031308 )
+            g = 1.055f * ( (float)Math.pow(g, 0.4166f) ) - 0.055f;
+        else
+            g = 12.92f * g;
+
+        if ( b > 0.0031308 )
+            b = 1.055f * ( (float)Math.pow(b, 0.4166f) ) - 0.055f;
+        else
+            b = 12.92f * b;
+
+        System.out.println(r);
+        System.out.println(g);
+        System.out.println(b);
+        return new Color((int) r * 255, (int) g * 255, (int) b * 255);
 
     }
 }
