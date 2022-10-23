@@ -24,6 +24,16 @@ public class LampControllerView implements Serializable {
     private String color = "9c9de0";
     private String colorList = "9c9de0";
 
+    public String getColorList() {
+        return colorList;
+    }
+
+    public void setColorList(String colorList) {
+        this.colorList = colorList;
+    }
+
+
+
 
 
     public String getName() {
