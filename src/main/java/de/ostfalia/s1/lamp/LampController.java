@@ -1,15 +1,19 @@
 package de.ostfalia.s1.lamp;
 
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.awt.*;
 import java.io.IOException;
+import java.io.Serializable;
 
 @Named
-@RequestScoped
-public class LampController {
+@SessionScoped
+public class LampController implements Serializable {
+
+    int number;
 
     private Java2NodeRedLampAdapter adapter = new Java2NodeRedLampAdapter();
 
@@ -30,11 +34,17 @@ public class LampController {
     }
 
     public void brightnessChanged(ValueChangeEvent e) throws IOException {
-        adapter.getLampe().setIntensity(Float.valueOf(e.getNewValue().toString()));
+        adapter.getLampe().setIntensityPercentage(Float.valueOf(e.getNewValue().toString()));
+        float f = (float) (Float.valueOf(e.getNewValue().toString()) * 2.55);
+        adapter.getLampe().setIntensity(f);
     }
 
-    public void setColor(ValueChangeEvent e) throws IOException {
+    public void colorChanged(ValueChangeEvent e) throws IOException {
         adapter.getLampe().setTest(e.getNewValue().toString());
+        adapter.getLampe().setColor(e.getNewValue().toString());
+    }
+    public void increment() {
+        number++;
     }
 
 }

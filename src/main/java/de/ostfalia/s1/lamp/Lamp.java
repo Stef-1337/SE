@@ -8,8 +8,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.faces.model.SelectItemGroup;
 import java.awt.*;
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -19,15 +17,93 @@ import java.util.List;
 public class Lamp implements ILamp, Serializable {
 
     private String name = "Stehlampe rechts";
-    private boolean toggleSwitch = false;
+    private boolean state = true;
     private float intensity = 127;
     private float intensityPercentage = 50;
-    private String hex = "9c9de0";
-    private String colorList = "9c9de0";
     private Color color;
-    private List<HueColor> hueColorList;
     private List<SelectItem> colors;
     private String selection;
+    private String test = "mediumblue #0000CD 0 0 205 0.167 0.04 BLUE";
+    private String colorname = "null";
+    private String hex;
+    private int rgbR;
+    private int rgbG;
+    private int rgbB;
+    private float x;
+    private float y;
+    private Colors cat;
+
+    public Lamp() {
+        init();
+    }
+
+    public String getColorname() {
+        return colorname;
+    }
+
+    public void setColorname(String colorname) {
+        this.colorname = colorname;
+    }
+
+    public String getHex() {
+        return hex;
+    }
+
+    public void setHex(String hex) {
+        this.hex = hex;
+    }
+
+    public int getRgbR() {
+        return rgbR;
+    }
+
+    public void setRgbR(int rgbR) {
+        this.rgbR = rgbR;
+    }
+
+    public int getRgbG() {
+        return rgbG;
+    }
+
+    public void setRgbG(int rgbG) {
+        this.rgbG = rgbG;
+    }
+
+    public int getRgbB() {
+        return rgbB;
+    }
+
+    public void setRgbB(int rgbB) {
+        this.rgbB = rgbB;
+    }
+
+    public float getX() {
+        return x;
+    }
+
+    public void setX(float x) {
+        this.x = x;
+    }
+
+    public float getY() {
+        return y;
+    }
+
+    public void setY(float y) {
+        this.y = y;
+    }
+
+    public Colors getCat() {
+        return cat;
+    }
+
+    public void setCat(Colors cat) {
+        this.cat = cat;
+    }
+
+    public boolean isState() {
+        return state;
+    }
 
     public String getTest() {
         return test;
@@ -37,28 +113,14 @@ public class Lamp implements ILamp, Serializable {
         this.test = test;
     }
 
-    private String test;
-
-    public Lamp() {
-        initColors();
-    }
-
-    public String getColorList() {
-        return colorList;
-    }
-
-    public void setColorList(String colorList) {
-        this.colorList = colorList;
-    }
-
     @Override
     public void switchOn() throws IOException {
-        toggleSwitch = true;
+        state = true;
     }
 
     @Override
     public void switchOn(float intensity) throws IOException {
-        toggleSwitch = true;
+        state = true;
         this.setIntensity(intensity);
     }
 
@@ -69,7 +131,7 @@ public class Lamp implements ILamp, Serializable {
 
     @Override
     public void switchOff() throws IOException {
-        toggleSwitch = false;
+        state = false;
     }
 
     @Override
@@ -77,13 +139,23 @@ public class Lamp implements ILamp, Serializable {
         return this.color;
     }
 
-    public void setColor(String hex) throws IOException {
-        setColor(Color.decode(hex));
-    }
-
     @Override
     public void setColor(Color color) throws IOException {
         this.color = color;
+    }
+
+    public void setColor(String color) throws IOException {
+        String[] strings = color.split(" ");
+        System.out.println(strings.toString());
+        setColorname(strings[0]);
+        setHex(strings[1]);
+        setRgbR(Integer.parseInt(strings[2]));
+        setRgbG(Integer.parseInt(strings[3]));
+        setRgbB(Integer.parseInt(strings[4]));
+        setX(Float.parseFloat(strings[5]));
+        setY(Float.parseFloat(strings[6]));
+        setCat(Colors.valueOf(strings[7]));
+        setColor(Color.getColor(strings[0]));
     }
 
     @Override
@@ -101,13 +173,17 @@ public class Lamp implements ILamp, Serializable {
         return this.intensityPercentage;
     }
 
-    @Override
-    public boolean getState() throws IOException {
-        return toggleSwitch;
+    public void setIntensityPercentage(float intensityPercentage) {
+        this.intensityPercentage = intensityPercentage;
     }
 
-    public void setState(Boolean toggleSwitch) throws IOException {
-        this.toggleSwitch = toggleSwitch;
+    @Override
+    public boolean getState() throws IOException {
+        return state;
+    }
+
+    public void setState(boolean state) {
+        this.state = state;
     }
 
     public String getName() {
@@ -116,34 +192,6 @@ public class Lamp implements ILamp, Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<HueColor> getHueColorList() {
-        return hueColorList;
-    }
-
-    public void setHueColorList(List<HueColor> hueColorList) {
-        this.hueColorList = hueColorList;
-    }
-
-    public void initColors() {
-        List<HueColor> h = new ArrayList<>();
-        String line = "";
-        final String delimiter = ";";
-        try {
-            String filePath = "src/main/java/de/ostfalia/s1/lamp/Farbcodes.csv";
-            FileReader fileReader = new FileReader(filePath);
-
-            BufferedReader reader = new BufferedReader(fileReader);
-            while ((line = reader.readLine()) != null)   //loops through every line until null found
-            {
-                String[] token = line.split(delimiter);
-                h.add(new HueColor(token[0], token[1], Integer.valueOf(token[2]), Integer.valueOf(token[3]), Integer.valueOf(token[4]), Float.valueOf(token[5]), Float.valueOf(token[6]), Colors.valueOf(token[7])));// separate every token by comma
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        this.setHueColorList(h);
     }
 
     @PostConstruct

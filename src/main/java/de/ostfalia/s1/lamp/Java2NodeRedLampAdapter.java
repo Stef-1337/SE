@@ -31,9 +31,6 @@ public class Java2NodeRedLampAdapter implements ILamp, Serializable {
 
     public static void main(String[] args) throws Exception {
         Java2NodeRedLampAdapter j = new Java2NodeRedLampAdapter();
-        for (HueColor hc : lampe.getHueColorList()) {
-            System.out.println(hc.toString());
-        }
 //        j.getRequest();
     }
 
@@ -42,6 +39,9 @@ public class Java2NodeRedLampAdapter implements ILamp, Serializable {
         JsonObject object = jsonReader.readObject();
         jsonReader.close();
         return object;
+    }
+
+    public void commitXY (String string){
     }
 
     public static List<Double> getRGBtoXY(Color c) {
