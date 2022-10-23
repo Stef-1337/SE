@@ -22,7 +22,7 @@ import static java.lang.Math.pow;
 public class Java2NodeRedLampAdapter implements ILamp, Serializable {
 
     Lamp lampe = new Lamp();
-    Requester requester = new Requester();
+    Requester r = new Requester();
 
     @Override
     public void switchOn() throws IOException {
@@ -73,7 +73,7 @@ public class Java2NodeRedLampAdapter implements ILamp, Serializable {
         Jsonb jsonb = JsonbBuilder.create();
         String result = jsonb.toJson(new RequestObject(lampe.getState(), lampe.getIntensity(),
                 getRGBtoXY(lampe.getColor()), lampe.getName()));
-        requester.setLampState(3, result);
+        r.setLampState(3, result);
     }
 
     public static void main(String[] args) throws Exception {
@@ -82,9 +82,13 @@ public class Java2NodeRedLampAdapter implements ILamp, Serializable {
     }
 
     public void getRequest() throws Exception {
-        JsonObject state = requester.getState(new URL("http://127.0.0.1:1880/lamp"));
-        JsonObject s = state.getJsonObject("state");
-        System.out.println(s.toString());
+        JsonObject state = r.getState(new URL(r.base));
+        String string = state.toString().s
+        JsonObject s1 = state.getJsonObject("state");
+        JsonObject s2 = state.getJsonObject("name");
+        System.out.println(state.toString());
+        System.out.println(s1.toString());
+        System.out.println(s2.toString());
 //        JsonObject s = requester.getState(new URL(requester.base)).getJsonObject("state");
 //        System.out.println(s.toString());
 //        lampe.setState(s.getBoolean("on"));

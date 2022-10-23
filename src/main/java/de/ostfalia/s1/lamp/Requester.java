@@ -10,21 +10,21 @@ import java.net.HttpURLConnection;
 import java.net.ProtocolException;
 import java.net.URL;
 
-public class Lamp {
+public class Requester {
     protected static final String base = "http://127.0.0.1:1880/lamp";
 
     //  protected static final URL state = new URL("http://192.168.0.235/api/z9S2a53sZ8ZGA0LT0S0E-6gtBe9bWXKuubaqpDqN/lights/3/state");
-    public Lamp() {
+    public Requester() {
     }
 
-    public static void main(String[] args) throws HueException, IOException {
-        Lamp bridge = new Lamp();
+    public static void main(String[] args) throws Exception {
+        Requester requester = new Requester();
 //        Lamp lamp = new Lamp(false, 154, 7778, 254, new double[]{0.5330,0.4273}, "Stehlampe rechts"); //brightness von 1 - 255
 //        Jsonb jsonb = JsonbBuilder.create();
 //        String result = jsonb.toJson(lamp);
 //        System.out.println(result);
 //        bridge.setLampState(3, result);
-        JsonObject state = bridge.getState(new URL(base));
+        JsonObject state = requester.getState(new URL(base));
         JsonObject s = state.getJsonObject("state"); //"entpacken"
 //        int bri = s.getInt("bri"); // einzelne Parameter aus der Json auslesen (Anstatt die String/Substring Variante)
 //        System.out.println(bri);
@@ -51,7 +51,7 @@ public class Lamp {
         return connection;
     }
 
-    private void setState(String json, URL url) throws IOException, HueException {
+    private void setState(String json, URL url) throws IOException, Exception {
         HttpURLConnection connection = null;
         try {
             connection = setupConnection(url, "PUT");
@@ -68,14 +68,14 @@ public class Lamp {
         }
     }
 
-    private void handleBridgeException(JsonObject object) throws HueException {
+    private void handleBridgeException(JsonObject object) throws Exception {
         if (object.getJsonObject("success") == null)
-            throw new HueException("Bridge returned an error: " + object);
+            throw new Exception("Bridge returned an error: " + object);
     }
 
-    private void handleStatusException(int status) throws HueException {
+    private void handleStatusException(int status) throws Exception {
         if (status != HttpURLConnection.HTTP_OK)
-            throw new HueException("Bridge returned status " + status);
+            throw new Exception("Bridge returned status " + status);
     }
 
     private void sendJsonCommand(String json, HttpURLConnection connection) throws IOException {
@@ -84,7 +84,7 @@ public class Lamp {
         os.close();
     }
 
-    private JsonObject getState(URL url) throws IOException, HueException {
+    public JsonObject getState(URL url) throws IOException, Exception {
         HttpURLConnection connection = null;
         JsonObject jsonObject = null;
         try {
@@ -100,7 +100,7 @@ public class Lamp {
         }
     }
 
-    public void setLampState(int lamp, String json) throws IOException, HueException {
+    public void setLampState(int lamp, String json) throws IOException, Exception {
         URL url = new URL(base);
 //        URL url = new URL(base + "/lights/" + Integer.toString(lamp) + "/state");
         setState(json, url);
