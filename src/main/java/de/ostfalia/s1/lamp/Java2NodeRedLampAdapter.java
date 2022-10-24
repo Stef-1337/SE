@@ -32,6 +32,7 @@ public class Java2NodeRedLampAdapter implements ILamp, Serializable {
 
     public static void main(String[] args) throws Exception {
         Java2NodeRedLampAdapter j = new Java2NodeRedLampAdapter();
+        System.out.println("ja");
         j.getRequest();
     }
 
@@ -170,7 +171,9 @@ public class Java2NodeRedLampAdapter implements ILamp, Serializable {
     }
 
     public void getRequest() throws Exception {
+        System.out.println("get");
         JsonObject state = r.getState(new URL(r.base));
+        System.out.println("test");
         JsonObject s1 = state.getJsonObject("state");
         JsonObject s2 = jsonFromString("{" + state.toString().split("\"type\":\"Extended color light\",")[1].split(",")[0] + "}");
 

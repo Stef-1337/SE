@@ -9,13 +9,11 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.*;
 import javax.inject.Named;
 import java.awt.*;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Serializable;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Scanner;
 
 
 @Named
@@ -38,8 +36,7 @@ public class Lamp implements ILamp, Serializable {
     private float x;
     private float y;
     private Colors cat;
-//    HashMap<String, List<Float>> xyWerte = new HashMap<>();
-    HashMap<String, String> xyWerte = new HashMap<>();
+    HashMap<List<Float>, String> xyWerte = new HashMap<>();
 
 
 
@@ -50,16 +47,24 @@ public class Lamp implements ILamp, Serializable {
     }
 
     public void initHashmap(){
+//        Scanner sc = new Scanner( new FileReader("src/main/java/de/ostfalia/s1/lamp/Farbcodes.csv");
+//        sc.useDelimiter(";");
+//        while (sc.hasNext())
+//        {
+//
+//        }
+//        sc.close();
         try (BufferedReader br = new BufferedReader(new FileReader("src/main/java/de/ostfalia/s1/lamp/Farbcodes.csv"))) {
             String line;
+            int i = 0;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(";");
-                xyWerte.put(values[10], values[0]);
-                System.out.println(values[16]);
-//                List<Float> floatList = new ArrayList<>(2);
-//                floatList.add(Float.valueOf(values[5]));
-//                floatList.add(Float.valueOf(values[6]));
-//                xyWerte.put(values[0], floatList);
+                System.out.println(values[11]);
+                List<Float> floatList = new ArrayList<>(2);
+                floatList.add(Float.valueOf(values[11]));
+                floatList.add(Float.valueOf(values[12]));
+                xyWerte.put(floatList, values[0]);
+                System.out.println(i++);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -407,11 +412,5 @@ public class Lamp implements ILamp, Serializable {
 
     public void setSelection(String selection) {
         this.selection = selection;
-    }
-
-    public static void main(String[] args) throws IOException {
-        Lamp lampe = new Lamp();
-        lampe.setColor("orangered #FF4500 255 69 0 0.6725 0.323 ORANGE");
-        System.out.println(lampe.xyWerte.get("\"xy\":[0.5015,0.3530]"));
     }
 }
