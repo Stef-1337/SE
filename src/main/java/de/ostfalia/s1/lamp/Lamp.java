@@ -38,7 +38,8 @@ public class Lamp implements ILamp, Serializable {
     private float x;
     private float y;
     private Colors cat;
-    HashMap<String, List<Float>> xyWerte = new HashMap<>();
+//    HashMap<String, List<Float>> xyWerte = new HashMap<>();
+    HashMap<String, String> xyWerte = new HashMap<>();
 
 
 
@@ -53,10 +54,12 @@ public class Lamp implements ILamp, Serializable {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(";");
-                List<Float> floatList = new ArrayList<>(2);
-                floatList.add(Float.valueOf(values[5]));
-                floatList.add(Float.valueOf(values[6]));
-                xyWerte.put(values[0], floatList);
+                xyWerte.put(values[10], values[0]);
+                System.out.println(values[16]);
+//                List<Float> floatList = new ArrayList<>(2);
+//                floatList.add(Float.valueOf(values[5]));
+//                floatList.add(Float.valueOf(values[6]));
+//                xyWerte.put(values[0], floatList);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -173,8 +176,14 @@ public class Lamp implements ILamp, Serializable {
 
     public void setColor(String color) throws IOException {
         String[] strings = color.split(" ");
-        System.out.println(strings.toString());
+
         setColorname(strings[0]);
+//        List<Float> list = xyWerte.get(strings[0]);
+//        System.out.println(list.get(0));
+//        System.out.println(list.get(1));
+//        setX(list.get(0));
+//        setY(list.get(1));
+
         setHex(strings[1]);
         setRgbR(Integer.parseInt(strings[2]));
         setRgbG(Integer.parseInt(strings[3]));
@@ -398,5 +407,11 @@ public class Lamp implements ILamp, Serializable {
 
     public void setSelection(String selection) {
         this.selection = selection;
+    }
+
+    public static void main(String[] args) throws IOException {
+        Lamp lampe = new Lamp();
+        lampe.setColor("orangered #FF4500 255 69 0 0.6725 0.323 ORANGE");
+        System.out.println(lampe.xyWerte.get("\"xy\":[0.5015,0.3530]"));
     }
 }

@@ -26,7 +26,7 @@ public class LampController implements Serializable {
     }
 
     public void switchChanged(ValueChangeEvent e) throws IOException {
-        adapter.getLampe().setState(Boolean.valueOf(e.getNewValue().toString()));
+        adapter.getLampe().setState(Boolean.parseBoolean(e.getNewValue().toString()));
     }
 
     public void nameChanged(ValueChangeEvent e) throws IOException {
@@ -34,8 +34,8 @@ public class LampController implements Serializable {
     }
 
     public void brightnessChanged(ValueChangeEvent e) throws IOException {
-        adapter.getLampe().setIntensityPercentage(Float.valueOf(e.getNewValue().toString()));
-        float f = (float) (Float.valueOf(e.getNewValue().toString()) * 2.55);
+        adapter.getLampe().setIntensityPercentage(Float.parseFloat(e.getNewValue().toString()));
+        float f = (float) (Float.parseFloat(e.getNewValue().toString()) * 2.55);
         adapter.getLampe().setIntensity(f);
     }
 
