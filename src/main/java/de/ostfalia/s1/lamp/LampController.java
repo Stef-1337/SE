@@ -14,11 +14,6 @@ import java.io.Serializable;
 @Named
 @SessionScoped
 public class LampController implements Serializable {
-
-    int number;
-    int i;
-
-
     private Java2NodeRedLampAdapter adapter = new Java2NodeRedLampAdapter();
 
 
@@ -46,28 +41,8 @@ public class LampController implements Serializable {
     }
 
     public void colorChanged(ValueChangeEvent e) throws Exception {
-        adapter.getLampe().setTest(e.getNewValue().toString());
         adapter.getLampe().setColor(e.getNewValue().toString());
         adapter.putRequest();
     }
-
-    public void update(){
-        i++;
-    }
-    public void increment() throws Exception {
-        number++;
-//        try{
-//            sendGetRequest();
-//        } catch (Exception e){
-//
-//        }
-    }
-
-//    public void sendGetRequest() throws Exception {
-//        adapter.getRequest();
-//    }
-//    public void sendPutRequest() throws Exception {
-//        adapter.putRequest();
-//    }
 
 }

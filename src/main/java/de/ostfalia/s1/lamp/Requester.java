@@ -7,41 +7,10 @@ import javax.json.JsonReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
-import java.net.ProtocolException;
 import java.net.URL;
 
 public class Requester {
     protected static final String base = "http://172.28.19.10:1880/lamp";
-
-    //  protected static final URL state = new URL("http://192.168.0.235/api/z9S2a53sZ8ZGA0LT0S0E-6gtBe9bWXKuubaqpDqN/lights/3/state");
-    public Requester() {
-    }
-
-    public static void main(String[] args) throws Exception {
-        Requester requester = new Requester();
-//        Lamp lamp = new Lamp(false, 154, 7778, 254, new double[]{0.5330,0.4273}, "Stehlampe rechts"); //brightness von 1 - 255
-//        Jsonb jsonb = JsonbBuilder.create();
-//        String result = jsonb.toJson(lamp);
-//        System.out.println(result);
-//        bridge.setLampState(3, result);
-        JsonObject state = requester.getState(new URL(base));
-        JsonObject s = state.getJsonObject("state"); //"entpacken"
-//        int bri = s.getInt("bri"); // einzelne Parameter aus der Json auslesen (Anstatt die String/Substring Variante)
-//        System.out.println(bri);
-        String feedback = state.toString();
-        System.out.println("hallo:   " + feedback);
-//        feedback = feedback.substring(9, feedback.length());
-//        String[] feedbackArray = feedback.split(",");
-//        feedback = feedbackArray[0] + ", " + feedbackArray[1] + ", " + feedbackArray[2] + ", " + feedbackArray[3] +
-//                ", " + feedbackArray[5].substring(0,12) + ", " + feedbackArray[6] + ", " + feedbackArray[15] + "}";
-//        System.out.println(feedback);
-
-//        JsonString feedback = state.getJsonString("sat");
-//        System.out.println(feedback);
-
-//        lamp =  jsonb.fromJson(feedback, Lamp.class); // Damit können wir später den Status aus derLampe auslesen. Müssen wir aber noch anpassen
-//        System.out.println(lamp.name);
-    }
 
     private HttpURLConnection setupConnection(URL url, String method) throws IOException {
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -51,31 +20,24 @@ public class Requester {
         return connection;
     }
 
-    private void setState(String json, URL url) throws IOException, Exception {
+    private void setState(String json, URL url) throws Exception {
         HttpURLConnection connection = null;
         try {
             connection = setupConnection(url, "PUT");
             sendJsonCommand(json, connection);
-//            handleStatusException(connection.getResponseCode());
             JsonReader jsonReader = Json.createReader(connection.getInputStream());
-//            JsonArray jsonArray = jsonReader.readArray();
             jsonReader.close();
-//            JsonObject jsonObject = jsonArray.getJsonObject(0);
-//            handleBridgeException(jsonObject);
         } finally {
-            if (connection != null)
-                connection.disconnect();
+            if (connection != null) connection.disconnect();
         }
     }
 
     private void handleBridgeException(JsonObject object) throws Exception {
-        if (object.getJsonObject("success") == null)
-            throw new Exception("Bridge returned an error: " + object);
+        if (object.getJsonObject("success") == null) throw new Exception("Bridge returned an error: " + object);
     }
 
     private void handleStatusException(int status) throws Exception {
-        if (status != HttpURLConnection.HTTP_OK)
-            throw new Exception("Bridge returned status " + status);
+        if (status != HttpURLConnection.HTTP_OK) throw new Exception("Bridge returned status " + status);
     }
 
     private void sendJsonCommand(String json, HttpURLConnection connection) throws IOException {
@@ -84,7 +46,7 @@ public class Requester {
         os.close();
     }
 
-    public JsonObject getState(URL url) throws IOException, Exception {
+    public JsonObject getState(URL url) throws Exception {
         HttpURLConnection connection = null;
         JsonObject jsonObject = null;
         try {
@@ -95,14 +57,12 @@ public class Requester {
             jsonReader.close();
             return jsonObject;
         } finally {
-            if (connection != null)
-                connection.disconnect();
+            if (connection != null) connection.disconnect();
         }
     }
 
-    public void setLampState(int lamp, String json) throws IOException, Exception {
+    public void setLampState(int lamp, String json) throws Exception {
         URL url = new URL(base);
-//        URL url = new URL(base + "/lights/" + Integer.toString(lamp) + "/state");
         setState(json, url);
     }
 }

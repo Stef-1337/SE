@@ -8,34 +8,60 @@
 
     <ui:define name="content">
 
-        <h1>Startseite </h1>
-        Für die Beispiele das Menü benutzen.
+        <h1>Lampensteuerung Gruppe 19</h1>
         <br></br>
         <br></br>
 
-        <h2>Lampe</h2>
-        <br></br>
+        <h:form id="form">
+            <p:dataTable id="lamps" var="lamp" value="#{lampController.adapter.lampe}"
+                         rowKey="#{lampController.adapter.lampe.name}">
 
-        <h5>Floating Label</h5>
+                <p:column headerText="Name">
+                    <h:outputText value="#{lampController.adapter.lampe.name}"/>
+                </p:column>
+                <p:column headerText="State">
+                    <h:outputText value="#{lampController.adapter.lampe.state}"/>
+                </p:column>
+                <p:column headerText="Intensity">
+                    <h:outputText value="#{lampController.adapter.lampe.intensity}"/>
+                </p:column>
+                <p:column headerText="x">
+                    <h:outputText value="#{lampController.adapter.lampe.x}"/>
+                </p:column>
+                <p:column headerText="y">
+                    <h:outputText value="#{lampController.adapter.lampe.y}"/>
+                </p:column>
+                <p:column headerText="Color">
+                    <h:outputText value="#{lampController.adapter.lampe.colorName}"/>
+                </p:column>
+            </p:dataTable>
+
+            <p:poll interval="1" update="lamps"/>
+
+            <p:outputLabel value="#{lampController.adapter.lampe.colorName}"/>
+
+        </h:form>
+
+
+
         <div class="card">
             <h:form>
-
+                <h5>Zum Ändern des Lampennames den Namen hier eigeben</h5>
                 <p:inputText id="inputName" value="#{lampController.adapter.lampe.name}"
                              valueChangeListener="#{lampController.nameChanged}">
                     <f:ajax execute="inputName" render="outputName"/>
                 </p:inputText>
-                <br/>
-                <p:outputLabel id="outputName" value="#{lampController.adapter.lampe.name}"/>
                 <br/>
                 <br/>
 
                 <h5 class="mt-0">On/Off</h5>
                 <p:toggleSwitch id="inputToggle" value="#{lampController.adapter.lampe.state}"
                                 valueChangeListener="#{lampController.switchChanged}">
-                    <f:ajax execute="inputToggle" render="outputToggle"/>
+                    <f:ajax execute="inputToggle"/>
                 </p:toggleSwitch>
 
-                <p:outputLabel id="outputToggle" value="#{lampController.adapter.lampe.state}"/>
+                <br/>
+                <br/>
 
                 <div class="card">
                     <div class="grid text-center">
@@ -43,14 +69,11 @@
                             <h5 style="margin-top:0">Brightness</h5>
                             <p:knob id="inputBrightness" value="#{lampController.adapter.lampe.intensity}"
                                     valueChangeListener="#{lampController.brightnessChanged}">
-                                <f:ajax execute="inputBrightness" render="outputBrightness"/>
+                                <f:ajax execute="inputBrightness"/>
                             </p:knob>
                         </div>
                     </div>
                 </div>
-
-                <p:outputLabel id="outputBrightness" value="#{lampController.adapter.lampe.intensity}"/>
-
 
                 <!-- Command Button zum Senden der Anfrage-->
 
@@ -58,12 +81,7 @@
                 <!--                <f:ajax execute = "inputName" render = "outputName" />-->
                 <!--            </p:commandButton>-->
 
-            </h:form>
-
-
-
-            <h:form id="color">
-                <h5>Basic</h5>
+                <h5>Farbe auswählen</h5>
                 <p:cascadeSelect id="inputColor" value="#{lampController.adapter.selection}"
                                  valueChangeListener="#{lampController.colorChanged}"
                                  style="min-width: 14rem"
@@ -71,35 +89,13 @@
                     <f:ajax execute="inputColor" render="outputColor"/>
                     <f:selectItems value="#{lampController.adapter.colors}"/>
                 </p:cascadeSelect>
-            </h:form>
-
-            <h:form id="form">
-                <p:dataTable id="lamps" var="lamp" value="#{lampController.adapter.lampe}"
-                             rowKey="#{lampController.adapter.lampe.name}">
-
-                    <p:column headerText="Name">
-                        <h:outputText value="#{lampController.adapter.lampe.name}"/>
-                    </p:column>
-                    <p:column headerText="State">
-                        <h:outputText value="#{lampController.adapter.lampe.state}"/>
-                    </p:column>
-                    <p:column headerText="Intensity">
-                        <h:outputText value="#{lampController.adapter.lampe.intensity}"/>
-                    </p:column>
-                    <p:column headerText="x">
-                        <h:outputText value="#{lampController.adapter.lampe.x}"/>
-                    </p:column>
-                    <p:column headerText="y">
-                        <h:outputText value="#{lampController.adapter.lampe.y}"/>
-                    </p:column>
-                    <p:column headerText="Color">
-                        <h:outputText value="#{lampController.adapter.lampe.colorname}"/>
-                    </p:column>
-                </p:dataTable>
-
-                <p:poll interval="1" listener="#{lampController.increment}" update="lamps"/>
 
             </h:form>
+
+
+
+
+
         </div>
 
 
