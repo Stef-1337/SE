@@ -59,13 +59,19 @@ public class Lamp implements ILamp, Serializable {
             int i = 0;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(";");
-                System.out.println(values[11]);
+                System.out.println(values[5]);
+                System.out.println(values[6]);
+                System.out.println(values[8]);
                 List<Float> floatList = new ArrayList<>(2);
-                floatList.add(Float.valueOf(values[11]));
-                floatList.add(Float.valueOf(values[12]));
-                xyWerte.put(floatList, values[0]);
+                floatList.add(Float.valueOf(values[5]));
+                floatList.add(Float.valueOf(values[6]));
+                xyWerte.put(floatList, values[8]);
                 System.out.println(i++);
             }
+            List<Float> floatList = new ArrayList<>(2);
+            floatList.add((float) 0.4212);
+            floatList.add((float) 0.1823);
+            System.out.println("Test: " + xyWerte.get(floatList));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -361,26 +367,26 @@ public class Lamp implements ILamp, Serializable {
         SelectItem option84 = new SelectItem(new HueColor("deeppink", "#FF1493", 255, 20, 147, (float) 0.5388, (float) 0.2464, Colors.PINK));
         SelectItem option85 = new SelectItem(new HueColor("palevioletred", "#DB7093", 219, 112, 147, (float) 0.4657, (float) 0.2773, Colors.PINK));
         SelectItem option86 = new SelectItem(new HueColor("mediumvioletred", "#C71585", 199, 21, 133, (float) 0.4997, (float) 0.2247, Colors.PINK));
-        SelectItem option87 = new SelectItem(new HueColor("white", "#FFFFFF", 255, 255, 255, (float) 0.3227, (float) 0.3290, Colors.PINK));
-        group8.setSelectItems(new SelectItem[]{option81, option82, option83, option84, option85, option86, option87});
+        group8.setSelectItems(new SelectItem[]{option81, option82, option83, option84, option85, option86});
 
-        SelectItem option91 = new SelectItem(new HueColor("snow", "#FFFAFA", 255, 250, 250, (float) 0.3280, (float) 0.3286, Colors.WHITE));
-        SelectItem option92 = new SelectItem(new HueColor("honeydew", "#F0FFF0", 240, 255, 240, (float) 0.3210, (float) 0.3441, Colors.WHITE));
-        SelectItem option93 = new SelectItem(new HueColor("mintcream", "#F5FFFA", 245, 255, 250, (float) 0.3162, (float) 0.3346, Colors.WHITE));
-        SelectItem option94 = new SelectItem(new HueColor("azure", "#F0FFFF", 240, 255, 255, (float) 0.3125, (float) 0.3274, Colors.WHITE));
-        SelectItem option95 = new SelectItem(new HueColor("aliceblue", "#F0F8FF", 240, 248, 255, (float) 0.3098, (float) 0.3220, Colors.WHITE));
-        SelectItem option96 = new SelectItem(new HueColor("ghostwhite", "#F8F8FF", 248, 248, 255, (float) 0.3098, (float) 0.3220, Colors.WHITE));
-        SelectItem option97 = new SelectItem(new HueColor("whitesmoke", "#F5F5F5", 245, 245, 245, (float) 0.3227, (float) 0.3290, Colors.WHITE));
-        SelectItem option98 = new SelectItem(new HueColor("seashell", "#FFF5EE", 255, 245, 238, (float) 0.3385, (float) 0.3353, Colors.WHITE));
-        SelectItem option99 = new SelectItem(new HueColor("beige", "#F5F5DC", 245, 245, 220, (float) 0.3401, (float) 0.3559, Colors.WHITE));
-        SelectItem option910 = new SelectItem(new HueColor("oldlace", "#FDF5E6", 253, 245, 230, (float) 0.3377, (float) 0.3376, Colors.WHITE));
-        SelectItem option911 = new SelectItem(new HueColor("floralwhite", "#FFFAF0", 255, 250, 240, (float) 0.3349, (float) 0.3388, Colors.WHITE));
-        SelectItem option912 = new SelectItem(new HueColor("ivory", "#FFFFF0", 255, 255, 240, (float) 0.3327, (float) 0.3444, Colors.WHITE));
-        SelectItem option913 = new SelectItem(new HueColor("antiquewhite", "#FAEBD7", 250, 235, 215, (float) 0.3546, (float) 0.3488, Colors.WHITE));
-        SelectItem option914 = new SelectItem(new HueColor("linen", "#FAF0E6", 250, 240, 230, (float) 0.3410, (float) 0.3386, Colors.WHITE));
-        SelectItem option915 = new SelectItem(new HueColor("lavenderblush", "#FFF0F5", 255, 240, 245, (float) 0.3357, (float) 0.3226, Colors.WHITE));
-        SelectItem option916 = new SelectItem(new HueColor("mistyrose", "#FFE4E1", 255, 228, 225, (float) 0.4212, (float) 0.1823, Colors.WHITE));
-        group9.setSelectItems(new SelectItem[]{option91, option92, option93, option94, option95, option96, option97, option98, option99, option910, option911, option912, option913, option914, option915, option916});
+        SelectItem option91 = new SelectItem(new HueColor("white", "#FFFFFF", 255, 255, 255, (float) 0.3227, (float) 0.3287, Colors.WHITE));
+        SelectItem option92 = new SelectItem(new HueColor("snow", "#FFFAFA", 255, 250, 250, (float) 0.3280, (float) 0.3286, Colors.WHITE));
+        SelectItem option93 = new SelectItem(new HueColor("honeydew", "#F0FFF0", 240, 255, 240, (float) 0.3210, (float) 0.3441, Colors.WHITE));
+        SelectItem option94 = new SelectItem(new HueColor("mintcream", "#F5FFFA", 245, 255, 250, (float) 0.3162, (float) 0.3346, Colors.WHITE));
+        SelectItem option95 = new SelectItem(new HueColor("azure", "#F0FFFF", 240, 255, 255, (float) 0.3125, (float) 0.3274, Colors.WHITE));
+        SelectItem option96 = new SelectItem(new HueColor("aliceblue", "#F0F8FF", 240, 248, 255, (float) 0.3098, (float) 0.3220, Colors.WHITE));
+        SelectItem option97 = new SelectItem(new HueColor("ghostwhite", "#F8F8FF", 248, 248, 255, (float) 0.3098, (float) 0.3220, Colors.WHITE));
+        SelectItem option98 = new SelectItem(new HueColor("whitesmoke", "#F5F5F5", 245, 245, 245, (float) 0.3227, (float) 0.3290, Colors.WHITE));
+        SelectItem option99 = new SelectItem(new HueColor("seashell", "#FFF5EE", 255, 245, 238, (float) 0.3385, (float) 0.3353, Colors.WHITE));
+        SelectItem option910 = new SelectItem(new HueColor("beige", "#F5F5DC", 245, 245, 220, (float) 0.3401, (float) 0.3559, Colors.WHITE));
+        SelectItem option911 = new SelectItem(new HueColor("oldlace", "#FDF5E6", 253, 245, 230, (float) 0.3377, (float) 0.3376, Colors.WHITE));
+        SelectItem option912 = new SelectItem(new HueColor("floralwhite", "#FFFAF0", 255, 250, 240, (float) 0.3349, (float) 0.3388, Colors.WHITE));
+        SelectItem option913 = new SelectItem(new HueColor("ivory", "#FFFFF0", 255, 255, 240, (float) 0.3327, (float) 0.3444, Colors.WHITE));
+        SelectItem option914 = new SelectItem(new HueColor("antiquewhite", "#FAEBD7", 250, 235, 215, (float) 0.3546, (float) 0.3488, Colors.WHITE));
+        SelectItem option915 = new SelectItem(new HueColor("linen", "#FAF0E6", 250, 240, 230, (float) 0.3410, (float) 0.3386, Colors.WHITE));
+        SelectItem option916 = new SelectItem(new HueColor("lavenderblush", "#FFF0F5", 255, 240, 245, (float) 0.3357, (float) 0.3226, Colors.WHITE));
+        SelectItem option917 = new SelectItem(new HueColor("mistyrose", "#FFE4E1", 255, 228, 225, (float) 0.4212, (float) 0.1823, Colors.WHITE));
+        group9.setSelectItems(new SelectItem[]{option91, option92, option93, option94, option95, option96, option97, option98, option99, option910, option911, option912, option913, option914, option915, option916, option917});
 
         colors.add(group1);
         colors.add(group2);

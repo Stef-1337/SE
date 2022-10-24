@@ -1,19 +1,29 @@
 package de.ostfalia.s1.lamp;
 
 
+import com.google.gson.Gson;
+import org.glassfish.json.JsonParserImpl;
+import org.h2.util.json.JSONObject;
+import org.json.simple.parser.JSONParser;
+
 import javax.enterprise.context.SessionScoped;
 import javax.faces.model.SelectItem;
 import javax.inject.Named;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
+import javax.json.JsonString;
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
+import javax.json.stream.JsonParser;
 import java.awt.*;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.io.StringReader;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -34,6 +44,7 @@ public class Java2NodeRedLampAdapter implements ILamp, Serializable {
         Java2NodeRedLampAdapter j = new Java2NodeRedLampAdapter();
         System.out.println("ja");
         j.getRequest();
+        j.putRequest();
     }
 
     private static JsonObject jsonFromString(String jsonObjectStr) {
@@ -165,8 +176,11 @@ public class Java2NodeRedLampAdapter implements ILamp, Serializable {
 
     public void putRequest() throws Exception {
         Jsonb jsonb = JsonbBuilder.create();
-        String result = jsonb.toJson(new RequestObject(lampe.getState(), lampe.getIntensity(),
-                getRGBtoXY(lampe.getColor()), lampe.getName()));
+//        String result = jsonb.toJson(new RequestObject(lampe.getState(), lampe.getIntensity(),
+//                getRGBtoXY(lampe.getColor()), lampe.getName()));
+        String result = "{" + "\"name\":" + "\"" + lampe.getName() + "\"" + "," + "\"on\": {\"on\": " + lampe.getState() + "}," + " \"dimming\":{\"brightness\":" +
+                lampe.getIntensity() + "}," + "\"color\":{\"xy\":{\"x\":" + lampe.getX() + ",\"y\":" + lampe.getY() + "}}}";
+        System.out.println(result);
         r.setLampState(3, result);
     }
 
@@ -174,45 +188,84 @@ public class Java2NodeRedLampAdapter implements ILamp, Serializable {
         System.out.println("get");
         JsonObject state = r.getState(new URL(r.base));
         System.out.println("test");
-        JsonObject s1 = state.getJsonObject("state");
-        JsonObject s2 = jsonFromString("{" + state.toString().split("\"type\":\"Extended color light\",")[1].split(",")[0] + "}");
+        String string = "{" + state.toString().substring(86, 934);
 
-        System.out.println(state.toString());
-        System.out.println(s1.toString());
-        System.out.println(s2.toString());
-        lampe.setState(s1.getBoolean("on"));
-        lampe.setIntensity(s1.getInt("bri"));
-        lampe.setName(s2.getString("name"));
-        List<Float> floatList = stringToList(getXyString(s1));
-        lampe.setColor(getMatchingColor(floatList.get(0), floatList.get(1)));
-        float x = floatList.get(0);
-        float y = floatList.get(1);
-        
-      
+        InputStream is = new ByteArrayInputStream(string.getBytes(StandardCharsets.UTF_8));
+        JsonReader jsonReader = Json.createReader(is);
+        JsonObject o = jsonReader.readObject();
+        System.out.println("Object: " + o.toString());
+        JsonObject o2 = o.getJsonObject("metadata");
+        System.out.println(o2.getString("name"));
+        lampe.setName(o.getJsonObject("metadata").getString("name"));
+        lampe.setState(o.getJsonObject("on").getBoolean("on"));
+        lampe.setIntensity((float)(o.getJsonObject("dimming").getInt("brightness")));
+        String s = o.getJsonObject("color").getJsonObject("xy").toString().substring(1, 22);
+        List<Float> fl = new ArrayList<>(2);
+        System.out.println(s);
+        String[] strings = s.split(",");
+        for (String e:
+             strings) {
+            e = e.substring(4);
+            System.out.println(e);
+            fl.add(Float.parseFloat(e));
+        }
+        lampe.setX(fl.get(0));
+        lampe.setY(fl.get(1));
+//        lampe.setX((float) (o.getJsonObject("color").getJsonObject("xy").getInt("x")));
+//        lampe.setY((float)(o.getJsonObject("color").getJsonObject("xy").getInt("y")));
+        lampe.setColorname(lampe.xyWerte.get(fl));
 
-        lampe.setColor(getXYtoRGB(stringToList("\"xy\":[0.3015,0.3057]")));
-        System.out.println(lampe.getColor().toString());
-
-        lampe.setColor(getXYtoRGB(stringToList(getXyString(s1))));
-        System.out.println(stringToList(getXyString(s1)));
-        System.out.println(lampe.getColor().toString());
+        System.out.println(lampe.getX());
+//        JsonObject s1 = state.getJsonObject("state");
+//        JsonObject s3 = state.getJsonObject("color");
+//        System.out.println(s3.toString());y
+//        JsonObject s2 = jsonFromString("{" + state.toString().split("\"type\":\"Extended color light\",")[1].split(",")[0] + "}");
+//
+//        System.out.println(state.toString());
+//        System.out.println(s1.toString());
+//        System.out.println(s2.toString());
+//        lampe.setState(s1.getBoolean("on"));
+//        lampe.setIntensity(s1.getInt("bri"));
+//        lampe.setName(s2.getString("name"));
+//        List<Float> floatList = stringToList(getXyString(s1));
+//        for (float f:
+//             floatList) {
+//            System.out.println("Liste: " + f);
+//        }
+//        lampe.setColor(getMatchingColor(floatList.get(0), floatList.get(1)));
+//        float x = floatList.get(0);
+//        float y = floatList.get(1);
+//
+//
+//
+//        lampe.setColor(getXYtoRGB(stringToList("\"xy\":[0.3015,0.3057]")));
+//        System.out.println(lampe.getColor().toString());
+//
+//        lampe.setColor(getXYtoRGB(stringToList(getXyString(s1))));
+//        System.out.println(stringToList(getXyString(s1)));
+//        System.out.println(lampe.getColor().toString());
 //        System.out.println(s1.getString("xy"));
-
+//
 //        System.out.println(stringToList(s2.getString("xy")).toString());
 //        lampe.setColor(getXYtoRGB(stringToList(s1.getString("xy"))));
     }
 
     public String getMatchingColor(float x, float y){
-        String s;
-        for (SelectItem selectItem : lampe.getColors()) {
-            System.out.println(selectItem.getValue().toString());
-            if (selectItem.toString().contains((String.valueOf(x))) &&
-                    selectItem.toString().contains((String.valueOf(y)))){
-                s = selectItem.toString();
-                return s;
-            }
-        }
-        return null;
+        List<Float> floatList = new ArrayList<>(2);
+        floatList.add(x);
+        floatList.add(y);
+        System.out.println("Color:" + lampe.xyWerte.get(floatList));
+        return lampe.xyWerte.get(floatList);
+
+//        for (SelectItem selectItem : lampe.getColors()) {
+//            System.out.println(selectItem.getValue().toString());
+//            if (selectItem.toString().contains((String.valueOf(x))) &&
+//                    selectItem.toString().contains((String.valueOf(y)))){
+//                s = selectItem.toString();
+//                return s;
+//            }
+//        }
+//        return null;
     }
 
     public List<Float> stringToList(String xy) {

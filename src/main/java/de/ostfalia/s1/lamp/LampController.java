@@ -47,4 +47,11 @@ public class LampController implements Serializable {
         number++;
     }
 
+    public void sendGetRequest() throws Exception {
+        adapter.getRequest();
+    }
+    public void sendPutRequest() throws Exception {
+        adapter.putRequest();
+    }
+
 }
