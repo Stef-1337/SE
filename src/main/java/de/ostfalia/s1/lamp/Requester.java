@@ -56,7 +56,7 @@ public class Requester {
         try {
             connection = setupConnection(url, "PUT");
             sendJsonCommand(json, connection);
-            handleStatusException(connection.getResponseCode());
+//            handleStatusException(connection.getResponseCode());
             JsonReader jsonReader = Json.createReader(connection.getInputStream());
 //            JsonArray jsonArray = jsonReader.readArray();
             jsonReader.close();

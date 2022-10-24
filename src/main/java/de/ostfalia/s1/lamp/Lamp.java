@@ -20,15 +20,15 @@ import java.util.Scanner;
 @ApplicationScoped
 public class Lamp implements ILamp, Serializable {
 
-    private String name = "Stehlampe rechts";
-    private boolean state = true;
-    private float intensity = 127;
-    private float intensityPercentage = 50;
+    private String name;
+    private boolean state;
+    private float intensity;
+    private float intensityPercentage;
     private Color color;
     private List<SelectItem> colors;
     private String selection;
     private String test = "mediumblue #0000CD 0 0 205 0.167 0.04 BLUE";
-    private String colorname = "null";
+    private String colorname;
     private String hex;
     private int rgbR;
     private int rgbG;
@@ -43,7 +43,18 @@ public class Lamp implements ILamp, Serializable {
     public Lamp() {
         initHashmap();
         init();
+    }
 
+
+    public Lamp(String name, boolean state, float intensity, float x, float y, String colorname) {
+        initHashmap();
+        init();
+        this.name = name;
+        this.state = state;
+        this.intensity = intensity;
+        this.colorname = colorname;
+        this.x = x;
+        this.y = y;
     }
 
     public void initHashmap(){
