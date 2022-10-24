@@ -1,5 +1,6 @@
 package de.ostfalia.s1.lamp;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.event.ValueChangeEvent;
@@ -15,6 +16,7 @@ import java.io.Serializable;
 public class LampController implements Serializable {
 
     int number;
+    int i;
 
 
     private Java2NodeRedLampAdapter adapter = new Java2NodeRedLampAdapter();
@@ -24,27 +26,35 @@ public class LampController implements Serializable {
         return adapter;
     }
 
-    public void setAdapter(Java2NodeRedLampAdapter adapter) {
+    public void setAdapter(Java2NodeRedLampAdapter adapter) throws Exception {
+        adapter.putRequest();
         this.adapter = adapter;
     }
 
     public void switchChanged(ValueChangeEvent e) throws IOException, Exception {
         adapter.getLampe().setState(Boolean.parseBoolean(e.getNewValue().toString()));
+        adapter.putRequest();
     }
 
     public void nameChanged(ValueChangeEvent e) throws IOException {
         adapter.getLampe().setName((e.getNewValue().toString()));
     }
 
-    public void brightnessChanged(ValueChangeEvent e) throws IOException {
+    public void brightnessChanged(ValueChangeEvent e) throws Exception {
         adapter.getLampe().setIntensity(Float.parseFloat(e.getNewValue().toString()));
+        adapter.putRequest();
     }
 
-    public void colorChanged(ValueChangeEvent e) throws IOException {
-//        adapter.getLampe().setTest(e.getNewValue().toString());
-//        adapter.getLampe().setColor(e.getNewValue().toString());
+    public void colorChanged(ValueChangeEvent e) throws Exception {
+        adapter.getLampe().setTest(e.getNewValue().toString());
+        adapter.getLampe().setColor(e.getNewValue().toString());
+        adapter.putRequest();
     }
-    public void increment() {
+
+    public void update(){
+        i++;
+    }
+    public void increment() throws Exception {
         number++;
 //        try{
 //            sendGetRequest();
