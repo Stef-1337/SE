@@ -65,7 +65,7 @@ public class Java2NodeRedLampAdapter implements ILamp, Serializable {
         init();
         initHashmap();
         try {
-            lampe = initRequest();
+            initRequest();
         } catch (Exception ignored){
 
         }
@@ -412,7 +412,7 @@ public class Java2NodeRedLampAdapter implements ILamp, Serializable {
     }
 
     public void getRequest() throws Exception {
-        this.lampe = initRequest();
+        initRequest();
 //        System.out.println("get");
 //        JsonObject state = r.getState(new URL(r.base));
 //        System.out.println("test");
@@ -478,7 +478,7 @@ public class Java2NodeRedLampAdapter implements ILamp, Serializable {
 //        lampe.setColor(getXYtoRGB(stringToList(s1.getString("xy"))));
     }
 
-    public Lamp initRequest() throws Exception {
+    public void initRequest() throws Exception {
         System.out.println("get");
         JsonObject request = r.getState(new URL(r.base));
         System.out.println("test");
@@ -490,9 +490,9 @@ public class Java2NodeRedLampAdapter implements ILamp, Serializable {
         System.out.println("Object: " + o.toString());
         JsonObject o2 = o.getJsonObject("metadata");
         System.out.println(o2.getString("name"));
-        String name = o.getJsonObject("metadata").getString("name");
-        Boolean state = o.getJsonObject("on").getBoolean("on");
-        Float intensity = (float) o.getJsonObject("dimming").getInt("brightness");
+        lampe.setName(o.getJsonObject("metadata").getString("name"));
+        lampe.setState(o.getJsonObject("on").getBoolean("on"));
+        lampe.setIntensity(o.getJsonObject("dimming").getInt("brightness"));
         String s = o.getJsonObject("color").getJsonObject("xy").toString().substring(1, 22);
         List<Float> fl = new ArrayList<>(2);
         System.out.println(s);
@@ -503,14 +503,13 @@ public class Java2NodeRedLampAdapter implements ILamp, Serializable {
             System.out.println(e);
             fl.add(Float.parseFloat(e));
         }
-        Float x = fl.get(0);
-        Float y = fl.get(1);
+        lampe.setX(fl.get(0));
+        lampe.setY(fl.get(1));
 
-        String colorName = xyWerte.get(fl);
+        lampe.setColorname(xyWerte.get(fl));
 
 //        System.out.println(getX());
 
-        return new Lamp(name, state, intensity, x, y, colorName);
     }
 
     public String getMatchingColor(float x, float y){
