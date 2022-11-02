@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.util.List;
 
 @Named
 @RequestScoped
@@ -19,7 +20,15 @@ public class BicycleDetailView {
     @Setter
     int channel;
 
-    public Bicycle getBicycle(){
+    public Bicycle getStatus(){
         return bs.getLast(channel);
+    }
+
+//    public Bicycle getStatus(){
+//        return bs.getLast(channel);
+//    }
+
+    public List<Bicycle> getAllBicycleByBicycleChannel(int channelBicycle) {
+        return bs.getByChannel(channelBicycle);
     }
 }

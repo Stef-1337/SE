@@ -4,11 +4,16 @@ import de.ostfalia.s2.fahrrad.control.BicycleService;
 import de.ostfalia.s2.fahrrad.entity.Bicycle;
 
 
+import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.inject.Named;
 import java.util.List;
 
+
+@Named
+@RequestScoped
 public class BicycleOverview {
     @Inject
     BicycleService bs;
@@ -19,5 +24,9 @@ public class BicycleOverview {
 
     public List<Bicycle> getBicycle(){
         return bs.getAll();
+    }
+
+    public Bicycle getLast(int channelBicycle){
+        return bs.getLast(channelBicycle);
     }
 }

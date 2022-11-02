@@ -19,6 +19,31 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class Bicycle {
+
+    public int getChannel() {
+        return channel;
+    }
+
+    public void setChannel(int channel) {
+        this.channel = channel;
+    }
+
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public int getRotation_per_second() {
+        return rotation_per_second;
+    }
+
+    public void setRotation_per_second(int rotation_per_second) {
+        this.rotation_per_second = rotation_per_second;
+    }
+
     @Id
     @Column(name = "channel")
     int channel;
