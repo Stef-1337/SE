@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.logging.Logger;
 
-public class FahrradDatenService extends AbstractReadOnlyService<Bicycle, FahrradDatenID> {
+public class BicycleService extends AbstractReadOnlyService<Bicycle, FahrradDatenID> {
 
     @PersistenceContext(unitName = "Bicycle")
     EntityManager em;
@@ -27,7 +27,8 @@ public class FahrradDatenService extends AbstractReadOnlyService<Bicycle, Fahrra
 
 
     public List<Bicycle> getByFahrradDatenChannelWithLimit(int channel, int limit) {
-        TypedQuery<Bicycle> query = em.createNamedQuery("bicycle.getByFahrradDatenChannelWithLimit", Bicycle.class);
+        TypedQuery<Bicycle> query = em.createNamedQuery("bicycle.getByFahrradDat" +
+                "enChannelWithLimit", Bicycle.class);
         query.setParameter("channel", channel);
         query.setMaxResults(limit);
         return query.getResultList();
@@ -38,7 +39,7 @@ public class FahrradDatenService extends AbstractReadOnlyService<Bicycle, Fahrra
         query.setParameter("channel", channel);
         query.setParameter("from", from);
         query.setParameter("to", to);
-        Logger.getLogger(FahrradDatenService.class.getSimpleName()).info("Found Entrys " + query.getResultList().size());
+        Logger.getLogger(BicycleService.class.getSimpleName()).info("Found Entrys " + query.getResultList().size());
         return query.getResultList();
     }
 
