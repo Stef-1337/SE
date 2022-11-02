@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
-public class FahrradDatenID implements Serializable {
+public class BicycleID implements Serializable {
     int channel;
     LocalDateTime timestamp;
 }

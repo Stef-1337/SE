@@ -2,7 +2,7 @@ package de.ostfalia.s2.fahrrad.control;
 
 import de.ostfalia.s2.control.AbstractReadOnlyService;
 import de.ostfalia.s2.fahrrad.entity.Bicycle;
-import de.ostfalia.s2.fahrrad.entity.FahrradDatenID;
+import de.ostfalia.s2.fahrrad.entity.BicycleID;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.logging.Logger;
 
-public class BicycleService extends AbstractReadOnlyService<Bicycle, FahrradDatenID> {
+public class BicycleService extends AbstractReadOnlyService<Bicycle, BicycleID> {
 
     @PersistenceContext(unitName = "Bicycle")
     EntityManager em;
@@ -27,8 +27,7 @@ public class BicycleService extends AbstractReadOnlyService<Bicycle, FahrradDate
 
 
     public List<Bicycle> getByFahrradDatenChannelWithLimit(int channel, int limit) {
-        TypedQuery<Bicycle> query = em.createNamedQuery("bicycle.getByFahrradDat" +
-                "enChannelWithLimit", Bicycle.class);
+        TypedQuery<Bicycle> query = em.createNamedQuery("bicycle.getByFahrradDatenChannelWithLimit", Bicycle.class);
         query.setParameter("channel", channel);
         query.setMaxResults(limit);
         return query.getResultList();
