@@ -1,7 +1,7 @@
 package de.ostfalia.s2.fahrrad.control;
 
 import de.ostfalia.s2.control.AbstractReadOnlyService;
-import de.ostfalia.s2.fahrrad.entity.FahrradDaten;
+import de.ostfalia.s2.fahrrad.entity.Bicycle;
 import de.ostfalia.s2.fahrrad.entity.FahrradDatenID;
 
 import javax.persistence.EntityManager;
@@ -11,13 +11,13 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.logging.Logger;
 
-public class FahrradDatenService extends AbstractReadOnlyService<FahrradDaten, FahrradDatenID> {
+public class FahrradDatenService extends AbstractReadOnlyService<Bicycle, FahrradDatenID> {
 
-    @PersistenceContext(unitName = "FahrradDaten")
+    @PersistenceContext(unitName = "Bicycle")
     EntityManager em;
     @Override
-    protected Class<FahrradDaten> getEntityClass() {
-        return FahrradDaten.class;
+    protected Class<Bicycle> getEntityClass() {
+        return Bicycle.class;
     }
 
     @Override
@@ -26,15 +26,15 @@ public class FahrradDatenService extends AbstractReadOnlyService<FahrradDaten, F
     }
 
 
-    public List<FahrradDaten> getByFahrradDatenChannelWithLimit(int channel, int limit) {
-        TypedQuery<FahrradDaten> query = em.createNamedQuery("bicycle.getByFahrradDatenChannelWithLimit", FahrradDaten.class);
+    public List<Bicycle> getByFahrradDatenChannelWithLimit(int channel, int limit) {
+        TypedQuery<Bicycle> query = em.createNamedQuery("bicycle.getByFahrradDatenChannelWithLimit", Bicycle.class);
         query.setParameter("channel", channel);
         query.setMaxResults(limit);
         return query.getResultList();
     }
 
-    public List<FahrradDaten> getByFahrradDatenChannelWithTimeLimits(int channel, LocalDateTime from, LocalDateTime to){
-        TypedQuery<FahrradDaten> query = em.createNamedQuery("bicycle.getByFahrradDatenChannelWithTimeLimits", FahrradDaten.class);
+    public List<Bicycle> getByFahrradDatenChannelWithTimeLimits(int channel, LocalDateTime from, LocalDateTime to){
+        TypedQuery<Bicycle> query = em.createNamedQuery("bicycle.getByFahrradDatenChannelWithTimeLimits", Bicycle.class);
         query.setParameter("channel", channel);
         query.setParameter("from", from);
         query.setParameter("to", to);
@@ -42,13 +42,13 @@ public class FahrradDatenService extends AbstractReadOnlyService<FahrradDaten, F
         return query.getResultList();
     }
 
-    public List<FahrradDaten> getByChannel(int channel){
-        TypedQuery<FahrradDaten> query = em.createNamedQuery("bicycle.getByChannel", FahrradDaten.class);
+    public List<Bicycle> getByChannel(int channel){
+        TypedQuery<Bicycle> query = em.createNamedQuery("bicycle.getByChannel", Bicycle.class);
         query.setParameter("channel", channel);
         return query.getResultList();
     }
-    public FahrradDaten getLast(int channel){
-        TypedQuery<FahrradDaten> query = em.createNamedQuery("bicycle.getByChannel", FahrradDaten.class);
+    public Bicycle getLast(int channel){
+        TypedQuery<Bicycle> query = em.createNamedQuery("bicycle.getByChannel", Bicycle.class);
         query.setParameter("channel", channel);
         query.setFirstResult(0);
         query.setMaxResults(1);
@@ -56,7 +56,7 @@ public class FahrradDatenService extends AbstractReadOnlyService<FahrradDaten, F
     }
 
     @Override
-    protected TypedQuery<FahrradDaten> getAllQuery() {
+    protected TypedQuery<Bicycle> getAllQuery() {
         return em.createNamedQuery("bicycle.getAll",getEntityClass());
     }
 }

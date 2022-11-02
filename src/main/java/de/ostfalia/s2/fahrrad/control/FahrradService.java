@@ -9,7 +9,7 @@ import javax.persistence.TypedQuery;
 
 public class FahrradService extends AbstractReadOnlyService<Fahrrad, Integer> {
 
-    @PersistenceContext(unitName = "FahrradDaten")
+    @PersistenceContext(unitName = "Bicycle")
     EntityManager em;
 
 

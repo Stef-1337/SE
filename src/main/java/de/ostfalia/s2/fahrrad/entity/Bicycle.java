@@ -6,16 +6,16 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@NamedQuery(name = "bicycle.getAll", query = "select bc from bicycle bc")
-@NamedQuery(name = "bicycle.getChannel", query = "select bc from bicycle bc where channel = :chanelBike ORDER BY bc.timestamp DESC")
+@NamedQuery(name = "bicycle.getAll", query = "select bc from Bicycle bc")
+@NamedQuery(name = "bicycle.getChannel", query = "select bc from Bicycle bc where channel = :chanelBike ORDER BY bc.timestamp DESC")
 
 
 @Entity
-@Table(name = "FahrradDaten")
+@Table(name = "Bicycle")
 @IdClass(FahrradDatenID.class)
 @Getter
 @Setter
-public class FahrradDaten {
+public class Bicycle {
     @Id
     @Column(name = "channel")
     int channel;
