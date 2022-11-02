@@ -3,7 +3,6 @@ package de.ostfalia.s2.fahrrad.control;
 import de.ostfalia.s2.control.AbstractReadOnlyService;
 import de.ostfalia.s2.fahrrad.entity.Bicycle;
 import de.ostfalia.s2.fahrrad.entity.BicycleID;
-import de.ostfalia.se.talsperre.entity.Talsperrendaten;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +14,7 @@ import java.util.logging.Logger;
 
 public class BicycleService extends AbstractReadOnlyService<Bicycle, BicycleID> {
 
-    @PersistenceContext(unitName = "Bicycle")
+    @PersistenceContext(unitName = "Fahrraddaten")
     EntityManager em;
     @Override
     protected Class<Bicycle> getEntityClass() {

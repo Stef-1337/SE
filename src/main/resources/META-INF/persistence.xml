@@ -20,7 +20,7 @@
         <jta-data-source>java:jboss/datasources/Fahrraddaten</jta-data-source>
 
         <!--   Hier werden die Entity angegeben welche in dieser Datenbank abgelegt sind.  -->
-        <class>de.ostfalia.s2.fahrrad.entity.Bicycle</class>
+        <class> de.ostfalia.s2.fahrrad.entity.Bicycle</class>
         <!--   Da es sich um eine READ-ONLY Datenbank handelt, dürfen/können keine weiteren
                Klassen hier abgelegt/erzeugt werden.
                  -->

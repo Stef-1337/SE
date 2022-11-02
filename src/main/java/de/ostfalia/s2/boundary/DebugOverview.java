@@ -5,9 +5,11 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import java.util.logging.Logger;
+
 @Named
 @RequestScoped
 public class DebugOverview {
+
     @Inject
     HttpServletRequest request;
 
