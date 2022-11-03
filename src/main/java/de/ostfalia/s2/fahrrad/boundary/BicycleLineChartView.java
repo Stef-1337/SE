@@ -26,33 +26,35 @@ import java.util.List;
 @Named
 @RequestScoped
 public class BicycleLineChartView {
+
     @Inject
     BicycleService bs;
 
     List<Bicycle> daten;
     private final HashMap<String, LineChartModel> lineModelList = new HashMap<>();
 
-    public void init(String key, String name, int channel, int limit){
+    public void init(String key, String name, int channel, int limit) {
         daten = bs.getByFahrradDatenChannelWithLimit(channel, limit);
         Collections.reverse(daten);
-        init(key,name);
+        init(key, name);
     }
 
-    public void init(String key, String name, int channel){
+    public void init(String key, String name, int channel) {
         daten = bs.getByChannel(channel);
-        init(key,name);
+        init(key, name);
     }
 
-    public void init(String key, String name, int channel, LocalDateTime from){
+    public void init(String key, String name, int channel, LocalDateTime from) {
         daten = bs.getByFahrradDatenChannelWithTimeLimits(channel, from, null);
         init(key, name);
     }
 
-    public void init(String key, String name, int channelBicycle, LocalDateTime from, LocalDateTime to){
+    public void init(String key, String name, int channelBicycle, LocalDateTime from, LocalDateTime to) {
         daten = bs.getByFahrradDatenChannelWithTimeLimits(channelBicycle, from, to);
+        init(key, name);
     }
 
-    public void init(String key, String name){
+    public void init(String key, String name) {
         LineChartModel lineModle = new LineChartModel();
 
         ChartData data = new ChartData();
@@ -60,19 +62,20 @@ public class BicycleLineChartView {
         List<Object> values_rotations_per_second = new ArrayList<>();
         List<String> labels = new ArrayList<>();
 
-        DateTimeFormatter formatter = name.contains("Tage")?DateTimeFormatter.ofPattern("yyyyy MM dd"):DateTimeFormatter.ofPattern("HH:mm");
+        DateTimeFormatter formatter = name.contains("Tage") ? DateTimeFormatter.ofPattern("yyyyy MM dd") : DateTimeFormatter.ofPattern("HH:mm");
 
-        for(int i = 0; i < daten.size(); i++){
+        for (int i = 0; i < daten.size(); i++) {
             Bicycle bc = daten.get(i);
             values_rotations_per_second.add(bc.getRotations_per_second());
+            labels.add(bc.getTimestamp().format(formatter));
         }
 
         LineChartDataSet dataSet = new LineChartDataSet();
         dataSet.setData(values_rotations_per_second);
         dataSet.setFill(false);
         dataSet.setLabel("Rotation per Second");
-        dataSet.setBorderColor("rgb(188, 155, 73");
-        dataSet.setYaxisID("large-scale");
+        dataSet.setBorderColor("rgb(166, 184, 40");
+        dataSet.setYaxisID("small-scale");
         data.addChartDataSet(dataSet);
 
         data.setLabels(labels);
@@ -96,8 +99,9 @@ public class BicycleLineChartView {
         yRightLabel.setDisplay(true);
         yRightLabel.setLabelString("Zu-/Abfluss in m^3/sec");
 
-        linearAxes2.setScaleLabel(yRightLabel);
 
+
+        linearAxes2.setScaleLabel(yRightLabel);
         cartesianScales.addYAxesData(linearAxes);
         cartesianScales.addYAxesData(linearAxes2);
 
@@ -118,24 +122,24 @@ public class BicycleLineChartView {
     }
 
     public LineChartModel getLineModellLimit(int channelBicycle, int limit, String name) {
-        String key = channelBicycle + "#L" +limit;
-        if(!lineModelList.containsKey(key)) {
+        String key = channelBicycle + "#L" + limit;
+        if (!lineModelList.containsKey(key)) {
             init(key, name, channelBicycle, limit);
         }
         return lineModelList.get(key);
     }
 
-    public LineChartModel getLineModel24h(int channelBicycle){
+    public LineChartModel getLineModel24h(int channelBicycle) {
         String key = channelBicycle + "#24h";
-        if (!lineModelList.containsKey(key)){
+        if (!lineModelList.containsKey(key)) {
             init(key, "24 Stunden", channelBicycle, 96);
         }
         return lineModelList.get(key);
     }
 
-    public LineChartModel getLineModel(int chanelBicycle){
+    public LineChartModel getLineModel(int chanelBicycle) {
         String key = "" + chanelBicycle;
-        if(!lineModelList.containsKey(key)){
+        if (!lineModelList.containsKey(key)) {
             init(key, "Seit Beginn der Aufzeichnungen", chanelBicycle);
         }
         return lineModelList.get(key);
@@ -147,12 +151,22 @@ public class BicycleLineChartView {
         LocalDateTime old = LocalDateTime.now(zone).minusDays(14);
         LocalDateTime now = LocalDateTime.now(zone);
         if (!lineModelList.containsKey(key)) {
-            init(key,"14 Tage", channelBicycle, old, now);
+            init(key, "14 Tage", channelBicycle, old, now);
         }
 
         return lineModelList.get(key);
     }
 
+    public LineChartModel getLineModelMinus(int channelBicycle, int minus) {
+        String key = channelBicycle + "# " + minus + "d";
+        ZoneId zone = ZoneId.of("Europe/Berlin");
+        LocalDateTime old = LocalDateTime.now(zone).minusDays(minus);
+        LocalDateTime now = LocalDateTime.now(zone);
+        if (!lineModelList.containsKey(key)) {
+            init(key, minus + " Tage", channelBicycle, old, now);
+        }
 
+        return lineModelList.get(key);
+    }
 
 }

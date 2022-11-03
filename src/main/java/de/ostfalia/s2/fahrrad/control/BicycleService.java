@@ -37,8 +37,8 @@ public class BicycleService extends AbstractReadOnlyService<Bicycle, BicycleID> 
     public List<Bicycle> getByFahrradDatenChannelWithTimeLimits(int channel, LocalDateTime from, LocalDateTime to){
         TypedQuery<Bicycle> query = em.createNamedQuery("bicycle.getByBicycleChannelWithTimeLimits", Bicycle.class);
         query.setParameter("channelBicycle", channel);
-        query.setParameter("from", from);
-        query.setParameter("to", to);
+        query.setParameter("from", from == null ? LocalDateTime.MIN : from);
+        query.setParameter("to", to == null ? LocalDateTime.now() : to);
         Logger.getLogger(BicycleService.class.getSimpleName()).info("Found Entrys " + query.getResultList().size());
         return query.getResultList();
     }

@@ -16,6 +16,8 @@
         Rotationsfrequenz: #{bicycleDetailView.status.channel}
 
         <p:lineChart model="#{bicycleLineChartView.getLineModel24h(bicycleDetailView.channel)}"/>
+        <p:lineChart model="#{bicycleLineChartView.getLineModelMinus(bicycleDetailView.channel,1)}"/>
+
 
     </ui:define>
     <ui:define name="footer">
