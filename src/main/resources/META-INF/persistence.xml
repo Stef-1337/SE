@@ -7,7 +7,7 @@
         http://xmlns.jcp.org/xml/ns/persistence
         http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 
-    <persistence-unit name="bicycle" transaction-type="JTA">
+    <persistence-unit name="Fahrraddaten" transaction-type="JTA">
 
         <!--
            Please note that you CANNOT pretty print the following lines !
@@ -15,6 +15,7 @@
            used by WildFly to find the datasource !
              -->
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <jta-data-source>java:jboss/datasources/Fahrraddaten</jta-data-source>
 
         <!--   Hier werden die Entity angegeben welche in dieser Datenbank abgelegt sind.  -->
         <class>de.ostfalia.s2.fahrrad.entity.Bicycle</class>

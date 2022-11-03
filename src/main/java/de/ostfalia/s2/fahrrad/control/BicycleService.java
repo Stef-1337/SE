@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 
 public class BicycleService extends AbstractReadOnlyService<Bicycle, BicycleID> {
 
-    @PersistenceContext(unitName = "bicycle")
+    @PersistenceContext(unitName = "Fahrraddaten")
     EntityManager em;
     @Override
     protected Class<Bicycle> getEntityClass() {
