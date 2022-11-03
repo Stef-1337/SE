@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 public class BicycleService extends AbstractReadOnlyService<Bicycle, BicycleID> {
-
+//test
     @PersistenceContext(unitName = "Fahrraddaten")
     EntityManager em;
     @Override

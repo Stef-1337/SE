@@ -26,7 +26,7 @@ import java.util.List;
 @Named
 @RequestScoped
 public class BicycleLineChartView {
-
+//test
     @Inject
     BicycleService bs;
 
