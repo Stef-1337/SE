@@ -55,4 +55,8 @@ public class Bicycle {
     @Column(name = "rotations_per_second")
     int rotations_per_second;
 
+    public String channelToString(){
+        return String.valueOf(channel);
+    }
+
 }

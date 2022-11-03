@@ -27,37 +27,86 @@
 
         </style>
 
-    #{bicycleOverview.loadInfo()}
-    <p:messages id="messages" showDetail="true" closable="true">
-        <p:autoUpdate/>
-    </p:messages>
-    <p:dataTable value="#{bicycleOverview.bicycle}" var="bicycle" rowKey="#{bicycle.channel}" stripedRows="true">
-        <f:facet name="header">
-            Klicke auf die Lupe für Details.
-        </f:facet>
-        <p:column headerText="channel" width="150">
-            <h:outputText value="#{bicycle.channel}"/>
-        </p:column>
-        <p:column headerText="Rotation" width="150">
-            <h:outputText value="#{bicycleOverview.getLast(bicycle.channel).rotations_per_second} rot/s" />
-        </p:column>
+        #{bicycleOverview.loadInfo()}
+        <p:messages id="messages" showDetail="true" closable="true">
+            <p:autoUpdate/>
+        </p:messages>
+        <p:dataTable value="#{bicycleOverview.bicycle}" var="bicycle" rowKey="#{bicycle.channel}" stripedRows="true">
+            <f:facet name="header">
+                Klicke auf die Lupe für Details.
+            </f:facet>
+            <p:column headerText="channel" width="150">
+                <h:outputText value="#{bicycle.channel}" />
+            </p:column>
+            <p:column headerText="Rotation" width="150">
+                <h:outputText value="#{bicycleOverview.getLast(bicycle.channel).rotations_per_second} rot/s"/>
+            </p:column>
 
-        <p:column>
-            <p:linkButton type="button" icon="pi pi-search" styleClass="rounded-button p-mr-2"
-                          outcome="/BikeDashboard/detail.jsf">
-                <f:param name = "channelBicycle" value="#{bicycle.channel}"/>
-            </p:linkButton>
-        </p:column>
+            <p:column>
+                <p:linkButton type="button" icon="pi pi-search" styleClass="rounded-button p-mr-2"
+                              outcome="/BikeDashboard/detail.jsf">
+                    <f:param name="channelBicycle" value="#{bicycle.channel}"/>
+                </p:linkButton>
+            </p:column>
 
-    </p:dataTable>
+            <p:column>
+                <p:linkButton type="button" value="#{bicycle.channelToString()}"
+                              outcome="/BikeDashboard/detail.jsf">
+                    <f:param name="channelBicycle" value="#{bicycle.channel}"/>
+                </p:linkButton>
+            </p:column>
+
+        </p:dataTable>
+
+
+
 
     </ui:define>
     <ui:define name="rechts">
+        <div class="card">
+            <h:form>
+                <h5>Advanced</h5>
 
+                <div  class="col-12 md:col-6 lg:col-4 xl:col-3">
+                    <p:selectOneListbox id="basic" value="#{bicycleOverview}" var="c">
+                        <f:selectItems value="#{bicycleOverview.bicycle}" itemLabel="#{bicycle.channel}" itemValue="#{bicycle}"/>
+                        <p:column>
+                            <h:outputText value="#{c.channel}"/>
+<!--                            <p:linkButton type="button" value="#{c.test()}"-->
+<!--                                          outcome="/BikeDashboard/detail.jsf">-->
+<!--                            <f:param name="channelBicycle" value="#{c.channel}"/>-->
+<!--                            </p:linkButton>-->
+                        </p:column>
+                    </p:selectOneListbox>
+                </div>
 
+            </h:form>
+        </div>
     </ui:define>
     <ui:define name="footer">
 
 
     </ui:define>
 </ui:composition>
+
+
+        <!--            <div class="field col-12 md:col-4">-->
+        <!--                <p:selectOneListbox id="advanced" value="#{bicycleOverview.b} "-->
+        <!--                                    var="c" filter="true" filterMatchMode="contains">-->
+        <!--                    <f:selectItems value="#{bicycleOverview.bicycle}" var="country" itemLabel="#{bicycle.channel}" itemValue="#{bicycle}"/>-->
+        <!--                    <p:column>-->
+        <!--                        <h:outputText value="#{c.channel}"/>-->
+        <!--                    </p:column>-->
+        <!--                </p:selectOneListbox>-->
+        <!--            </div>-->
+
+
+        <!--            <div class="field col-12 md:col-4">-->
+        <!--                <p:selectOneMenu value="#{bicycleOverview.b}" var="c">-->
+        <!--                    <f:selectItem itemLabel="Select One" itemValue=""/>-->
+        <!--                    <f:selectItems value="#{bicycleOverview.bicycle}" itemLabel="#{bicycle.channel}" itemValue="#{bicycle}"/>-->
+        <!--                    <p:column>-->
+        <!--                        <h:outputText value="#{c.channel}"/>-->
+        <!--                    </p:column>-->
+        <!--                </p:selectOneMenu>-->
+        <!--            </div>-->
