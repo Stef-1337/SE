@@ -36,12 +36,12 @@ public class Bicycle {
         this.timestamp = timestamp;
     }
 
-    public int getRotation_per_second() {
-        return rotation_per_second;
+    public int getRotations_per_second() {
+        return rotations_per_second;
     }
 
-    public void setRotation_per_second(int rotation_per_second) {
-        this.rotation_per_second = rotation_per_second;
+    public void setRotations_per_second(int rotation_per_second) {
+        this.rotations_per_second = rotation_per_second;
     }
 
     @Id
@@ -53,7 +53,7 @@ public class Bicycle {
     LocalDateTime timestamp;
 
     @Id
-    @Column(name = "rotation_per_second")
-    int rotation_per_second;
+    @Column(name = "rotations_per_second")
+    int rotations_per_second;
 
 }

@@ -64,7 +64,7 @@ public class BicycleLineChartView {
 
         for(int i = 0; i < daten.size(); i++){
             Bicycle bc = daten.get(i);
-            values_rotations_per_second.add(bc.getRotation_per_second());
+            values_rotations_per_second.add(bc.getRotations_per_second());
         }
 
         LineChartDataSet dataSet = new LineChartDataSet();
