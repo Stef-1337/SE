@@ -6,7 +6,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@NamedQuery(name = "bicycle.getAll", query = "select bc from Bicycle bc")
+@NamedQuery(name = "bicycle.getAll", query = "select bc from Bicycle bc where timestamp = '2022-06-17 10:42:19' ORDER BY bc.channel ASC")
 @NamedQuery(name = "bicycle.getByBicycleChannel", query = "select bc from Bicycle bc where channel = :channelBicycle ORDER BY bc.timestamp DESC")
 @NamedQuery(name = "bicycle.getByBicycleChannelWithTimeLimits", query = "select bc from Bicycle bc where channel = :channelBicycle AND bc.timestamp >= :from AND bc.timestamp <= :to")
 @NamedQuery(name = "bicycle.getByBicycleChannelBeforeTime", query = "select bc from Bicycle bc where channel = :channelBicycle AND bc.timestamp <= :tBefore")
@@ -40,8 +40,8 @@ public class Bicycle {
         return rotations_per_second;
     }
 
-    public void setRotations_per_second(int rotation_per_second) {
-        this.rotations_per_second = rotation_per_second;
+    public void setRotations_per_second(int rotations_per_second) {
+        this.rotations_per_second = rotations_per_second;
     }
 
     @Id
