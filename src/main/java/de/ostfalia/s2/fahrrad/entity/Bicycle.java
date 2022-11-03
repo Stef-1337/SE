@@ -6,12 +6,11 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@NamedQuery(name = "bicycle.getAll", query = "select bc from Bicycle bc where timestamp = '2022-06-17 10:42:19' ORDER BY bc.channel ASC")
+@NamedQuery(name = "bicycle.getAll", query = "select bc from Bicycle bc group by channel ")
 @NamedQuery(name = "bicycle.getByBicycleChannel", query = "select bc from Bicycle bc where channel = :channelBicycle ORDER BY bc.timestamp DESC")
 @NamedQuery(name = "bicycle.getByBicycleChannelWithTimeLimits", query = "select bc from Bicycle bc where channel = :channelBicycle AND bc.timestamp >= :from AND bc.timestamp <= :to")
 @NamedQuery(name = "bicycle.getByBicycleChannelBeforeTime", query = "select bc from Bicycle bc where channel = :channelBicycle AND bc.timestamp <= :tBefore")
 @NamedQuery(name = "bicycle.getByBicycleChannelWithLimit", query = "select bc from Bicycle bc where channel = :channelBicycle ORDER BY bc.timestamp DESC")
-
 
 @Entity
 @Table(name = "bicycle")
