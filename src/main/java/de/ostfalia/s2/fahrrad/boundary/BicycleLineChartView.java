@@ -73,7 +73,7 @@ public class BicycleLineChartView {
         LineChartDataSet dataSet = new LineChartDataSet();
         dataSet.setData(values_rotations_per_second);
         dataSet.setFill(false);
-        dataSet.setLabel("Rotation per Second");
+        dataSet.setLabel("Rotations per Second");
         dataSet.setBorderColor("rgb(166, 184, 40");
         dataSet.setYaxisID("small-scale");
         data.addChartDataSet(dataSet);
@@ -88,7 +88,7 @@ public class BicycleLineChartView {
         linearAxes.setPosition("left");
         CartesianScaleLabel yLeftLabel = new CartesianScaleLabel();
         yLeftLabel.setDisplay(true);
-        yLeftLabel.setLabelString("Rotation per Second");
+        yLeftLabel.setLabelString("Rotations per Second");
         yLeftLabel.setFontColor("rgb(65, 139, 178)");
         linearAxes.setScaleLabel(yLeftLabel);
 
