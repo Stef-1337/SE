@@ -20,6 +20,10 @@ public class BicycleDetailView {
     @Setter
     int channel;
 
+    @Getter
+    @Setter
+    String info;
+
     public Bicycle getStatus(){
         return bs.getLast(channel);
     }
