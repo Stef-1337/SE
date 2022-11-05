@@ -2,7 +2,7 @@ package de.ostfalia.s2.fahrrad.boundary;
 
 import de.ostfalia.s2.fahrrad.control.BicycleService;
 import de.ostfalia.s2.fahrrad.entity.Bicycle;
-import de.ostfalia.s2.fahrrad.entity.IBicycleDetailData;
+import de.ostfalia.s2.fahrrad.entity.BicycleDetailData;
 import org.primefaces.model.charts.ChartData;
 import org.primefaces.model.charts.axes.cartesian.CartesianScaleLabel;
 import org.primefaces.model.charts.axes.cartesian.CartesianScales;
@@ -21,7 +21,6 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -35,7 +34,7 @@ public class BicycleLineChartView {
     @Inject
     BicycleService bs;
 
-    List<IBicycleDetailData> dataList;
+    BicycleDetailData detailData;
     List<Bicycle> daten;
     private final HashMap<String, LineChartModel> lineModelList = new HashMap<>();
 
@@ -50,13 +49,15 @@ public class BicycleLineChartView {
         init(key, name);
     }
 
-    public void initTest(String key, String name, int channel, int limit) {
-        LocalDateTime from = LocalDateTime.now(Clock.systemUTC()).minus(12, ChronoUnit.HOURS);
-        LocalDateTime to = LocalDateTime.now(Clock.systemUTC());
+    public void initTest(String key, String name, int channel) {
+        LocalDateTime from = LocalDateTime.now().minus(12, ChronoUnit.HOURS);
+        LocalDateTime to = LocalDateTime.now();
 
         daten = bs.getByFahrradDatenChannelWithTimeLimits(channel, from, to);
         Collections.reverse(daten);
-        getDataList(from, to);
+
+        detailData = BicycleDetailData.DISTANCE(daten);
+
         initBicycleData(key, name);
     }
 
@@ -70,38 +71,6 @@ public class BicycleLineChartView {
         init(key, name);
     }
 
-    private List<IBicycleDetailData> getDataList(LocalDateTime from, LocalDateTime to) {
-        List<IBicycleDetailData> result = new ArrayList<>();
-
-        long interval = 1000 * 60 * 60;
-
-        LocalDateTime end = null;
-
-        double distance = 0;
-
-        Collections.sort(daten, Comparator.comparing(Bicycle::getTimestamp));
-
-        for (int i = 0; i < daten.size(); i++) {
-            Bicycle bike = daten.get(i);
-
-            if(end == null || bike.getTimestamp().isAfter(end)){
-                end = bike.getTimestamp().plus(interval, ChronoUnit.MILLIS);
-
-                if(end != null){
-                    final double finalDistance = distance;
-                    result.add(() -> new IBicycleDetailData.Pair<>(interval, finalDistance));
-                    distance = 0;
-                }
-            }
-
-            double f = Double.valueOf(bike.getRotations_per_second()) / 4;
-            distance += f * 2.111;
-        }
-
-        dataList = result;
-        return dataList;
-    }
-
     public void initBicycleData(String key, String name) {
         LineChartModel lineModel = new LineChartModel();
         ChartData data = new ChartData();
@@ -109,14 +78,12 @@ public class BicycleLineChartView {
         List<Object> values = new ArrayList<>();
         List<String> labels = new ArrayList<>();
 
-        int i = 0;
-        for (IBicycleDetailData detailData : dataList) {
-            long interval = detailData.getData().getT();
-            double value = detailData.getData().getU();
+        for (int i = 0; i < detailData.getSize(); i++) {
+            String label = detailData.getIntervalString(i);
+            Object value = detailData.getValue(i);
 
+            labels.add(label);
             values.add(value);
-            labels.add(String.valueOf(i));
-            i++;
         }
 
         LineChartDataSet dataSet = new LineChartDataSet();
@@ -243,11 +210,21 @@ public class BicycleLineChartView {
         return lineModelList.get(key);
     }
 
+    public LineChartModel getLineModel24hTest(int channelBicycle){
+        String key = channelBicycle + "#12hTest";
+        if(!lineModelList.containsKey(key))
+            initTest(key, "12 Stunden", channelBicycle);
+
+        return lineModelList.get(key);
+    }
+
     public LineChartModel getLineModel24h(int channelBicycle) {
-        String key = channelBicycle + "#24h";
+        String key = channelBicycle + "#12h";
         if (!lineModelList.containsKey(key)) {
             //init(key, "24 Stunden", channelBicycle, 96);
-            initTest(key, "24 Stunden", channelBicycle, 96);
+            LocalDateTime now = LocalDateTime.now();
+
+            init(key, "12 Stunden", channelBicycle, now.minusHours(12), now);
         }
         return lineModelList.get(key);
     }
