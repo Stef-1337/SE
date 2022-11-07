@@ -169,4 +169,14 @@ public class BicycleLineChartView {
         return lineModelList.get(key);
     }
 
+    public int calculateAverageRotations() {
+        int sum = 0;
+
+        for (Bicycle bicycle : daten) {
+            sum += bicycle.getRotations_per_second();
+        }
+
+        return sum / daten.size();
+    }
+
 }
