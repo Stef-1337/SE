@@ -81,7 +81,7 @@ public class BicycleDetailData {
     public static BicycleDetailData DISTANCE(List<Bicycle> data, long step) {
         BicycleDetailData detailData = new BicycleDetailData(data, "Distanz");
 
-        LocalDateTime start, end = null;
+        LocalDateTime start = null, end = null;
 
         double distance = 0;
 
@@ -91,15 +91,15 @@ public class BicycleDetailData {
             Bicycle bike = data.get(i);
 
             if (end == null || bike.getTimestamp().isAfter(end)) {
-                end = bike.getTimestamp().plus(step, ChronoUnit.MILLIS);
-                start = bike.getTimestamp();
-
                 if (end != null) {
                     final double finalDistance = distance;
                     detailData.getValues().add(finalDistance);
                     detailData.getIntervals().add(start.format(FORMATTER));
                     distance = 0;
                 }
+
+                end = bike.getTimestamp().plus(step, ChronoUnit.MILLIS);
+                start = bike.getTimestamp();
             }
 
             double f = (double) bike.getRotations_per_second() / 4;
