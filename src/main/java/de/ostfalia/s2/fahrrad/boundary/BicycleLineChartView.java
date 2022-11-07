@@ -38,22 +38,9 @@ public class BicycleLineChartView {
     List<Bicycle> daten;
     private final HashMap<String, LineChartModel> lineModelList = new HashMap<>();
 
-    public void init(String key, String name, int channel, int limit) {
-        daten = bs.getByFahrradDatenChannelWithLimit(channel, limit);
-        Collections.reverse(daten);
-        init(key, name);
-    }
-
-    public void init(String key, String name, int channel) {
-        daten = bs.getByChannel(channel);
-        init(key, name);
-    }
-
-    public void initTest(String key, String name, int channel, String type) {
+    public void init(String key, String name, long step, int channel, String type) {
         LocalDateTime from = LocalDateTime.now().minus(12, ChronoUnit.HOURS);
         LocalDateTime to = LocalDateTime.now();
-
-        long step = 1000 * 60 * 60;
 
         daten = bs.getFahrradDaten(channel, from, to, step);
         Collections.reverse(daten);
@@ -70,14 +57,23 @@ public class BicycleLineChartView {
         initBicycleData(key, name);
     }
 
-    public void init(String key, String name, int channel, LocalDateTime from) {
-        daten = bs.getByFahrradDatenChannelWithTimeLimits(channel, from, null);
-        init(key, name);
-    }
+    public void initTest(String key, String name, long step, int channel, String type) {
+        LocalDateTime from = LocalDateTime.now().minus(12, ChronoUnit.HOURS);
+        LocalDateTime to = LocalDateTime.now();
 
-    public void init(String key, String name, int channelBicycle, LocalDateTime from, LocalDateTime to) {
-        daten = bs.getByFahrradDatenChannelWithTimeLimits(channelBicycle, from, to);
-        init(key, name);
+        daten = bs.getFahrradDaten(channel, from, to, step);
+        Collections.reverse(daten);
+
+        switch (type){
+            case "DISTANCE":
+                detailData = BicycleDetailData.DISTANCE(daten, step);
+                break;
+            default:
+                detailData = BicycleDetailData.DEFAULT(daten, step);
+                break;
+        }
+
+        initBicycleData(key, name);
     }
 
     public void initBicycleData(String key, String name) {
@@ -98,7 +94,7 @@ public class BicycleLineChartView {
         LineChartDataSet dataSet = new LineChartDataSet();
         dataSet.setData(values);
         dataSet.setFill(false);
-        dataSet.setLabel("Distance");
+        dataSet.setLabel(detailData.getName());
         dataSet.setBorderColor("rgb(166, 184, 40");
         dataSet.setYaxisID("small-scale");
         data.addChartDataSet(dataSet);
@@ -144,6 +140,36 @@ public class BicycleLineChartView {
 
         lineModelList.put(key, lineModel);
     }
+        public LineChartModel getLineModel(int channel, String name, long step, String type){
+        String key = channel + "";
+        if(!lineModelList.containsKey(key))
+            init(key, name, step, channel, type);
+
+        return lineModelList.get(key);
+    }
+
+
+    public void init(String key, String name, int channel, int limit) {
+        daten = bs.getByFahrradDatenChannelWithLimit(channel, limit);
+        Collections.reverse(daten);
+        init(key, name);
+    }
+
+    public void init(String key, String name, int channel) {
+        daten = bs.getByChannel(channel);
+        init(key, name);
+    }
+
+    public void init(String key, String name, int channel, LocalDateTime from) {
+        daten = bs.getByFahrradDatenChannelWithTimeLimits(channel, from, null);
+        init(key, name);
+    }
+
+    public void init(String key, String name, int channelBicycle, LocalDateTime from, LocalDateTime to) {
+        daten = bs.getByFahrradDatenChannelWithTimeLimits(channelBicycle, from, to);
+        init(key, name);
+    }
+
 
     public void init(String key, String name) {
         LineChartModel lineModle = new LineChartModel();
@@ -219,10 +245,18 @@ public class BicycleLineChartView {
         return lineModelList.get(key);
     }
 
+//    public LineChartModel getLineModel(int channel, String type){
+//        String key = channel + "";
+//        if(!lineModelList.containsKey(key))
+//            init(key, "", channel, type);
+//
+//        return lineModelList.get(key);
+//    }
+
     public LineChartModel getLineModel24hTest(int channelBicycle){
         String key = channelBicycle + "#12hTest";
         if(!lineModelList.containsKey(key))
-            initTest(key, "12 Stunden", channelBicycle, "DISTANCE");
+            initTest(key, "12 Stunden", 1000 * 60 * 60, channelBicycle, "DISTANCE");
 
         return lineModelList.get(key);
     }
@@ -230,7 +264,7 @@ public class BicycleLineChartView {
     public LineChartModel getLineModel24hDefault(int channelBicycle){
         String key = channelBicycle + "#12hDefault";
         if(!lineModelList.containsKey(key))
-            initTest(key, "12 Stunden", channelBicycle, "DEFAULT");
+            initTest(key, "12 Stunden", 1000 * 60 * 60, channelBicycle, "DEFAULT");
 
         return lineModelList.get(key);
     }
@@ -245,37 +279,37 @@ public class BicycleLineChartView {
         }
         return lineModelList.get(key);
     }
-
-    public LineChartModel getLineModel(int chanelBicycle) {
-        String key = "" + chanelBicycle;
-        if (!lineModelList.containsKey(key)) {
-            init(key, "Seit Beginn der Aufzeichnungen", chanelBicycle);
-        }
-        return lineModelList.get(key);
-    }
-
-    public LineChartModel getLineModel14d(int channelBicycle) {
-        String key = channelBicycle + "#14d";
-        ZoneId zone = ZoneId.of("Europe/Berlin");
-        LocalDateTime old = LocalDateTime.now(zone).minusDays(14);
-        LocalDateTime now = LocalDateTime.now(zone);
-        if (!lineModelList.containsKey(key)) {
-            init(key, "14 Tage", channelBicycle, old, now);
-        }
-
-        return lineModelList.get(key);
-    }
-
-    public LineChartModel getLineModelMinus(int channelBicycle, int minus) {
-        String key = channelBicycle + "# " + minus + "d";
-        ZoneId zone = ZoneId.of("Europe/Berlin");
-        LocalDateTime old = LocalDateTime.now(zone).minusDays(minus);
-        LocalDateTime now = LocalDateTime.now(zone);
-        if (!lineModelList.containsKey(key)) {
-            init(key, minus + " Tage", channelBicycle, old, now);
-        }
-
-        return lineModelList.get(key);
-    }
+//
+//    public LineChartModel getLineModel(int chanelBicycle) {
+//        String key = "" + chanelBicycle;
+//        if (!lineModelList.containsKey(key)) {
+//            init(key, "Seit Beginn der Aufzeichnungen", chanelBicycle);
+//        }
+//        return lineModelList.get(key);
+//    }
+//
+//    public LineChartModel getLineModel14d(int channelBicycle) {
+//        String key = channelBicycle + "#14d";
+//        ZoneId zone = ZoneId.of("Europe/Berlin");
+//        LocalDateTime old = LocalDateTime.now(zone).minusDays(14);
+//        LocalDateTime now = LocalDateTime.now(zone);
+//        if (!lineModelList.containsKey(key)) {
+//            init(key, "14 Tage", channelBicycle, old, now);
+//        }
+//
+//        return lineModelList.get(key);
+//    }
+//
+//    public LineChartModel getLineModelMinus(int channelBicycle, int minus) {
+//        String key = channelBicycle + "# " + minus + "d";
+//        ZoneId zone = ZoneId.of("Europe/Berlin");
+//        LocalDateTime old = LocalDateTime.now(zone).minusDays(minus);
+//        LocalDateTime now = LocalDateTime.now(zone);
+//        if (!lineModelList.containsKey(key)) {
+//            init(key, minus + " Tage", channelBicycle, old, now);
+//        }
+//
+//        return lineModelList.get(key);
+//    }
 
 }

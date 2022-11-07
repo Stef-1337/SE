@@ -19,10 +19,13 @@ public class BicycleDetailData {
     private List<Object> values;
     private List<Bicycle> daten;
 
-    public BicycleDetailData(List<Bicycle> daten) {
+    private String name;
+
+    public BicycleDetailData(List<Bicycle> daten, String name) {
         intervals = new ArrayList<>();
         values = new ArrayList<>();
         this.daten = daten;
+        this.name = name;
     }
 
     public int getSize() {
@@ -37,8 +40,14 @@ public class BicycleDetailData {
         return values.get(index);
     }
 
+    /**
+     * X- Y- Achen Daten als durchschnitte über das angegebene Interval
+     * @param data Fahrraddaten
+     * @param step Interval
+     * @return
+     */
     public static BicycleDetailData DEFAULT(List<Bicycle> data, long step){
-        BicycleDetailData detailData = new BicycleDetailData(data);
+        BicycleDetailData detailData = new BicycleDetailData(data, "Umdrehungen");
         System.out.println("Default");
 
         data.sort(Comparator.comparing(Bicycle::getTimestamp));
@@ -68,7 +77,7 @@ public class BicycleDetailData {
     }
 
     public static BicycleDetailData DISTANCE(List<Bicycle> data, long step) {
-        BicycleDetailData detailData = new BicycleDetailData(data);
+        BicycleDetailData detailData = new BicycleDetailData(data, "Distanz");
 
         LocalDateTime start, end = null;
 
@@ -98,10 +107,9 @@ public class BicycleDetailData {
         return detailData;
     }
 
-    public static BicycleDetailData SPEED(List<Bicycle> data){
-        BicycleDetailData detailData = new BicycleDetailData(data);
-        BicycleDetailData distanceData = DISTANCE(data);
-        long interval = 1000 * 60 * 60;
+    public static BicycleDetailData SPEED(List<Bicycle> data, long step){
+        BicycleDetailData detailData = new BicycleDetailData(data, "Geschwindigkeit");
+        BicycleDetailData distanceData = DISTANCE(data, step);
 
         LocalDateTime start, end = null;
 
@@ -116,7 +124,7 @@ public class BicycleDetailData {
             Bicycle bike = data.get(i);
             count++;
             if (end == null || bike.getTimestamp().isAfter(end)) {
-                end = bike.getTimestamp().plus(interval, ChronoUnit.MILLIS);
+                end = bike.getTimestamp().plus(step, ChronoUnit.MILLIS);
                 start = bike.getTimestamp();
 
                 if (end != null) {
