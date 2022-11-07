@@ -34,6 +34,8 @@ public class BicycleLineChartView {
     @Inject
     BicycleService bs;
 
+    private
+
     HashMap<Integer, BicycleDetailData> detailDatas = new HashMap<>();
     List<Bicycle> daten;
     private final HashMap<String, LineChartModel> lineModelList = new HashMap<>();

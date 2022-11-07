@@ -5,9 +5,13 @@ import de.ostfalia.s2.fahrrad.entity.Bicycle;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 @Named
@@ -15,6 +19,14 @@ import java.util.List;
 public class BicycleDetailView {
     @Inject
     BicycleService bs;
+
+    @Getter
+    @Setter
+    Bicycle selectedOne;
+
+    @Getter
+    @Setter
+    Bicycle selectedTwo;
 
     @Getter
     @Setter
@@ -26,11 +38,44 @@ public class BicycleDetailView {
 
     @Getter
     @Setter
+    long factor;
+
+    @Getter
+    @Setter
     String type = "DEFAULT";
 
     @Getter
     @Setter
+    Kennzahl keyFigure = Kennzahl.ROTATIONS;
+
+    @Getter
+    @Setter
+    List<Kennzahl> keyFigures = Arrays.stream(Kennzahl.values()).toList();
+
+    @Getter
+    @Setter
     String info;
+
+    @Getter
+    @Setter
+    Boolean smoothed;
+
+    @Getter
+    @Setter
+    private List<Date> timeRange;
+
+    @Getter
+    @Setter
+    private String time;
+
+    @PostConstruct
+    public void init() {
+        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date now = new Date();
+        time = sdfDate.format(now);
+    }
+
+
 
     public Bicycle getStatus(){
         return bs.getLast(channel);
@@ -43,4 +88,21 @@ public class BicycleDetailView {
     public List<Bicycle> getAllBicycleByBicycleChannel(int channelBicycle) {
         return bs.getByChannel(channelBicycle);
     }
+
+    public List<Bicycle> getBicycle() {
+        return bs.getAll();
+    }
+
+    public List<Bicycle> getBicycles(){
+        return bs.getAll();
+    }
+
+    public Bicycle getLast(int channelBicycle) {
+        return bs.getLast(channelBicycle);
+    }
+
+    public int test(){
+        return selectedOne != null ? selectedOne.getChannel() : null;
+    }
+
 }

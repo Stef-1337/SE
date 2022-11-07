@@ -2,11 +2,11 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:p="http://primefaces.org/ui"
+                xmlns:p="http://primefaces.org/ui" xmlns:h="http://java.sun.com/jsf/html"
                 template="/WEB-INF/template/default.xhtml">
     <ui:define name="metadata">
         <f:metadata>
-            <f:viewParam name="channelBicycle" value="#{bicycleDetailView.channel}" />
+            <f:viewParam name="channelBicycle" value="#{bicycleDetailView.channel}"/>
         </f:metadata>
 
     </ui:define>
@@ -15,7 +15,129 @@
         Geladen bicycle mit dem Channel #{bicycleDetailView.status.channel}
         Rotationsfrequenz: #{bicycleDetailView.status.channel}
 
-        <p:lineChart model="#{bicycleLineChartView.getLineModel('Fahraddaten', bicycleDetailView.step, bicycleDetailView.type, bicycleDetailView.channel)}"/>
+        <div class="card">
+            <h:form id="auswahl">
+                <p:panel header="BikeDashboard">
+                    <h:panelGrid columns="4" cellpadding="5" styleClass="mb-3">
+                        <h:column>
+                            <h:outputLabel for="selectOne" value="Fahrrad 1: "/>
+                            <h:selectOneMenu id="selectOne" value="#{bicycleDetailView.selectedOne}" required="true"
+                                             label="Text 3" var="c">
+                                <f:selectItems value="#{bicycleDetailView.getBicycles()}"
+                                               var="b"
+                                               itemValue="#{b}"
+                                               itemLabel="#{b.channel}"
+                                               itemDescription="#{b.channel}"
+                                               itemDisabled="#{b.channel}"
+                                               itemLabelEscaped="true"
+                                               noSelectionValue="#{bicycleDetailView.getBicycles()[0]}"/>
+                                <f:ajax execute="auswahl" render="chart"/>
+                            </h:selectOneMenu>
+                            <p:message for="selectOne"/>
+                            <h:outputText value="#{c.channel}"/>
+                        </h:column>
+
+                        <h:column>
+                            <h:outputLabel for="selectTwo" value="Fahrrad 2: "/>
+                            <h:selectOneMenu id="selectTwo" value="#{bicycleDetailView.selectedTwo}" required="true"
+                                             label="Text 3" var="c">
+                                <f:selectItem itemLabel="Select One" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{bicycleDetailView.getBicycles()}"
+                                               var="b"
+                                               itemValue="#{b}"
+                                               itemLabel="#{b.channel}"
+                                               itemDescription="#{b.channel}"
+                                               itemDisabled="#{b.channel}"
+                                               itemLabelEscaped="true"
+                                               noSelectionValue=""/>
+                                <f:ajax execute="auswahl" render="chart"/>
+                            </h:selectOneMenu>
+                            <p:message for="selectTwo"/>
+                            <h:outputText value="#{c.channel}"/>
+                        </h:column>
+
+                        <h:column>
+                            <div class="card">
+                                <h:form>
+                                    <p:growl id="msg"/>
+                                    <p:selectBooleanCheckbox id="glätten" value="#{bicycleDetailView.smoothed}"
+                                                             itemLabel="Werte glätten">
+                                        <!--                                        <p:ajax update="msg" listener="#{selectBooleanView.addMessage}"/>-->
+                                        <f:ajax execute="glätten" render="chart"/>
+                                    </p:selectBooleanCheckbox>
+                                </h:form>
+                            </div>
+                        </h:column>
+
+                        <h:column>
+                            <div class="field col-12 md:col-4">
+                                <p:outputLabel for="range" value="Betrachtungszeitraum: "/>
+                                <p:datePicker id="range" selectionMode="range" value="#{bicycleDetailView.timeRange}"
+                                              showTime="true" locale="de" pattern="dd.MM.yyyy" readonlyInput="true">
+                                    <f:ajax execute="range" render="chart"/>
+                                </p:datePicker>
+                            </div>
+                        </h:column>
+
+                        <h:column>
+                            <h:outputLabel for="kennzahl" value="Kennzahl: "/>
+                            <h:selectOneMenu id="kennzahl" value="#{bicycleDetailView.keyFigure}" required="true"
+                                             label="Text 3">
+                                <f:selectItems value="#{bicycleDetailView.keyFigures}"/>
+                                <f:ajax execute="kennzahl" render="chart"/>
+                            </h:selectOneMenu>
+                        </h:column>
+
+                        <h:column>
+                            <span class="ui-float-label">
+                                <p:inputText id="span" value="#{bicycleDetailView.step}"/>
+                                <p:outputLabel for="span" value="Intervalllänge"/>
+                                <!--                                 <f:ajax execute="span" render="chart"/>-->
+                            </span>
+                        </h:column>
+
+                        <h:column>
+                            <h:outputLabel for="factor" value=""/>
+                            <h:selectOneMenu id="factor" value="#{bicycleDetailView.factor}" required="true"
+                                             label="Text 3">
+                                <f:selectItem id="default" itemLabel="sec" itemValue="1" noSelectionOption="true"/>
+                                <f:selectItem itemLabel="ms" itemValue="1000" noSelectionOption="true"/>
+                                <f:selectItem itemLabel="min" itemValue="0.0166667" noSelectionOption="true"/>
+                                <f:selectItem itemLabel="h" itemValue="0.000277778" noSelectionOption="true"/>
+                                <f:selectItem itemLabel="d" itemValue="0.00001157407" noSelectionOption="true"/>
+                                <f:ajax execute="factor" render="chart"/>
+                            </h:selectOneMenu>
+                        </h:column>
+
+                        <h:column>
+
+                        </h:column>
+
+                    </h:panelGrid>
+
+                    <p:growl id="messages"/>
+                </p:panel>
+
+
+            </h:form>
+        </div>
+
+        <h:form id="chartForm">
+            <p:outputPanel styleClass="mb-3">
+            <p:autoUpdate/>
+            <p:lineChart id="chart"
+                         model="#{bicycleLineChartView.getLineModel('Fahraddaten', bicycleDetailView.step, bicycleDetailView.type, bicycleDetailView.channel)}"/>
+            <!--            Auto-Update-->
+            <!--            <p:poll interval="1" update="chartForm"/>-->
+                Time: #{bicycleDetailView.time}
+            </p:outputPanel>
+            <p:commandButton value="AJAX request" update="@none" process="@this" styleClass="mr-2"/>
+        </h:form>
+
+
+
+
+
 
     </ui:define>
     <ui:define name="footer">
