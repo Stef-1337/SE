@@ -137,6 +137,10 @@ public class BicycleLineChartView {
         return lineModelList.get(key);
     }
 
+    public LineChartModel getLineModel(String name, long step, String type, int channel1, int channel2) {
+        return getLineModel(name, step, type, new int[]{channel1, channel2});
+    }
+
 //
 //    public void init(String key, String name, int channel, int limit) {
 //        daten = bs.getByFahrradDatenChannelWithLimit(channel, limit);
