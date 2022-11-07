@@ -24,6 +24,7 @@ public class BicycleDetailData {
     public BicycleDetailData(List<Bicycle> daten, String name) {
         intervals = new ArrayList<>();
         values = new ArrayList<>();
+
         this.daten = daten;
         this.name = name;
     }

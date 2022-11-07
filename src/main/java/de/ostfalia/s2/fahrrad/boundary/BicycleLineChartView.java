@@ -34,15 +34,14 @@ public class BicycleLineChartView {
     @Inject
     BicycleService bs;
 
-    BicycleDetailData detailData;
     HashMap<Integer, BicycleDetailData> detailDatas = new HashMap<>();
     List<Bicycle> daten;
     private final HashMap<String, LineChartModel> lineModelList = new HashMap<>();
 
-    public void init(String key, String name, long step,  String type, int...channels) {
+    public void init(String key, String name, long step, String type, int... channels) {
         LocalDateTime from = LocalDateTime.now().minus(12, ChronoUnit.HOURS);
         LocalDateTime to = LocalDateTime.now();
-        for (int channel: channels) {
+        for (int channel : channels) {
             daten = bs.getFahrradDaten(channel, from, to, step);
             Collections.reverse(daten);
             BicycleDetailData detailData;
@@ -59,13 +58,18 @@ public class BicycleLineChartView {
         initBicycleData(key, name);
     }
 
+    private static final String[] COLORS = new String[]{"26, 79, 163", "33, 176, 28", "189, 25, 25", "166, 22, 166"};
+
     public void initBicycleData(String key, String name) {
         LineChartModel lineModel = new LineChartModel();
         ChartData data = new ChartData();
+        int colorCount = 0;
 
-        List<Object> values = new ArrayList<>();
-        List<String> labels = new ArrayList<>();
-        for (BicycleDetailData detailData : detailDatas.values()) {
+        for (int channel : detailDatas.keySet()) {
+            BicycleDetailData detailData = detailDatas.get(channel);
+            List<Object> values = new ArrayList<>();
+            List<String> labels = new ArrayList<>();
+
             for (int i = 0; i < detailData.getSize(); i++) {
                 String label = detailData.getIntervalString(i);
                 Object value = detailData.getValue(i);
@@ -77,16 +81,13 @@ public class BicycleLineChartView {
             LineChartDataSet dataSet = new LineChartDataSet();
             dataSet.setData(values);
             dataSet.setFill(false);
-            dataSet.setLabel(detailData.getName());
-            dataSet.setBorderColor("rgb(166, 184, 40");
+            dataSet.setLabel(detailData.getName() + " " + channel);
+            dataSet.setBorderColor("rgb(" + COLORS[colorCount++]);
             dataSet.setYaxisID("small-scale");
             data.addChartDataSet(dataSet);
 
-
-
             data.setLabels(labels);
         }
-
 
         LineChartOptions options = new LineChartOptions();
 
@@ -118,7 +119,6 @@ public class BicycleLineChartView {
         title.setDisplay(true);
         title.setText(name);
 
-
         options.setTitle(title);
 
         lineModel.setOptions(options);
@@ -128,7 +128,7 @@ public class BicycleLineChartView {
         lineModelList.put(key, lineModel);
     }
 
-    public LineChartModel getLineModel(String name, long step, String type,int... channels) {
+    public LineChartModel getLineModel(String name, long step, String type, int... channels) {
         String key = channels[0] + "#" + name;
         if (!lineModelList.containsKey(key))
             init(key, name, step, type, channels);
