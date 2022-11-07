@@ -11,6 +11,8 @@ import java.time.LocalDateTime;
 @NamedQuery(name = "bicycle.getByBicycleChannelWithTimeLimits", query = "select bc from Bicycle bc where channel = :channelBicycle AND bc.timestamp >= :from AND bc.timestamp <= :to")
 @NamedQuery(name = "bicycle.getByBicycleChannelBeforeTime", query = "select bc from Bicycle bc where channel = :channelBicycle AND bc.timestamp <= :tBefore")
 @NamedQuery(name = "bicycle.getByBicycleChannelWithLimit", query = "select bc from Bicycle bc where channel = :channelBicycle ORDER BY bc.timestamp DESC")
+@NamedQuery(name = "bicycle.getByBicycleChannelWithTimestamp", query = "select bc from Bicycle where channel = :channelBicycle AND bc.timestamp = :timestamp")
+
 
 @Entity
 @Table(name = "bicycle")

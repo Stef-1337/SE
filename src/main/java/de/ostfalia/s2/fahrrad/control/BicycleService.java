@@ -9,8 +9,10 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
+import java.util.GregorianCalendar;
 
 public class BicycleService extends AbstractReadOnlyService<Bicycle, BicycleID> {
 //test
@@ -41,6 +43,47 @@ public class BicycleService extends AbstractReadOnlyService<Bicycle, BicycleID> 
         query.setParameter("to", to == null ? LocalDateTime.now() : to);
         Logger.getLogger(BicycleService.class.getSimpleName()).info("Found Entrys " + query.getResultList().size());
         return query.getResultList();
+    }
+
+    public Bicycle getByFahrradDatenChannelWithTimestamp(int channel, LocalDateTime timestamp) {
+        TypedQuery<Bicycle> query = em.createNamedQuery("bicycle.getByBicycleChannelWithTimestamp", Bicycle.class);
+        query.setParameter("channelBicycle", channel);
+        query.setParameter("timestamp", timestamp);
+        List<Bicycle> resultList = query.getResultList();
+
+        if(resultList.isEmpty()){
+            return null;
+        }
+        return resultList.get(0);
+    }
+    //Variante 3
+    public List<Bicycle> getByFahrradDatenChannelWithTimeUsage(int channel, LocalDateTime timestamp, boolean before){
+        Bicycle tempBicycle = getByFahrradDatenChannelWithTimestamp(channel, timestamp);
+        while(tempBicycle == null) {
+            if(before == true) {
+                timestamp.minusSeconds(1);
+            } else {
+                timestamp.plusSeconds(1);
+            }
+
+            tempBicycle = getByFahrradDatenChannelWithTimestamp(channel, timestamp);
+        }
+
+        List<Bicycle> resultList = new ArrayList<>();
+
+        while (tempBicycle != null){
+            resultList.add(tempBicycle);
+
+            if(before == true) {
+                timestamp.minusSeconds(1);
+            } else {
+                timestamp.plusSeconds(1);
+            }
+
+            tempBicycle = getByFahrradDatenChannelWithTimestamp(channel, timestamp);
+        }
+
+        return resultList;
     }
 
     public List<Bicycle> getByChannel(int channel){
