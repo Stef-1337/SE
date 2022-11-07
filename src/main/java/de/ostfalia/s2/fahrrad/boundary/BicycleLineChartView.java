@@ -41,6 +41,7 @@ public class BicycleLineChartView {
     public void init(String key, String name, long step, String type, int... channels) {
         LocalDateTime from = LocalDateTime.now().minus(12, ChronoUnit.HOURS);
         LocalDateTime to = LocalDateTime.now();
+
         for (int channel : channels) {
             daten = bs.getFahrradDaten(channel, from, to, step);
             Collections.reverse(daten);

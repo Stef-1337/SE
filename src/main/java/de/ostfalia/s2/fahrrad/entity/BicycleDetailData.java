@@ -43,26 +43,27 @@ public class BicycleDetailData {
 
     /**
      * X- Y- Achen Daten als durchschnitte über das angegebene Interval
+     *
      * @param data Fahrraddaten
      * @param step Interval
      * @return
      */
-    public static BicycleDetailData DEFAULT(List<Bicycle> data, long step){
+    public static BicycleDetailData DEFAULT(List<Bicycle> data, long step) {
         BicycleDetailData detailData = new BicycleDetailData(data, "Umdrehungen");
         System.out.println("Default");
 
         data.sort(Comparator.comparing(Bicycle::getTimestamp));
 
-        LocalDateTime last = LocalDateTime.MIN;
+        LocalDateTime last = data.get(0).getTimestamp();
 
         double rotations = 0, count = 0; //avg
 
-        for(int i = 0; i < data.size(); i++){
+        for (int i = 0; i < data.size(); i++) {
             Bicycle bike = data.get(i);
             rotations += bike.getRotations_per_second();
             count++;
 
-            if(bike.getTimestamp().isAfter(last.plus(step, ChronoUnit.MILLIS))){
+            if (bike.getTimestamp().isAfter(last.plus(step, ChronoUnit.MILLIS))) {
                 double average = rotations / count;
 
                 detailData.getValues().add(average);
@@ -108,7 +109,7 @@ public class BicycleDetailData {
         return detailData;
     }
 
-    public static BicycleDetailData SPEED(List<Bicycle> data, long step){
+    public static BicycleDetailData SPEED(List<Bicycle> data, long step) {
         BicycleDetailData detailData = new BicycleDetailData(data, "Geschwindigkeit");
         BicycleDetailData distanceData = DISTANCE(data, step);
 
@@ -130,7 +131,7 @@ public class BicycleDetailData {
 
                 if (end != null) {
                     double distance = (double) distanceData.getValue(i);
-                    speed = distance/ count;
+                    speed = distance / count;
                     final double finalSpeed = speed;
                     detailData.getValues().add(finalSpeed);
                     detailData.getIntervals().add(start.format(formatter));
