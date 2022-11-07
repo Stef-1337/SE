@@ -45,26 +45,7 @@ public class BicycleLineChartView {
         daten = bs.getFahrradDaten(channel, from, to, step);
         Collections.reverse(daten);
 
-        switch (type){
-            case "DISTANCE":
-                detailData = BicycleDetailData.DISTANCE(daten, step);
-                break;
-            default:
-                detailData = BicycleDetailData.DEFAULT(daten, step);
-                break;
-        }
-
-        initBicycleData(key, name);
-    }
-
-    public void initTest(String key, String name, long step, int channel, String type) {
-        LocalDateTime from = LocalDateTime.now().minus(12, ChronoUnit.HOURS);
-        LocalDateTime to = LocalDateTime.now();
-
-        daten = bs.getFahrradDaten(channel, from, to, step);
-        Collections.reverse(daten);
-
-        switch (type){
+        switch (type) {
             case "DISTANCE":
                 detailData = BicycleDetailData.DISTANCE(daten, step);
                 break;
@@ -140,111 +121,112 @@ public class BicycleLineChartView {
 
         lineModelList.put(key, lineModel);
     }
-        public LineChartModel getLineModel(int channel, String name, long step, String type){
-        String key = channel + "";
-        if(!lineModelList.containsKey(key))
+
+    public LineChartModel getLineModel(int channel, String name, long step, String type) {
+        String key = channel + "#" + name;
+        if (!lineModelList.containsKey(key))
             init(key, name, step, channel, type);
 
         return lineModelList.get(key);
     }
 
-
-    public void init(String key, String name, int channel, int limit) {
-        daten = bs.getByFahrradDatenChannelWithLimit(channel, limit);
-        Collections.reverse(daten);
-        init(key, name);
-    }
-
-    public void init(String key, String name, int channel) {
-        daten = bs.getByChannel(channel);
-        init(key, name);
-    }
-
-    public void init(String key, String name, int channel, LocalDateTime from) {
-        daten = bs.getByFahrradDatenChannelWithTimeLimits(channel, from, null);
-        init(key, name);
-    }
-
-    public void init(String key, String name, int channelBicycle, LocalDateTime from, LocalDateTime to) {
-        daten = bs.getByFahrradDatenChannelWithTimeLimits(channelBicycle, from, to);
-        init(key, name);
-    }
-
-
-    public void init(String key, String name) {
-        LineChartModel lineModle = new LineChartModel();
-
-        ChartData data = new ChartData();
-
-        List<Object> values_rotations_per_second = new ArrayList<>();
-        List<String> labels = new ArrayList<>();
-
-        DateTimeFormatter formatter = name.contains("Tage") ? DateTimeFormatter.ofPattern("yyyyy MM dd") : DateTimeFormatter.ofPattern("HH:mm");
-
-        for (int i = 0; i < daten.size(); i++) {
-            Bicycle bc = daten.get(i);
-            values_rotations_per_second.add(bc.getRotations_per_second());
-            labels.add(bc.getTimestamp().format(formatter));
-        }
-
-        LineChartDataSet dataSet = new LineChartDataSet();
-        dataSet.setData(values_rotations_per_second);
-        dataSet.setFill(false);
-        dataSet.setLabel("Rotations per Second");
-        dataSet.setBorderColor("rgb(166, 184, 40");
-        dataSet.setYaxisID("small-scale");
-        data.addChartDataSet(dataSet);
-
-        data.setLabels(labels);
-
-        LineChartOptions options = new LineChartOptions();
-
-        CartesianScales cartesianScales = new CartesianScales();
-        CartesianLinearAxes linearAxes = new CartesianLinearAxes();
-        linearAxes.setId("large-scale");
-        linearAxes.setPosition("left");
-        CartesianScaleLabel yLeftLabel = new CartesianScaleLabel();
-        yLeftLabel.setDisplay(true);
-        yLeftLabel.setLabelString("Rotations per Second");
-        yLeftLabel.setFontColor("rgb(65, 139, 178)");
-        linearAxes.setScaleLabel(yLeftLabel);
-
-        CartesianLinearAxes linearAxes2 = new CartesianLinearAxes();
-        linearAxes2.setId("small-scale");
-        linearAxes2.setPosition("right");
-        CartesianScaleLabel yRightLabel = new CartesianScaleLabel();
-        yRightLabel.setDisplay(true);
-        yRightLabel.setLabelString("Zu-/Abfluss in m^3/sec");
-
-
-        linearAxes2.setScaleLabel(yRightLabel);
-        cartesianScales.addYAxesData(linearAxes);
-        cartesianScales.addYAxesData(linearAxes2);
-
-        options.setScales(cartesianScales);
-
-        Title title = new Title();
-        title.setDisplay(true);
-        title.setText(name);
-
-
-        options.setTitle(title);
-
-        lineModle.setOptions(options);
-        lineModle.setData(data);
-
-
-        lineModelList.put(key, lineModle);
-    }
-
-    public LineChartModel getLineModellLimit(int channelBicycle, int limit, String name) {
-        String key = channelBicycle + "#L" + limit;
-        if (!lineModelList.containsKey(key)) {
-            init(key, name, channelBicycle, limit);
-        }
-        return lineModelList.get(key);
-    }
-
+//
+//    public void init(String key, String name, int channel, int limit) {
+//        daten = bs.getByFahrradDatenChannelWithLimit(channel, limit);
+//        Collections.reverse(daten);
+//        init(key, name);
+//    }
+//
+//    public void init(String key, String name, int channel) {
+//        daten = bs.getByChannel(channel);
+//        init(key, name);
+//    }
+//
+//    public void init(String key, String name, int channel, LocalDateTime from) {
+//        daten = bs.getByFahrradDatenChannelWithTimeLimits(channel, from, null);
+//        init(key, name);
+//    }
+//
+//    public void init(String key, String name, int channelBicycle, LocalDateTime from, LocalDateTime to) {
+//        daten = bs.getByFahrradDatenChannelWithTimeLimits(channelBicycle, from, to);
+//        init(key, name);
+//    }
+//
+//
+//    public void init(String key, String name) {
+//        LineChartModel lineModle = new LineChartModel();
+//
+//        ChartData data = new ChartData();
+//
+//        List<Object> values_rotations_per_second = new ArrayList<>();
+//        List<String> labels = new ArrayList<>();
+//
+//        DateTimeFormatter formatter = name.contains("Tage") ? DateTimeFormatter.ofPattern("yyyyy MM dd") : DateTimeFormatter.ofPattern("HH:mm");
+//
+//        for (int i = 0; i < daten.size(); i++) {
+//            Bicycle bc = daten.get(i);
+//            values_rotations_per_second.add(bc.getRotations_per_second());
+//            labels.add(bc.getTimestamp().format(formatter));
+//        }
+//
+//        LineChartDataSet dataSet = new LineChartDataSet();
+//        dataSet.setData(values_rotations_per_second);
+//        dataSet.setFill(false);
+//        dataSet.setLabel("Rotations per Second");
+//        dataSet.setBorderColor("rgb(166, 184, 40");
+//        dataSet.setYaxisID("small-scale");
+//        data.addChartDataSet(dataSet);
+//
+//        data.setLabels(labels);
+//
+//        LineChartOptions options = new LineChartOptions();
+//
+//        CartesianScales cartesianScales = new CartesianScales();
+//        CartesianLinearAxes linearAxes = new CartesianLinearAxes();
+//        linearAxes.setId("large-scale");
+//        linearAxes.setPosition("left");
+//        CartesianScaleLabel yLeftLabel = new CartesianScaleLabel();
+//        yLeftLabel.setDisplay(true);
+//        yLeftLabel.setLabelString("Rotations per Second");
+//        yLeftLabel.setFontColor("rgb(65, 139, 178)");
+//        linearAxes.setScaleLabel(yLeftLabel);
+//
+//        CartesianLinearAxes linearAxes2 = new CartesianLinearAxes();
+//        linearAxes2.setId("small-scale");
+//        linearAxes2.setPosition("right");
+//        CartesianScaleLabel yRightLabel = new CartesianScaleLabel();
+//        yRightLabel.setDisplay(true);
+//        yRightLabel.setLabelString("Zu-/Abfluss in m^3/sec");
+//
+//
+//        linearAxes2.setScaleLabel(yRightLabel);
+//        cartesianScales.addYAxesData(linearAxes);
+//        cartesianScales.addYAxesData(linearAxes2);
+//
+//        options.setScales(cartesianScales);
+//
+//        Title title = new Title();
+//        title.setDisplay(true);
+//        title.setText(name);
+//
+//
+//        options.setTitle(title);
+//
+//        lineModle.setOptions(options);
+//        lineModle.setData(data);
+//
+//
+//        lineModelList.put(key, lineModle);
+//    }
+//
+//    public LineChartModel getLineModellLimit(int channelBicycle, int limit, String name) {
+//        String key = channelBicycle + "#L" + limit;
+//        if (!lineModelList.containsKey(key)) {
+//            init(key, name, channelBicycle, limit);
+//        }
+//        return lineModelList.get(key);
+//    }
+//
 //    public LineChartModel getLineModel(int channel, String type){
 //        String key = channel + "";
 //        if(!lineModelList.containsKey(key))
@@ -252,33 +234,33 @@ public class BicycleLineChartView {
 //
 //        return lineModelList.get(key);
 //    }
-
-    public LineChartModel getLineModel24hTest(int channelBicycle){
-        String key = channelBicycle + "#12hTest";
-        if(!lineModelList.containsKey(key))
-            initTest(key, "12 Stunden", 1000 * 60 * 60, channelBicycle, "DISTANCE");
-
-        return lineModelList.get(key);
-    }
-
-    public LineChartModel getLineModel24hDefault(int channelBicycle){
-        String key = channelBicycle + "#12hDefault";
-        if(!lineModelList.containsKey(key))
-            initTest(key, "12 Stunden", 1000 * 60 * 60, channelBicycle, "DEFAULT");
-
-        return lineModelList.get(key);
-    }
-
-    public LineChartModel getLineModel24h(int channelBicycle) {
-        String key = channelBicycle + "#12h";
-        if (!lineModelList.containsKey(key)) {
-            //init(key, "24 Stunden", channelBicycle, 96);
-            LocalDateTime now = LocalDateTime.now();
-
-            init(key, "12 Stunden", channelBicycle, now.minusHours(12), now);
-        }
-        return lineModelList.get(key);
-    }
+//
+//    public LineChartModel getLineModel24hTest(int channelBicycle){
+//        String key = channelBicycle + "#12hTest";
+//        if(!lineModelList.containsKey(key))
+//            initTest(key, "12 Stunden", 1000 * 60 * 60, channelBicycle, "DISTANCE");
+//
+//        return lineModelList.get(key);
+//    }
+//
+//    public LineChartModel getLineModel24hDefault(int channelBicycle){
+//        String key = channelBicycle + "#12hDefault";
+//        if(!lineModelList.containsKey(key))
+//            initTest(key, "12 Stunden", 1000 * 60 * 60, channelBicycle, "DEFAULT");
+//
+//        return lineModelList.get(key);
+//    }
+//
+//    public LineChartModel getLineModel24h(int channelBicycle) {
+//        String key = channelBicycle + "#12h";
+//        if (!lineModelList.containsKey(key)) {
+//            //init(key, "24 Stunden", channelBicycle, 96);
+//            LocalDateTime now = LocalDateTime.now();
+//
+//            init(key, "12 Stunden", channelBicycle, now.minusHours(12), now);
+//        }
+//        return lineModelList.get(key);
+//    }
 //
 //    public LineChartModel getLineModel(int chanelBicycle) {
 //        String key = "" + chanelBicycle;
