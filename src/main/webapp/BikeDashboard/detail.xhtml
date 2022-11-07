@@ -15,7 +15,7 @@
         Geladen bicycle mit dem Channel #{bicycleDetailView.status.channel}
         Rotationsfrequenz: #{bicycleDetailView.status.channel}
 
-        <p:lineChart model="#{bicycleLineChartView.getLineModel(test, 3600000, 'DEFAULT', 5,6)}"/>
+        <p:lineChart model="#{bicycleLineChartView.getLineModel('Fahraddaten', bicycleDetailView.step, bicycleDetailView.type, bicycleDetailView.channel)}"/>
 
     </ui:define>
     <ui:define name="footer">

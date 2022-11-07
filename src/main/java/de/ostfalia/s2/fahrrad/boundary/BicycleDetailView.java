@@ -22,6 +22,14 @@ public class BicycleDetailView {
 
     @Getter
     @Setter
+    long step = 3600000;
+
+    @Getter
+    @Setter
+    String type = "DEFAULT";
+
+    @Getter
+    @Setter
     String info;
 
     public Bicycle getStatus(){
