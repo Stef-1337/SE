@@ -54,24 +54,26 @@ public class BicycleDetailData {
 
         data.sort(Comparator.comparing(Bicycle::getTimestamp));
 
-        LocalDateTime last = data.get(0).getTimestamp();
+        if(data.size() > 0) {
+            LocalDateTime last = data.get(0).getTimestamp();
 
-        double rotations = 0, count = 0; //avg
+            double rotations = 0, count = 0; //avg
 
-        for (int i = 0; i < data.size(); i++) {
-            Bicycle bike = data.get(i);
-            rotations += bike.getRotations_per_second();
-            count++;
+            for (int i = 0; i < data.size(); i++) {
+                Bicycle bike = data.get(i);
+                rotations += bike.getRotations_per_second();
+                count++;
 
-            if (bike.getTimestamp().isAfter(last.plus(step, ChronoUnit.MILLIS))) {
-                double average = rotations / count;
+                if (bike.getTimestamp().isAfter(last.plus(step, ChronoUnit.MILLIS))) {
+                    double average = rotations / count;
 
-                detailData.getValues().add(average);
-                detailData.getIntervals().add(FORMATTER.format(bike.getTimestamp()));
+                    detailData.getValues().add(average);
+                    detailData.getIntervals().add(FORMATTER.format(bike.getTimestamp()));
 
-                last = bike.getTimestamp();
-                count = 0;
-                rotations = 0;
+                    last = bike.getTimestamp();
+                    count = 0;
+                    rotations = 0;
+                }
             }
         }
 
