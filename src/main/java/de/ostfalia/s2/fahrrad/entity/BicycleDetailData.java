@@ -97,4 +97,39 @@ public class BicycleDetailData {
 
         return detailData;
     }
+
+    public static BicycleDetailData SPEED(List<Bicycle> data){
+        BicycleDetailData detailData = new BicycleDetailData(data);
+        BicycleDetailData distanceData = DISTANCE(data);
+        long interval = 1000 * 60 * 60;
+
+        LocalDateTime start, end = null;
+
+        double speed = 0;
+
+        Collections.sort(data, Comparator.comparing(Bicycle::getTimestamp));
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+
+        int count = 0;
+        for (int i = 0; i < data.size(); i++) {
+            Bicycle bike = data.get(i);
+            count++;
+            if (end == null || bike.getTimestamp().isAfter(end)) {
+                end = bike.getTimestamp().plus(interval, ChronoUnit.MILLIS);
+                start = bike.getTimestamp();
+
+                if (end != null) {
+                    double distance = (double) distanceData.getValue(i);
+                    speed = distance/ count;
+                    final double finalSpeed = speed;
+                    detailData.getValues().add(finalSpeed);
+                    detailData.getIntervals().add(start.format(formatter));
+                    count = 0;
+                }
+            }
+        }
+        return detailData;
+    }
+
 }
