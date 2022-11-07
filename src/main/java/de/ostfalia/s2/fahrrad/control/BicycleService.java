@@ -9,6 +9,10 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -26,6 +30,36 @@ public class BicycleService extends AbstractReadOnlyService<Bicycle, BicycleID> 
         return em;
     }
 
+    /**
+     *
+     * @param channel Bicycle channel
+     * @param from Min timestamp
+     * @param to Max timestamp
+     * @param step Step between each entry in millis
+     * @return Matching bicycles
+     */
+    public List<Bicycle> getFahrradDaten(int channel, LocalDateTime from, LocalDateTime to, long step){
+        TypedQuery<Bicycle> query = em.createNamedQuery("bicycle.getByBicycleChannelWithTimeLimits", Bicycle.class);
+
+        query.setParameter("channelBicycle", channel);
+        query.setParameter("from", from == null ? LocalDateTime.MIN : from);
+        query.setParameter("to", to == null ? LocalDateTime.now() : to);
+
+        return query.getResultList();
+
+
+//        List<Bicycle> results = new ArrayList<>();
+//        bicycles.sort(Comparator.comparing(Bicycle::getTimestamp));
+//        LocalDateTime last = LocalDateTime.MIN;
+//        for(Bicycle bike : bicycles){
+//            if(bike.getTimestamp().isAfter(last.plus(step, ChronoUnit.MILLIS))){
+//                results.add(bike);
+//                last = bike.getTimestamp();
+//            }
+//        }
+
+//        return results;
+    }
 
     public List<Bicycle> getByFahrradDatenChannelWithLimit(int channel, int limit) {
         TypedQuery<Bicycle> query = em.createNamedQuery("bicycle.getByBicycleChannelWithLimit", Bicycle.class);

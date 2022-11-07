@@ -49,14 +49,23 @@ public class BicycleLineChartView {
         init(key, name);
     }
 
-    public void initTest(String key, String name, int channel) {
+    public void initTest(String key, String name, int channel, String type) {
         LocalDateTime from = LocalDateTime.now().minus(12, ChronoUnit.HOURS);
         LocalDateTime to = LocalDateTime.now();
 
-        daten = bs.getByFahrradDatenChannelWithTimeLimits(channel, from, to);
+        long step = 1000 * 60 * 60;
+
+        daten = bs.getFahrradDaten(channel, from, to, step);
         Collections.reverse(daten);
 
-        detailData = BicycleDetailData.DISTANCE(daten);
+        switch (type){
+            case "DISTANCE":
+                detailData = BicycleDetailData.DISTANCE(daten, step);
+                break;
+            default:
+                detailData = BicycleDetailData.DEFAULT(daten, step);
+                break;
+        }
 
         initBicycleData(key, name);
     }
@@ -213,7 +222,15 @@ public class BicycleLineChartView {
     public LineChartModel getLineModel24hTest(int channelBicycle){
         String key = channelBicycle + "#12hTest";
         if(!lineModelList.containsKey(key))
-            initTest(key, "12 Stunden", channelBicycle);
+            initTest(key, "12 Stunden", channelBicycle, "DISTANCE");
+
+        return lineModelList.get(key);
+    }
+
+    public LineChartModel getLineModel24hDefault(int channelBicycle){
+        String key = channelBicycle + "#12hDefault";
+        if(!lineModelList.containsKey(key))
+            initTest(key, "12 Stunden", channelBicycle, "DEFAULT");
 
         return lineModelList.get(key);
     }
