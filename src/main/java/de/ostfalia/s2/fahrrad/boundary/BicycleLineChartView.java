@@ -16,6 +16,7 @@ import org.primefaces.model.charts.line.LineChartModel;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.sound.sampled.Line;
 import java.time.Clock;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -35,7 +36,11 @@ public class BicycleLineChartView {
     BicycleService bs;
 
     BicycleDetailData detailData;
+    BicycleDetailData detailData2;
+
     List<Bicycle> daten;
+    List<Bicycle> daten2;
+
     private final HashMap<String, LineChartModel> lineModelList = new HashMap<>();
 
     public void init(String key, String name, int channel, int limit) {
@@ -68,6 +73,34 @@ public class BicycleLineChartView {
         }
 
         initBicycleData(key, name);
+    }
+
+    public void initTest(String key, String name, int channel1, int channel2, String type) {
+        LocalDateTime from = LocalDateTime.now().minus(12, ChronoUnit.HOURS);
+        LocalDateTime to = LocalDateTime.now();
+
+        long step = 1000 * 60 * 60;
+
+        daten = bs.getFahrradDaten(channel1, from, to, step);
+        Collections.reverse(daten);
+
+        daten2 = bs.getFahrradDaten(channel2,from,to,step);
+        Collections.reverse(daten2);
+
+
+
+        switch (type){
+            case "DISTANCE":
+                detailData = BicycleDetailData.DISTANCE(daten, step);
+                detailData2 = BicycleDetailData.DISTANCE(daten2, step);
+                break;
+            default:
+                detailData = BicycleDetailData.DEFAULT(daten, step);
+                detailData2 = BicycleDetailData.DEFAULT(daten2, step);
+                break;
+        }
+
+        initBicycleDataVergleich(key, name);
     }
 
     public void init(String key, String name, int channel, LocalDateTime from) {
@@ -144,6 +177,90 @@ public class BicycleLineChartView {
 
         lineModelList.put(key, lineModel);
     }
+
+    public void initBicycleDataVergleich(String key, String name) {
+        LineChartModel lineModel = new LineChartModel();
+        ChartData data = new ChartData();
+
+        List<Object> values = new ArrayList<>();
+        List<Object> values2 = new ArrayList<>();
+
+        List<String> labels = new ArrayList<>();
+        List<String> labels2 = new ArrayList<>();
+
+        for (int i = 0; i < detailData.getSize(); i++) {
+            String label = detailData.getIntervalString(i);
+            String label2 = detailData2.getIntervalString(i);
+
+            Object value = detailData.getValue(i);
+            Object value2 = detailData2.getValue(i);
+
+            labels.add(label);
+            labels2.add(label2);
+
+            values.add(value);
+            values2.add(value2);
+        }
+
+        LineChartDataSet dataSet = new LineChartDataSet();
+        dataSet.setData(values);
+        dataSet.setFill(false);
+        dataSet.setLabel("Distance");
+        dataSet.setBorderColor("rgb(166, 184, 40");
+        dataSet.setYaxisID("small-scale");
+        data.addChartDataSet(dataSet);
+
+
+        dataSet = new LineChartDataSet();
+        dataSet.setData(values2);
+        dataSet.setFill(false);
+        dataSet.setLabel("Distance");
+        dataSet.setBorderColor("rgb(65, 139, 178");
+        dataSet.setYaxisID("small-scale");
+        data.addChartDataSet(dataSet);
+
+        data.setLabels(labels);
+
+        LineChartOptions options = new LineChartOptions();
+
+        CartesianScales cartesianScales = new CartesianScales();
+        CartesianLinearAxes linearAxes = new CartesianLinearAxes();
+        linearAxes.setId("large-scale");
+        linearAxes.setPosition("left");
+        CartesianScaleLabel yLeftLabel = new CartesianScaleLabel();
+        yLeftLabel.setDisplay(true);
+        yLeftLabel.setLabelString("Rotations per Second");
+        yLeftLabel.setFontColor("rgb(65, 139, 178)");
+        linearAxes.setScaleLabel(yLeftLabel);
+
+        CartesianLinearAxes linearAxes2 = new CartesianLinearAxes();
+        linearAxes2.setId("small-scale");
+        linearAxes2.setPosition("right");
+        CartesianScaleLabel yRightLabel = new CartesianScaleLabel();
+        yRightLabel.setDisplay(true);
+        yRightLabel.setLabelString("Zu-/Abfluss in m^3/sec");
+
+
+        linearAxes2.setScaleLabel(yRightLabel);
+        cartesianScales.addYAxesData(linearAxes);
+        cartesianScales.addYAxesData(linearAxes2);
+
+        options.setScales(cartesianScales);
+
+        Title title = new Title();
+        title.setDisplay(true);
+        title.setText(name);
+
+
+        options.setTitle(title);
+
+        lineModel.setOptions(options);
+        lineModel.setData(data);
+
+
+        lineModelList.put(key, lineModel);
+    }
+
 
     public void init(String key, String name) {
         LineChartModel lineModle = new LineChartModel();
@@ -226,7 +343,12 @@ public class BicycleLineChartView {
 
         return lineModelList.get(key);
     }
-
+public LineChartModel getLineModelVergleich(int channelBicycle1, int channelBicycle2){
+        String key = "Vergleich " + channelBicycle1 + " mit " + channelBicycle2;
+        if(!lineModelList.containsKey(key))
+            initTest(key, "Vergleich", channelBicycle1, channelBicycle2, "DISTANCE");
+        return lineModelList.get(key);
+}
     public LineChartModel getLineModel24hDefault(int channelBicycle){
         String key = channelBicycle + "#12hDefault";
         if(!lineModelList.containsKey(key))

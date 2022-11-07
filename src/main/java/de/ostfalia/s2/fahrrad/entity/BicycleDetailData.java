@@ -97,7 +97,7 @@ public class BicycleDetailData {
 
         return detailData;
     }
-
+/*
     public static BicycleDetailData SPEED(List<Bicycle> data){
         BicycleDetailData detailData = new BicycleDetailData(data);
         BicycleDetailData distanceData = DISTANCE(data);
@@ -130,6 +130,6 @@ public class BicycleDetailData {
             }
         }
         return detailData;
-    }
+    }*/
 
 }
