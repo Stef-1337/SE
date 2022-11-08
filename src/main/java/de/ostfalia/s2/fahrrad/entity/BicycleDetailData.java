@@ -36,6 +36,7 @@ public class BicycleDetailData {
         this(daten, name);
 
         this.step = step;
+        this.type = type;
 
         daten.sort(Comparator.comparing(Bicycle::getTimestamp));
         if(daten.size() > 0){

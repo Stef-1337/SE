@@ -126,7 +126,7 @@
             <p:outputPanel styleClass="mb-3">
             <p:autoUpdate/>
             <p:lineChart id="chart"
-                         model="#{bicycleLineChartView.getLineModel('Fahraddaten', bicycleDetailView.step, bicycleDetailView.type, bicycleDetailView.channel)}"/>
+                         model="#{bicycleLineChartView.getLineModel('Fahraddaten', bicycleDetailView.step, bicycleDetailView.keyFigure, bicycleDetailView.channel)}"/>
             <!--            Auto-Update-->
             <!--            <p:poll interval="1" update="chartForm"/>-->
                 Time: #{bicycleDetailView.time}

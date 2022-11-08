@@ -6,7 +6,7 @@ import lombok.Getter;
 
 
 public enum Kennzahl {
-    ROTATIONS(null),
+    ROTATIONS(new KennzahlRotations()),
     SPEED(null),
     DISTANCE(null),
     TIME(null);
