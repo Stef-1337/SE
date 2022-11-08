@@ -37,14 +37,16 @@ public class BicycleLineChartView {
     private final HashMap<String, LineChartModel> lineModelList = new HashMap<>();
 
     public void init(String key, String name, long step, Kennzahl type, List<Date> timeRange, Integer... channels) {
-        timeRange.sort(Comparator.naturalOrder());
-
         LocalDateTime from = LocalDateTime.now().minus(12, ChronoUnit.HOURS);
         LocalDateTime to = LocalDateTime.now();
 
-        if (timeRange.size() > 0) {
-            from = timeRange.get(0).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-            to = timeRange.get(1).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        if (timeRange != null) {
+            timeRange.sort(Comparator.naturalOrder());
+
+            if (timeRange.size() > 0) {
+                from = timeRange.get(0).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+                to = timeRange.get(1).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+            }
         }
 
         for (Integer channel : channels) {
