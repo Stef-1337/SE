@@ -20,7 +20,7 @@ import java.util.Date;
 import java.util.List;
 
 @Named
-@SessionScoped
+@SessionScoped //
 public class BicycleDetailView implements Serializable {
 
     @Inject
