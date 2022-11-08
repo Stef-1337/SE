@@ -40,13 +40,15 @@ public class BicycleLineChartView {
     List<Bicycle> daten;
     private final HashMap<String, LineChartModel> lineModelList = new HashMap<>();
 
-    public void init(String key, String name, long step, String type, int... channels) {
+    public void init(String key, String name, long step, Kennzahl type, int... channels) {
         LocalDateTime from = LocalDateTime.now().minus(12, ChronoUnit.HOURS);
         LocalDateTime to = LocalDateTime.now();
 
         for (int channel : channels) {
             daten = bs.getFahrradDaten(channel, from, to, step);
             Collections.reverse(daten);
+            detailDatas.put(channel, new BicycleDetailData(daten, name, step, type.getType()));
+            /*
             BicycleDetailData detailData;
             switch (type) {
                 case "DISTANCE":
@@ -57,6 +59,7 @@ public class BicycleLineChartView {
                     break;
             }
             detailDatas.put(channel, detailData);
+            */
         }
         initBicycleData(key, name);
     }
@@ -131,7 +134,7 @@ public class BicycleLineChartView {
         lineModelList.put(key, lineModel);
     }
 
-    public LineChartModel getLineModel(String name, long step, String type, int... channels) {
+    public LineChartModel getLineModel(String name, long step, Kennzahl type, int... channels) {
         String key = channels[0] + "#" + name;
         if (!lineModelList.containsKey(key))
             init(key, name, step, type, channels);
@@ -139,7 +142,7 @@ public class BicycleLineChartView {
         return lineModelList.get(key);
     }
 
-    public LineChartModel getLineModel(String name, long step, String type, int channel1, int channel2) {
+    public LineChartModel getLineModel(String name, long step, Kennzahl type, int channel1, int channel2) {
         return getLineModel(name, step, type, new int[]{channel1, channel2});
     }
 

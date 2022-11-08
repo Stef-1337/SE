@@ -13,13 +13,16 @@ import java.util.List;
 @Getter
 public class BicycleDetailData {
 
-    private final static DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
+    public final static DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
+
+    private KennzahlType type;
 
     private List<String> intervals;
     private List<Object> values;
     private List<Bicycle> daten;
 
     private String name;
+    private Long step;
 
     public BicycleDetailData(List<Bicycle> daten, String name) {
         intervals = new ArrayList<>();
@@ -27,6 +30,17 @@ public class BicycleDetailData {
 
         this.daten = daten;
         this.name = name;
+    }
+
+    public BicycleDetailData(List<Bicycle> daten, String name, long step, KennzahlType type){
+        this(daten, name);
+
+        this.step = step;
+
+        daten.sort(Comparator.comparing(Bicycle::getTimestamp));
+        if(daten.size() > 0){
+            type.apply(this);
+        }
     }
 
     public int getSize() {

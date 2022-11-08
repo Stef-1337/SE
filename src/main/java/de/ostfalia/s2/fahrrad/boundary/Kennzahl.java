@@ -1,13 +1,24 @@
 package de.ostfalia.s2.fahrrad.boundary;
 
-import javax.decorator.Decorator;
-import javax.decorator.Delegate;
-import javax.enterprise.context.SessionScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
-
+import de.ostfalia.s2.fahrrad.entity.BicycleDetailData;
+import de.ostfalia.s2.fahrrad.entity.KennzahlType;
+import lombok.Getter;
 
 
 public enum Kennzahl {
-    ROTATIONS, SPEED, DISTANCE, TIME;
+    ROTATIONS(null),
+    SPEED(null),
+    DISTANCE(null),
+    TIME(null);
+
+    @Getter
+    private KennzahlType type;
+
+    private Kennzahl(KennzahlType type){
+        this.type = type;
+    }
+
+    public void apply(BicycleDetailData data){
+        type.apply(data);
+    }
 }
