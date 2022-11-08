@@ -143,6 +143,10 @@ public class BicycleLineChartView {
         return getLineModel(name, step, type, timeRange, new Integer[]{channel1, channel2});
     }
 
+    public LineChartModel getLineModel(String name, long step, long factor, Kennzahl type, List<Date> timeRange, Integer channel1, Integer channel2) {
+        return getLineModel(name, step * factor, type, timeRange, channel1, channel2);
+    }
+
 //
 //    public void init(String key, String name, int channel, int limit) {
 //        daten = bs.getByFahrradDatenChannelWithLimit(channel, limit);
