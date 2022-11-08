@@ -8,8 +8,8 @@ import lombok.Getter;
 public enum Kennzahl {
     ROTATIONS(new KennzahlRotations()),
     SPEED(new KennzahlSpeed()),
-    DISTANCE(new KennzahlSpeed()),
-    TIME(null);
+    DISTANCE(new KennzahlDistance()),
+    TIME(new KennzahlTime());
 
     @Getter
     private KennzahlType type;
