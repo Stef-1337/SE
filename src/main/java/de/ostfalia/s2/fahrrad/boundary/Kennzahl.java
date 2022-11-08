@@ -7,8 +7,8 @@ import lombok.Getter;
 
 public enum Kennzahl {
     ROTATIONS(new KennzahlRotations()),
-    SPEED(null),
-    DISTANCE(null),
+    SPEED(new KennzahlSpeed()),
+    DISTANCE(new KennzahlSpeed()),
     TIME(null);
 
     @Getter
