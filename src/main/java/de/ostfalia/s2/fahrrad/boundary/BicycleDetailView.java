@@ -6,17 +6,22 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 @Named
-@RequestScoped
-public class BicycleDetailView {
+@SessionScoped
+public class BicycleDetailView implements Serializable {
+
     @Inject
     BicycleService bs;
 
@@ -30,7 +35,11 @@ public class BicycleDetailView {
 
     @Getter
     @Setter
-    int channel;
+    Integer channel;
+
+    @Getter
+    @Setter
+    Integer channel2;
 
     @Getter
     @Setter

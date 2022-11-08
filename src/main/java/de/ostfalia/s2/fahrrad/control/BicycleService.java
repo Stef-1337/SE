@@ -4,9 +4,11 @@ import de.ostfalia.s2.control.AbstractReadOnlyService;
 import de.ostfalia.s2.fahrrad.entity.Bicycle;
 import de.ostfalia.s2.fahrrad.entity.BicycleID;
 
+import javax.enterprise.context.SessionScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import java.io.Serializable;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -16,7 +18,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Logger;
 
-public class BicycleService extends AbstractReadOnlyService<Bicycle, BicycleID> {
+@SessionScoped
+public class BicycleService extends AbstractReadOnlyService<Bicycle, BicycleID> implements Serializable {
 //test
     @PersistenceContext(unitName = "Fahrraddaten")
     EntityManager em;
