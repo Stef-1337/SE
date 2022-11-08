@@ -14,6 +14,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -35,7 +36,7 @@ public class BicycleDetailView implements Serializable {
 
     @Getter
     @Setter
-    Integer channel;
+    Integer channel = 7;
 
     @Getter
     @Setter
@@ -48,6 +49,10 @@ public class BicycleDetailView implements Serializable {
     @Getter
     @Setter
     long factor = 1;
+
+    @Getter
+    @Setter
+    ChronoUnit timeUnit = ChronoUnit.HOURS;
 
     @Getter
     @Setter
