@@ -124,19 +124,15 @@
 
         <h:form id="chartForm">
             <p:outputPanel styleClass="mb-3">
-            <p:autoUpdate/>
-            <p:lineChart id="chart"
-                         model="#{bicycleLineChartView.getLineModel('Fahraddaten', bicycleDetailView.step, bicycleDetailView.keyFigure, bicycleDetailView.channel)}"/>
-            <!--            Auto-Update-->
-            <!--            <p:poll interval="1" update="chartForm"/>-->
+                <p:autoUpdate/>
+                <p:lineChart id="chart"
+                             model="#{bicycleLineChartView.getLineModel('Fahraddaten', bicycleDetailView.step, bicycleDetailView.keyFigure, bicycleDetailView.timeRange, bicycleDetailView.channel)}"/>
+                <!--            Auto-Update-->
+                <!--            <p:poll interval="1" update="chartForm"/>-->
                 Time: #{bicycleDetailView.time}
             </p:outputPanel>
             <p:commandButton value="AJAX request" update="@none" process="@this" styleClass="mr-2"/>
         </h:form>
-
-
-
-
 
 
     </ui:define>

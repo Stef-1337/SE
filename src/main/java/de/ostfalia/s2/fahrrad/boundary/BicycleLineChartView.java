@@ -21,11 +21,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @Named
 @RequestScoped
@@ -40,26 +36,25 @@ public class BicycleLineChartView {
     List<Bicycle> daten;
     private final HashMap<String, LineChartModel> lineModelList = new HashMap<>();
 
-    public void init(String key, String name, long step, Kennzahl type, int... channels) {
+    public void init(String key, String name, long step, Kennzahl type, List<Date> timeRange, Integer... channels) {
+        timeRange.sort(Comparator.naturalOrder());
+
         LocalDateTime from = LocalDateTime.now().minus(12, ChronoUnit.HOURS);
         LocalDateTime to = LocalDateTime.now();
 
-        for (int channel : channels) {
+        if (timeRange.size() > 0) {
+            from = timeRange.get(0).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+            to = timeRange.get(1).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        }
+
+        for (Integer channel : channels) {
+            if (channel == null || channel == -1)
+                continue;
+
             daten = bs.getFahrradDaten(channel, from, to, step);
             Collections.reverse(daten);
+
             detailDatas.put(channel, new BicycleDetailData(daten, name, step, type.getType()));
-            /*
-            BicycleDetailData detailData;
-            switch (type) {
-                case "DISTANCE":
-                    detailData = BicycleDetailData.DISTANCE(daten, step);
-                    break;
-                default:
-                    detailData = BicycleDetailData.DEFAULT(daten, step);
-                    break;
-            }
-            detailDatas.put(channel, detailData);
-            */
         }
         initBicycleData(key, name);
     }
@@ -134,16 +129,16 @@ public class BicycleLineChartView {
         lineModelList.put(key, lineModel);
     }
 
-    public LineChartModel getLineModel(String name, long step, Kennzahl type, int... channels) {
+    public LineChartModel getLineModel(String name, long step, Kennzahl type, List<Date> timeRange, Integer... channels) {
         String key = channels[0] + "#" + name;
         if (!lineModelList.containsKey(key))
-            init(key, name, step, type, channels);
+            init(key, name, step, type, timeRange, channels);
 
         return lineModelList.get(key);
     }
 
-    public LineChartModel getLineModel(String name, long step, Kennzahl type, int channel1, int channel2) {
-        return getLineModel(name, step, type, new int[]{channel1, channel2});
+    public LineChartModel getLineModel(String name, long step, Kennzahl type, List<Date> timeRange, Integer channel1, Integer channel2) {
+        return getLineModel(name, step, type, timeRange, new Integer[]{channel1, channel2});
     }
 
 //
