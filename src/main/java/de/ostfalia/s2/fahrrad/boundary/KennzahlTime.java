@@ -16,6 +16,10 @@ public class KennzahlTime implements KennzahlType {
 
     @Override
     public void apply(BicycleDetailData detailData) {
+        for(ResultBike bike : detailData.getDaten()){
+            detailData.getValues().add(bike.getActive());
+            detailData.addInterval(bike.getTimestamp());
+        }
 //        List<Bicycle> data = detailData.getDaten();
 //        double time = 0;
 //        LocalDateTime last = data.get(0).getTimestamp();

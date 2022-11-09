@@ -45,23 +45,25 @@ public abstract class DataOperation {
 
         LocalDateTime last = data.get(0).getTimestamp();
 
-        Double value = 0.0;
+        Double value = 0.0, active = 0.0;
         int count = 0;
 
         for (int i = 0; i < data.size(); i++) {
             Bicycle bike = data.get(i);
             value += bike.getRotations_per_second();
+            if(bike.getRotations_per_second() > 0) active++;
             count++;
 
             if (bike.getTimestamp().isAfter(last.plus(step, ChronoUnit.MILLIS))) {
                 double average = value / count;
 
-                ResultBike result = new ResultBike(bike.getChannel(), step, count, bike.getTimestamp(), average);
+                ResultBike result = new ResultBike(bike.getChannel(), step, count, bike.getTimestamp(), average, active);
                 this.result.add(result);
 
                 last = bike.getTimestamp();
                 count = 0;
                 value = 0.0;
+                active = 0.0;
             }
         }
     }
