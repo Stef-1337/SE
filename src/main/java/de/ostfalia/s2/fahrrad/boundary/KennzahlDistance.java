@@ -12,25 +12,25 @@ import java.util.List;
 public class KennzahlDistance implements KennzahlType {
     @Override
     public void apply(BicycleDetailData detailData) {
-        //TODO logik
-        List<Bicycle> data = detailData.getDaten();
-        LocalDateTime last = data.get(0).getTimestamp();
-
-        double distance = 0;
-
-        data.sort(Comparator.comparing(Bicycle::getTimestamp));
-
-        for (int i = 0; i < data.size(); i++) {
-            Bicycle bike = data.get(i);
-            double f = (double) bike.getRotations_per_second() / 4;
-            distance += f * 2.111;
-
-            if (bike.getTimestamp().isAfter(last.plus(detailData.getStep(), ChronoUnit.MILLIS))) {
-                    detailData.getValues().add(distance);
-                    detailData.getIntervals().add(BicycleDetailData.FORMATTER.format(bike.getTimestamp()));
-                    distance = 0;
-                last = bike.getTimestamp();
-            }
-        }
+//        //TODO logik
+//        List<Bicycle> data = detailData.getDaten();
+//        LocalDateTime last = data.get(0).getTimestamp();
+//
+//        double distance = 0;
+//
+//        data.sort(Comparator.comparing(Bicycle::getTimestamp));
+//
+//        for (int i = 0; i < data.size(); i++) {
+//            Bicycle bike = data.get(i);
+//            double f = (double) bike.getRotations_per_second() / 4;
+//            distance += f * 2.111;
+//
+//            if (bike.getTimestamp().isAfter(last.plus(detailData.getStep(), ChronoUnit.MILLIS))) {
+//                    detailData.getValues().add(distance);
+//                    detailData.getIntervals().add(BicycleDetailData.FORMATTER.format(bike.getTimestamp()));
+//                    distance = 0;
+//                last = bike.getTimestamp();
+//            }
+//        }
     }
 }

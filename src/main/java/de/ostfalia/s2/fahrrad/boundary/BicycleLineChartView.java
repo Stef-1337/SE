@@ -54,9 +54,13 @@ public class BicycleLineChartView {
                 continue;
 
             daten = bs.getFahrradDaten(channel, from, to, step);
-            Collections.reverse(daten);
 
-            detailDatas.put(channel, new BicycleDetailData(daten, name, step, type.getType()));
+            DataOperation operation = new DataOperationOhneGlattung();
+//            if(smooth){
+//                operation = new DataOperationMitGlattung();
+//            }
+
+            detailDatas.put(channel, new BicycleDetailData(operation.operateData(daten, step), name, step, type.getType()));
         }
         initBicycleData(key, name);
     }
