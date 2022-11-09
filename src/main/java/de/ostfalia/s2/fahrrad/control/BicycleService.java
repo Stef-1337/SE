@@ -4,6 +4,7 @@ import de.ostfalia.s2.control.AbstractReadOnlyService;
 import de.ostfalia.s2.fahrrad.entity.Bicycle;
 import de.ostfalia.s2.fahrrad.entity.BicycleID;
 
+import javax.ejb.Local;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -61,9 +62,9 @@ public class BicycleService extends AbstractReadOnlyService<Bicycle, BicycleID> 
         Bicycle tempBicycle = getByFahrradDatenChannelWithTimestamp(channel, timestamp);
         while(tempBicycle == null) {
             if(before == true) {
-                timestamp.minusSeconds(1);
+                timestamp = timestamp.minusSeconds(1);
             } else {
-                timestamp.plusSeconds(1);
+                timestamp = timestamp.plusSeconds(1);
             }
 
             tempBicycle = getByFahrradDatenChannelWithTimestamp(channel, timestamp);
@@ -75,9 +76,9 @@ public class BicycleService extends AbstractReadOnlyService<Bicycle, BicycleID> 
             resultList.add(tempBicycle);
 
             if(before == true) {
-                timestamp.minusSeconds(1);
+                timestamp = timestamp.minusSeconds(1);
             } else {
-                timestamp.plusSeconds(1);
+                timestamp = timestamp.plusSeconds(1);
             }
 
             tempBicycle = getByFahrradDatenChannelWithTimestamp(channel, timestamp);
@@ -85,6 +86,64 @@ public class BicycleService extends AbstractReadOnlyService<Bicycle, BicycleID> 
 
         return resultList;
     }
+
+    public int sumInterval(int channel, LocalDateTime start, LocalDateTime end) {
+        List<Bicycle> bicycles = getByFahrradDatenChannelWithTimeLimits(channel, start, end);
+        int rotations = 0;
+
+        //Den Wert der Rotationen pro Sekunde zum vorherigen Wert addieren
+        for (Bicycle bicycle:bicycles){
+            rotations += bicycle.getRotations_per_second();
+        }
+        return rotations;
+    }
+
+    public double averageInterval(int channel, LocalDateTime start, LocalDateTime end) {
+        List<Bicycle> bicycles = getByFahrradDatenChannelWithTimeLimits(channel, start, end);
+        int rotations = 0;
+        int count = bicycles.size();
+
+        for (Bicycle bicycle:bicycles) {
+            rotations += bicycle.getRotations_per_second();
+        }
+
+        double average = rotations / count;
+
+        return average;
+    }
+
+    public double averageSpeedInterval(int channel, LocalDateTime start, LocalDateTime end) {
+        List <Bicycle> bicycles = getByFahrradDatenChannelWithTimeLimits(channel, start, end);
+        double distance = 0.0;
+        for (Bicycle bicycle:bicycles) {
+            distance += bicycle.getRotations_per_second() * 2.111;
+        }
+
+        double speed = (distance / (end.getSecond() - start.getSecond()));
+        return speed;
+    }
+
+    public List<Double> distanceInterval(int channel, LocalDateTime start, LocalDateTime end, int minutes) {
+        List<Double> distance = new ArrayList<>();
+        LocalDateTime tempIntervalStart = start;
+        LocalDateTime tempIntervalEnd = start;
+        tempIntervalEnd = tempIntervalEnd.plusMinutes(minutes);
+
+        while (tempIntervalEnd.getSecond() < end.getSecond()) {
+            int rotations = sumInterval(channel, tempIntervalStart, tempIntervalEnd);
+
+            distance.add(rotations * 2.111);
+
+            tempIntervalStart = tempIntervalStart.plusMinutes(minutes);
+            tempIntervalEnd = tempIntervalEnd.plusMinutes(minutes);
+        }
+
+        int rotations = sumInterval(channel, tempIntervalStart, end);
+        distance.add(rotations * 2.111);
+
+        return distance;
+    }
+
 
     public List<Bicycle> getByChannel(int channel){
         TypedQuery<Bicycle> query = em.createNamedQuery("bicycle.getByBicycleChannel", Bicycle.class);
