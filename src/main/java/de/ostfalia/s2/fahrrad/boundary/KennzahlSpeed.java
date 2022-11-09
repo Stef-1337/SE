@@ -18,7 +18,7 @@ public class KennzahlSpeed implements KennzahlType {
             double f = rotations / 4;
             double distance = f * 2.111;
 
-            double speed = distance / bike.getStep();
+            double speed = (distance / bike.getStep()) * 1000;
 
             detailData.addInterval(bike.getTimestamp());
             detailData.getValues().add(speed);
