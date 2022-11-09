@@ -23,7 +23,7 @@ public class KennzahlSpeed implements KennzahlType {
             detailData.addInterval(bike.getTimestamp());
             detailData.getValues().add(speed);
         }
-      //  Kennzahl.DISTANCE.apply(detailData);
+//        Kennzahl.DISTANCE.apply(detailData);
 //        List<Bicycle> data = detailData.getDaten();
 //
 //        LocalDateTime last = data.get(0).getTimestamp();
@@ -48,5 +48,15 @@ public class KennzahlSpeed implements KennzahlType {
 //                last = bike.getTimestamp();
 //            }
 //        }
+    }
+
+    @Override
+    public double getTotal(List<Bicycle> data) {
+        return 0;
+    }
+
+    @Override
+    public double getAverage(List<Bicycle> data) {
+        return 0;
     }
 }

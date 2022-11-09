@@ -60,7 +60,7 @@ public class BicycleLineChartView {
 //                operation = new DataOperationMitGlattung();
 //            }
 
-            detailDatas.put(channel, new BicycleDetailData(operation.operateData(daten, step), name, step, type.getType()));
+            detailDatas.put(channel, new BicycleDetailData(operation.operateData(type.getType(), daten, step), name, step, type.getType()));
         }
         initBicycleData(key, name);
     }

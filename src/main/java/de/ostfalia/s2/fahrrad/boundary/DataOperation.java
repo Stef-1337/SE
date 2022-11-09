@@ -2,6 +2,7 @@ package de.ostfalia.s2.fahrrad.boundary;
 
 import de.ostfalia.s2.fahrrad.entity.Bicycle;
 import de.ostfalia.s2.fahrrad.entity.BicycleDetailData;
+import de.ostfalia.s2.fahrrad.entity.KennzahlType;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -11,11 +12,12 @@ import java.util.List;
 public abstract class DataOperation {
 
     private List<Bicycle> data;
+    private KennzahlType type;
     private List<ResultBike> result;
     private Double total, average;
 
-    public List<ResultBike> operateData(List<Bicycle> data, long step){
-        init(data);
+    public List<ResultBike> operateData(KennzahlType type, List<Bicycle> data, long step){
+        init(type, data);
         smooth();
         calculateSteps(step);
         calculateTotal();
@@ -24,16 +26,17 @@ public abstract class DataOperation {
         return result;
     }
 
-    public void init(List<Bicycle> data){
+    public void init(KennzahlType type, List<Bicycle> data){
         this.data = data;
+        this.type = type;
     }
 
     public void calculateTotal(){
-
+        total = type.getTotal(data);
     }
 
     public void calculateAverage(){
-
+        average = type.getAverage(data);
     }
 
     public void smooth(){
