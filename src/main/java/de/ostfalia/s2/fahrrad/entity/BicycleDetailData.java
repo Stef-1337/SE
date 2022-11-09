@@ -47,6 +47,10 @@ public class BicycleDetailData {
         }
     }
 
+    public void addInterval(LocalDateTime timestamp){
+        getIntervals().add(FORMATTER.format(timestamp));
+    }
+
     public int getSize() {
         return Math.min(intervals.size(), values.size());
     }

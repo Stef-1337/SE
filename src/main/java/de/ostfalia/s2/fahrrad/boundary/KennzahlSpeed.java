@@ -12,6 +12,7 @@ import java.util.List;
 public class KennzahlSpeed implements KennzahlType {
     @Override
     public void apply(BicycleDetailData detailData) {
+
       //  Kennzahl.DISTANCE.apply(detailData);
 //        List<Bicycle> data = detailData.getDaten();
 //
