@@ -40,4 +40,14 @@ public class KennzahlRotations implements KennzahlType {
 //            }
 //        }
     }
+
+    @Override
+    public double getTotal(List<Bicycle> data) {
+        return 0;
+    }
+
+    @Override
+    public double getAverage(List<Bicycle> data) {
+        return 0;
+    }
 }
