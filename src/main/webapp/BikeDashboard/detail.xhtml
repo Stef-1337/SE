@@ -67,16 +67,18 @@
                     <!--                                </h:form>-->
                     <!--                            </div>-->
                     <!--                        </h:column>-->
+                    <h:form id="dauer">
+                        <h:column>
+                            <div class="field col-12 md:col-4">
+                                <p:outputLabel for="range" value="Betrachtungszeitraum: "/>
+                                <p:datePicker id="range" selectionMode="range" value="#{bicycleDetailView.timeRange}"
+                                              showTime="true" locale="de" pattern="dd.MM.yyyy" readonlyInput="true">
+                                    <f:ajax execute="dauer" render="chart"/>
+                                </p:datePicker>
+                            </div>
+                        </h:column>
+                    </h:form>
 
-                    <!--                        <h:column>-->
-                    <!--                            <div class="field col-12 md:col-4">-->
-                    <!--                                <p:outputLabel for="range" value="Betrachtungszeitraum: "/>-->
-                    <!--                                <p:datePicker id="range" selectionMode="range" value="#{bicycleDetailView.timeRange}"-->
-                    <!--                                              showTime="true" locale="de" pattern="dd.MM.yyyy" readonlyInput="true">-->
-                    <!--                                    <f:ajax execute="range" render="chart"/>-->
-                    <!--                                </p:datePicker>-->
-                    <!--                            </div>-->
-                    <!--                        </h:column>-->
                     <h:form>
                         <h:column>
                             <h:outputLabel for="kennzahl" value="Kennzahl: "/>
