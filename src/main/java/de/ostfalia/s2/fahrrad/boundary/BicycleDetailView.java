@@ -82,6 +82,10 @@ public class BicycleDetailView implements Serializable {
     @Setter
     private String time;
 
+    @Getter
+    @Setter
+    private double numSelected;
+
     @PostConstruct
     public void init() {
         SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

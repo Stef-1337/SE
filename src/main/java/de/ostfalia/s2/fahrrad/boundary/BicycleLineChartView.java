@@ -16,8 +16,11 @@ import org.primefaces.model.charts.line.LineChartModel;
 
 
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.io.Serializable;
 import java.time.Clock;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -26,8 +29,8 @@ import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 @Named
-@RequestScoped
-public class BicycleLineChartView {
+@SessionScoped
+public class BicycleLineChartView implements Serializable {
     //test
     @Inject
     BicycleService bs;
@@ -40,7 +43,8 @@ public class BicycleLineChartView {
 
     @Getter
     @Setter
-    public double total, average;
+    private double total = 2.0, average = 1.0;
+
 
     public void init(String key, String name, long step, Kennzahl type, List<Date> timeRange, Integer... channels) {
         LocalDateTime from = LocalDateTime.now().minus(12, ChronoUnit.HOURS);
