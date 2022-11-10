@@ -3,6 +3,7 @@ package de.ostfalia.s2.fahrrad.boundary;
 import de.ostfalia.s2.fahrrad.entity.Bicycle;
 import de.ostfalia.s2.fahrrad.entity.BicycleDetailData;
 import de.ostfalia.s2.fahrrad.entity.KennzahlType;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -14,6 +15,7 @@ public abstract class DataOperation {
     private List<Bicycle> data;
     private KennzahlType type;
     private List<ResultBike> result;
+    @Getter
     private Double total, average;
 
     public List<ResultBike> operateData(KennzahlType type, List<Bicycle> data, long step){

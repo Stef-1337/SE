@@ -3,6 +3,8 @@ package de.ostfalia.s2.fahrrad.boundary;
 import de.ostfalia.s2.fahrrad.control.BicycleService;
 import de.ostfalia.s2.fahrrad.entity.Bicycle;
 import de.ostfalia.s2.fahrrad.entity.BicycleDetailData;
+import lombok.Getter;
+import lombok.Setter;
 import org.primefaces.model.charts.ChartData;
 import org.primefaces.model.charts.axes.cartesian.CartesianScaleLabel;
 import org.primefaces.model.charts.axes.cartesian.CartesianScales;
@@ -36,6 +38,10 @@ public class BicycleLineChartView {
     List<Bicycle> daten;
     private final HashMap<String, LineChartModel> lineModelList = new HashMap<>();
 
+    @Getter
+    @Setter
+    public double total, average;
+
     public void init(String key, String name, long step, Kennzahl type, List<Date> timeRange, Integer... channels) {
         LocalDateTime from = LocalDateTime.now().minus(12, ChronoUnit.HOURS);
         LocalDateTime to = LocalDateTime.now();
@@ -61,6 +67,9 @@ public class BicycleLineChartView {
 //            }
 
             detailDatas.put(channel, new BicycleDetailData(operation.operateData(type.getType(), daten, step), name, step, type.getType()));
+
+            total = operation.getTotal();
+            average = operation.getAverage();
         }
         initBicycleData(key, name);
     }
