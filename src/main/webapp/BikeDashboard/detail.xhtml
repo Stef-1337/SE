@@ -14,7 +14,7 @@
     <ui:define name="content">
         <div class="card">
             <p:panel header="BikeDashboard" >
-                <h:panelGrid columns="4" cellpadding="5" styleClass="mb-3">
+                <h:panelGrid columns="6" cellpadding="5" styleClass="mb-3">
                     <h:form id="auswahl">
                         <h:column>
                             <h:outputLabel for="selectOne" value="Fahrrad 1: "/>
@@ -78,40 +78,42 @@
 
                     <h:form>
                         <h:column>
-                            <h:outputLabel for="kennzahl" value="Kennzahl: "/>
-                            <h:selectOneMenu id="kennzahl" value="#{bicycleDetailView.keyFigure}" required="true"
-                                             label="Text 4">
-                                <f:selectItems value="#{bicycleDetailView.keyFigures}"/>
-                                <f:ajax execute="kennzahl" render="chart"/>
-                            </h:selectOneMenu>
+                            <div class="field col-12 md:col-4">
+                                <h:outputLabel for="kennzahl" value="Kennzahl: "/>
+                                <h:selectOneMenu id="kennzahl" value="#{bicycleDetailView.keyFigure}" required="true"
+                                                 label="Text 4">
+                                    <f:selectItems value="#{bicycleDetailView.keyFigures}"/>
+                                    <f:ajax execute="kennzahl" render="chart"/>
+                                </h:selectOneMenu>
+                            </div>
                         </h:column>
                     </h:form>
 
 
-                    <h:form>
-                        <p:column>
-                            <p:outputLabel value="Intervalllänge: "/>
-                            <p:inputNumber value="#{bicycleDetailView.step}"/>
-                        </p:column>
-                        <h:column>
-                            <h:selectOneMenu id="timeUnit" value="#{bicycleDetailView.timeUnit}" required="true"
-                                             label="Text 5">
-                                <f:selectItem itemLabel="ms" itemValue="MILLIS" noSelectionOption="true"/>
-                                <f:selectItem itemLabel="sec" itemValue="SECONDS" noSelectionOption="true"/>
-                                <f:selectItem itemLabel="min" itemValue="MINUTES" noSelectionOption="true"/>
-                                <f:selectItem itemLabel="h" itemValue="HOURS"
-                                              noSelectionOption="true"/>
-                                <f:selectItem itemLabel="d" itemValue="DAYS" noSelectionOption="true"/>
-                                <!--                                    <f:ajax execute="ti" render="chart"/>-->
-                            </h:selectOneMenu>
-                        </h:column>
+<!--                    <h:form>-->
+<!--                        <p:column>-->
+<!--                            <p:outputLabel value="Intervalllänge: "/>-->
+<!--                            <p:inputNumber value="#{bicycleDetailView.step}"/>-->
+<!--                        </p:column>-->
+<!--                        <h:column>-->
+<!--                            <h:selectOneMenu id="timeUnit" value="#{bicycleDetailView.timeUnit}" required="true"-->
+<!--                                             label="Text 5">-->
+<!--                                <f:selectItem itemLabel="ms" itemValue="MILLIS" noSelectionOption="true"/>-->
+<!--                                <f:selectItem itemLabel="sec" itemValue="SECONDS" noSelectionOption="true"/>-->
+<!--                                <f:selectItem itemLabel="min" itemValue="MINUTES" noSelectionOption="true"/>-->
+<!--                                <f:selectItem itemLabel="h" itemValue="HOURS"-->
+<!--                                              noSelectionOption="true"/>-->
+<!--                                <f:selectItem itemLabel="d" itemValue="DAYS" noSelectionOption="true"/>-->
+<!--                                &lt;!&ndash;                                    <f:ajax execute="ti" render="chart"/>&ndash;&gt;-->
+<!--                            </h:selectOneMenu>-->
+<!--                        </h:column>-->
 
-                        <h:column>
-                            <p:commandButton value="OK" id="btn" process="@all" styleClass="mr-2">
-                                <f:ajax render="chart"/>
-                            </p:commandButton>
-                        </h:column>
-                    </h:form>
+<!--                        <h:column>-->
+<!--                            <p:commandButton value="OK" id="btn" process="@all" styleClass="mr-2">-->
+<!--                                <f:ajax render="chart"/>-->
+<!--                            </p:commandButton>-->
+<!--                        </h:column>-->
+<!--                    </h:form>-->
 
 
                     <!--                        <h:form id="spanEingabe">-->
@@ -195,6 +197,37 @@
                         <h1> #{bicycleDetailView.numSelected} </h1>
                     </h:form>
 
+                </h:panelGrid>
+            </p:panel>
+        </div>
+
+        <div class="card">
+            <p:panel header="Intervalllänge">
+                <h:panelGrid columns="1" cellpadding="5" style = "margin-left:auto; margin-right:auto;" styleClass="mb-3">
+                    <h:form>
+                        <p:column>
+                            <p:outputLabel value="Intervalllänge: "/>
+                            <p:inputNumber value="#{bicycleDetailView.step}"  style = "size: auto" styleClass="mb-3"/>
+                        </p:column>
+                        <h:column>
+                            <h:selectOneMenu id="timeUnit" value="#{bicycleDetailView.timeUnit}" required="true"
+                                             label="Text 5">
+                                <f:selectItem itemLabel="ms" itemValue="MILLIS" noSelectionOption="true"/>
+                                <f:selectItem itemLabel="sec" itemValue="SECONDS" noSelectionOption="true"/>
+                                <f:selectItem itemLabel="min" itemValue="MINUTES" noSelectionOption="true"/>
+                                <f:selectItem itemLabel="h" itemValue="HOURS"
+                                              noSelectionOption="true"/>
+                                <f:selectItem itemLabel="d" itemValue="DAYS" noSelectionOption="true"/>
+                                <!--                                    <f:ajax execute="ti" render="chart"/>-->
+                            </h:selectOneMenu>
+                        </h:column>
+
+                        <h:column>
+                            <p:commandButton value="OK" id="btn" process="@all" styleClass="mr-2">
+                                <f:ajax render="chart"/>
+                            </p:commandButton>
+                        </h:column>
+                    </h:form>
                 </h:panelGrid>
             </p:panel>
         </div>

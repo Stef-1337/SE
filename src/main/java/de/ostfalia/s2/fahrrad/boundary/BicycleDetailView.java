@@ -24,6 +24,8 @@ import java.util.List;
 public class BicycleDetailView implements Serializable {
 
     @Inject
+    @Getter
+    @Setter
     BicycleService bs;
 
     @Getter
