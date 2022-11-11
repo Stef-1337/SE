@@ -204,17 +204,13 @@
 
         <div class="card">
             <h:form>
-                <p:panel header="Intervalllänge" style="margin-left:auto; margin-right:auto">
-                    <h:panelGrid columns="1"
-                                 style="margin-left:auto; margin-right:auto;  padding-left: 10px; padding-right: 10px;"
-                                 styleClass="mb-3">
-
+                <p:panel header="Intervalllänge" style="margin-left:auto !important; margin-right:auto !important;" styleClass="mb-3">
+                    <h:panelGrid columns="1" cellpadding="5" style="margin-left:auto; margin-right:auto;" styleClass="mb-3">
                         <p:column>
-                            <p:outputLabel value="Intervalllänge: "/>
-                            <p:inputNumber value="#{bicycleDetailView.step}" style="width: min-content"/>
+                            <h:inputText value="#{bicycleDetailView.step}" styleClass="inputNumber"/>
                         </p:column>
                     </h:panelGrid>
-                    <h:panelGrid style="margin-left:auto; margin-right:auto">
+                    <h:panelGrid columns="1" cellpadding="5" style="margin-left:auto; margin-right:auto;" styleClass="mb-3">
                         <h:column>
                             <h:selectOneMenu id="timeUnit" value="#{bicycleDetailView.timeUnit}" required="true"
                                              label="Text 5">
@@ -228,7 +224,7 @@
                             </h:selectOneMenu>
                         </h:column>
                     </h:panelGrid>
-                    <h:panelGrid style="margin-left:auto; margin-right:auto">
+                    <h:panelGrid columns="1" cellpadding="5" style="margin-left:auto; margin-right:auto;" styleClass="mb-3">
                         <p:commandButton value="OK" id="btn" process="@all" styleClass="mr-2">
                             <f:ajax render="chart"/>
                         </p:commandButton>
