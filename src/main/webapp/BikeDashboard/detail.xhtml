@@ -52,6 +52,7 @@
                                 <p:outputLabel for="range" value="Betrachtungszeitraum: "/>
                                 <p:datePicker id="range" selectionMode="range" value="#{bicycleDetailView.timeRange}"
                                               showTime="true" locale="de" pattern="dd.MM.yyyy" readonlyInput="true">
+                                    <f:ajax execute="#{bicycleDetailView.resetStep()}"/>
                                     <f:ajax execute="dauer" render="chart"/>
                                 </p:datePicker>
                             </div>

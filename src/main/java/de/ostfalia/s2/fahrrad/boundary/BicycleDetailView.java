@@ -93,6 +93,9 @@ public class BicycleDetailView implements Serializable {
         time = sdfDate.format(now);
     }
 
+    public void resetStep(){
+        step = -1;
+    }
 
 
     public Bicycle getStatus(){
