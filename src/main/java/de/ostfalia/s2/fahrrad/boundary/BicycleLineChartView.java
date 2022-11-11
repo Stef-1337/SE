@@ -43,8 +43,10 @@ public class BicycleLineChartView {
         LocalDateTime to = LocalDateTime.now();
 
         if(step == -1){
-            step = steps;
+            long timeIntervall = ChronoUnit.MILLIS.between(from, to);
+            step = timeIntervall/steps;
         }
+
         if (timeRange != null) {
             timeRange.sort(Comparator.naturalOrder());
 
