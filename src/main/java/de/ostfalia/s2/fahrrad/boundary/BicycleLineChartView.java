@@ -30,6 +30,8 @@ public class BicycleLineChartView {
     @Inject
     BicycleService bs;
 
+    private static final int steps = 12;
+
     private
 
     HashMap<Integer, BicycleDetailData> detailDatas = new HashMap<>();
@@ -40,6 +42,9 @@ public class BicycleLineChartView {
         LocalDateTime from = LocalDateTime.now().minus(12, ChronoUnit.HOURS);
         LocalDateTime to = LocalDateTime.now();
 
+        if(step == -1){
+            step = steps;
+        }
         if (timeRange != null) {
             timeRange.sort(Comparator.naturalOrder());
 
