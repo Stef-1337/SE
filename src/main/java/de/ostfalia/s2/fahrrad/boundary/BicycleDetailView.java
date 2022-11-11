@@ -44,7 +44,7 @@ public class BicycleDetailView implements Serializable {
 
     @Getter
     @Setter
-    long step = 3600000;
+    long step = -1;
 
     @Getter
     @Setter
@@ -94,7 +94,7 @@ public class BicycleDetailView implements Serializable {
     }
 
     public void resetStep(){
-        step = -2;
+        step = -1;
     }
 
 
