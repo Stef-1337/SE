@@ -29,6 +29,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 @Named
 @RequestScoped
@@ -40,6 +41,8 @@ public class BicycleLineChartView {
     @Getter
     @Setter
     private double total, average;
+
+    private static final int STEPS = 12;
 
     private
 
@@ -55,11 +58,14 @@ public class BicycleLineChartView {
             from = timeRange.get(0).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
             to = timeRange.get(1).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
         } else {
-            from = LocalDateTime.now().minus(12, ChronoUnit.HOURS);
+            from = LocalDateTime.now().minus(14, ChronoUnit.HOURS);
             to = LocalDateTime.now();
         }
 
-        System.out.println("Init from " + from + " TO " + to);
+        //if(step == -1){
+            long timeIntervall = ChronoUnit.MILLIS.between(from, to);
+            step = timeIntervall/STEPS;
+        //}
 
         for (Integer channel : channels) {
             if (channel == null || channel == -1)

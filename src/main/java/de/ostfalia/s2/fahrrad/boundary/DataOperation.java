@@ -55,7 +55,6 @@ public abstract class DataOperation implements Serializable {
         result = new ArrayList<>();
 
         LocalDateTime last = data.get(0).getTimestamp();
-        System.out.println("Starting from " + last);
 
         Double value = 0.0, active = 0.0;
         int count = 0;
@@ -76,12 +75,8 @@ public abstract class DataOperation implements Serializable {
                 count = 0;
                 value = 0.0;
                 active = 0.0;
-
-                System.out.println("Adding " + bike.getTimestamp() + "!!");
             }
         }
-
-        System.out.println("Still remaining: " + value + ", " + active + ", " + count);
     }
 
     public List<Bicycle> getData() {

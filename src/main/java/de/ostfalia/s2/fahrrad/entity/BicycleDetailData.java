@@ -15,7 +15,7 @@ import java.util.List;
 @Getter
 public class BicycleDetailData {
 
-    public final static DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss");
+    public final static DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd.MM HH:mm:ss");
 
     private KennzahlType type;
 
