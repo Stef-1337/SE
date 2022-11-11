@@ -1,21 +1,31 @@
 package de.ostfalia.s2.fahrrad.boundary;
 
 import de.ostfalia.s2.fahrrad.entity.Bicycle;
-import de.ostfalia.s2.fahrrad.entity.BicycleDetailData;
+import de.ostfalia.s2.fahrrad.entity.KennzahlType;
 
+import javax.enterprise.inject.spi.Bean;
+import javax.enterprise.inject.spi.BeanManager;
+import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-public abstract class DataOperation {
+public abstract class DataOperation implements Serializable {
+
+    @Inject
+    BeanManager manager;
 
     private List<Bicycle> data;
     private List<ResultBike> result;
-    private Double total, average;
 
-    public List<ResultBike> operateData(List<Bicycle> data, long step){
-        init(data);
+    private KennzahlType type;
+
+    public List<ResultBike> operateData(KennzahlType type, List<Bicycle> data, long step){
+        init(type, data);
         smooth();
         calculateSteps(step);
         calculateTotal();
@@ -24,16 +34,17 @@ public abstract class DataOperation {
         return result;
     }
 
-    public void init(List<Bicycle> data){
+    public void init(KennzahlType type, List<Bicycle> data){
         this.data = data;
+        this.type = type;
     }
 
     public void calculateTotal(){
-
+        type.getTotal(data);
     }
 
     public void calculateAverage(){
-
+        type.getAverage(data);
     }
 
     public void smooth(){

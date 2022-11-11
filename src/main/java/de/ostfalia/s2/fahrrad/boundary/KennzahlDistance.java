@@ -11,6 +11,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public class KennzahlDistance implements KennzahlType {
+
     @Override
     public void apply(BicycleDetailData detailData) {
         for(ResultBike bike : detailData.getDaten()){
@@ -42,5 +43,15 @@ public class KennzahlDistance implements KennzahlType {
 //                last = bike.getTimestamp();
 //            }
 //        }
+    }
+
+    @Override
+    public double getTotal(List<Bicycle> data) {
+        return 0;
+    }
+
+    @Override
+    public double getAverage(List<Bicycle> data) {
+        return 0;
     }
 }

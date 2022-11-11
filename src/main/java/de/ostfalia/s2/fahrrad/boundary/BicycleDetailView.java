@@ -19,7 +19,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-@Named
+@Named("bicycleDetailView")
 @SessionScoped
 public class BicycleDetailView implements Serializable {
 
@@ -44,7 +44,7 @@ public class BicycleDetailView implements Serializable {
 
     @Getter
     @Setter
-    long step = -1;
+    long step = 3600000;
 
     @Getter
     @Setter
