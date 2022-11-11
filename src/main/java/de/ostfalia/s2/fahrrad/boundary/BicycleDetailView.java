@@ -20,7 +20,7 @@ import java.util.Date;
 import java.util.List;
 
 @Named
-@SessionScoped //
+@SessionScoped
 public class BicycleDetailView implements Serializable {
 
     @Inject
@@ -82,6 +82,10 @@ public class BicycleDetailView implements Serializable {
     @Setter
     private String time;
 
+    @Getter
+    @Setter
+    private double numSelected;
+
     @PostConstruct
     public void init() {
         SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -89,6 +93,9 @@ public class BicycleDetailView implements Serializable {
         time = sdfDate.format(now);
     }
 
+    public void resetStep(){
+        step = -1;
+    }
 
 
     public Bicycle getStatus(){
