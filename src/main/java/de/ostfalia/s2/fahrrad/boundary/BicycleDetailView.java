@@ -94,7 +94,7 @@ public class BicycleDetailView implements Serializable {
     }
 
     public void resetStep(){
-        step = -1;
+        step = -2;
     }
 
 

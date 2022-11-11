@@ -52,7 +52,7 @@
                                 <p:outputLabel for="range" value="Betrachtungszeitraum: "/>
                                 <p:datePicker id="range" selectionMode="range" value="#{bicycleDetailView.timeRange}"
                                               showTime="true" locale="de" pattern="dd.MM.yyyy" readonlyInput="true">
-                                    <f:ajax execute="#{bicycleDetailView.resetStep()}"/>
+                                    <f:ajax execute="#{bicycleDetailView.resetStep()}" render="test"/>
                                     <f:ajax execute="dauer" render="chart"/>
                                 </p:datePicker>
                             </div>
@@ -176,6 +176,7 @@
     <ui:define name="footer">
         Geladen bicycle mit dem Channel #{bicycleDetailView.status.channel}
         Rotationsfrequenz: #{bicycleDetailView.status.channel}
+        <p:outputLabel id="test" value="#{bicycleDetailView.step}"/>
     </ui:define>
 
     <ui:define name="rechts">
