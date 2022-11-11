@@ -179,4 +179,18 @@ public class BicycleLineChartView {
         return sum / daten.size();
     }
 
+    public LineChartDataSet smoothData (LineChartDataSet dataSet) {
+
+        List<Object> values_rotations_per_second = dataSet.getData();
+
+        for (int i = 1; i < values_rotations_per_second.size() - 1; i ++) {
+            int a = (Integer) values_rotations_per_second.get(i-1);
+            int b = (Integer) values_rotations_per_second.get(i);
+            int c = (Integer) values_rotations_per_second.get(i+1);
+            values_rotations_per_second.set(i, (1/3 * (a + b + c)));
+        }
+
+        return dataSet;
+    }
+
 }
