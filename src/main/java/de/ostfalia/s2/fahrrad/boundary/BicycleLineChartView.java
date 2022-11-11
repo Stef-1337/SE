@@ -48,17 +48,18 @@ public class BicycleLineChartView {
     private final HashMap<String, LineChartModel> lineModelList = new HashMap<>();
 
     public void init(String key, String name, long step, Kennzahl type, List<Date> timeRange, Integer... channels) {
-        LocalDateTime from = LocalDateTime.now().minus(12, ChronoUnit.HOURS);
-        LocalDateTime to = LocalDateTime.now();
+        LocalDateTime from, to;
 
-        if (timeRange != null) {
+        if (timeRange != null && timeRange.size() > 0) {
             timeRange.sort(Comparator.naturalOrder());
-
-            if (timeRange.size() > 0) {
-                from = timeRange.get(0).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-                to = timeRange.get(1).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-            }
+            from = timeRange.get(0).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+            to = timeRange.get(1).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        } else {
+            from = LocalDateTime.now().minus(12, ChronoUnit.HOURS);
+            to = LocalDateTime.now();
         }
+
+        System.out.println("Init from " + from + " TO " + to);
 
         for (Integer channel : channels) {
             if (channel == null || channel == -1)
