@@ -52,7 +52,7 @@ public class BicycleLineChartView implements Serializable {
     List<Bicycle> daten;
     private final HashMap<String, LineChartModel> lineModelList = new HashMap<>();
 
-    public void init(String key, String name, long step, Kennzahl type, List<Date> timeRange, Integer... channels) {
+    public void init(String key, String name, long step, boolean smoothed, Kennzahl type, List<Date> timeRange, Integer... channels) {
         LocalDateTime from, to;
 
         if (timeRange != null && timeRange.size() > 0) {
@@ -75,10 +75,10 @@ public class BicycleLineChartView implements Serializable {
 
             daten = bs.getFahrradDaten(channel, from, to, step);
 
-            DataOperation operation = new DataOperationMitGlattung();
-//            if(smooth){
-//                operation = new DataOperationMitGlattung();
-//            }
+            DataOperation operation = new DataOperationOhneGlattung();
+            if(smoothed){
+                operation = new DataOperationMitGlattung();
+            }
 
             detailDatas.put(channel, new BicycleDetailData(operation.operateData(type.getType(), daten, step), name, step, type.getType()));
 
@@ -158,20 +158,20 @@ public class BicycleLineChartView implements Serializable {
         lineModelList.put(key, lineModel);
     }
 
-    public LineChartModel getLineModel(String name, long step, Kennzahl type, List<Date> timeRange, Integer... channels) {
+    public LineChartModel getLineModel(String name, long step, boolean smoothed, Kennzahl type, List<Date> timeRange, Integer... channels) {
         String key = channels[0] + "#" + name;
         if (!lineModelList.containsKey(key))
-            init(key, name, step, type, timeRange, channels);
+            init(key, name, step, smoothed, type, timeRange, channels);
 
         return lineModelList.get(key);
     }
 
-    public LineChartModel getLineModel(String name, long step, Kennzahl type, List<Date> timeRange, Integer channel1, Integer channel2) {
-        return getLineModel(name, step, type, timeRange, new Integer[]{channel1, channel2});
+    public LineChartModel getLineModel(String name, long step, boolean smoothed, Kennzahl type, List<Date> timeRange, Integer channel1, Integer channel2) {
+        return getLineModel(name, step, smoothed, type, timeRange, new Integer[]{channel1, channel2});
     }
 
-    public LineChartModel getLineModel(String name, long step, long factor, Kennzahl type, List<Date> timeRange, Integer channel1, Integer channel2) {
-        return getLineModel(name, step * factor, type, timeRange, channel1, channel2);
+    public LineChartModel getLineModel(String name, long step, long factor, boolean smoothed, Kennzahl type, List<Date> timeRange, Integer channel1, Integer channel2) {
+        return getLineModel(name, step * factor, smoothed, type, timeRange, channel1, channel2);
     }
 
 //
