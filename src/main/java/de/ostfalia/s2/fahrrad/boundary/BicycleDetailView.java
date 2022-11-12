@@ -84,6 +84,9 @@ public class BicycleDetailView implements Serializable {
     @Setter
     private String time;
 
+    @Getter
+    @Setter
+    private double total, average;
 
     @PostConstruct
     public void init() {

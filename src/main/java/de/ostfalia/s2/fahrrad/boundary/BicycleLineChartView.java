@@ -33,16 +33,14 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 @Named
-@ViewScoped
-public class BicycleLineChartView implements Serializable {
+@RequestScoped
+public class BicycleLineChartView {
     //test
     @Inject
     BicycleService bs;
 
-    @Getter
-    @Setter
-    private double total, average, numSelected;
-
+    @Inject
+    BeanManager beanManager;
 
     private static final int STEPS = 12;
 
@@ -82,8 +80,13 @@ public class BicycleLineChartView implements Serializable {
 
             detailDatas.put(channel, new BicycleDetailData(operation.operateData(type.getType(), daten, step), name, step, type.getType()));
 
-            total = operation.getTotal();
-            average = operation.getAverage();
+            Bean<BicycleDetailView> bean = (Bean<BicycleDetailView>) beanManager.getBeans("bicycleDetailView").stream().filter(Objects::nonNull).findFirst().get();
+            BicycleDetailView viewBean = (BicycleDetailView) beanManager.getReference(bean, BicycleDetailView.class, beanManager.createCreationalContext(bean));
+
+            viewBean.setTotal(operation.getTotal());
+            viewBean.setAverage(operation.getAverage());
+//            total = operation.getTotal();
+//            average = operation.getAverage();
         }
         initBicycleData(key, name);
     }
