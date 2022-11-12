@@ -58,6 +58,6 @@ public class KennzahlTime implements KennzahlType {
 
     @Override
     public double getAverage(List<Bicycle> data) {
-        return getTotal(data) / data.size();
+        return 100 * (getTotal(data) / data.size());
     }
 }
