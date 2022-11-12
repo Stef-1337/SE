@@ -20,9 +20,10 @@ import java.util.logging.Logger;
 
 @SessionScoped
 public class BicycleService extends AbstractReadOnlyService<Bicycle, BicycleID> implements Serializable {
-//test
+    //test
     @PersistenceContext(unitName = "Fahrraddaten")
     EntityManager em;
+
     @Override
     protected Class<Bicycle> getEntityClass() {
         return Bicycle.class;
@@ -34,14 +35,13 @@ public class BicycleService extends AbstractReadOnlyService<Bicycle, BicycleID> 
     }
 
     /**
-     *
      * @param channel Bicycle channel
-     * @param from Min timestamp
-     * @param to Max timestamp
-     * @param step Step between each entry in millis
+     * @param from    Min timestamp
+     * @param to      Max timestamp
+     * @param step    Step between each entry in millis
      * @return Matching bicycles
      */
-    public List<Bicycle> getFahrradDaten(int channel, LocalDateTime from, LocalDateTime to, long step){
+    public List<Bicycle> getFahrradDaten(int channel, LocalDateTime from, LocalDateTime to, long step) {
         TypedQuery<Bicycle> query = em.createNamedQuery("bicycle.getByBicycleChannelWithTimeLimits", Bicycle.class);
 
         query.setParameter("channelBicycle", channel);
@@ -66,12 +66,12 @@ public class BicycleService extends AbstractReadOnlyService<Bicycle, BicycleID> 
 
     public List<Bicycle> getByFahrradDatenChannelWithLimit(int channel, int limit) {
         TypedQuery<Bicycle> query = em.createNamedQuery("bicycle.getByBicycleChannelWithLimit", Bicycle.class);
-        query.setParameter("channelBicycle", channel );
+        query.setParameter("channelBicycle", channel);
         query.setMaxResults(limit);
         return query.getResultList();
     }
 
-    public List<Bicycle> getByFahrradDatenChannelWithTimeLimits(int channel, LocalDateTime from, LocalDateTime to){
+    public List<Bicycle> getByFahrradDatenChannelWithTimeLimits(int channel, LocalDateTime from, LocalDateTime to) {
         TypedQuery<Bicycle> query = em.createNamedQuery("bicycle.getByBicycleChannelWithTimeLimits", Bicycle.class);
         query.setParameter("channelBicycle", channel);
         query.setParameter("from", from == null ? LocalDateTime.MIN : from);
@@ -80,12 +80,13 @@ public class BicycleService extends AbstractReadOnlyService<Bicycle, BicycleID> 
         return query.getResultList();
     }
 
-    public List<Bicycle> getByChannel(int channel){
+    public List<Bicycle> getByChannel(int channel) {
         TypedQuery<Bicycle> query = em.createNamedQuery("bicycle.getByBicycleChannel", Bicycle.class);
         query.setParameter("channelBicycle", channel);
         return query.getResultList();
     }
-    public Bicycle getLast(int channel){
+
+    public Bicycle getLast(int channel) {
         TypedQuery<Bicycle> query = em.createNamedQuery("bicycle.getByBicycleChannel", Bicycle.class);
         query.setParameter("channelBicycle", channel);
         query.setFirstResult(0);
@@ -106,8 +107,14 @@ public class BicycleService extends AbstractReadOnlyService<Bicycle, BicycleID> 
 
     }
 
+    public List<Bicycle> over(int channel) {
+        TypedQuery<Bicycle> query = em.createNamedQuery("bicycle.getByBicycleChannelOverOneWeek", Bicycle.class);
+        query.setParameter("channelBicycle", channel);
+        return query.getResultList();
+    }
+
     @Override
     protected TypedQuery<Bicycle> getAllQuery() {
-        return em.createNamedQuery("bicycle.getAll",getEntityClass());
+        return em.createNamedQuery("bicycle.getAll", getEntityClass());
     }
 }

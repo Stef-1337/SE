@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @NamedQuery(name = "bicycle.getByBicycleChannelWithTimeLimits", query = "select bc from Bicycle bc where channel = :channelBicycle AND bc.timestamp >= :from AND bc.timestamp <= :to")
 @NamedQuery(name = "bicycle.getByBicycleChannelBeforeTime", query = "select bc from Bicycle bc where channel = :channelBicycle AND bc.timestamp <= :tBefore")
 @NamedQuery(name = "bicycle.getByBicycleChannelWithLimit", query = "select bc from Bicycle bc where channel = :channelBicycle ORDER BY bc.timestamp DESC")
+@NamedQuery(name = "bicycle.getByBicycleChannelOverOneWeek", query = "SELECT AVG(rotations_per_second) AS avg, UNIX_TIMESTAMP(timestamp)/3000 AS ts FROM Bicycle WHERE channel= :channelBicycle AND timestamp >= CURRENT_DATE AND timestamp <= CURRENT_DATE + INTERVAL(1)  GROUP BY ts ORDER BY ts ASC")
 
 @Entity
 @Table(name = "bicycle")
