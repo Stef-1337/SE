@@ -60,11 +60,12 @@ public class BicycleLineChartView {
             to = LocalDateTime.now();
         }
 
-        if(step == -1){
+        if (step == -1) {
             long timeIntervall = ChronoUnit.MILLIS.between(from, to);
-            step = timeIntervall/STEPS;
+            step = timeIntervall / STEPS;
         }
 
+        int count = 0;
         for (Integer channel : channels) {
             if (channel == null || channel == -1)
                 continue;
@@ -72,7 +73,7 @@ public class BicycleLineChartView {
             daten = bs.getFahrradDaten(channel, from, to, step);
 
             DataOperation operation = new DataOperationOhneGlattung();
-            if(smoothed){
+            if (smoothed) {
                 operation = new DataOperationMitGlattung();
             }
 
@@ -81,8 +82,16 @@ public class BicycleLineChartView {
             Bean<BicycleDetailView> bean = (Bean<BicycleDetailView>) beanManager.getBeans("bicycleDetailView").stream().filter(Objects::nonNull).findFirst().get();
             BicycleDetailView viewBean = (BicycleDetailView) beanManager.getReference(bean, BicycleDetailView.class, beanManager.createCreationalContext(bean));
 
-            viewBean.setTotal(operation.getTotal());
-            viewBean.setAverage(operation.getAverage());
+            double total = operation.getTotal();
+            double average = operation.getAverage();
+
+            if (count == 0) {
+                viewBean.setTotal(total);
+                viewBean.setAverage(average);
+            } else {
+                viewBean.setTotal2(total);
+                viewBean.setAverage2(average);
+            }
         }
         initBicycleData(key, name);
     }
