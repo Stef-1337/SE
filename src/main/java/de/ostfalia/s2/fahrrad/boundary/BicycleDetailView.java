@@ -99,7 +99,11 @@ public class BicycleDetailView implements Serializable {
 
     @Getter
     @Setter
-    private Boolean isAverage;
+    private Boolean isAverage = true;
+
+    @Getter
+    @Setter
+    private Boolean isAverage2 = true;
 
     @PostConstruct
     public void init() {
@@ -151,17 +155,14 @@ public class BicycleDetailView implements Serializable {
 //        this.numSelected = e.getNewValue().toString();
 //    }
 
-    public String getNum() {
+    public String getNum( double d1, double d2, boolean b) {
         String pattern = "#.###";
         DecimalFormat decimalFormat = new DecimalFormat(pattern);
-        if (isAverage != null) {
-            if (isAverage) {
-                return decimalFormat.format(average) + " " + keyFigure.getUnitA();
+            if (b) {
+                return decimalFormat.format(d1) + " " + keyFigure.getUnitA();
             } else {
-                return decimalFormat.format(total) + " " + keyFigure.getUnitB();
+                return decimalFormat.format(d2) + " " + keyFigure.getUnitB();
             }
-        }
-        return "keine Auswahl";
     }
 
 }
