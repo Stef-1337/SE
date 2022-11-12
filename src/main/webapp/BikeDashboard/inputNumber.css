@@ -5,3 +5,13 @@
     margin-right: auto;
     float: left;
 }
+
+.headline_class {
+    font-weight: bold;
+    font-size: 25px;
+}
+
+#headline_id {
+    font-weight: bold;
+    font-size: 25px;
+}

@@ -12,6 +12,8 @@
     </ui:define>
 
     <ui:define name="content">
+
+
         <div class="card">
             <p:panel header="BikeDashboard">
                 <h:panelGrid columns="5" cellpadding="10" styleClass="mb-3">
@@ -126,19 +128,24 @@
                 <h:panelGrid columns="1" cellpadding="5" style="margin-left:auto; margin-right:auto;" styleClass="mb-3">
                     <h:form id="numForm">
                         <div class="field col-12 md:col-4">
-                            <p:selectOneMenu id="num" value="#{bicycleDetailView.numSelected}}">
+                            <p:selectOneMenu id="num" value="#{bicycleLineChartView.numSelected}}">
                                 <f:selectItem itemLabel="Select One" itemValue=""/>
-                                <f:selectItem itemLabel="Durchschnitt" itemValue="1"/>
-                                <f:selectItem itemLabel="Summe" itemValue="2"/>
-                                <f:ajax execute="numForm" render="output"/>
+                                <f:selectItem itemLabel="#{bicycleLineChartView.average}" itemValue="2"/>
+                                <f:selectItem itemLabel="#{bicycleLineChartView.total}" itemValue="3"/>
+                                <f:ajax execute="num" render="numselected"/>
                             </p:selectOneMenu>
+                            <p:outputLabel styleClass="headline_class" id="numselected" value="#{bicycleLineChartView.numSelected}"/>
                         </div>
                     </h:form>
+
 
                 </h:panelGrid>
                 <h:panelGrid styleClass="mb-3" style="margin-left:auto; margin-right:auto;">
                     <h:form id="output">
-                        <h1> #{bicycleDetailView.numSelected} </h1>
+<!--                        <p:outputLabel styleClass="headline_class" id="numselected" value="#{bicycleLineChartView.numSelected}"/>-->
+                        <h1> #{bicycleLineChartView.numSelected} </h1>
+                        <h1> #{bicycleLineChartView.average} </h1>
+                        <h1> #{bicycleLineChartView.total} </h1>
                     </h:form>
 
                 </h:panelGrid>

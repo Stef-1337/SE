@@ -23,6 +23,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.io.Serializable;
 import java.time.Clock;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -32,15 +33,16 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 @Named
-@RequestScoped
-public class BicycleLineChartView {
+@ViewScoped
+public class BicycleLineChartView implements Serializable {
     //test
     @Inject
     BicycleService bs;
 
     @Getter
     @Setter
-    private double total, average;
+    private double total, average, numSelected;
+
 
     private static final int STEPS = 12;
 
