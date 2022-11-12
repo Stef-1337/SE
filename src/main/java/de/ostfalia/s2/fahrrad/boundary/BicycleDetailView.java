@@ -122,10 +122,6 @@ public class BicycleDetailView implements Serializable {
         return bs.getLast(channel);
     }
 
-//    public Bicycle getStatus(){
-//        return bs.getLast(channel);
-//    }
-
     public List<Bicycle> getAllBicycleByBicycleChannel(int channelBicycle) {
         return bs.getByChannel(channelBicycle);
     }
@@ -150,10 +146,6 @@ public class BicycleDetailView implements Serializable {
         return "keine Auswahl getroffen";
     }
 
-//    public void numKenChanged(ValueChangeEvent e) throws IOException {
-////        this.setNumSelected(Double.parseDouble(e.getNewValue().toString()));
-//        this.numSelected = e.getNewValue().toString();
-//    }
 
     public String getNum( double d1, double d2, boolean b) {
         String pattern = "#.###";
