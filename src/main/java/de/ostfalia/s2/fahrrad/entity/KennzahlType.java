@@ -7,4 +7,5 @@ public interface KennzahlType {
     void apply(BicycleDetailData detailData);
     double getTotal(List<Bicycle> data);
     double getAverage(List<Bicycle> data);
+
 }

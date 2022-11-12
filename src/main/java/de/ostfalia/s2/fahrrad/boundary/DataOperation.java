@@ -1,26 +1,32 @@
 package de.ostfalia.s2.fahrrad.boundary;
 
 import de.ostfalia.s2.fahrrad.entity.Bicycle;
-import de.ostfalia.s2.fahrrad.entity.BicycleDetailData;
 import de.ostfalia.s2.fahrrad.entity.KennzahlType;
-import lombok.Getter;
 
+import javax.enterprise.inject.spi.Bean;
+import javax.enterprise.inject.spi.BeanManager;
+import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-public abstract class DataOperation {
+public abstract class DataOperation implements Serializable {
+
+    @Inject
+    BeanManager manager;
 
     private List<Bicycle> data;
-    private KennzahlType type;
     private List<ResultBike> result;
-    @Getter
-    private Double total, average;
+
+    private KennzahlType type;
 
     public List<ResultBike> operateData(KennzahlType type, List<Bicycle> data, long step){
         init(type, data);
-        smooth();
+        smooth(data);
         calculateSteps(step);
         calculateTotal();
         calculateAverage();
@@ -34,14 +40,14 @@ public abstract class DataOperation {
     }
 
     public void calculateTotal(){
-        total = type.getTotal(data);
+        System.out.println("Total: " + type.getTotal(data));
     }
 
     public void calculateAverage(){
-        average = type.getAverage(data);
+        System.out.println("Avg: " + type.getAverage(data));
     }
 
-    public void smooth(){
+    public void smooth(List<Bicycle> data){
 
     }
 
@@ -59,7 +65,7 @@ public abstract class DataOperation {
             if(bike.getRotations_per_second() > 0) active++;
             count++;
 
-            if (bike.getTimestamp().isAfter(last.plus(step, ChronoUnit.MILLIS))) {
+            if (i == data.size() - 1 || bike.getTimestamp().isAfter(last.plus(step, ChronoUnit.MILLIS))) {
                 double average = value / count;
 
                 ResultBike result = new ResultBike(bike.getChannel(), step, count, bike.getTimestamp(), average, active);

@@ -19,8 +19,8 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-@Named
-@SessionScoped //
+@Named("bicycleDetailView")
+@SessionScoped
 public class BicycleDetailView implements Serializable {
 
     @Inject
@@ -95,6 +95,10 @@ public class BicycleDetailView implements Serializable {
         time = sdfDate.format(now);
     }
 
+    public void resetStep(){
+        //step = -1;
+        System.out.println("Step reset ???");
+    }
 
 
     public Bicycle getStatus(){

@@ -17,23 +17,32 @@ import org.primefaces.model.charts.line.LineChartModel;
 
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
+import javax.enterprise.inject.spi.Bean;
+import javax.enterprise.inject.spi.BeanManager;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.io.Serializable;
 import java.time.Clock;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 @Named
-@SessionScoped
-public class BicycleLineChartView implements Serializable {
+@RequestScoped
+public class BicycleLineChartView {
     //test
     @Inject
     BicycleService bs;
+
+    @Getter
+    @Setter
+    private double total, average;
+
+    private static final int STEPS = 12;
 
     private
 
@@ -41,23 +50,22 @@ public class BicycleLineChartView implements Serializable {
     List<Bicycle> daten;
     private final HashMap<String, LineChartModel> lineModelList = new HashMap<>();
 
-    @Getter
-    @Setter
-    private double total = 2.0, average = 1.0;
-
-
     public void init(String key, String name, long step, Kennzahl type, List<Date> timeRange, Integer... channels) {
-        LocalDateTime from = LocalDateTime.now().minus(12, ChronoUnit.HOURS);
-        LocalDateTime to = LocalDateTime.now();
+        LocalDateTime from, to;
 
-        if (timeRange != null) {
+        if (timeRange != null && timeRange.size() > 0) {
             timeRange.sort(Comparator.naturalOrder());
-
-            if (timeRange.size() > 0) {
-                from = timeRange.get(0).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-                to = timeRange.get(1).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-            }
+            from = timeRange.get(0).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+            to = timeRange.get(1).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        } else {
+            from = LocalDateTime.now().minus(14, ChronoUnit.HOURS);
+            to = LocalDateTime.now();
         }
+
+        //if(step == -1){
+            long timeIntervall = ChronoUnit.MILLIS.between(from, to);
+            step = timeIntervall/STEPS;
+        //}
 
         for (Integer channel : channels) {
             if (channel == null || channel == -1)
@@ -65,15 +73,13 @@ public class BicycleLineChartView implements Serializable {
 
             daten = bs.getFahrradDaten(channel, from, to, step);
 
-            DataOperation operation = new DataOperationOhneGlattung();
+            DataOperation operation = new DataOperationMitGlattung();
 //            if(smooth){
 //                operation = new DataOperationMitGlattung();
 //            }
 
             detailDatas.put(channel, new BicycleDetailData(operation.operateData(type.getType(), daten, step), name, step, type.getType()));
 
-            total = operation.getTotal();
-            average = operation.getAverage();
         }
         initBicycleData(key, name);
     }
