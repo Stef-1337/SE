@@ -92,6 +92,7 @@ public class BicycleLineChartView {
                 viewBean.setTotal2(total);
                 viewBean.setAverage2(average);
             }
+            count++;
         }
         initBicycleData(key, name);
     }
