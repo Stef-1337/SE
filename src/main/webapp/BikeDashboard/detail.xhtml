@@ -43,7 +43,6 @@
                                                  label="Text 4">
                                     <f:selectItems value="#{bicycleDetailView.keyFigures}"/>
                                     <f:ajax execute="kennzahl" render="chart"/>
-                                    <f:ajax render="numForm"/>
                                 </h:selectOneMenu>
                             </div>
                         </h:form>
@@ -56,8 +55,8 @@
                                 <p:datePicker id="range" selectionMode="range" value="#{bicycleDetailView.timeRange}"
                                               showTime="true" locale="de" pattern="dd.MM.yyyy" readonlyInput="true">
                                     <f:ajax onevent="#{bicycleDetailView.resetStep()}"/>
-<!--                                    <f:ajax render="step"/>-->
-<!--                                    <f:ajax execute="dauer" render="chart"/>-->
+                                    <!--                                    <f:ajax render="step"/>-->
+                                    <!--                                    <f:ajax execute="dauer" render="chart"/>-->
                                 </p:datePicker>
                             </div>
                         </h:form>
@@ -107,6 +106,7 @@
                 <p:autoUpdate/>
                 <p:lineChart id="chart"
                              model="#{bicycleLineChartView.getLineModel('Fahraddaten', bicycleDetailView.step, bicycleDetailView.timeUnit, bicycleDetailView.smoothed, bicycleDetailView.keyFigure, bicycleDetailView.timeRange, bicycleDetailView.channel, bicycleDetailView.channel2)}"/>
+            <f:ajax render="outForm"/>
             </p:outputPanel>
             <p:poll interval="10" update="graph"/>
         </h:form>
@@ -125,34 +125,27 @@
     </ui:define>
 
     <ui:define name="rechts">
+
         <div class="card">
+            <h:form id="outForm">
             <p:panel header="Numerische Kennzahlen">
-                <h:panelGrid columns="1" cellpadding="5" style="margin-left:auto; margin-right:auto;" styleClass="mb-3">
-                    <h:form id="numForm">
-                        <h:selectOneMenu id="numKen" value="#{bicycleDetailView.numSelected}" >
-                            <f:selectItem itemLabel="Select One" itemValue="" noSelectionOption="true"/>
-                            <f:selectItem itemLabel="Select One" itemValue="" />
-                            <f:selectItem itemLabel="Select One" itemValue="" />
+                <h:panelGrid columns="1" cellpadding="5" style=" text-align:center; margin-left:auto; margin-right:auto;" styleClass="mb-3">
 
-                            <f:ajax execute="auswahl2" render="chart"/>
-                        </h:selectOneMenu>
-
-                        <p:outputLabel value="#{bicycleDetailView.numSelected == -1 ? bicycleDetailView.pleaseSelect() : bicycleDetailView.numSelected}"  />
-                        <br/>
-                        <p:outputLabel value="#{bicycleDetailView.total}"/>
-                        <div class="field col-12 md:col-4">
-                        </div>
-                    </h:form>
-
-
-                </h:panelGrid>
-                <h:panelGrid styleClass="mb-3" style="margin-left:auto; margin-right:auto;">
-                    <h:form id="output">
-                    </h:form>
-
+                        <p:selectOneMenu id="numKen" value="#{bicycleDetailView.isAverage}" style="margin-left:auto; margin-right:auto;">
+                            <f:selectItem itemLabel="Select One"  itemValue="" noSelectionOption="true"/>
+                            <f:selectItem itemLabel="Durchschnitt" itemValue="true"/>
+                            <f:selectItem itemLabel="Summe" itemValue="false"/>
+                            <f:ajax execute="numKen" render="out"/>
+                        </p:selectOneMenu>
+                    <p:outputPanel>
+                        <h3 style="margin-left:auto; margin-right:auto;"> #{bicycleDetailView.getNum()} </h3>
+                        <p:autoUpdate/>
+                    </p:outputPanel>
                 </h:panelGrid>
             </p:panel>
+            </h:form>
         </div>
+
 
         <div class="card">
 
@@ -171,7 +164,6 @@
                             </p:commandButton>
                         </p:column>
                     </h:panelGrid>
-
 
 
                 </h:form>
@@ -199,6 +191,6 @@
 
 
             </p:panel>
-    </div>
-</ui:define>
-        </ui:composition>
+        </div>
+    </ui:define>
+</ui:composition>

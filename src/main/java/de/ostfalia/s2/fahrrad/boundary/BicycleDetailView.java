@@ -6,15 +6,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -87,7 +84,15 @@ public class BicycleDetailView implements Serializable {
 
     @Getter
     @Setter
-    private double total, average, numSelected = -1;
+    private double total;
+
+    @Getter
+    @Setter
+    private double average;
+
+    @Getter
+    @Setter
+    private Boolean isAverage;
 
     @PostConstruct
     public void init() {
@@ -96,13 +101,13 @@ public class BicycleDetailView implements Serializable {
         time = sdfDate.format(now);
     }
 
-    public void resetStep(){
+    public void resetStep() {
         step = -1;
         System.out.println("Step reset ???");
     }
 
 
-    public Bicycle getStatus(){
+    public Bicycle getStatus() {
         return bs.getLast(channel);
     }
 
@@ -118,7 +123,7 @@ public class BicycleDetailView implements Serializable {
         return bs.getAll();
     }
 
-    public List<Bicycle> getBicycles(){
+    public List<Bicycle> getBicycles() {
         return bs.getAll();
     }
 
@@ -126,12 +131,30 @@ public class BicycleDetailView implements Serializable {
         return bs.getLast(channelBicycle);
     }
 
-    public int test(){
+    public int test() {
         return selectedOne != null ? selectedOne.getChannel() : null;
     }
 
-    public String pleaseSelect(){
-        return "kein Auswahl getroffen";
+    public String pleaseSelect() {
+        return "keine Auswahl getroffen";
+    }
+
+//    public void numKenChanged(ValueChangeEvent e) throws IOException {
+////        this.setNumSelected(Double.parseDouble(e.getNewValue().toString()));
+//        this.numSelected = e.getNewValue().toString();
+//    }
+
+    public String getNum() {
+        String pattern = "#.###";
+        DecimalFormat decimalFormat = new DecimalFormat(pattern);
+        if (isAverage != null) {
+            if (isAverage) {
+                return String.valueOf(decimalFormat.format(average)) + keyFigure.getUnitA();
+            } else {
+                return String.valueOf(decimalFormat.format(total)) + keyFigure.getUnitA();
+            }
+        }
+        return "keine Auswahl";
     }
 
 }
