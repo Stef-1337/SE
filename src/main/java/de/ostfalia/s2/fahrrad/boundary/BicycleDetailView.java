@@ -18,6 +18,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Named("bicycleDetailView")
 @SessionScoped
@@ -46,7 +47,7 @@ public class BicycleDetailView implements Serializable {
 
     @Getter
     @Setter
-    long step = 3600000;
+    long step = -1;//3600000;
 
     @Getter
     @Setter
@@ -54,7 +55,7 @@ public class BicycleDetailView implements Serializable {
 
     @Getter
     @Setter
-    ChronoUnit timeUnit = ChronoUnit.HOURS;
+    TimeUnit timeUnit = TimeUnit.HOURS;
 
     @Getter
     @Setter

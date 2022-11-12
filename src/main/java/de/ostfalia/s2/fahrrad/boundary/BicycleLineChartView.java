@@ -58,14 +58,14 @@ public class BicycleLineChartView {
             from = timeRange.get(0).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
             to = timeRange.get(1).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
         } else {
-            from = LocalDateTime.now().minus(14, ChronoUnit.HOURS);
+            from = LocalDateTime.now().minus(12, ChronoUnit.HOURS);
             to = LocalDateTime.now();
         }
 
-        //if(step == -1){
+        if(step == -1){
             long timeIntervall = ChronoUnit.MILLIS.between(from, to);
             step = timeIntervall/STEPS;
-        //}
+        }
 
         for (Integer channel : channels) {
             if (channel == null || channel == -1)
@@ -85,6 +85,7 @@ public class BicycleLineChartView {
 
             viewBean.setTotal(operation.getTotal());
             viewBean.setAverage(operation.getAverage());
+
 //            total = operation.getTotal();
 //            average = operation.getAverage();
         }
@@ -173,8 +174,8 @@ public class BicycleLineChartView {
         return getLineModel(name, step, smoothed, type, timeRange, new Integer[]{channel1, channel2});
     }
 
-    public LineChartModel getLineModel(String name, long step, long factor, boolean smoothed, Kennzahl type, List<Date> timeRange, Integer channel1, Integer channel2) {
-        return getLineModel(name, step * factor, smoothed, type, timeRange, channel1, channel2);
+    public LineChartModel getLineModel(String name, long step, TimeUnit factor, boolean smoothed, Kennzahl type, List<Date> timeRange, Integer channel1, Integer channel2) {
+        return getLineModel(name, step == -1 ? -1 : factor.toMillis(step), smoothed, type, timeRange, channel1, channel2);
     }
 
 //
