@@ -6,10 +6,10 @@ import lombok.Getter;
 
 
 public enum Kennzahl {
-    ROTATIONS(new KennzahlRotations(), "Umdrehungen/sec", ""),
-    SPEED(new KennzahlSpeed(), "km/h", ""),
-    DISTANCE(new KennzahlDistance(), "m/s", ""),
-    TIME(new KennzahlTime(), "min", "");
+    ROTATIONS(new KennzahlRotations(), "rps", "Umdrehungen"),
+    SPEED(new KennzahlSpeed(), "m/s", ""),
+    DISTANCE(new KennzahlDistance(), "m/sec", "m"),
+    TIME(new KennzahlTime(), "%", "sec");
 
     @Getter
     private KennzahlType type;

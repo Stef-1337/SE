@@ -149,9 +149,9 @@ public class BicycleDetailView implements Serializable {
         DecimalFormat decimalFormat = new DecimalFormat(pattern);
         if (isAverage != null) {
             if (isAverage) {
-                return String.valueOf(decimalFormat.format(average)) + keyFigure.getUnitA();
+                return String.valueOf(decimalFormat.format(average)) + " " + keyFigure.getUnitA();
             } else {
-                return String.valueOf(decimalFormat.format(total)) + keyFigure.getUnitA();
+                return String.valueOf(decimalFormat.format(total)) + " " + keyFigure.getUnitB();
             }
         }
         return "keine Auswahl";
