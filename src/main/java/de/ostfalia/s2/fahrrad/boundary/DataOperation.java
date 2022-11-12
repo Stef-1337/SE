@@ -2,6 +2,7 @@ package de.ostfalia.s2.fahrrad.boundary;
 
 import de.ostfalia.s2.fahrrad.entity.Bicycle;
 import de.ostfalia.s2.fahrrad.entity.KennzahlType;
+import lombok.Getter;
 
 import javax.enterprise.inject.spi.Bean;
 import javax.enterprise.inject.spi.BeanManager;
@@ -22,6 +23,9 @@ public abstract class DataOperation implements Serializable {
     private List<Bicycle> data;
     private List<ResultBike> result;
 
+    @Getter
+    private double total, average;
+
     private KennzahlType type;
 
     public List<ResultBike> operateData(KennzahlType type, List<Bicycle> data, long step){
@@ -40,11 +44,11 @@ public abstract class DataOperation implements Serializable {
     }
 
     public void calculateTotal(){
-        System.out.println("Total: " + type.getTotal(data));
+        total = type.getTotal(data);
     }
 
     public void calculateAverage(){
-        System.out.println("Avg: " + type.getAverage(data));
+        average = type.getAverage(data);
     }
 
     public void smooth(List<Bicycle> data){

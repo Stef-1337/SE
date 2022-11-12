@@ -80,6 +80,8 @@ public class BicycleLineChartView {
 
             detailDatas.put(channel, new BicycleDetailData(operation.operateData(type.getType(), daten, step), name, step, type.getType()));
 
+            total = operation.getTotal();
+            average = operation.getAverage();
         }
         initBicycleData(key, name);
     }
