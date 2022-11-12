@@ -10,10 +10,14 @@ import java.util.List;
 
 public class KennzahlRotations implements KennzahlType {
 
+    private double getRotations(double rotations){
+        return rotations / 4;
+    }
+
     @Override
     public void apply(BicycleDetailData detailData) {
         for(ResultBike bike : detailData.getDaten()){
-            detailData.getValues().add(bike.getRotations());
+            detailData.getValues().add(getRotations(bike.getRotations()));
             detailData.getIntervals().add(BicycleDetailData.FORMATTER.format(bike.getTimestamp()));
         }
 
@@ -45,7 +49,7 @@ public class KennzahlRotations implements KennzahlType {
     public double getTotal(List<Bicycle> data) {
         double total = 0;
         for(Bicycle bike : data){
-            total += bike.getRotations_per_second();
+            total += getRotations(bike.getRotations_per_second());
         }
 
         return total;
