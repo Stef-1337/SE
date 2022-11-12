@@ -73,7 +73,7 @@ public class BicycleLineChartView {
 
             daten = bs.getFahrradDaten(channel, from, to, step);
 
-            DataOperation operation = new DataOperationOhneGlattung();
+            DataOperation operation = new DataOperationMitGlattung();
 //            if(smooth){
 //                operation = new DataOperationMitGlattung();
 //            }
