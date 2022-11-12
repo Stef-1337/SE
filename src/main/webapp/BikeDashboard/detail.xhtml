@@ -48,19 +48,18 @@
                         </h:form>
                     </h:column>
 
-                    <h:column>
-                        <h:form id="dauer">
+                    <h:form id="dauer">
+                        <h:column>
                             <div class="field col-12 md:col-4">
                                 <p:outputLabel for="range" value="Betrachtungszeitraum: "/>
                                 <p:datePicker id="range" selectionMode="range" value="#{bicycleDetailView.timeRange}"
-                                              showTime="true" locale="de" pattern="dd.MM.yyyy" readonlyInput="true">
-                                    <f:ajax onevent="#{bicycleDetailView.resetStep()}"/>
-                                    <f:ajax render="step"/>
+                                              showTime="true" locale="de" pattern="dd.MM.yyyy" readonlyInput="true"
+                                valueChangeListener="#{bicycleDetailView.resetStep()}">
                                     <f:ajax execute="dauer" render="chart"/>
                                 </p:datePicker>
                             </div>
-                        </h:form>
-                    </h:column>
+                        </h:column>
+                    </h:form>
 
                     <h:column>
                         <div class="card">
@@ -165,7 +164,9 @@
 
         <h:form>
 
-            <p:inputNumber value="#{bicycleDetailView.step}"/>
+            <p:inputNumber id="input" value="#{bicycleDetailView.step}">
+                <p:autoUpdate/>
+            </p:inputNumber>
 
             <p:outputLabel for="@next" />
             <p:selectOneMenu id="option2" value="#{bicycleDetailView.timeUnit}">
