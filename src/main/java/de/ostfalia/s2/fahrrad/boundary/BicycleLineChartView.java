@@ -44,10 +44,8 @@ public class BicycleLineChartView {
 
     private static final int STEPS = 12;
 
-    private
-
-    HashMap<Integer, BicycleDetailData> detailDatas = new HashMap<>();
-    List<Bicycle> daten;
+    private HashMap<Integer, BicycleDetailData> detailDatas = new HashMap<>();
+    private List<Bicycle> daten;
     private final HashMap<String, LineChartModel> lineModelList = new HashMap<>();
 
     public void init(String key, String name, long step, boolean smoothed, Kennzahl type, List<Date> timeRange, Integer... channels) {
@@ -85,9 +83,6 @@ public class BicycleLineChartView {
 
             viewBean.setTotal(operation.getTotal());
             viewBean.setAverage(operation.getAverage());
-
-//            total = operation.getTotal();
-//            average = operation.getAverage();
         }
         initBicycleData(key, name);
     }
@@ -126,26 +121,16 @@ public class BicycleLineChartView {
         LineChartOptions options = new LineChartOptions();
 
         CartesianScales cartesianScales = new CartesianScales();
-        CartesianLinearAxes linearAxes = new CartesianLinearAxes();
-        linearAxes.setId("large-scale");
-        linearAxes.setPosition("left");
-        CartesianScaleLabel yLeftLabel = new CartesianScaleLabel();
-        yLeftLabel.setDisplay(true);
-        yLeftLabel.setLabelString("Rotations per Second");
-        yLeftLabel.setFontColor("rgb(65, 139, 178)");
-        linearAxes.setScaleLabel(yLeftLabel);
 
-        CartesianLinearAxes linearAxes2 = new CartesianLinearAxes();
-        linearAxes2.setId("small-scale");
-        linearAxes2.setPosition("right");
+        CartesianLinearAxes linearAxes = new CartesianLinearAxes();
+        linearAxes.setId("small-scale");
+        linearAxes.setPosition("right");
         CartesianScaleLabel yRightLabel = new CartesianScaleLabel();
         yRightLabel.setDisplay(true);
-        yRightLabel.setLabelString("Zu-/Abfluss in m^3/sec");
+        yRightLabel.setLabelString("Fahrraddaten");
 
-
-        linearAxes2.setScaleLabel(yRightLabel);
+        linearAxes.setScaleLabel(yRightLabel);
         cartesianScales.addYAxesData(linearAxes);
-        cartesianScales.addYAxesData(linearAxes2);
 
         options.setScales(cartesianScales);
 
@@ -157,7 +142,6 @@ public class BicycleLineChartView {
 
         lineModel.setOptions(options);
         lineModel.setData(data);
-
 
         lineModelList.put(key, lineModel);
     }
