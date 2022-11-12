@@ -87,7 +87,7 @@ public class BicycleDetailView implements Serializable {
 
     @Getter
     @Setter
-    private double total, average;
+    private double total, average, numSelected = -1;
 
     @PostConstruct
     public void init() {
@@ -97,7 +97,7 @@ public class BicycleDetailView implements Serializable {
     }
 
     public void resetStep(){
-        //step = -1;
+        step = -1;
         System.out.println("Step reset ???");
     }
 
@@ -128,6 +128,10 @@ public class BicycleDetailView implements Serializable {
 
     public int test(){
         return selectedOne != null ? selectedOne.getChannel() : null;
+    }
+
+    public String pleaseSelect(){
+        return "kein Auswahl getroffen";
     }
 
 }
