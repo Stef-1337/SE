@@ -40,11 +40,11 @@ public abstract class DataOperation implements Serializable {
     }
 
     public void calculateTotal(){
-        type.getTotal(data);
+        System.out.println("Total: " + type.getTotal(data));
     }
 
     public void calculateAverage(){
-        type.getAverage(data);
+        System.out.println("Avg: " + type.getAverage(data));
     }
 
     public void smooth(){

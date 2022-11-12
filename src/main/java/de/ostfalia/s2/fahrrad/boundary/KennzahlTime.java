@@ -16,7 +16,7 @@ public class KennzahlTime implements KennzahlType {
 
     @Override
     public void apply(BicycleDetailData detailData) {
-        for(ResultBike bike : detailData.getDaten()){
+        for (ResultBike bike : detailData.getDaten()) {
             detailData.getValues().add(bike.getActive());
             detailData.addInterval(bike.getTimestamp());
         }
@@ -44,11 +44,15 @@ public class KennzahlTime implements KennzahlType {
 
     @Override
     public double getTotal(List<Bicycle> data) {
-        return 0;
+        double total = 0;
+        for (Bicycle bike : data) {
+            if (bike.getRotations_per_second() > 0) total++;
+        }
+        return total;
     }
 
     @Override
     public double getAverage(List<Bicycle> data) {
-        return 0;
+        return getTotal(data) / data.size();
     }
 }

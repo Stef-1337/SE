@@ -11,17 +11,21 @@ import java.util.Comparator;
 import java.util.List;
 
 public class KennzahlSpeed implements KennzahlType {
+
+    private double getSpeed(double rotations, long step){
+        double f = rotations / 4;
+        double distance = f * 2.111;
+
+        return (distance / step) * 1000;
+    }
+
     @Override
     public void apply(BicycleDetailData detailData) {
         for(ResultBike bike : detailData.getDaten()){
             double rotations = bike.getRotations() * bike.getNumbers();
-            double f = rotations / 4;
-            double distance = f * 2.111;
-
-            double speed = (distance / bike.getStep()) * 1000;
 
             detailData.addInterval(bike.getTimestamp());
-            detailData.getValues().add(speed);
+            detailData.getValues().add(getSpeed(rotations, bike.getStep()));
         }
       //  Kennzahl.DISTANCE.apply(detailData);
 //        List<Bicycle> data = detailData.getDaten();
@@ -52,11 +56,16 @@ public class KennzahlSpeed implements KennzahlType {
 
     @Override
     public double getTotal(List<Bicycle> data) {
-        return 0;
+        double total = 0;
+        for(Bicycle bike : data){
+            total += getSpeed(bike.getRotations_per_second(), 1);
+        }
+
+        return total;
     }
 
     @Override
     public double getAverage(List<Bicycle> data) {
-        return 0;
+        return getTotal(data) / data.size();
     }
 }

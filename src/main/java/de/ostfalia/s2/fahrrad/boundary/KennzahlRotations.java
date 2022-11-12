@@ -43,11 +43,16 @@ public class KennzahlRotations implements KennzahlType {
 
     @Override
     public double getTotal(List<Bicycle> data) {
-        return 0;
+        double total = 0;
+        for(Bicycle bike : data){
+            total += bike.getRotations_per_second();
+        }
+
+        return total;
     }
 
     @Override
     public double getAverage(List<Bicycle> data) {
-        return 0;
+        return getTotal(data) / data.size();
     }
 }
