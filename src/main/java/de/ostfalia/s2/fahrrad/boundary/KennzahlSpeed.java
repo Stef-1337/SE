@@ -16,7 +16,7 @@ public class KennzahlSpeed implements KennzahlType {
         double f = rotations / 4;
         double distance = f * 2.111;
 
-        return (distance / step) * 3.6;
+        return (distance / step);
     }
 
     @Override
