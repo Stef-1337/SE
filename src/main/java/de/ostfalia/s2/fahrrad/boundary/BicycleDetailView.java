@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.event.ValueChangeEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -36,6 +37,10 @@ public class BicycleDetailView implements Serializable {
     @Getter
     @Setter
     long step = -1;//3600000;
+
+    @Getter
+    @Setter
+    String s = "1";
 
     @Getter
     @Setter
@@ -81,6 +86,11 @@ public class BicycleDetailView implements Serializable {
         } else {
             return decimalFormat.format(d2) + " " + keyFigure.getUnitB();
         }
+    }
+
+    public void stepChanged(ValueChangeEvent e) {
+        s = e.getNewValue().toString();
+        step = Long.parseLong(e.getNewValue().toString());
     }
 
 }

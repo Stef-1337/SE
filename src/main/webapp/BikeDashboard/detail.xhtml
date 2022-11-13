@@ -169,7 +169,7 @@
                 <p:panel header="manuelle Intervallänge" style="text-align: center">
                     <h:panelGrid columns="1" cellpadding="5"
                                  style=" text-align:center; margin-left:auto; margin-right:auto;" styleClass="mb-3">
-                        <p:inputNumber id="input" value="#{bicycleDetailView.step}" style=" text-align:center; width:50px !important;" >
+                        <p:inputNumber id="input" value="#{bicycleDetailView.s}" style=" text-align:center; width:50px !important;" valueChangeListener="#{bicycleDetailView.stepChanged}" >
                             <p:autoUpdate/>
                         </p:inputNumber>
                         <p:selectOneMenu id="numKen3" value="#{bicycleDetailView.timeUnit}"
