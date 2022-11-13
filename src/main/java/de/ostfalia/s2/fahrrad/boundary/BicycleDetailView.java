@@ -93,12 +93,12 @@ public class BicycleDetailView implements Serializable {
         s = e.getNewValue().toString();
         step = Long.parseLong(e.getNewValue().toString());
     }
-    public String now (){
+    public String getNow (){
         LocalDateTime now = LocalDateTime.now();
         String now_S = now.toString();
         return now_S;
     }
-    public String before12(){
+    public String getBefore12(){
         LocalDateTime before = LocalDateTime.now().minusHours(12);
         String before_12 = before.toString();
         return before_12;
