@@ -20,16 +20,8 @@ public class Bicycle implements Serializable {
         return channel;
     }
 
-    public void setChannel(int channel) {
-        this.channel = channel;
-    }
-
     public LocalDateTime getTimestamp() {
         return timestamp;
-    }
-
-    public void setTimestamp(LocalDateTime timestamp) {
-        this.timestamp = timestamp;
     }
 
     public int getRotations_per_second() {
