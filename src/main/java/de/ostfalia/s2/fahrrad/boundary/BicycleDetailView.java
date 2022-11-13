@@ -99,9 +99,6 @@ public class BicycleDetailView implements Serializable {
     }
 
     public void setNow (){
-//        Date in = new Date();
-//        LocalDateTime ldt = LocalDateTime.ofInstant(in.toInstant(), ZoneId.systemDefault());
-//        Date out = Date.from(ldt.atZone(ZoneId.systemDefault()).toInstant());
         timeRange = new ArrayList<>();
         Date d12 = java.sql.Timestamp.valueOf(LocalDateTime.now().minusHours(12));
         timeRange.add(d12);
@@ -110,10 +107,5 @@ public class BicycleDetailView implements Serializable {
 
 
     }
-    public String getBefore12(){
-        LocalDateTime before = LocalDateTime.now().minusHours(12);
-        String before_12 = before.toString();
-        return before_12;
 
-    }
 }
