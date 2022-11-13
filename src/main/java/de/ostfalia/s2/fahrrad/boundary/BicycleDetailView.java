@@ -12,6 +12,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.text.DecimalFormat;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -92,5 +93,15 @@ public class BicycleDetailView implements Serializable {
         s = e.getNewValue().toString();
         step = Long.parseLong(e.getNewValue().toString());
     }
+    public String now (){
+        LocalDateTime now = LocalDateTime.now();
+        String now_S = now.toString();
+        return now_S;
+    }
+    public String before12(){
+        LocalDateTime before = LocalDateTime.now().minusHours(12);
+        String before_12 = before.toString();
+        return before_12;
 
+    }
 }
