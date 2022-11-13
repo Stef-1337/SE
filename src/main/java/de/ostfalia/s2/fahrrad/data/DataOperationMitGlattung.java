@@ -1,5 +1,6 @@
-package de.ostfalia.s2.fahrrad.boundary;
+package de.ostfalia.s2.fahrrad.data;
 
+import de.ostfalia.s2.fahrrad.data.template.DataOperation;
 import de.ostfalia.s2.fahrrad.entity.Bicycle;
 
 import java.util.List;

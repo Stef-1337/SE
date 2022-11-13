@@ -1,16 +1,11 @@
-package de.ostfalia.s2.fahrrad.boundary;
+package de.ostfalia.s2.fahrrad.kennzahl.strategy;
 
 import de.ostfalia.s2.fahrrad.entity.Bicycle;
 import de.ostfalia.s2.fahrrad.entity.BicycleDetailData;
-import de.ostfalia.s2.fahrrad.entity.KennzahlType;
+import de.ostfalia.s2.fahrrad.entity.ResultBike;
+import de.ostfalia.s2.fahrrad.kennzahl.strategy.KennzahlType;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class KennzahlTime implements KennzahlType {
 

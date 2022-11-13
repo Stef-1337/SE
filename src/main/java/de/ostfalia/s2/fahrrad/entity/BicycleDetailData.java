@@ -1,14 +1,11 @@
 package de.ostfalia.s2.fahrrad.entity;
 
-import de.ostfalia.s2.fahrrad.boundary.ResultBike;
+import de.ostfalia.s2.fahrrad.kennzahl.strategy.KennzahlType;
 import lombok.Getter;
-import org.mariadb.jdbc.client.result.Result;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 

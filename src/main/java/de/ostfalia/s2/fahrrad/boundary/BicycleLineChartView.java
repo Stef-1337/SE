@@ -1,10 +1,12 @@
 package de.ostfalia.s2.fahrrad.boundary;
 
 import de.ostfalia.s2.fahrrad.control.BicycleService;
+import de.ostfalia.s2.fahrrad.data.template.DataOperation;
+import de.ostfalia.s2.fahrrad.data.DataOperationMitGlattung;
+import de.ostfalia.s2.fahrrad.data.DataOperationOhneGlattung;
 import de.ostfalia.s2.fahrrad.entity.Bicycle;
 import de.ostfalia.s2.fahrrad.entity.BicycleDetailData;
-import lombok.Getter;
-import lombok.Setter;
+import de.ostfalia.s2.fahrrad.kennzahl.Kennzahl;
 import org.primefaces.model.charts.ChartData;
 import org.primefaces.model.charts.axes.cartesian.CartesianScaleLabel;
 import org.primefaces.model.charts.axes.cartesian.CartesianScales;
@@ -16,18 +18,12 @@ import org.primefaces.model.charts.line.LineChartModel;
 
 
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.spi.Bean;
 import javax.enterprise.inject.spi.BeanManager;
-import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.io.Serializable;
-import java.time.Clock;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.concurrent.TimeUnit;

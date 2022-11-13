@@ -1,4 +1,7 @@
-package de.ostfalia.s2.fahrrad.entity;
+package de.ostfalia.s2.fahrrad.kennzahl.strategy;
+
+import de.ostfalia.s2.fahrrad.entity.Bicycle;
+import de.ostfalia.s2.fahrrad.entity.BicycleDetailData;
 
 import java.util.List;
 

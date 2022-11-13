@@ -1,11 +1,10 @@
-package de.ostfalia.s2.fahrrad.boundary;
+package de.ostfalia.s2.fahrrad.kennzahl.strategy;
 
 import de.ostfalia.s2.fahrrad.entity.Bicycle;
 import de.ostfalia.s2.fahrrad.entity.BicycleDetailData;
-import de.ostfalia.s2.fahrrad.entity.KennzahlType;
+import de.ostfalia.s2.fahrrad.entity.ResultBike;
+import de.ostfalia.s2.fahrrad.kennzahl.strategy.KennzahlType;
 
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 public class KennzahlRotations implements KennzahlType {

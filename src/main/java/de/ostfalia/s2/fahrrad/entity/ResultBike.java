@@ -1,4 +1,4 @@
-package de.ostfalia.s2.fahrrad.boundary;
+package de.ostfalia.s2.fahrrad.entity;
 
 import lombok.Getter;
 

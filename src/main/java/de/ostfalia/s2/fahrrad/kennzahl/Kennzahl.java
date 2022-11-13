@@ -1,7 +1,10 @@
-package de.ostfalia.s2.fahrrad.boundary;
+package de.ostfalia.s2.fahrrad.kennzahl;
 
-import de.ostfalia.s2.fahrrad.entity.BicycleDetailData;
-import de.ostfalia.s2.fahrrad.entity.KennzahlType;
+import de.ostfalia.s2.fahrrad.kennzahl.strategy.KennzahlDistance;
+import de.ostfalia.s2.fahrrad.kennzahl.strategy.KennzahlRotations;
+import de.ostfalia.s2.fahrrad.kennzahl.strategy.KennzahlSpeed;
+import de.ostfalia.s2.fahrrad.kennzahl.strategy.KennzahlTime;
+import de.ostfalia.s2.fahrrad.kennzahl.strategy.KennzahlType;
 import lombok.Getter;
 
 

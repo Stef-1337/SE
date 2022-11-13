@@ -1,19 +1,15 @@
-package de.ostfalia.s2.fahrrad.boundary;
+package de.ostfalia.s2.fahrrad.data.template;
 
 import de.ostfalia.s2.fahrrad.entity.Bicycle;
-import de.ostfalia.s2.fahrrad.entity.KennzahlType;
+import de.ostfalia.s2.fahrrad.kennzahl.strategy.KennzahlType;
+import de.ostfalia.s2.fahrrad.entity.ResultBike;
 import lombok.Getter;
 
-import javax.enterprise.inject.spi.Bean;
-import javax.enterprise.inject.spi.BeanManager;
-import javax.faces.context.FacesContext;
-import javax.inject.Inject;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public abstract class DataOperation implements Serializable {
 
