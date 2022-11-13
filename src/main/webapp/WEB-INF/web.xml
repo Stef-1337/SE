@@ -9,6 +9,14 @@
         <welcome-file>index.xhtml</welcome-file>
     </welcome-file-list>
 
+    <data-source>
+        <name>java:jboss/datasources/Fahrraddaten</name>
+        <class-name>org.mariadb.jdbc.MariaDbDataSource</class-name>
+        <url>jdbc:mariadb://172.27.128.138:3306/Fahrraddaten</url>
+        <user>read</user>
+        <password>only</password>
+    </data-source>
+
 
 
 
