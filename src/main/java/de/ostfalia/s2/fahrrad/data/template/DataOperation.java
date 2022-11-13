@@ -44,9 +44,7 @@ public abstract class DataOperation implements Serializable {
         average = type.getAverage(data);
     }
 
-    public void smooth(List<Bicycle> data) {
-
-    }
+    public abstract void smooth(List<Bicycle> data);
 
     public void calculateSteps(long step) {
         result = new ArrayList<>();
