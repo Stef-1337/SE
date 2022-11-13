@@ -30,14 +30,6 @@ public class BicycleDetailView implements Serializable {
 
     @Getter
     @Setter
-    Bicycle selectedOne;
-
-    @Getter
-    @Setter
-    Bicycle selectedTwo;
-
-    @Getter
-    @Setter
     Integer channel = 7;
 
     @Getter
@@ -50,15 +42,7 @@ public class BicycleDetailView implements Serializable {
 
     @Getter
     @Setter
-    long factor = 1;
-
-    @Getter
-    @Setter
     TimeUnit timeUnit = TimeUnit.HOURS;
-
-    @Getter
-    @Setter
-    String type = "DEFAULT";
 
     @Getter
     @Setter
@@ -70,10 +54,6 @@ public class BicycleDetailView implements Serializable {
 
     @Getter
     @Setter
-    String info;
-
-    @Getter
-    @Setter
     Boolean smoothed;
 
     @Getter
@@ -82,90 +62,28 @@ public class BicycleDetailView implements Serializable {
 
     @Getter
     @Setter
-    private String time;
+    private double total, average, total2, average2;
 
     @Getter
     @Setter
-    private double total;
-
-    @Getter
-    @Setter
-    private double average;
-    @Getter
-    @Setter
-    private double total2;
-
-    @Getter
-    @Setter
-    private double average2;
-
-    @Getter
-    @Setter
-    private Boolean isAverage = true;
-
-    @Getter
-    @Setter
-    private Boolean isAverage2 = true;
-
-    @PostConstruct
-    public void init() {
-        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date now = new Date();
-        time = sdfDate.format(now);
-
-//        Time z = new Time (6, 0, 0);
-//
-//        long l = now.getTime() - z.getTime();
-//
-//        String s = sdfDate.format(l);
-//        DateFormat
-//        timeRange.add(now);
-//        timeRange.add(s.);
-    }
+    private Boolean isAverage = true, isAverage2 = true;
 
     public void resetStep() {
         step = -1;
-        System.out.println("Step reset ???");
-    }
-
-
-    public Bicycle getStatus() {
-        return bs.getLast(channel);
-    }
-
-    public List<Bicycle> getAllBicycleByBicycleChannel(int channelBicycle) {
-        return bs.getByChannel(channelBicycle);
-    }
-
-    public List<Bicycle> getBicycle() {
-        return bs.getAll();
     }
 
     public List<Bicycle> getBicycles() {
         return bs.getAll();
     }
 
-    public Bicycle getLast(int channelBicycle) {
-        return bs.getLast(channelBicycle);
-    }
-
-    public int test() {
-        return selectedOne != null ? selectedOne.getChannel() : null;
-    }
-
-    public String pleaseSelect() {
-        return "keine Auswahl getroffen";
-    }
-
-
-    public String getNum( double d1, double d2, boolean b) {
+    public String getNum(double d1, double d2, boolean b) {
         String pattern = "#.###";
         DecimalFormat decimalFormat = new DecimalFormat(pattern);
-            if (b) {
-                return decimalFormat.format(d1) + " " + keyFigure.getUnitA();
-            } else {
-                return decimalFormat.format(d2) + " " + keyFigure.getUnitB();
-            }
+        if (b) {
+            return decimalFormat.format(d1) + " " + keyFigure.getUnitA();
+        } else {
+            return decimalFormat.format(d2) + " " + keyFigure.getUnitB();
+        }
     }
 
 }

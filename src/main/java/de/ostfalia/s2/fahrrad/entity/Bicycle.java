@@ -4,20 +4,17 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-@NamedQuery(name = "bicycle.getAll", query = "select bc from Bicycle bc group by channel ")
-@NamedQuery(name = "bicycle.getByBicycleChannel", query = "select bc from Bicycle bc where channel = :channelBicycle ORDER BY bc.timestamp DESC")
+@NamedQuery(name = "bicycle.getAll", query = "select bc from Bicycle bc group by channel")
 @NamedQuery(name = "bicycle.getByBicycleChannelWithTimeLimits", query = "select bc from Bicycle bc where channel = :channelBicycle AND bc.timestamp >= :from AND bc.timestamp <= :to")
-@NamedQuery(name = "bicycle.getByBicycleChannelBeforeTime", query = "select bc from Bicycle bc where channel = :channelBicycle AND bc.timestamp <= :tBefore")
-@NamedQuery(name = "bicycle.getByBicycleChannelWithLimit", query = "select bc from Bicycle bc where channel = :channelBicycle ORDER BY bc.timestamp DESC")
 
 @Entity
 @Table(name = "bicycle")
-@IdClass(BicycleID.class)
 @Getter
 @Setter
-public class Bicycle {
+public class Bicycle implements Serializable {
 
     public int getChannel() {
         return channel;
@@ -55,7 +52,7 @@ public class Bicycle {
     @Column(name = "rotations_per_second")
     int rotations_per_second;
 
-    public String channelToString(){
+    public String channelToString() {
         return String.valueOf(channel);
     }
 

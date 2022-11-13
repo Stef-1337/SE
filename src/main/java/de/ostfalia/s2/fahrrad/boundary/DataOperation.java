@@ -17,9 +17,6 @@ import java.util.Map;
 
 public abstract class DataOperation implements Serializable {
 
-    @Inject
-    BeanManager manager;
-
     private List<Bicycle> data;
     private List<ResultBike> result;
 
@@ -28,7 +25,7 @@ public abstract class DataOperation implements Serializable {
 
     private KennzahlType type;
 
-    public List<ResultBike> operateData(KennzahlType type, List<Bicycle> data, long step){
+    public List<ResultBike> operateData(KennzahlType type, List<Bicycle> data, long step) {
         init(type, data);
         smooth(data);
         calculateSteps(step);
@@ -38,27 +35,27 @@ public abstract class DataOperation implements Serializable {
         return result;
     }
 
-    public void init(KennzahlType type, List<Bicycle> data){
+    public void init(KennzahlType type, List<Bicycle> data) {
         this.data = data;
         this.type = type;
     }
 
-    public void calculateTotal(){
+    public void calculateTotal() {
         total = type.getTotal(data);
     }
 
-    public void calculateAverage(){
+    public void calculateAverage() {
         average = type.getAverage(data);
     }
 
-    public void smooth(List<Bicycle> data){
+    public void smooth(List<Bicycle> data) {
 
     }
 
-    public void calculateSteps(long step){
+    public void calculateSteps(long step) {
         result = new ArrayList<>();
 
-        if(data.size() > 0) {
+        if (data.size() > 0) {
             LocalDateTime last = data.get(0).getTimestamp();
 
             Double value = 0.0, active = 0.0;
@@ -82,7 +79,7 @@ public abstract class DataOperation implements Serializable {
                     active = 0.0;
                 }
             }
-        }else System.out.println("No data found");
+        } else System.out.println("No data found");
     }
 
     public List<Bicycle> getData() {

@@ -20,13 +20,10 @@ public enum Kennzahl {
     @Getter
     private String unitB;
 
-    private Kennzahl(KennzahlType type, String unitA, String unitB){
+    private Kennzahl(KennzahlType type, String unitA, String unitB) {
         this.type = type;
         this.unitA = unitA;
         this.unitB = unitB;
     }
 
-    public void apply(BicycleDetailData data){
-        type.apply(data);
-    }
 }

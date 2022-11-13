@@ -35,7 +35,7 @@ import java.util.concurrent.TimeUnit;
 @Named
 @RequestScoped
 public class BicycleLineChartView {
-    //test
+
     @Inject
     BicycleService bs;
 
