@@ -13,6 +13,8 @@ import javax.inject.Named;
 import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -41,7 +43,7 @@ public class BicycleDetailView implements Serializable {
 
     @Getter
     @Setter
-    String s = "1";
+    String s = "automatisch festgelegt";
 
     @Getter
     @Setter
@@ -73,6 +75,8 @@ public class BicycleDetailView implements Serializable {
 
     public void resetStep() {
         step = -1;
+        s = "automatisch festgelegt";
+        timeUnit = TimeUnit.HOURS;
     }
 
     public List<Bicycle> getBicycles() {
@@ -93,10 +97,18 @@ public class BicycleDetailView implements Serializable {
         s = e.getNewValue().toString();
         step = Long.parseLong(e.getNewValue().toString());
     }
-    public String getNow (){
-        LocalDateTime now = LocalDateTime.now();
-        String now_S = now.toString();
-        return now_S;
+
+    public void setNow (){
+//        Date in = new Date();
+//        LocalDateTime ldt = LocalDateTime.ofInstant(in.toInstant(), ZoneId.systemDefault());
+//        Date out = Date.from(ldt.atZone(ZoneId.systemDefault()).toInstant());
+        timeRange = new ArrayList<>();
+        Date d12 = java.sql.Timestamp.valueOf(LocalDateTime.now().minusHours(12));
+        timeRange.add(d12);
+        Date d = java.sql.Timestamp.valueOf(LocalDateTime.now());
+        timeRange.add(d);
+
+
     }
     public String getBefore12(){
         LocalDateTime before = LocalDateTime.now().minusHours(12);
