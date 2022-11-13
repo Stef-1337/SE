@@ -15,7 +15,7 @@
 
 
         <div class="card">
-            <p:panel header="BikeDashboard">
+            <p:panel header="BikeDashboard" style="text-align: center">
                 <h:panelGrid columns="5" cellpadding="10" styleClass="mb-3">
                     <h:column>
                         <h:form id="auswahl1">
@@ -102,9 +102,9 @@
 
         <h:form id="chartForm">
             <p:outputPanel id="graph" styleClass="mb-3">
-                <p:autoUpdate/>
                 <p:lineChart id="chart"
-                             model="#{bicycleLineChartView.getLineModel('Fahraddaten', bicycleDetailView.step, bicycleDetailView.timeUnit, bicycleDetailView.smoothed, bicycleDetailView.keyFigure, bicycleDetailView.timeRange, bicycleDetailView.channel, bicycleDetailView.channel2)}"/>
+                             model="#{bicycleLineChartView.getLineModel('Fahrraddaten', bicycleDetailView.step, bicycleDetailView.timeUnit, bicycleDetailView.smoothed, bicycleDetailView.keyFigure, bicycleDetailView.timeRange, bicycleDetailView.channel, bicycleDetailView.channel2)}"/>
+                <p:autoUpdate/>
                 <f:ajax render="outForm"/>
             </p:outputPanel>
             <p:poll interval="10" update="graph"/>
@@ -120,7 +120,8 @@
 
         <div class="card">
             <h:form id="outForm1">
-                <p:panel header="Numerische Kennzahlen">
+                <p:panel header="Numerische Kennzahlen Channel: #{bicycleDetailView.channel}" style="text-align: center">
+                    <p:autoUpdate/>
                     <h:panelGrid columns="1" cellpadding="5"
                                  style=" text-align:center; margin-left:auto; margin-right:auto;" styleClass="mb-3">
 
@@ -142,7 +143,8 @@
 
         <div class="card">
             <h:form id="outForm2">
-                <p:panel header="Numerische Kennzahlen">
+                <p:panel header="Numerische Kennzahlen Channel: #{bicycleDetailView.channel2}" style="text-align: center">
+                    <p:autoUpdate/>
                     <h:panelGrid columns="1" cellpadding="5"
                                  style=" text-align:center; margin-left:auto; margin-right:auto;" styleClass="mb-3">
 
@@ -162,69 +164,28 @@
             </h:form>
         </div>
 
-        <h:form>
-
-            <p:inputNumber id="input" value="#{bicycleDetailView.step}">
-                <p:autoUpdate/>
-            </p:inputNumber>
-
-            <p:outputLabel for="@next" />
-            <p:selectOneMenu id="option2" value="#{bicycleDetailView.timeUnit}">
-                <f:selectItem itemLabel="Select One" itemValue=""/>
-                <f:selectItem itemLabel="ms" itemValue="MILLISECONDS" noSelectionOption="true"/>
-                <f:selectItem itemLabel="sec" itemValue="SECONDS" noSelectionOption="true"/>
-                <f:selectItem itemLabel="min" itemValue="MINUTES" noSelectionOption="true"/>
-                <f:selectItem itemLabel="h" itemValue="HOURS"
-                              noSelectionOption="true"/>
-                <f:selectItem itemLabel="d" itemValue="DAYS" noSelectionOption="true"/>
-            </p:selectOneMenu>
-
-            <p:commandButton value="ok" process="@form"/>
-
-        </h:form>
-
-<!--        <h:form id="step">-->
-
-
-<!--            <p:inputText id="input" value="#{bicycleDetailView.step}" styleClass="inputNumber"/>-->
-<!--            <h:selectOneMenu id="timeUnit" value="#{bicycleDetailView.timeUnit}" required="true"-->
-<!--                             label="Text 5">-->
-
-<!--                &lt;!&ndash;                                    <f:ajax execute="ti" render="chart"/>&ndash;&gt;-->
-<!--            </h:selectOneMenu>-->
-<!--            <br/>-->
-<!--            <p:commandButton value="ok" process="@form"/>-->
-
-<!--            <p:outputPanel>-->
-<!--                #{bicycleDetailView.step}-->
-<!--                #{bicycleDetailView.timeUnit}-->
-<!--                <p:autoUpdate/>-->
-<!--            </p:outputPanel>-->
-
-<!--        </h:form>-->
-
-
-        <!--                <h:panelGrid columns="1" cellpadding="5" style="margin-left:auto; margin-right:auto;" styleClass="mb-3">-->
-        <!--                    <h:column>-->
-        <!--                        <h:selectOneMenu id="timeUnit2" value="#{bicycleDetailView.timeUnit}" required="true"-->
-        <!--                                         label="Text 5">-->
-        <!--                            <f:selectItem itemLabel="ms" itemValue="MILLISECONDS" noSelectionOption="true"/>-->
-        <!--                            <f:selectItem itemLabel="sec" itemValue="SECONDS" noSelectionOption="true"/>-->
-        <!--                            <f:selectItem itemLabel="min" itemValue="MINUTES" noSelectionOption="true"/>-->
-        <!--                            <f:selectItem itemLabel="h" itemValue="HOURS"-->
-        <!--                                          noSelectionOption="true"/>-->
-        <!--                            <f:selectItem itemLabel="d" itemValue="DAYS" noSelectionOption="true"/>-->
-        <!--                            &lt;!&ndash;                                    <f:ajax execute="ti" render="chart"/>&ndash;&gt;-->
-        <!--                        </h:selectOneMenu>-->
-        <!--                    </h:column>-->
-        <!--                </h:panelGrid>-->
-        <!--                <h:panelGrid columns="1" cellpadding="5" style="margin-left:auto; margin-right:auto;" styleClass="mb-3">-->
-        <!--                    <p:commandButton value="OK" id="btn" process="step" styleClass="mr-2">-->
-        <!--                        <f:ajax render="chart"/>-->
-        <!--                    </p:commandButton>-->
-
-        <!--                </h:panelGrid>-->
-
-
+        <div class="card">
+            <h:form id="outForm3">
+                <p:panel header="manuelle Intervallänge" style="text-align: center">
+                    <h:panelGrid columns="1" cellpadding="5"
+                                 style=" text-align:center; margin-left:auto; margin-right:auto;" styleClass="mb-3">
+                        <p:inputNumber id="input" value="#{bicycleDetailView.step}" style=" text-align:center; width:50px !important;" >
+                            <p:autoUpdate/>
+                        </p:inputNumber>
+                        <p:selectOneMenu id="numKen3" value="#{bicycleDetailView.timeUnit}"
+                                         style="margin-left:auto; margin-right:auto;">
+                            <f:selectItem itemLabel="Select One" itemValue=""/>
+                            <f:selectItem itemLabel="ms" itemValue="MILLISECONDS" noSelectionOption="true"/>
+                            <f:selectItem itemLabel="sec" itemValue="SECONDS" noSelectionOption="true"/>
+                            <f:selectItem itemLabel="min" itemValue="MINUTES" noSelectionOption="true"/>
+                            <f:selectItem itemLabel="h" itemValue="HOURS"
+                                          noSelectionOption="true"/>
+                            <f:selectItem itemLabel="d" itemValue="DAYS" noSelectionOption="true"/>
+                        </p:selectOneMenu>
+                        <p:commandButton value="ok" process="@form" style="margin-left:auto; margin-right:auto;" />
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+        </div>
     </ui:define>
 </ui:composition>

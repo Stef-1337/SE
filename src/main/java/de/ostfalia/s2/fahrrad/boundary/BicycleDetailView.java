@@ -10,6 +10,8 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.sql.Time;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -110,6 +112,15 @@ public class BicycleDetailView implements Serializable {
         SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date now = new Date();
         time = sdfDate.format(now);
+
+//        Time z = new Time (6, 0, 0);
+//
+//        long l = now.getTime() - z.getTime();
+//
+//        String s = sdfDate.format(l);
+//        DateFormat
+//        timeRange.add(now);
+//        timeRange.add(s.);
     }
 
     public void resetStep() {
