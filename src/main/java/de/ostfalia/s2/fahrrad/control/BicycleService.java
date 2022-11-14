@@ -3,6 +3,7 @@ package de.ostfalia.s2.fahrrad.control;
 import de.ostfalia.s2.fahrrad.entity.Bicycle;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.event.ValueChangeEvent;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -57,8 +58,14 @@ public class BicycleService implements Serializable {
         return list;
     }
 
-    public List<Bicycle> getAll() {
-        return em.createNamedQuery("bicycle.getAll", Bicycle.class).getResultList();
+    public List<Bicycle> getAll(Boolean b) {
+        List<Bicycle> bicycleList = em.createNamedQuery("bicycle.getAll", Bicycle.class).getResultList();
+        if(b) {
+            bicycleList.add(0, new Bicycle());
+            bicycleList.get(0).setChannel(-1);
+        }
+        return bicycleList;
     }
 
 }
+

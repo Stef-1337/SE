@@ -23,14 +23,14 @@
                             <h:outputLabel for="selectOne" value="Fahrrad 1: "/>
                             <h:selectOneMenu id="selectOne" value="#{bicycleDetailView.channel}" required="true"
                                              label="Text 3" var="c">
-                                <f:selectItems value="#{bicycleDetailView.getBicycles()}"
+                                <f:selectItems value="#{bicycleDetailView.getBicycles(false)}"
                                                var="b"
                                                itemValue="#{b.channel}"
                                                itemLabel="#{b.channel}"
                                                itemDescription="#{b.channel}"
                                                itemDisabled="#{b.channel}"
                                                itemLabelEscaped="true"
-                                               noSelectionValue="#{bicycleDetailView.getBicycles()[0]}"/>
+                                               noSelectionValue="#{bicycleDetailView.getBicycles(false)[0]}"/>
                                 <f:ajax execute="auswahl1" render="chart"/>
                             </h:selectOneMenu>
                         </h:form>
@@ -55,7 +55,7 @@
                                 <p:outputLabel for="range" value="Betrachtungszeitraum: "/>
                                 <p:datePicker id="range" selectionMode="range" value="#{bicycleDetailView.timeRange}"
                                               showTime="true" locale="de" pattern="dd.MM.yyyy" readonlyInput="true"
-                                valueChangeListener="#{bicycleDetailView.resetStep()}">
+                                              valueChangeListener="#{bicycleDetailView.resetStep()}">
                                     <f:ajax execute="dauer" render="chart"/>
                                 </p:datePicker>
                             </div>
@@ -80,11 +80,11 @@
                             <h:outputLabel for="selectTwo" value="Fahrrad 2: "/>
                             <h:selectOneMenu id="selectTwo" value="#{bicycleDetailView.channel2}" required="true"
                                              label="Text 3" var="c">
-                                <f:selectItem itemLabel="Select One" itemValue="" noSelectionOption="true"/>
-                                <f:selectItems value="#{bicycleDetailView.getBicycles()}"
+                                <!--                                <f:selectItem itemLabel="Select One" itemValue="" noSelectionOption="true"/>-->
+                                <f:selectItems value="#{bicycleDetailView.getBicycles(true)}"
                                                var="b"
                                                itemValue="#{b.channel}"
-                                               itemLabel="#{b.channel}"
+                                               itemLabel="#{b.channel == -1 ? bicycleDetailView.channel2Label : b.channel}"
                                                itemDescription="#{b.channel}"
                                                itemDisabled="#{b.channel}"
                                                itemLabelEscaped="true"
@@ -108,7 +108,7 @@
                 <p:autoUpdate/>
                 <f:ajax render="outForm"/>
             </p:outputPanel>
-<!--            <p:poll interval="10" update="graph"/>-->
+            <!--            <p:poll interval="10" update="graph"/>-->
         </h:form>
 
 
@@ -134,7 +134,7 @@
                             <f:ajax execute="numKen" render="out"/>
                         </p:selectOneMenu>
                         <p:outputPanel>
-                            <h3 style="margin-left:auto; margin-right:auto;"> #{bicycleDetailView.getNum(bicycleDetailView.average, bicycleDetailView.total, bicycleDetailView.isAverage)} </h3>
+                            <h3 style="margin-left:auto; margin-right:auto;"> #{bicycleDetailView.getNum(1, bicycleDetailView.average, bicycleDetailView.total, bicycleDetailView.isAverage)} </h3>
                             <p:autoUpdate/>
                         </p:outputPanel>
                     </h:panelGrid>
@@ -144,7 +144,7 @@
 
         <div class="card">
             <h:form id="outForm2">
-                <p:panel header="Numerische Kennzahlen Channel: #{bicycleDetailView.channel2}" style="text-align: center">
+                <p:panel header="Numerische Kennzahlen Channel: #{bicycleDetailView.channel2 == -1 ? bicycleDetailView.channel2Label : bicycleDetailView.channel2}" style="text-align: center">
                     <p:autoUpdate/>
                     <h:panelGrid columns="1" cellpadding="5"
                                  style=" text-align:center; margin-left:auto; margin-right:auto;" styleClass="mb-3">
@@ -157,7 +157,7 @@
                             <f:ajax execute="numKen" render="out"/>
                         </p:selectOneMenu>
                         <p:outputPanel>
-                            <h3 style="margin-left:auto; margin-right:auto;"> #{bicycleDetailView.getNum(bicycleDetailView.average2, bicycleDetailView.total2, bicycleDetailView.isAverage2)} </h3>
+                            <h3 style="margin-left:auto; margin-right:auto;"> #{bicycleDetailView.getNum(2, bicycleDetailView.average2, bicycleDetailView.total2, bicycleDetailView.isAverage2)} </h3>
                             <p:autoUpdate/>
                         </p:outputPanel>
                     </h:panelGrid>
@@ -190,3 +190,4 @@
         </div>
     </ui:define>
 </ui:composition>
+

@@ -1,3 +1,4 @@
+
 package de.ostfalia.s2.fahrrad.boundary;
 
 import de.ostfalia.s2.fahrrad.control.BicycleService;
@@ -22,55 +23,35 @@ import java.util.concurrent.TimeUnit;
 
 @Named("bicycleDetailView")
 @SessionScoped
+@Getter
+@Setter
 public class BicycleDetailView implements Serializable {
 
     @Inject
-    @Getter
-    @Setter
-    BicycleService bs;
+    private BicycleService bs;
 
-    @Getter
-    @Setter
-    Integer channel = 7;
+    private Integer channel = 7;
 
-    @Getter
-    @Setter
-    Integer channel2;
+    private Integer channel2 = -1;
 
-    @Getter
-    @Setter
-    long step = -1;//3600000;
+    private String channel2Label = "no selection";
 
-    @Getter
-    @Setter
-    String s = "automatisch festgelegt";
+    private long step = -1;//3600000;
 
-    @Getter
-    @Setter
-    TimeUnit timeUnit = TimeUnit.HOURS;
+    private String s = "automatisch festgelegt";
 
-    @Getter
-    @Setter
-    Kennzahl keyFigure = Kennzahl.ROTATIONS;
+    private TimeUnit timeUnit = TimeUnit.HOURS;
 
-    @Getter
-    @Setter
-    List<Kennzahl> keyFigures = Arrays.stream(Kennzahl.values()).toList();
+    private Kennzahl keyFigure = Kennzahl.ROTATIONS;
 
-    @Getter
-    @Setter
-    Boolean smoothed;
+    private List<Kennzahl> keyFigures = Arrays.stream(Kennzahl.values()).toList();
 
-    @Getter
-    @Setter
+    private Boolean smoothed;
+
     private List<Date> timeRange;
 
-    @Getter
-    @Setter
     private double total, average, total2, average2;
 
-    @Getter
-    @Setter
     private Boolean isAverage = true, isAverage2 = true;
 
     public void resetStep() {
@@ -79,13 +60,16 @@ public class BicycleDetailView implements Serializable {
         timeUnit = TimeUnit.HOURS;
     }
 
-    public List<Bicycle> getBicycles() {
-        return bs.getAll();
+    public List<Bicycle> getBicycles(Boolean b) {
+        return bs.getAll(b);
     }
 
-    public String getNum(double d1, double d2, boolean b) {
+    public String getNum(int i, double d1, double d2, boolean b) {
         String pattern = "#.###";
         DecimalFormat decimalFormat = new DecimalFormat(pattern);
+        if (channel2 == -1 && i == 2) {
+            return "0";
+        }
         if (b) {
             return decimalFormat.format(d1) + " " + keyFigure.getUnitA();
         } else {
@@ -104,8 +88,7 @@ public class BicycleDetailView implements Serializable {
         timeRange.add(d12);
         Date d = java.sql.Timestamp.valueOf(LocalDateTime.now());
         timeRange.add(d);
-
-
     }
 
 }
+
