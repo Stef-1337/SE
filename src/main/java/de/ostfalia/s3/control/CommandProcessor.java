@@ -8,10 +8,23 @@ public class CommandProcessor {
 
     private AbstractLampController controller;
 
+    // aus          grün        100             gelb
+    //state(an), color(gelb), brightness(50), color(grün), color(blau)
     private List<ICommand> undoList;
 
+    public CommandProcessor(AbstractLampController controller){
+        this.controller = controller;
+    }
+
+    public void undo(){
+        ICommand command = undoList.get(undoList.size() - 1);
+        command.undo(controller);
+
+        undoList.remove(command);
+    }
+
     public void execute(ICommand command){
-        command.execute();
+        command.execute(controller);
     }
 
     public void execute(ICommand... commands){
