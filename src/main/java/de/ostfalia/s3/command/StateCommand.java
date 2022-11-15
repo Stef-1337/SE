@@ -14,7 +14,7 @@ public class StateCommand implements ICommand {
 
     @Override
     public void execute() {
-        controller.switchChanged(to);
+        //controller.switchChanged(to);
     }
 
     @Override
