@@ -1,7 +1,8 @@
-package de.ostfalia.s3;
+package de.ostfalia.s3.command;
 
 public interface ICommand {
 
     void execute();
+    ICommand undo();
 
 }
