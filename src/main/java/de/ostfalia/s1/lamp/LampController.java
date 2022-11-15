@@ -14,11 +14,6 @@ import java.io.Serializable;
 @Named
 @SessionScoped
 public class LampController extends AbstractLampController implements Serializable {
-    private Java2NodeRedLampAdapter adapter = new Java2NodeRedLampAdapter();
-
-    public Java2NodeRedLampAdapter getAdapter() {
-        return adapter;
-    }
 
     public void switchChanged(ValueChangeEvent e) {
         switchChanged(Boolean.valueOf(e.getNewValue().toString()));
