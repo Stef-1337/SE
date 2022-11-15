@@ -13,36 +13,22 @@ import java.io.Serializable;
 
 @Named
 @SessionScoped
-public class LampController implements Serializable {
-    private Java2NodeRedLampAdapter adapter = new Java2NodeRedLampAdapter();
+public class LampController extends AbstractLampController implements Serializable {
 
-
-    public Java2NodeRedLampAdapter getAdapter() {
-        return adapter;
+    public void switchChanged(ValueChangeEvent e) {
+        switchChanged(Boolean.valueOf(e.getNewValue().toString()));
     }
 
-    public void setAdapter(Java2NodeRedLampAdapter adapter) throws Exception {
-        adapter.putRequest();
-        this.adapter = adapter;
+    public void nameChanged(ValueChangeEvent e) {
+        nameChanged(e.getNewValue().toString());
     }
 
-    public void switchChanged(ValueChangeEvent e) throws IOException, Exception {
-        adapter.getLampe().setState(Boolean.parseBoolean(e.getNewValue().toString()));
-        adapter.putRequest();
+    public void brightnessChanged(ValueChangeEvent e) {
+        brightnessChanged(Float.parseFloat(e.getNewValue().toString()));
     }
 
-    public void nameChanged(ValueChangeEvent e) throws IOException {
-        adapter.getLampe().setName((e.getNewValue().toString()));
-    }
-
-    public void brightnessChanged(ValueChangeEvent e) throws Exception {
-        adapter.getLampe().setIntensity(Float.parseFloat(e.getNewValue().toString()));
-        adapter.putRequest();
-    }
-
-    public void colorChanged(ValueChangeEvent e) throws Exception {
-        adapter.getLampe().setColor(e.getNewValue().toString());
-        adapter.putRequest();
+    public void colorChanged(ValueChangeEvent e) {
+        colorChanged(e.getNewValue().toString());
     }
 
 }

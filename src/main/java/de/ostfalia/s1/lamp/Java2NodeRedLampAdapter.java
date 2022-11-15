@@ -299,8 +299,7 @@ public class Java2NodeRedLampAdapter implements ILamp, Serializable {
         return lampe.getState();
     }
 
-    public void putRequest() throws Exception {
-        Jsonb jsonb = JsonbBuilder.create();
+    public void putRequest() {
         String result = "{" + "\"name\":" + "\"" + lampe.getName() + "\"" + "," + "\"on\": {\"on\": " + lampe.getState() + "}," + " \"dimming\":{\"brightness\":" +
                 lampe.getIntensity() + "}," + "\"color\":{\"xy\":{\"x\":" + lampe.getX() + ",\"y\":" + lampe.getY() + "}}}";
         r.setLampState(3, result);

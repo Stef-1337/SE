@@ -7,6 +7,7 @@ import javax.json.JsonReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 public class Requester {
@@ -20,13 +21,15 @@ public class Requester {
         return connection;
     }
 
-    private void setState(String json, URL url) throws Exception {
+    private void setState(String json, URL url) {
         HttpURLConnection connection = null;
         try {
             connection = setupConnection(url, "PUT");
             sendJsonCommand(json, connection);
             JsonReader jsonReader = Json.createReader(connection.getInputStream());
             jsonReader.close();
+        }catch(IOException ex){
+            ex.printStackTrace();
         } finally {
             if (connection != null) connection.disconnect();
         }
@@ -61,8 +64,12 @@ public class Requester {
         }
     }
 
-    public void setLampState(int lamp, String json) throws Exception {
-        URL url = new URL(base);
-        setState(json, url);
+    public void setLampState(int lamp, String json) {
+        try {
+            URL url = new URL(base);
+            setState(json, url);
+        }catch(MalformedURLException ex){
+            ex.printStackTrace();
+        }
     }
 }

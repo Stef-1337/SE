@@ -94,37 +94,37 @@ public class Lamp implements ILamp, Serializable {
     }
 
     @Override
-    public void switchOn() throws IOException {
+    public void switchOn() {
         state = true;
     }
 
     @Override
-    public void switchOn(float intensity) throws IOException {
+    public void switchOn(float intensity) {
         state = true;
         this.setIntensity(intensity);
     }
 
     @Override
-    public void switchOn(Color color) throws IOException {
+    public void switchOn(Color color) {
         this.setColor(color);
     }
 
     @Override
-    public void switchOff() throws IOException {
+    public void switchOff() {
         state = false;
     }
 
     @Override
-    public Color getColor() throws IOException {
+    public Color getColor() {
         return this.color;
     }
 
     @Override
-    public void setColor(Color color) throws IOException {
+    public void setColor(Color color) {
         this.color = color;
     }
 
-    public void setColor(String color) throws IOException {
+    public void setColor(String color) {
         String[] strings = color.split(" ");
         System.out.println(strings[0]);
         setColorName(strings[0]);
@@ -139,17 +139,17 @@ public class Lamp implements ILamp, Serializable {
     }
 
     @Override
-    public float getIntensity() throws IOException {
+    public float getIntensity() {
         return this.intensity;
     }
 
     @Override
-    public void setIntensity(float intensity) throws IOException {
+    public void setIntensity(float intensity) {
         this.intensity = intensity;
         this.intensityPercentage = (float) (intensity / 2.5);
     }
 
-    public float getIntensityPercentage() throws IOException {
+    public float getIntensityPercentage() {
         return this.intensityPercentage;
     }
 
@@ -158,7 +158,7 @@ public class Lamp implements ILamp, Serializable {
     }
 
     @Override
-    public boolean getState() throws IOException {
+    public boolean getState() {
         return state;
     }
 
