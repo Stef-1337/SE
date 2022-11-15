@@ -1,6 +1,7 @@
 package de.ostfalia.s3.control;
 
 import de.ostfalia.s1.lamp.AbstractLampController;
+import de.ostfalia.s3.control.commands.ICommand;
 
 import java.util.List;
 

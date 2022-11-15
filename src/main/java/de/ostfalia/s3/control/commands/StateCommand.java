@@ -1,4 +1,4 @@
-package de.ostfalia.s3.command;
+package de.ostfalia.s3.control.commands;
 
 import de.ostfalia.s1.lamp.AbstractLampController;
 
@@ -13,12 +13,12 @@ public class StateCommand implements ICommand {
     }
 
     @Override
-    public void execute() {
+    public void execute(AbstractLampController controller) {
         //controller.switchChanged(to);
     }
 
     @Override
-    public ICommand undo() {
+    public ICommand undo(AbstractLampController controller) {
         return new StateCommand(!to);
     }
 }
