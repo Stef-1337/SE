@@ -25,6 +25,7 @@ public class CommandProcessor {
 
     public void execute(ICommand command){
         command.execute(controller);
+        //TODO undoList füllen
     }
 
     public void execute(ICommand... commands){
