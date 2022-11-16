@@ -13,6 +13,8 @@
     </ui:define>
 
     <ui:define name="content">
+
+        #{remoteControlView.initList()}
         <div class="card">
             <h:form>
                 <p:growl id="growl" showDetail="true"/>
@@ -22,6 +24,56 @@
                 </p:commandButton>
             </h:form>
         </div>
+
+        <p:panel id="On" header="On" toggleable="true" toggleSpeed="500" closeSpeed="500" widgetVar="panel"
+                 style="margin-bottom:20px">
+
+            <p:ajax event="close" listener="#{panelView.onClose}" />
+            <p:ajax event="toggle" listener="#{panelView.onToggle}" />
+
+            <h:panelGrid columns="2" cellpadding="10">
+                <p:selectOneMenu >
+                    <f:selectItems
+                            var="b"
+                            itemValue="#{b}"
+                            itemLabel="#{b}"
+                            itemLabelEscaped="true"
+                            noSelectionValue=""/>
+                </p:selectOneMenu>
+            </h:panelGrid>
+
+            <f:facet name="options">
+                <p:menu>
+                    <p:submenu label="Settings">
+                        <p:menuitem value="Toggle" url="#" icon="pi pi-clone" onclick="PF('panel').toggle()"/>
+                        <p:menuitem value="Remove" url="#" icon="pi pi-times" onclick="PF('panel').close()"/>
+                    </p:submenu>
+                </p:menu>
+            </f:facet>
+        </p:panel>
+
+        <p:panel id="Off" header="Off" toggleable="true" toggleSpeed="500" closeSpeed="500" widgetVar="panel"
+                 style="margin-bottom:20px">
+
+            <p:ajax event="close" listener="#{panelView.onClose}" />
+            <p:ajax event="toggle" listener="#{panelView.onToggle}"/>
+
+            <h:panelGrid columns="2" cellpadding="10">
+                <p:graphicImage name="demo/images/godfather/godfather2.jpg"/>
+                <h:outputText value="Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather, parallels the young Vito Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side of the American dream.
+            In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy,
+            killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows."/>
+            </h:panelGrid>
+
+            <f:facet name="options">
+                <p:menu>
+                    <p:submenu label="Settings">
+                        <p:menuitem value="Toggle" url="#" icon="pi pi-clone" onclick="PF('panel').toggle()"/>
+                        <p:menuitem value="Remove" url="#" icon="pi pi-times" onclick="PF('panel').close()"/>
+                    </p:submenu>
+                </p:menu>
+            </f:facet>
+        </p:panel>
     </ui:define>
 
     <ui:define name="footer">
@@ -30,25 +82,45 @@
     <ui:define name="rechts">
         <h3>Responsive (Basic)</h3>
         <h:form>
-        <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
-        <p:panel id="basic" header="Fernbedienung Lampe 1" footer="Movie Details" style="margin-bottom:20px; text-align: center">
-        <p:panelGrid columns="2" layout="grid" styleClass="showcase-text-align-center">
-            <p:commandButton>
-                <h:outputText value="Content" />
-            </p:commandButton>
-            <h:outputText value="Content" />
+            <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true"/>
+            <p:panel id="basic" header="Fernbedienung Lampe 1" footer="Movie Details"
+                     style="margin-bottom:20px; text-align: center">
+                <p:panelGrid columns="2" layout="grid" styleClass="showcase-text-align-center">
+                    <p:commandButton>
+                        <h:outputText value="Content"/>
+                    </p:commandButton>
+                    <h:outputText value="Content"/>
 
-            <h:outputText value="Content" />
-            <h:outputText value="Content" />
+                    <h:outputText value="Content"/>
+                    <h:outputText value="Content"/>
 
-            <h:outputText value="Content" />
-            <h:outputText value="Content" />
+                    <h:outputText value="Content"/>
+                    <h:outputText value="Content"/>
 
-            <h:outputText value="Content" />
-            <h:outputText value="Content" />
-        </p:panelGrid>
-        </p:panel>
+                    <h:outputText value="Content"/>
+                    <h:outputText value="Content"/>
+                </p:panelGrid>
+            </p:panel>
         </h:form>
+
+        <p:panelGrid columns="2" layout="grid" styleClass="showcase-text-align-center">
+
+            <p:panel id="pulsate" header="Pulsate">
+                <h:outputText value="click"/>
+                <p:effect type="pulsate" event="click"/>
+            </p:panel>
+            <h:outputText value="Content"/>
+
+            <h:outputText value="Content"/>
+            <h:outputText value="Content"/>
+
+            <h:outputText value="Content"/>
+            <h:outputText value="Content"/>
+
+            <h:outputText value="Content"/>
+            <h:outputText value="Content"/>
+        </p:panelGrid>
+
 
         <div class="ui-g">
             <div class="ui-g-12 ui-md-6 ui-lg-3">ui-g-12 ui-md-6 ui-lg-3</div>
