@@ -2,13 +2,14 @@ package de.ostfalia.s3.control.commands;
 
 import de.ostfalia.s1.lamp.AbstractLampController;
 
-public class StateCommand implements ICommand {
+public class StateCommand extends AbstractCommand {
 
     private AbstractLampController controller;
 
     private boolean to;
 
-    public StateCommand(boolean state){
+    public StateCommand(String command, boolean state){
+        super(command);
         this.to = state;
     }
 
@@ -18,7 +19,7 @@ public class StateCommand implements ICommand {
     }
 
     @Override
-    public ICommand undo(AbstractLampController controller) {
-        return new StateCommand(!to);
+    public void undo(AbstractLampController controller) {
+        new StateCommand(getName(), !to).execute(controller);
     }
 }

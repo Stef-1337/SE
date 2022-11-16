@@ -1,4 +1,4 @@
-package de.ostfalia.s3.control;
+package de.ostfalia.s3.control.commands;
 
 import lombok.Getter;
 
