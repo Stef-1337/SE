@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui" xmlns:h="http://java.sun.com/jsf/html"
+                template="/WEB-INF/template/default.xhtml">
+    <ui:define name="metadata">
+        <title>Remote Control</title>
+        <f:metadata>
+
+        </f:metadata>
+
+    </ui:define>
+
+    <ui:define name="content">
+        <div class="card">
+            <h:form>
+                <p:growl id="growl" showDetail="true"/>
+
+                <p:commandButton value="Select Product" icon="pi pi-home" action="#{dfView.chooseProduct}">
+                    <p:ajax event="dialogReturn" listener="#{dfView.onProductChosen}" update="growl"/>
+                </p:commandButton>
+            </h:form>
+        </div>
+    </ui:define>
+
+    <ui:define name="footer">
+    </ui:define>
+
+    <ui:define name="rechts">
+        <h3>Responsive (Basic)</h3>
+        <h:form>
+        <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
+        <p:panel id="basic" header="Fernbedienung Lampe 1" footer="Movie Details" style="margin-bottom:20px; text-align: center">
+        <p:panelGrid columns="2" layout="grid" styleClass="showcase-text-align-center">
+            <p:commandButton>
+                <h:outputText value="Content" />
+            </p:commandButton>
+            <h:outputText value="Content" />
+
+            <h:outputText value="Content" />
+            <h:outputText value="Content" />
+
+            <h:outputText value="Content" />
+            <h:outputText value="Content" />
+
+            <h:outputText value="Content" />
+            <h:outputText value="Content" />
+        </p:panelGrid>
+        </p:panel>
+        </h:form>
+
+        <div class="ui-g">
+            <div class="ui-g-12 ui-md-6 ui-lg-3">ui-g-12 ui-md-6 ui-lg-3</div>
+            <div class="ui-g-12 ui-md-6 ui-lg-3">ui-g-12 ui-md-6 ui-lg-3</div>
+        </div>
+        <div class="ui-g">
+            <div class="ui-g-12 ui-md-6 ui-lg-3">ui-g-12 ui-md-6 ui-lg-3</div>
+            <div class="ui-g-12 ui-md-6 ui-lg-3">ui-g-12 ui-md-6 ui-lg-3</div>
+        </div>
+        <div class="ui-g">
+            <div class="ui-g-12 ui-md-6 ui-lg-3">ui-g-12 ui-md-6 ui-lg-3</div>
+            <div class="ui-g-12 ui-md-6 ui-lg-3">ui-g-12 ui-md-6 ui-lg-3</div>
+        </div>
+        <div class="ui-g">
+            <div class="ui-g-12 ui-md-6 ui-lg-3">ui-g-12 ui-md-6 ui-lg-3</div>
+            <div class="ui-g-12 ui-md-6 ui-lg-3">ui-g-12 ui-md-6 ui-lg-3</div>
+        </div>
+    </ui:define>
+</ui:composition>
+
