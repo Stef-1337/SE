@@ -27,20 +27,20 @@ public class RemoteControlView {
         if (slot < SIZE) commands.put(slot, command);
     }
 
-    public void applySwitchButton(int slot) {
-        setCommand(slot, new StateCommand("On Command", status.getState()));
-    }
-
-    public void applyColorButton(int slot){
-        //setCommand(slot, new ColorCommand("Farbe " + status.getColor().toString(), status.getColor()));
+    public Optional<AbstractCommand> getCommand(int slot){
+        return Optional.ofNullable(commands.get(slot));
     }
 
     public void onButtonClick(int slot) {
         getCommand(slot).ifPresent(command -> commandProcessor.execute(command));
     }
 
-    public Optional<AbstractCommand> getCommand(int slot){
-        return Optional.ofNullable(commands.get(slot));
+    public void onApplySwitchButtonClick(int slot) {
+        setCommand(slot, new StateCommand("On Command", status.getState()));
+    }
+
+    public void onApplyColorButtonClick(int slot){
+        //setCommand(slot, new ColorCommand("Farbe " + status.getColor().toString(), status.getColor()));
     }
 
 }
