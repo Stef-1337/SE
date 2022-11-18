@@ -49,7 +49,7 @@ public class Requester {
         os.close();
     }
 
-    public JsonObject getState(URL url) throws Exception {
+    public JsonObject getState(URL url) {
         HttpURLConnection connection = null;
         JsonObject jsonObject = null;
         try {
@@ -59,9 +59,13 @@ public class Requester {
             jsonObject = jsonReader.readObject();
             jsonReader.close();
             return jsonObject;
+        } catch(Exception ex){
+            ex.printStackTrace();
         } finally {
             if (connection != null) connection.disconnect();
         }
+
+        return null;
     }
 
     public void setLampState(int lamp, String json) {

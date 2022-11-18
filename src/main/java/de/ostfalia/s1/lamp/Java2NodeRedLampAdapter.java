@@ -13,6 +13,7 @@ import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
 import java.awt.*;
 import java.io.*;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ public class Java2NodeRedLampAdapter implements ILamp, Serializable {
 
     private static Lamp lampe = new Lamp();
     HashMap<List<Float>, String> xyWerte = new HashMap<>();
-    private Requester r = new Requester();
+    private Requester requester = new Requester();
     private List<SelectItem> colors;
     private String selection;
 
@@ -246,12 +247,12 @@ public class Java2NodeRedLampAdapter implements ILamp, Serializable {
         this.lampe = lampe;
     }
 
-    public Requester getR() {
-        return r;
+    public Requester getRequester() {
+        return requester;
     }
 
-    public void setR(Requester r) {
-        this.r = r;
+    public void setRequester(Requester requester) {
+        this.requester = requester;
     }
 
     @Override
@@ -290,7 +291,7 @@ public class Java2NodeRedLampAdapter implements ILamp, Serializable {
     }
 
     @Override
-    public void setIntensity(float intensity){
+    public void setIntensity(float intensity) {
         lampe.setIntensity(intensity);
     }
 
@@ -302,11 +303,43 @@ public class Java2NodeRedLampAdapter implements ILamp, Serializable {
     public void putRequest() {
         String result = "{" + "\"name\":" + "\"" + lampe.getName() + "\"" + "," + "\"on\": {\"on\": " + lampe.getState() + "}," + " \"dimming\":{\"brightness\":" +
                 lampe.getIntensity() + "}," + "\"color\":{\"xy\":{\"x\":" + lampe.getX() + ",\"y\":" + lampe.getY() + "}}}";
-        r.setLampState(3, result);
+        requester.setLampState(3, result);
+    }
+
+    public Lamp fetchCurrentLampStatus() {
+        try {
+            JsonObject request = requester.getState(new URL(requester.base));
+            Lamp lamp = new Lamp();
+
+            JsonReader reader = Json.createReader(new ByteArrayInputStream(("{" + request.toString().substring(86, 934) + "}").getBytes(StandardCharsets.UTF_8)));
+            JsonObject data = reader.readObject();
+            JsonObject metadata = data.getJsonObject("metadata");
+
+            lamp.setName(metadata.getString("name"));
+            lamp.setState(data.getJsonObject("on").getBoolean("on"));
+            lamp.setIntensity(data.getJsonObject("dimming").getInt("brightness"));
+
+            String colorStrings = data.getJsonObject("color").getJsonObject("xy").toString().substring(1, 22);
+            List<Float> colors = new ArrayList<>();
+
+            for (String colorString : colorStrings.split(","))
+                colors.add(Float.parseFloat(colorString.substring(4)));
+
+            lamp.setX(colors.get(0));
+            lamp.setY(colors.get(1));
+
+            lamp.setColorName(xyWerte.get(colors));
+
+            return lamp;
+        } catch (MalformedURLException ex) {
+            ex.printStackTrace();
+        }
+
+        return null;
     }
 
     public void getRequest() throws Exception {
-        JsonObject request = r.getState(new URL(r.base));
+        JsonObject request = requester.getState(new URL(requester.base));
         String string = "{" + request.toString().substring(86, 934) + "}";
         InputStream is = new ByteArrayInputStream(string.getBytes(StandardCharsets.UTF_8));
         JsonReader jsonReader = Json.createReader(is);
@@ -333,7 +366,10 @@ public class Java2NodeRedLampAdapter implements ILamp, Serializable {
 
     public static void main(String[] args) throws Exception {
         Java2NodeRedLampAdapter j = new Java2NodeRedLampAdapter();
-        j.getRequest();
+        Lamp lamp = j.fetchCurrentLampStatus();
+        System.out.println(lamp.getName() + ", " + lamp.getColorName() + ", " + lamp.getColor() + ", " + lamp.getState() + ", " + lamp.getIntensity());
+
+        //j.getRequest();
     }
 
 }
