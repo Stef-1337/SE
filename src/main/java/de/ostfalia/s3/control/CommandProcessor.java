@@ -37,6 +37,10 @@ public class CommandProcessor {
         undoList.remove(command);
     }
 
+    public void undo(int index){
+        //TODO
+    }
+
     public void execute(ICommand command) {
         command.execute(controller);
     }
