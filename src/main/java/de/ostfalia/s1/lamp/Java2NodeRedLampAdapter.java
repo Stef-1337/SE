@@ -255,47 +255,47 @@ public class Java2NodeRedLampAdapter implements ILamp, Serializable {
     }
 
     @Override
-    public void switchOn() throws IOException {
+    public void switchOn() {
         lampe.switchOn();
     }
 
     @Override
-    public void switchOn(float intensity) throws IOException {
+    public void switchOn(float intensity) {
         lampe.switchOn();
     }
 
     @Override
-    public void switchOn(Color color) throws IOException {
+    public void switchOn(Color color) {
         lampe.switchOn();
     }
 
     @Override
-    public void switchOff() throws IOException {
+    public void switchOff() {
         lampe.switchOn();
     }
 
     @Override
-    public Color getColor() throws IOException {
+    public Color getColor() {
         return lampe.getColor();
     }
 
     @Override
-    public void setColor(Color color) throws IOException {
+    public void setColor(Color color) {
         lampe.setColor(color);
     }
 
     @Override
-    public float getIntensity() throws IOException {
+    public float getIntensity() {
         return lampe.getIntensity();
     }
 
     @Override
-    public void setIntensity(float intensity) throws IOException {
+    public void setIntensity(float intensity){
         lampe.setIntensity(intensity);
     }
 
     @Override
-    public boolean getState() throws IOException {
+    public boolean getState() {
         return lampe.getState();
     }
 
