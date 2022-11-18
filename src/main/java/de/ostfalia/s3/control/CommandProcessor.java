@@ -28,13 +28,15 @@ public class CommandProcessor {
     }
 
     public void undo() {
-        ICommand command = undoList.get(undoList.size() - 1);
+        if(undoList.size() > 0) {
+            ICommand command = undoList.get(undoList.size() - 1);
 
-        if (command instanceof AbstractCommand abstractCommand) {
-            abstractCommand.undo();
-        } else command.undo(controller);
+            if (command instanceof AbstractCommand abstractCommand) {
+                abstractCommand.undo();
+            } else command.undo(controller);
 
-        undoList.remove(command);
+            undoList.remove(command);
+        }
     }
 
     public void undo(int index){
