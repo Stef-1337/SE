@@ -173,4 +173,23 @@ public class Lamp implements ILamp, Serializable {
     public void setName(String name) {
         this.name = name;
     }
+
+    @Override
+    public String toString() {
+        return "Lamp{" +
+                "name='" + name + '\'' +
+                ", state=" + state +
+                ", intensity=" + intensity +
+                ", intensityPercentage=" + intensityPercentage +
+                ", color=" + color +
+                ", colorName='" + colorName + '\'' +
+                ", hex='" + hex + '\'' +
+                ", rgbR=" + rgbR +
+                ", rgbG=" + rgbG +
+                ", rgbB=" + rgbB +
+                ", x=" + x +
+                ", y=" + y +
+                ", cat=" + cat +
+                '}';
+    }
 }

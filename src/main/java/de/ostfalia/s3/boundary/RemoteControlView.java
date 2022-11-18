@@ -1,5 +1,6 @@
 package de.ostfalia.s3.boundary;
 
+import de.ostfalia.s1.lamp.AbstractLampController;
 import de.ostfalia.s1.lamp.Lamp;
 import de.ostfalia.s3.control.CommandParameterData;
 import de.ostfalia.s3.control.CommandProcessor;
@@ -27,6 +28,8 @@ public class RemoteControlView implements Serializable {
 
     private HashMap<Integer, AbstractCommand> commands = new HashMap<>();
 
+    private AbstractLampController controller;
+
     private int slot;
     private CommandParameterData data = new CommandParameterData();
 
@@ -43,7 +46,7 @@ public class RemoteControlView implements Serializable {
     }
 
     public void onApplySwitchButtonClick() {
-        setCommand(slot, new StateCommand(data.getName(), data.isOn()));
+        setCommand(slot, new StateCommand(controller, data.getName(), data.isOn()));
     }
 
     public void onApplyColorButtonClick(){
