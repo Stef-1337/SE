@@ -3,6 +3,7 @@ package de.ostfalia.s3.control;
 import de.ostfalia.s1.lamp.AbstractLampController;
 import de.ostfalia.s3.control.commands.ICommand;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CommandProcessor {
@@ -15,6 +16,7 @@ public class CommandProcessor {
 
     public CommandProcessor(AbstractLampController controller){
         this.controller = controller;
+        this.undoList = new ArrayList<>();
     }
 
     public void undo(){

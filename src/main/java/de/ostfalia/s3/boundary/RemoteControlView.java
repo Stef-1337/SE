@@ -5,23 +5,28 @@ import de.ostfalia.s3.control.CommandProcessor;
 import de.ostfalia.s3.control.commands.AbstractCommand;
 import de.ostfalia.s3.control.commands.StateCommand;
 import lombok.Getter;
+import lombok.Setter;
 
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
 import java.awt.*;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Optional;
 
-public class RemoteControlView {
+@Getter
+@Setter
+@Named
+@SessionScoped
+public class RemoteControlView implements Serializable {
 
     private static final int SIZE = 8;
 
     private CommandProcessor commandProcessor;
 
-    private HashMap<Integer, AbstractCommand> commands;
+    private HashMap<Integer, AbstractCommand> commands = new HashMap<>();
 
-    @Getter
     private Lamp status;
-
-    //TODO intialize variables
 
     public void setCommand(int slot, AbstractCommand command) {
         if (slot < SIZE) commands.put(slot, command);
