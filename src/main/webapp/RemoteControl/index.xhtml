@@ -14,7 +14,6 @@
 
     <ui:define name="content">
 
-        #{remoteControlView.initList()}
 
         <p:fieldset legend="On" toggleable="true" toggleSpeed="500">
             <p:ajax event="toggle" listener="#{fieldsetView.handleToggle}"/>
@@ -32,6 +31,10 @@
                             <p:slider for="txt2" display="output" style="width: 200px" displayTemplate="Set ratio to %{value}" />
                         </h:panelGrid>
                     </p:column>
+                    <p:selectOneMenu>
+                        <f:selectItem itemLabel="Position wählen"  noSelectionOption="true" />
+                        <f:selectItems value="#{remoteControlView.freePositions}"/>
+                    </p:selectOneMenu>
 
                     <p:column>
 
