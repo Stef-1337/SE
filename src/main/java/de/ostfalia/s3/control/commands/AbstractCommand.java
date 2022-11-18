@@ -45,4 +45,8 @@ public abstract class AbstractCommand implements ICommand, Cloneable {
         lamp.putRequest();
     }
 
+    public void undo(AbstractLampController controller){
+
+    }
+
 }
