@@ -4,6 +4,7 @@ import de.ostfalia.s1.lamp.Lamp;
 import de.ostfalia.s3.control.CommandProcessor;
 import de.ostfalia.s3.control.commands.AbstractCommand;
 import de.ostfalia.s3.control.commands.StateCommand;
+import lombok.Getter;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -17,6 +18,7 @@ public class RemoteControlView {
 
     private HashMap<Integer, AbstractCommand> commands;
 
+    @Getter
     private Lamp status;
 
     //TODO intialize variables
@@ -34,7 +36,11 @@ public class RemoteControlView {
     }
 
     public void onButtonClick(int slot) {
-        Optional.ofNullable(commands.get(slot)).ifPresent(command -> commandProcessor.execute(command));
+        getCommand(slot).ifPresent(command -> commandProcessor.execute(command));
+    }
+
+    public Optional<AbstractCommand> getCommand(int slot){
+        return Optional.ofNullable(commands.get(slot));
     }
 
 }
