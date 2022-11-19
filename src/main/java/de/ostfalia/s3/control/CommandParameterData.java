@@ -10,9 +10,9 @@ import java.util.List;
 @Setter
 public class CommandParameterData {
 
-    private String name;
-    private boolean on;
-    private double intensity;
+    private String name = "";
+    private boolean on = false;
+    private double intensity = -1;
     private double intensityStep;
     private List<Color> colors;
 

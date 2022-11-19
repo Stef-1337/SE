@@ -12,6 +12,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -62,6 +63,10 @@ public class RemoteControlView implements Serializable {
 
     public void onApplyColorButtonClick(){
         //setCommand(slot, new ColorCommand("Farbe " + status.getColor().toString(), status.getColor()));
+    }
+
+    public List<String> getConfig(int slot){
+       return null;
     }
 
 }

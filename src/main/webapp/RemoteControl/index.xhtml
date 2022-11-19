@@ -15,24 +15,26 @@
     <ui:define name="content">
 
 
-        <p:fieldset legend="State" toggleable="true" toggleSpeed="500">
-            <p:ajax event="toggle" listener="#{fieldsetView.handleToggle}"/>
+        <p:panel header="State" toggleable="true" toggleSpeed="500" widgetVar="panel" collapsed="true">
             <h:form>
                 <p:panelGrid columns="5" layout="grid" styleClass="showcase-text-align-center">
-                    <p:column>
-                        <p:inputText id="float-input" placeholder="Befehlsname" value="#{basicView.text}"/>
-                    </p:column>
 
-                    <p:column>
+                        <p:inputText id="float-input" placeholder="Befehlsname" value="#{remoteControlView.data.name}"/>
+
                         <p:selectOneMenu>
                             <f:selectItem itemLabel="Position wählen" itemDisabled="true"  noSelectionOption="true" />
                             <f:selectItems value="#{remoteControlView.slots}"/>
                         </p:selectOneMenu>
-                    </p:column>
 
-                    <p:column>
+                        <p:toggleSwitch value="#{remoteControlView.data.on}" label="state: " onIcon="pi pi-power-off"
+                                        offIcon="pi pi-power-off"/>
 
-                    </p:column>
+                        <p:commandButton type="button" value="Add" icon="pi pi-plus"
+                                         process="#{remoteControlView.onApplySwitchButtonClick()}"/>
+
+
+
+
 
 <!--                    <p:column>-->
 <!--                        <h3>Hidden Input Slider with Display Value</h3>-->
@@ -64,87 +66,7 @@
 <!--                    hallo-->
                 </p:panelGrid>
             </h:form>
-        </p:fieldset>
-
-        <p:fieldset legend="Off" toggleable="true" toggleSpeed="500">
-            <p:ajax event="toggle" listener="#{fieldsetView.handleToggle}"/>
-            <h3>Interactive</h3>
-            <p:steps activeIndex="1" styleClass="custom" readonly="false">
-                <p:menuitem value="Personal" url="#"/>
-                <p:menuitem value="Seat Selection" url="#"/>
-                <p:menuitem value="Payment" url="#"/>
-                <p:menuitem value="Confirmation" url="#"/>
-            </p:steps>
-            <h:panelGrid columns="2" cellpadding="5">
-                <h:outputText value="Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather, parallels the young Vito Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side of the American dream.
-                          In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy,
-                          killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows."></h:outputText>
-            </h:panelGrid>
-        </p:fieldset>
-
-        <p:fieldset legend="Heller" toggleable="true" toggleSpeed="500">
-            <p:ajax event="toggle" listener="#{fieldsetView.handleToggle}"/>
-            <h3>Interactive</h3>
-            <p:steps activeIndex="1" styleClass="custom" readonly="false">
-                <p:menuitem value="Personal" url="#"/>
-                <p:menuitem value="Seat Selection" url="#"/>
-                <p:menuitem value="Payment" url="#"/>
-                <p:menuitem value="Confirmation" url="#"/>
-            </p:steps>
-            <h:panelGrid columns="2" cellpadding="5">
-                <h:outputText value="Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather, parallels the young Vito Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side of the American dream.
-                          In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy,
-                          killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows."></h:outputText>
-            </h:panelGrid>
-        </p:fieldset>
-
-        <p:fieldset legend="Dunkler" toggleable="true" toggleSpeed="500">
-            <p:ajax event="toggle" listener="#{fieldsetView.handleToggle}"/>
-            <h3>Interactive</h3>
-            <p:steps activeIndex="1" styleClass="custom" readonly="false">
-                <p:menuitem value="Personal" url="#"/>
-                <p:menuitem value="Seat Selection" url="#"/>
-                <p:menuitem value="Payment" url="#"/>
-                <p:menuitem value="Confirmation" url="#"/>
-            </p:steps>
-            <h:panelGrid columns="2" cellpadding="5">
-                <h:outputText value="Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather, parallels the young Vito Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side of the American dream.
-                          In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy,
-                          killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows."></h:outputText>
-            </h:panelGrid>
-        </p:fieldset>
-
-        <p:fieldset legend="Time On" toggleable="true" toggleSpeed="500">
-            <p:ajax event="toggle" listener="#{fieldsetView.handleToggle}"/>
-            <h3>Interactive</h3>
-            <p:steps activeIndex="1" styleClass="custom" readonly="false">
-                <p:menuitem value="Personal" url="#"/>
-                <p:menuitem value="Seat Selection" url="#"/>
-                <p:menuitem value="Payment" url="#"/>
-                <p:menuitem value="Confirmation" url="#"/>
-            </p:steps>
-            <h:panelGrid columns="2" cellpadding="5">
-                <h:outputText value="Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather, parallels the young Vito Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side of the American dream.
-                          In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy,
-                          killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows."></h:outputText>
-            </h:panelGrid>
-        </p:fieldset>
-
-        <p:fieldset legend="Party Modus" toggleable="true" toggleSpeed="500">
-            <p:ajax event="toggle" listener="#{fieldsetView.handleToggle}"/>
-            <h3>Interactive</h3>
-            <p:steps activeIndex="1" styleClass="custom" readonly="false">
-                <p:menuitem value="Personal" url="#"/>
-                <p:menuitem value="Seat Selection" url="#"/>
-                <p:menuitem value="Payment" url="#"/>
-                <p:menuitem value="Confirmation" url="#"/>
-            </p:steps>
-            <h:panelGrid columns="2" cellpadding="5">
-                <h:outputText value="Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather, parallels the young Vito Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side of the American dream.
-                          In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy,
-                          killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows."></h:outputText>
-            </h:panelGrid>
-        </p:fieldset>
+        </p:panel>
 
     </ui:define>
 
@@ -153,15 +75,16 @@
     </ui:define>
 
     <ui:define name="rechts">
-        <h3>Responsive (Basic)</h3>
         <h:form>
             <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true"/>
-            <p:panel id="basic" header="Fernbedienung Lampe 1" footer="Movie Details"
+            <p:panel id="basic" header="Fernbedienung Lampe 1"
                      style="margin-bottom:20px; text-align: center">
                 <p:panelGrid columns="2" layout="grid" styleClass="showcase-text-align-center">
-                    <p:commandButton>
-                        <h:outputText value="Content"/>
-                    </p:commandButton>
+
+                    <p:panel id="pulsate" header="Pulsate">
+                        <h:outputText value="click"/>
+                        <p:effect type="pulsate" event="click"/>
+                    </p:panel>
                     <h:outputText value="Content"/>
 
                     <h:outputText value="Content"/>
@@ -175,42 +98,6 @@
                 </p:panelGrid>
             </p:panel>
         </h:form>
-
-        <p:panelGrid columns="2" layout="grid" styleClass="showcase-text-align-center">
-
-            <p:panel id="pulsate" header="Pulsate">
-                <h:outputText value="click"/>
-                <p:effect type="pulsate" event="click"/>
-            </p:panel>
-            <h:outputText value="Content"/>
-
-            <h:outputText value="Content"/>
-            <h:outputText value="Content"/>
-
-            <h:outputText value="Content"/>
-            <h:outputText value="Content"/>
-
-            <h:outputText value="Content"/>
-            <h:outputText value="Content"/>
-        </p:panelGrid>
-
-
-        <div class="ui-g">
-            <div class="ui-g-12 ui-md-6 ui-lg-3">ui-g-12 ui-md-6 ui-lg-3</div>
-            <div class="ui-g-12 ui-md-6 ui-lg-3">ui-g-12 ui-md-6 ui-lg-3</div>
-        </div>
-        <div class="ui-g">
-            <div class="ui-g-12 ui-md-6 ui-lg-3">ui-g-12 ui-md-6 ui-lg-3</div>
-            <div class="ui-g-12 ui-md-6 ui-lg-3">ui-g-12 ui-md-6 ui-lg-3</div>
-        </div>
-        <div class="ui-g">
-            <div class="ui-g-12 ui-md-6 ui-lg-3">ui-g-12 ui-md-6 ui-lg-3</div>
-            <div class="ui-g-12 ui-md-6 ui-lg-3">ui-g-12 ui-md-6 ui-lg-3</div>
-        </div>
-        <div class="ui-g">
-            <div class="ui-g-12 ui-md-6 ui-lg-3">ui-g-12 ui-md-6 ui-lg-3</div>
-            <div class="ui-g-12 ui-md-6 ui-lg-3">ui-g-12 ui-md-6 ui-lg-3</div>
-        </div>
     </ui:define>
 </ui:composition>
 
