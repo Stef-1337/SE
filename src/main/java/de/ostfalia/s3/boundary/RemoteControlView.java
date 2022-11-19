@@ -1,17 +1,20 @@
 package de.ostfalia.s3.boundary;
 
+import de.ostfalia.s1.lamp.AbstractLampController;
+import de.ostfalia.s1.lamp.Lamp;
+import de.ostfalia.s3.control.CommandParameterData;
 import de.ostfalia.s3.control.CommandProcessor;
+import de.ostfalia.s3.control.commands.AbstractCommand;
+import de.ostfalia.s3.control.commands.StateCommand;
 import lombok.Getter;
 import lombok.Setter;
-import org.primefaces.component.selectonemenu.SelectOneMenu;
 
 import javax.enterprise.context.SessionScoped;
-import javax.faces.model.SelectItem;
-import javax.faces.model.SelectItemGroup;
 import javax.inject.Named;
+import java.awt.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Optional;
 
 @Getter
 @Setter
@@ -19,36 +22,36 @@ import java.util.List;
 @SessionScoped
 public class RemoteControlView implements Serializable {
 
+    private static final int SIZE = 8;
+
     private CommandProcessor commandProcessor;
 
+    private HashMap<Integer, AbstractCommand> commands = new HashMap<>();
 
-    private int positionSelected;
-    private List<Integer> freePositions = new ArrayList<>(8);
+    private AbstractLampController controller;
 
+    private int slot;
+    private CommandParameterData data = new CommandParameterData();
 
-    public RemoteControlView(){
-        for (int i = 1; i  < 9; i++) {
-            freePositions.add(i);
-        }
+    public void setCommand(int slot, AbstractCommand command) {
+        if (slot < SIZE) commands.put(slot, command);
     }
 
-    public List<Integer> showFreePositions(){
-        return null;
-    }
-    public void init(){
-        List<SelectItem> items = new ArrayList<>();
-        SelectOneMenu menu = new SelectOneMenu();
-        SelectItemGroup group = new SelectItemGroup();
-        for (Integer i: freePositions) {
-            items.add(new SelectItem(i));
-        }
+    public Optional<AbstractCommand> getCommand(int slot){
+        return Optional.ofNullable(commands.get(slot));
     }
 
-    public void switchButton(){
+    public void onButtonClick() {
+        getCommand(slot).ifPresent(command -> commandProcessor.execute(command));
     }
 
-    public void colorButton(){
+    public void onApplySwitchButtonClick() {
+        setCommand(slot, new StateCommand(controller, data.getName(), data.isOn()));
+    }
 
+    public void onApplyColorButtonClick(){
+        //setCommand(slot, new ColorCommand("Farbe " + status.getColor().toString(), status.getColor()));
     }
 
 }
+
