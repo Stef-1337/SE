@@ -54,3 +54,4 @@ public class RemoteControlView implements Serializable {
     }
 
 }
+
