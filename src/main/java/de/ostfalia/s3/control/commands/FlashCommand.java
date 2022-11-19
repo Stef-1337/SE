@@ -23,6 +23,7 @@ public class FlashCommand extends AbstractCommand {
                 new StateCommand(controller,"state", true).execute(controller);
                 Thread.sleep(4000);
                 new StateCommand(controller, "state", false).execute(controller);
+                Thread.sleep(400);
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
