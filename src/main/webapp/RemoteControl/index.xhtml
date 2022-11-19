@@ -15,45 +15,53 @@
     <ui:define name="content">
 
 
-        <p:fieldset legend="On" toggleable="true" toggleSpeed="500">
+        <p:fieldset legend="State" toggleable="true" toggleSpeed="500">
             <p:ajax event="toggle" listener="#{fieldsetView.handleToggle}"/>
             <h:form>
                 <p:panelGrid columns="5" layout="grid" styleClass="showcase-text-align-center">
                     <p:column>
-                        <p:inputText id="float-input" placeholder="Befehlname" value="#{basicView.text}"/>
+                        <p:inputText id="float-input" placeholder="Befehlsname" value="#{basicView.text}"/>
                     </p:column>
 
                     <p:column>
-                        <h3>Hidden Input Slider with Display Value</h3>
-                        <h:panelGrid columns="1" style="margin-bottom: 10px">
-                            <h:outputText id="output" value="Set ratio to %#{sliderView.number2}" />
-                            <h:inputHidden id="txt2" value="#{sliderView.number4}" />
-                            <p:slider for="txt2" display="output" style="width: 200px" displayTemplate="Set ratio to %{value}" />
-                        </h:panelGrid>
-                    </p:column>
-                    <p:selectOneMenu>
-                        <f:selectItem itemLabel="Position wählen"  noSelectionOption="true" />
-                        <f:selectItems value="#{remoteControlView.freePositions}"/>
-                    </p:selectOneMenu>
-
-                    <p:column>
-
+                        <p:selectOneMenu>
+                            <f:selectItem itemLabel="Position wählen" itemDisabled="true"  noSelectionOption="true" />
+                            <f:selectItems value="#{remoteControlView.slots}"/>
+                        </p:selectOneMenu>
                     </p:column>
 
                     <p:column>
 
                     </p:column>
 
-                    <p:column>
+<!--                    <p:column>-->
+<!--                        <h3>Hidden Input Slider with Display Value</h3>-->
+<!--                        <h:panelGrid columns="1" style="margin-bottom: 10px">-->
+<!--                            <h:outputText id="output" value="Set ratio to %#{sliderView.number2}" />-->
+<!--                            <h:inputHidden id="txt2" value="#{sliderView.number4}" />-->
+<!--                            <p:slider for="txt2" display="output" style="width: 200px" displayTemplate="Set ratio to %{value}" />-->
+<!--                        </h:panelGrid>-->
+<!--                    </p:column>-->
 
-                    </p:column>
+
+<!--                    <p:column>-->
+
+<!--                    </p:column>-->
+
+<!--                    <p:column>-->
+
+<!--                    </p:column>-->
+
+<!--                    <p:column>-->
+
+<!--                    </p:column>-->
 
 
 
-                    hallo
-                    hallo
-                    hallo
-                    hallo
+<!--                    hallo-->
+<!--                    hallo-->
+<!--                    hallo-->
+<!--                    hallo-->
                 </p:panelGrid>
             </h:form>
         </p:fieldset>
