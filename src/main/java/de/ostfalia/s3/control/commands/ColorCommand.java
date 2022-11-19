@@ -4,9 +4,9 @@ import de.ostfalia.s1.lamp.AbstractLampController;
 
 import java.awt.*;
 
-public class ColorCommand extends AbstractCommand{
+public class ColorCommand extends AbstractCommand {
 
-private Color color;
+    private Color color;
 
     public ColorCommand(AbstractLampController controller, String name, Color color) {
         super(controller, name);
@@ -15,6 +15,6 @@ private Color color;
 
     @Override
     public void execute(AbstractLampController controller) {
-
+        controller.colorChanged(color.toString());
     }
 }
