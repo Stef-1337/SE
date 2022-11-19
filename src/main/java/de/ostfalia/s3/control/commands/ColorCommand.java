@@ -6,15 +6,15 @@ import java.awt.*;
 
 public class ColorCommand extends AbstractCommand {
 
-    private Color color;
+    private String color;
 
-    public ColorCommand(AbstractLampController controller, String name, Color color) {
+    public ColorCommand(AbstractLampController controller, String name, String color) {
         super(controller, name);
         this.color = color;
     }
 
     @Override
     public void execute(AbstractLampController controller) {
-        controller.colorChanged(color.toString());
+        controller.colorChanged(color);
     }
 }

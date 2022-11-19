@@ -18,8 +18,9 @@ public class LampCommand extends AbstractCommand{
 
     @Override
     public void execute(AbstractLampController controller) {
-        controller.switchChanged(to);
-        controller.brightnessChanged(brigthness);
-        controller.colorChanged(color);
+         new StateCommand(controller, "state", to).execute(controller);
+        new BrightnessCommand(controller, "brightness", brigthness).execute(controller);
+        new  ColorCommand(controller,"color", color).execute(controller);
+
     }
 }
