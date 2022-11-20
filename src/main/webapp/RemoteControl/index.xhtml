@@ -113,21 +113,11 @@
             <div class="card">
                 <p:panel header="Fernbedienung" style="text-align: center">
                     <p:panelGrid columns="2" layout="grid" styleClass="showcase-text-align-center">
-                        <p:dataList id="remote1" lazy="" value="#{remoteControlView.commands.get(1).stringList}"
+                        <p:dataList id="remote1" value="#{remoteControlView.commands.get(1).stringList}"
                                     emptyMessage="n.d." var="product" type="definition"
                                     style="text-align: center">
                             <f:facet name="header">
                                 #{remoteControlView.data.name}
-                            </f:facet>
-                            #{product}
-                            <p:effect type="pulsate" event="click"/>
-                        </p:dataList>
-
-                        <p:dataList id="remote2" lazy="" value="#{remoteControlView.commands.get(1).stringList}"
-                                    emptyMessage="n.d." var="product" type="definition"
-                                    style="text-align: center">
-                            <f:facet name="header">
-                                #{remoteControlView.commands.get(1).name}
                             </f:facet>
                             #{product}
                             <p:effect type="pulsate" event="click"/>
