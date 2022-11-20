@@ -24,6 +24,8 @@ public class DimCommand extends AbstractCommand {
                 while (brightnessChange > 0 && change == true) {
                     new BrightnessCommand(controller, "brightness", brightnessChange -= 5);
                     Thread.sleep(100);
+                    System.out.println(1);
+                    System.out.println("1      " + brightnessChange);
                     if (brightnessChange <= 6) {
                         change = false;
                     }
@@ -31,6 +33,8 @@ public class DimCommand extends AbstractCommand {
                 while (brightnessChange < 100 && change == false) {
                     new BrightnessCommand(controller, "brightness", brightnessChange += 5);
                     Thread.sleep(100);
+                    System.out.println(2);
+                    System.out.println("2      " + brightnessChange);
                     if (brightnessChange >= 94) {
                         change = true;
                     }

@@ -21,8 +21,10 @@ public class FlashCommand extends AbstractCommand {
         try {
             while (true){
                 new StateCommand(controller,"state", true).execute(controller);
+                System.out.println("an");
                 Thread.sleep(4000);
                 new StateCommand(controller, "state", false).execute(controller);
+                System.out.println("aus");
                 Thread.sleep(400);
             }
         } catch (InterruptedException e) {

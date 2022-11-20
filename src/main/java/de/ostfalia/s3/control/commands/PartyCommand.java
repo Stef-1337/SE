@@ -60,7 +60,7 @@ public class PartyCommand extends AbstractCommand{
                     Color randomcolor = new Color(r, g, b);
                     count++;
                     new ColorCommand(controller, "color", randomcolor.toString());       //Absprechen, ob Color als String oder als Color ToDo
-
+                    System.out.println(randomcolor);
 
                     Thread.sleep(100);
                     if (count == 7){
