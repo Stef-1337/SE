@@ -14,33 +14,24 @@
 
     <ui:define name="content">
 
+        <div class="card">
+            <h:form id="form">
 
-        <p:panel id="state" header="State" toggleable="true" toggleSpeed="500" widgetVar="panel" collapsed="true">
-            <h:form>
-                <p:panelGrid columns="5" layout="grid" styleClass="showcase-text-align-center">
-
-                        <p:inputText id="float-input" placeholder="Befehlsname" value="#{remoteControlView.name}"/>
-
-                        <p:selectOneMenu>
-                            <f:selectItem itemLabel="Position wählen" itemDisabled="true"  noSelectionOption="true" />
-                            <f:selectItems value="#{remoteControlView.slots}"/>
-                        </p:selectOneMenu>
-
+                <p:panel header="State Command" id="panel1" toggleable="true" collapsed="true" styleClass="mb-5">
+                    <h:panelGrid columns="5" cellpadding="10">
+                        <p:inputText id="name" placeholder="Befehlsname" value="#{remoteControlView.data.name}"/>
                         <p:toggleSwitch value="#{remoteControlView.data.on}" label="state: " onIcon="pi pi-power-off"
                                         offIcon="pi pi-power-off"/>
-
-                        <p:commandButton id="btn1" type="button" value="Add" icon="pi pi-plus" update="test"
-                                         process="#{remoteControlView.onApplySwitchButtonClick()}"/>
-
-                        <p:defaultCommand target="btn1" scope="state"/>
-                </p:panelGrid>
+                        <p:selectOneMenu>
+                            <f:selectItem itemLabel="Position wählen" itemDisabled="true" noSelectionOption="true"/>
+                            <f:selectItems value="#{remoteControlView.slots}"/>
+                        </p:selectOneMenu>
+                        <p:commandButton value="add" process="form" update="remote" id="btn1" styleClass="mr-2"/>
+                        <p:defaultCommand target="btn1" scope="panel1"/>
+                    </h:panelGrid>
+                </p:panel>
             </h:form>
-        </p:panel>
-
-        <h:form id="test">
-            #{remoteControlView.name}
-        </h:form>
-
+        </div>
     </ui:define>
 
 
@@ -48,29 +39,44 @@
     </ui:define>
 
     <ui:define name="rechts">
-            <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true"/>
-            <p:panel id="basic" header="Fernbedienung Lampe 1"
-                     style="margin-bottom:20px; text-align: center">
-                <p:panelGrid columns="2" layout="grid" styleClass="showcase-text-align-center">
-                    <h:form id="slot1form">
-                        <p:panel id="slot1" header="#{remoteControlView.data.name}">
-                            <h:outputText value="click"/>
+        <h:form id="remote">
+            <div class="card">
+                <p:panel header="Fernbedienung" style="text-align: center">
+                    <p:panelGrid columns="2" layout="grid" styleClass="showcase-text-align-center">
+                        <p:dataList id="remote1" lazy="" value="#{remoteControlView.commands.get(1).stringList}" emptyMessage="n.d." var="product" type="definition"
+                                    style="text-align: center">
+                            <f:facet name="header">
+                                #{remoteControlView.data.name}
+                            </f:facet>
+                            #{product}
                             <p:effect type="pulsate" event="click"/>
-                        </p:panel>
-                    </h:form>
+                        </p:dataList>
 
-                    <h:outputText value="Content"/>
+                        <p:dataList id="remote2" lazy="" value="#{remoteControlView.commands.get(1).stringList}" emptyMessage="n.d." var="product" type="definition"
+                                    style="text-align: center">
+                            <f:facet name="header">
+                                #{remoteControlView.data.name}
+                            </f:facet>
+                            #{product}
+                            <p:effect type="pulsate" event="click"/>
+                        </p:dataList>
 
-                    <h:outputText value="Content"/>
-                    <h:outputText value="Content"/>
+                        <h:outputText value="Content"/>
+                        <h:outputText value="Content"/>
 
-                    <h:outputText value="Content"/>
-                    <h:outputText value="Content"/>
+                        <h:outputText value="Content"/>
+                        <h:outputText value="Content"/>
 
-                    <h:outputText value="Content"/>
-                    <h:outputText value="Content"/>
-                </p:panelGrid>
-            </p:panel>
+                        <h:outputText value="Content"/>
+                        <h:outputText value="Content"/>
+                    </p:panelGrid>
+                </p:panel>
+            </div>
+        </h:form>
+        <h:form id="test">
+            <p:commandButton value="add" process="test" update="test" id="btn" styleClass="mr-2"/>
+            #{remoteControlView.commands.get(1).getConfig()}
+        </h:form>
     </ui:define>
 </ui:composition>
 

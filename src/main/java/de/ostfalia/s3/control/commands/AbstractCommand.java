@@ -6,6 +6,8 @@ import de.ostfalia.s1.lamp.Java2NodeRedLampAdapter;
 import de.ostfalia.s1.lamp.Lamp;
 import lombok.Getter;
 
+import java.util.List;
+
 public abstract class AbstractCommand implements ICommand, Cloneable {
 
     @Getter
@@ -48,5 +50,7 @@ public abstract class AbstractCommand implements ICommand, Cloneable {
     public void undo(AbstractLampController controller){
 
     }
+
+    public abstract List<String> getConfig();
 
 }
