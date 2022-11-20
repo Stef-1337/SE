@@ -1,37 +1,45 @@
 package de.ostfalia.s3.control.commands;
 
 import de.ostfalia.s1.lamp.AbstractLampController;
+import de.ostfalia.s1.lamp.HueColor;
 
 public class DimCommand extends AbstractCommand {
     Boolean to;
-    Float brigthness;
+    Float brightness;
     String color;
+    HueColor hueColor;
 
-    public DimCommand(AbstractLampController controller, String name, Boolean to, Float brightness, String color) {
+    public DimCommand(AbstractLampController controller, String name, Boolean to, Float brightness, HueColor hueColor) {
         super(controller, name);
         this.to = to;
-        this.brigthness = brightness;
-        this.color = color;
+        this.brightness = brightness;
+        this.hueColor = hueColor;
     }
 
     @Override
     public void execute(AbstractLampController controller) {
-        Float brigthnessChange = brigthness;
+        Float brightnessChange = brightness;
         Boolean change = true;
-        new LampCommand(controller, "lamp", to, brigthness, color);
+        new LampCommand(controller, "lamp", to, brightness, hueColor);
         try {
             while (true) {
-                while (brigthnessChange > 0 && change == true) {
-                    new BrightnessCommand(controller, "brightness", brigthnessChange -= 5);
+                while (brightnessChange > 0 && change == true) {
+                    new BrightnessCommand(controller, "brightness", brightnessChange -= 5).execute(controller);
                     Thread.sleep(100);
-                    if (brigthnessChange <= 5) {
+                    System.out.println(1);
+                    System.out.println("1      " + brightnessChange);
+                    System.out.println(controller.getAdapter().getLampe());
+                    if (brightnessChange <= 6) {
                         change = false;
                     }
                 }
-                while (brigthnessChange < 100 && change == false) {
-                    new BrightnessCommand(controller, "brightness", brigthnessChange += 5);
+                while (brightnessChange < 100 && change == false) {
+                    new BrightnessCommand(controller, "brightness", brightnessChange += 5).execute(controller);
                     Thread.sleep(100);
-                    if (brigthnessChange >= 95) {
+                    System.out.println(2);
+                    System.out.println("2      " + brightnessChange);
+                    System.out.println(controller.getAdapter().getLampe());
+                    if (brightnessChange >= 94) {
                         change = true;
                     }
                 }
