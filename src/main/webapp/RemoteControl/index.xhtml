@@ -15,11 +15,11 @@
     <ui:define name="content">
 
 
-        <p:panel header="State" toggleable="true" toggleSpeed="500" widgetVar="panel" collapsed="true">
+        <p:panel id="state" header="State" toggleable="true" toggleSpeed="500" widgetVar="panel" collapsed="true">
             <h:form>
                 <p:panelGrid columns="5" layout="grid" styleClass="showcase-text-align-center">
 
-                        <p:inputText id="float-input" placeholder="Befehlsname" value="#{remoteControlView.data.name}"/>
+                        <p:inputText id="float-input" placeholder="Befehlsname" value="#{remoteControlView.name}"/>
 
                         <p:selectOneMenu>
                             <f:selectItem itemLabel="Position wählen" itemDisabled="true"  noSelectionOption="true" />
@@ -29,44 +29,17 @@
                         <p:toggleSwitch value="#{remoteControlView.data.on}" label="state: " onIcon="pi pi-power-off"
                                         offIcon="pi pi-power-off"/>
 
-                        <p:commandButton type="button" value="Add" icon="pi pi-plus"
+                        <p:commandButton id="btn1" type="button" value="Add" icon="pi pi-plus" update="test"
                                          process="#{remoteControlView.onApplySwitchButtonClick()}"/>
 
-
-
-
-
-<!--                    <p:column>-->
-<!--                        <h3>Hidden Input Slider with Display Value</h3>-->
-<!--                        <h:panelGrid columns="1" style="margin-bottom: 10px">-->
-<!--                            <h:outputText id="output" value="Set ratio to %#{sliderView.number2}" />-->
-<!--                            <h:inputHidden id="txt2" value="#{sliderView.number4}" />-->
-<!--                            <p:slider for="txt2" display="output" style="width: 200px" displayTemplate="Set ratio to %{value}" />-->
-<!--                        </h:panelGrid>-->
-<!--                    </p:column>-->
-
-
-<!--                    <p:column>-->
-
-<!--                    </p:column>-->
-
-<!--                    <p:column>-->
-
-<!--                    </p:column>-->
-
-<!--                    <p:column>-->
-
-<!--                    </p:column>-->
-
-
-
-<!--                    hallo-->
-<!--                    hallo-->
-<!--                    hallo-->
-<!--                    hallo-->
+                        <p:defaultCommand target="btn1" scope="state"/>
                 </p:panelGrid>
             </h:form>
         </p:panel>
+
+        <h:form id="test">
+            #{remoteControlView.name}
+        </h:form>
 
     </ui:define>
 
@@ -75,16 +48,17 @@
     </ui:define>
 
     <ui:define name="rechts">
-        <h:form>
             <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true"/>
             <p:panel id="basic" header="Fernbedienung Lampe 1"
                      style="margin-bottom:20px; text-align: center">
                 <p:panelGrid columns="2" layout="grid" styleClass="showcase-text-align-center">
+                    <h:form id="slot1form">
+                        <p:panel id="slot1" header="#{remoteControlView.data.name}">
+                            <h:outputText value="click"/>
+                            <p:effect type="pulsate" event="click"/>
+                        </p:panel>
+                    </h:form>
 
-                    <p:panel id="pulsate" header="Pulsate">
-                        <h:outputText value="click"/>
-                        <p:effect type="pulsate" event="click"/>
-                    </p:panel>
                     <h:outputText value="Content"/>
 
                     <h:outputText value="Content"/>
@@ -97,7 +71,6 @@
                     <h:outputText value="Content"/>
                 </p:panelGrid>
             </p:panel>
-        </h:form>
     </ui:define>
 </ui:composition>
 

@@ -25,6 +25,8 @@ public class RemoteControlView implements Serializable {
 
     private static final int SIZE = 8;
 
+    private String name;
+
     private List<Integer> slots;
 
     private CommandProcessor commandProcessor;
@@ -64,10 +66,5 @@ public class RemoteControlView implements Serializable {
     public void onApplyColorButtonClick(){
         //setCommand(slot, new ColorCommand("Farbe " + status.getColor().toString(), status.getColor()));
     }
-
-    public List<String> getConfig(int slot){
-       return null;
-    }
-
 }
 
