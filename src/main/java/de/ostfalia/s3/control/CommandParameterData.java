@@ -12,8 +12,8 @@ public class CommandParameterData {
 
     private String name = "";
     private boolean on = false;
-    private double intensity = -1;
-    private double intensityStep;
-    private List<Color> colors;
+    private int intensity;
+    private int intensityStep;
+    private List<String> colors;
 
 }
