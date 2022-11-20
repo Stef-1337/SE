@@ -20,18 +20,22 @@ public class FlashCommand extends AbstractCommand {
 
     @Override
     public void execute(AbstractLampController controller) {
-        try {
-            while (true){
-                new StateCommand(controller,"state", true).execute(controller);
-                System.out.println("an");
-                Thread.sleep(4000);
-                new StateCommand(controller, "state", false).execute(controller);
-                System.out.println("aus");
-                Thread.sleep(400);
+        Thread thread = new Thread(() -> {
+            try {
+                while (true){
+                    new StateCommand(controller,"state", true).execute(controller);
+                    System.out.println("an");
+                    Thread.sleep(200);
+                    new StateCommand(controller, "state", false).execute(controller);
+                    System.out.println("aus");
+                    Thread.sleep(200);
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        });
+        thread.start();
+
 
     }
 }
