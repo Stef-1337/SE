@@ -22,13 +22,16 @@ public class PartyCommand extends AbstractCommand{
         Float brightnessChange = brightness;
         new LampCommand(controller, "lamp", to, brightness, color);
         int change = 0;
+        int count = 0;
         try {
             while (true){
                 while (brightnessChange > 0 && change == 0) {
                     //new DimCommand(controller, "dim", to, brightness, color);
                     new BrightnessCommand(controller, "brightness", brightnessChange -= 5);
                     Thread.sleep(100);
+                    System.out.println(brightnessChange);
                     if (brightnessChange == brightness -15 || brightnessChange <= 6){
+                        System.out.println("change 1");
                         change = 1;
                     }
                 }
@@ -39,25 +42,30 @@ public class PartyCommand extends AbstractCommand{
                     new ColorCommand(controller, "color", color);       //color muss hier zu einer anderen geändert werden ToDo
                     new BrightnessCommand(controller, "bribhtness", brightnessChange);
                     change = 2;
+                    System.out.println("change 2");
                 }
                 while (brightnessChange < 100 && change == 2){
                     new BrightnessCommand(controller, "brightness", brightnessChange += 10);
+                    System.out.println(brightnessChange);
                     if (brightnessChange >= 89){
                         change = 3;
+                        System.out.println("change 3");
                     }
                 }
                 while (change == 3){
-                    int count = 0;
                     Random random = new Random();
                     Float r = random.nextFloat();
                     Float g = random.nextFloat();
                     Float b = random.nextFloat();
                     Color randomcolor = new Color(r, g, b);
-                    new ColorCommand(controller, "color", randomcolor.toString());       //Absprechen, ob Color als String oder als Color ToDo
                     count++;
+                    new ColorCommand(controller, "color", randomcolor.toString());       //Absprechen, ob Color als String oder als Color ToDo
+
+
                     Thread.sleep(100);
                     if (count == 7){
                         change = 0;
+                        count = 0;
                     }
                 }
             }
