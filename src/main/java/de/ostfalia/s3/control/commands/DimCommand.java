@@ -4,34 +4,34 @@ import de.ostfalia.s1.lamp.AbstractLampController;
 
 public class DimCommand extends AbstractCommand {
     Boolean to;
-    Float brigthness;
+    Float brightness;
     String color;
 
     public DimCommand(AbstractLampController controller, String name, Boolean to, Float brightness, String color) {
         super(controller, name);
         this.to = to;
-        this.brigthness = brightness;
+        this.brightness = brightness;
         this.color = color;
     }
 
     @Override
     public void execute(AbstractLampController controller) {
-        Float brigthnessChange = brigthness;
+        Float brightnessChange = brightness;
         Boolean change = true;
-        new LampCommand(controller, "lamp", to, brigthness, color);
+        new LampCommand(controller, "lamp", to, brightness, color);
         try {
             while (true) {
-                while (brigthnessChange > 0 && change == true) {
-                    new BrightnessCommand(controller, "brightness", brigthnessChange -= 5);
+                while (brightnessChange > 0 && change == true) {
+                    new BrightnessCommand(controller, "brightness", brightnessChange -= 5);
                     Thread.sleep(100);
-                    if (brigthnessChange <= 5) {
+                    if (brightnessChange <= 6) {
                         change = false;
                     }
                 }
-                while (brigthnessChange < 100 && change == false) {
-                    new BrightnessCommand(controller, "brightness", brigthnessChange += 5);
+                while (brightnessChange < 100 && change == false) {
+                    new BrightnessCommand(controller, "brightness", brightnessChange += 5);
                     Thread.sleep(100);
-                    if (brigthnessChange >= 95) {
+                    if (brightnessChange >= 94) {
                         change = true;
                     }
                 }
