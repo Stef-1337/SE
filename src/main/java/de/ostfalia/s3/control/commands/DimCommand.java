@@ -22,19 +22,21 @@ public class DimCommand extends AbstractCommand {
         try {
             while (true) {
                 while (brightnessChange > 0 && change == true) {
-                    new BrightnessCommand(controller, "brightness", brightnessChange -= 5);
+                    new BrightnessCommand(controller, "brightness", brightnessChange -= 5).execute(controller);
                     Thread.sleep(100);
                     System.out.println(1);
                     System.out.println("1      " + brightnessChange);
+                    System.out.println(controller.getAdapter().getLampe());
                     if (brightnessChange <= 6) {
                         change = false;
                     }
                 }
                 while (brightnessChange < 100 && change == false) {
-                    new BrightnessCommand(controller, "brightness", brightnessChange += 5);
+                    new BrightnessCommand(controller, "brightness", brightnessChange += 5).execute(controller);
                     Thread.sleep(100);
                     System.out.println(2);
                     System.out.println("2      " + brightnessChange);
+                    System.out.println(controller.getAdapter().getLampe());
                     if (brightnessChange >= 94) {
                         change = true;
                     }
