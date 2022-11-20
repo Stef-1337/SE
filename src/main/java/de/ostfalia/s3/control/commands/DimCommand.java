@@ -1,24 +1,26 @@
 package de.ostfalia.s3.control.commands;
 
 import de.ostfalia.s1.lamp.AbstractLampController;
+import de.ostfalia.s1.lamp.HueColor;
 
 public class DimCommand extends AbstractCommand {
     Boolean to;
     Float brightness;
     String color;
+    HueColor hueColor;
 
-    public DimCommand(AbstractLampController controller, String name, Boolean to, Float brightness, String color) {
+    public DimCommand(AbstractLampController controller, String name, Boolean to, Float brightness, HueColor hueColor) {
         super(controller, name);
         this.to = to;
         this.brightness = brightness;
-        this.color = color;
+        this.hueColor = hueColor;
     }
 
     @Override
     public void execute(AbstractLampController controller) {
         Float brightnessChange = brightness;
         Boolean change = true;
-        new LampCommand(controller, "lamp", to, brightness, color);
+        new LampCommand(controller, "lamp", to, brightness, hueColor);
         try {
             while (true) {
                 while (brightnessChange > 0 && change == true) {

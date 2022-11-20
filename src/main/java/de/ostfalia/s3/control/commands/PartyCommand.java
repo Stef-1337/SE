@@ -1,6 +1,8 @@
 package de.ostfalia.s3.control.commands;
 
 import de.ostfalia.s1.lamp.AbstractLampController;
+import de.ostfalia.s1.lamp.Colors;
+import de.ostfalia.s1.lamp.HueColor;
 
 import java.awt.*;
 import java.util.Random;
@@ -9,18 +11,19 @@ public class PartyCommand extends AbstractCommand{
     Boolean to;
     Float brightness;
     String color;
+    HueColor hueColor;
 
-    public PartyCommand(AbstractLampController controller, String name,Boolean to, Float brightness, String color) {
+    public PartyCommand(AbstractLampController controller, String name,Boolean to, Float brightness, HueColor hueColor) {
         super(controller, name);
         this.to = to;
         this.brightness = brightness;
-        this.color = color;
+        this.hueColor = hueColor;
     }
 
     @Override
     public void execute(AbstractLampController controller) {
         Float brightnessChange = brightness;
-        new LampCommand(controller, "lamp", to, brightness, color).execute(controller);
+        new LampCommand(controller, "lamp", to, brightness, hueColor).execute(controller);
         int change = 0;
         int count = 0;
         try {
@@ -40,7 +43,7 @@ public class PartyCommand extends AbstractCommand{
                     new StateCommand(controller, "state", false).execute(controller);
                     System.out.println(controller.getAdapter().getLampe());
                     Thread.sleep(100);
-                    new ColorCommand(controller, "color", color).execute(controller);   //color muss hier zu einer anderen geändert werden ToDo
+                    new ColorCommand(controller, "color", hueColor).execute(controller);   //color muss hier zu einer anderen geändert werden ToDo
                     System.out.println(controller.getAdapter().getLampe());
                     new BrightnessCommand(controller, "bribhtness", brightnessChange).execute(controller);
                     System.out.println(controller.getAdapter().getLampe());
@@ -59,12 +62,12 @@ public class PartyCommand extends AbstractCommand{
                 }
                 while (change == 3){
                     Random random = new Random();
-                    Float r = random.nextFloat();
-                    Float g = random.nextFloat();
-                    Float b = random.nextFloat();
-                    Color randomcolor = new Color(r, g, b);
+                    int r = random.nextInt(255);
+                    int g = random.nextInt(255);
+                    int b = random.nextInt(255);
+                    HueColor randomcolor = new HueColor("" ,"" ,r , b, g, 0F, 0F, Colors.WHITE);
                     count++;
-                    new ColorCommand(controller, "color", randomcolor.toString()).execute(controller);       //Absprechen, ob Color als String oder als Color ToDo
+                    new ColorCommand(controller, "color", randomcolor).execute(controller);       //Absprechen, ob Color als String oder als Color ToDo
                     System.out.println(randomcolor);
                     System.out.println(controller.getAdapter().getLampe());
                     Thread.sleep(100);
