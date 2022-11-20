@@ -61,10 +61,16 @@ public class RemoteControlView implements Serializable {
 
     public void onApplySwitchButtonClick() {
         setCommand(slotSelected, new StateCommand(controller, data.getName(), data.isOn()));
+        System.out.println("apply");
     }
 
     public void onApplyColorButtonClick(){
         //setCommand(slot, new ColorCommand("Farbe " + status.getColor().toString(), status.getColor()));
+    }
+
+    public void print(){
+        System.out.print("hash ");
+        System.out.print(commands.get(1).getName());
     }
 }
 

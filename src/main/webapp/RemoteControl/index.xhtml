@@ -26,7 +26,7 @@
                             <f:selectItem itemLabel="Position wählen" itemDisabled="true" noSelectionOption="true"/>
                             <f:selectItems value="#{remoteControlView.slots}"/>
                         </p:selectOneMenu>
-                        <p:commandButton value="add" process="form" update="remote" id="btn1" styleClass="mr-2"/>
+                        <p:commandButton value="add" process="form" update="remote" onclick="#{remoteControlView.onApplySwitchButtonClick()}" id="btn1" styleClass="mr-2"/>
                         <p:defaultCommand target="btn1" scope="panel1"/>
                     </h:panelGrid>
                 </p:panel>
@@ -55,7 +55,7 @@
                         <p:dataList id="remote2" lazy="" value="#{remoteControlView.commands.get(1).stringList}" emptyMessage="n.d." var="product" type="definition"
                                     style="text-align: center">
                             <f:facet name="header">
-                                #{remoteControlView.data.name}
+                                #{remoteControlView.commands.get(1).name}
                             </f:facet>
                             #{product}
                             <p:effect type="pulsate" event="click"/>
@@ -73,10 +73,7 @@
                 </p:panel>
             </div>
         </h:form>
-        <h:form id="test">
-            <p:commandButton value="add" process="test" update="test" id="btn" styleClass="mr-2"/>
-            #{remoteControlView.commands.get(1).getConfig()}
-        </h:form>
+        <h:form id="test"> </h:form>
     </ui:define>
 </ui:composition>
 
