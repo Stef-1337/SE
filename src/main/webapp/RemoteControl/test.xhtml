@@ -21,11 +21,11 @@
                         <p:inputText id="name" placeholder="Befehlsname" value="#{testView.name}"/>
                         <p:toggleSwitch value="#{testView.on}" label="state: " onIcon="pi pi-power-off"
                                         offIcon="pi pi-power-off"/>
-                       <p:selectOneMenu>
-                          <f:selectItem itemLabel="Position wählen" itemDisabled="true"  noSelectionOption="true" />
-                          <f:selectItems value="#{testView.slots}"/>
-                       </p:selectOneMenu>
-                        <p:commandButton value="add" process="form" update="out1" id="btn1" styleClass="mr-2"/>
+                        <p:selectOneMenu>
+                            <f:selectItem itemLabel="Position wählen" itemDisabled="true" noSelectionOption="true"/>
+                            <f:selectItems value="#{testView.slots}"/>
+                        </p:selectOneMenu>
+                        <p:commandButton value="add" process="form" update="remote" id="btn1" styleClass="mr-2"/>
                         <p:defaultCommand target="btn1" scope="panel1"/>
                     </h:panelGrid>
                 </p:panel>
@@ -39,31 +39,35 @@
 
     <ui:define name="rechts">
 
-        <div class="card">
-            <p:panel header="Fernbedienung" style="text-align: center">
-                <p:panelGrid columns="2" layout="grid" styleClass="showcase-text-align-center">
-                    <h:form id="out1">
-                        <p:dataList value="#{testView.config}" var="product" type="definition" style="text-align: center">
-                            <f:facet name="header">
-                                #{testView.name}
-                            </f:facet>
-                            #{product}
-                            <p:effect type="pulsate" event="click"/>
-                        </p:dataList>
-                    </h:form>
+        <h:form id="remote">
+            <div class="card">
+                <p:panel header="Fernbedienung" style="text-align: center">
+                    <p:panelGrid columns="2" layout="grid" styleClass="showcase-text-align-center">
+                            <p:dataList value="#{testView.config}" var="product" type="definition"
+                                        style="text-align: center">
+                                <f:facet name="header">
+                                    #{testView.name}
+                                </f:facet>
+                                #{product}
+                                <p:effect type="pulsate" event="click"/>
+                            </p:dataList>
 
-                    <h:outputText value="Content"/>
-                    <h:outputText value="Content"/>
+                        <h:outputText value="Content"/>
+                        <h:outputText value="Content"/>
 
-                    <h:outputText value="Content"/>
-                    <h:outputText value="Content"/>
+                        <h:outputText value="Content"/>
+                        <h:outputText value="Content"/>
 
-                    <h:outputText value="Content"/>
-                    <h:outputText value="Content"/>
-                </p:panelGrid>
-            </p:panel>
+                        <h:outputText value="Content"/>
+                        <h:outputText value="Content"/>
+                    </p:panelGrid>
+                </p:panel>
+            </div>
+<!--            <p:commandButton value="Reset Code" update="remote" process="@this"-->
+<!--                             action="#{testView.reset}"-->
+<!--                             styleClass="mr-2 ui-button-outlined"/>-->
+        </h:form>
 
-        </div>
     </ui:define>
 </ui:composition>
 

@@ -2,6 +2,7 @@ package de.ostfalia.s3.boundary;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.primefaces.PrimeFaces;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
@@ -27,5 +28,9 @@ public class TestView implements Serializable {
         config = new ArrayList<>();
         config.add("abc");
         config.add("def");
+    }
+
+    public void reset() {
+        PrimeFaces.current().resetInputs("form:remote");
     }
 }
