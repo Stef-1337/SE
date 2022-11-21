@@ -74,6 +74,7 @@ public class RemoteControlView implements Serializable {
             if (slot < SIZE){
                 commands.put(slot, command);
                 data = new CommandParameterData();
+                slotSelected = 0;
             }
     }
 
@@ -103,6 +104,7 @@ public class RemoteControlView implements Serializable {
 
     public void onApplyColorButtonClick(ActionEvent event){
         //TODO wird noch nicht aufgerufen
+        System.out.println("color");
         addCommand(new ColorCommand(controller, data.getName(), data.getColors().get(0)));
     }
 
