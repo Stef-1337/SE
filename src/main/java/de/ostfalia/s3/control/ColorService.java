@@ -1,64 +1,29 @@
-package de.ostfalia.s1.lamp;
+package de.ostfalia.s3.control;
+
+import de.ostfalia.s1.lamp.Colors;
+import de.ostfalia.s1.lamp.HueColor;
+import lombok.Getter;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.ApplicationScoped;
 import javax.faces.model.SelectItem;
 import javax.faces.model.SelectItemGroup;
 import javax.inject.Named;
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonReader;
-import java.awt.*;
-import java.io.*;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 
-
 @Named
-@SessionScoped
-public class Java2NodeRedLampAdapter implements ILamp, Serializable {
+@ApplicationScoped
+public class ColorService {
 
+    @Getter
+    private List<SelectItem> items;
 
-    private static Lamp lampe = new Lamp();
-    HashMap<List<Float>, String> xyWerte = new HashMap<>();
-    private Requester requester = new Requester();
-    private List<SelectItem> colors;
-    private String selection;
+    @Getter
+    private List<HueColor> colors;
 
-    public Java2NodeRedLampAdapter() {
-        init();
-        initHashmap();
-        try {
-            getRequest();
-        } catch (Exception ignored) {
-
-        }
-    }
-
-    public List<SelectItem> getColors() {
-        return colors;
-    }
-
-    public void setColors(List<SelectItem> colors) {
-        this.colors = colors;
-    }
-
-    public String getSelection() {
-        return selection;
-    }
-
-    public void setSelection(String selection) {
-        this.selection = selection;
-    }
-
-    @PostConstruct
-    public void init() {
-        colors = new ArrayList<>();
+    public List<SelectItem> getAll() {
+        items = new ArrayList<>();
         SelectItemGroup group1 = new SelectItemGroup("Rot");
         SelectItemGroup group2 = new SelectItemGroup("Orange");
         SelectItemGroup group3 = new SelectItemGroup("Gelb");
@@ -203,173 +168,31 @@ public class Java2NodeRedLampAdapter implements ILamp, Serializable {
         SelectItem option917 = new SelectItem(new HueColor("mistyrose", "#FFE4E1", 255, 228, 225, (float) 0.4212, (float) 0.1823, Colors.WHITE), "mistyrose");
         group9.setSelectItems(new SelectItem[]{option91, option92, option93, option94, option95, option96, option97, option98, option99, option910, option911, option912, option913, option914, option915, option916, option917});
 
-        colors.add(group1);
-        colors.add(group2);
-        colors.add(group3);
-        colors.add(group4);
-        colors.add(group5);
-        colors.add(group6);
-        colors.add(group7);
-        colors.add(group8);
-        colors.add(group9);
+        items.add(group1);
+        items.add(group2);
+        items.add(group3);
+        items.add(group4);
+        items.add(group5);
+        items.add(group6);
+        items.add(group7);
+        items.add(group8);
+        items.add(group9);
+
+        return items;
     }
 
-    public void initHashmap() {
-        try (BufferedReader br = new BufferedReader(new FileReader("src/main/java/de/ostfalia/s1/lamp/Farbcodes.csv"))) {
-            String line;
-            int i = 0;
-            while ((line = br.readLine()) != null) {
-                String[] values = line.split(";");
-                List<Float> floatList = new ArrayList<>(2);
-                floatList.add(Float.valueOf(values[5]));
-                floatList.add(Float.valueOf(values[6]));
-                xyWerte.put(floatList, values[0]);
-            }
-            List<Float> floatList = new ArrayList<>(2);
-            floatList.add((float) 0.4212);
-            floatList.add((float) 0.1823);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @PostConstruct
+    public void initGroups() {
+        colors = new ArrayList<>();
 
+        colors.add(new HueColor("red", "	#FF0000", 255, 0, 0, (float) 0.675, (float) 0.322, Colors.RED));
+        colors.add(new HueColor("orange", "#FFA500", 255, 165, 0, (float) 0.5567, (float) 0.4091, Colors.ORANGE));
+        colors.add(new HueColor("yellow", "#FFFF00", 255, 255, 0, (float) 0.4325, (float) 0.5007, Colors.YELLOW));
+        colors.add(new HueColor("green", "#008000", 0, 128, 0, (float) 0.4091, (float) 0.518, Colors.GREEN));
+        colors.add(new HueColor("cyan", "#00FFFF", 0, 255, 255, (float) 0.2857, (float) 0.2744, Colors.CYAN));
+        colors.add(new HueColor("blue", "#0000FF", 0, 0, 255, (float) 0.167, (float) 0.04, Colors.BLUE));
+        colors.add(new HueColor("purple", "#800080", 128, 0, 128, (float) 0.3826, (float) 0.1597, Colors.PURPLE));
+        colors.add(new HueColor("pink", "#FFC0CB", 255, 192, 203, (float) 0.3947, (float) 0.3114, Colors.PINK));
+        colors.add(new HueColor("white", "#FFFFFF", 255, 255, 255, (float) 0.3227, (float) 0.3287, Colors.WHITE));
     }
-
-    public void commitXY(String string) {
-    }
-
-    public Lamp getLampe() {
-        return lampe;
-    }
-
-    public void setLampe(Lamp lampe) {
-        this.lampe = lampe;
-    }
-
-    public Requester getRequester() {
-        return requester;
-    }
-
-    public void setRequester(Requester requester) {
-        this.requester = requester;
-    }
-
-    @Override
-    public void switchOn() {
-        lampe.switchOn();
-    }
-
-    @Override
-    public void switchOn(float intensity) {
-        lampe.switchOn();
-    }
-
-    @Override
-    public void switchOn(Color color) {
-        lampe.switchOn();
-    }
-
-    @Override
-    public void switchOff() {
-        lampe.switchOn();
-    }
-
-    @Override
-    public Color getColor() {
-        return lampe.getColor();
-    }
-
-    @Override
-    public void setColor(Color color) {
-        lampe.setColor(color);
-    }
-
-    @Override
-    public float getIntensity() {
-        return lampe.getIntensity();
-    }
-
-    @Override
-    public void setIntensity(float intensity) {
-        lampe.setIntensity(intensity);
-    }
-
-    @Override
-    public boolean getState() {
-        return lampe.getState();
-    }
-
-    public void putRequest() {
-        String result = "{" + "\"name\":" + "\"" + lampe.getName() + "\"" + "," + "\"on\": {\"on\": " + lampe.getState() + "}," + " \"dimming\":{\"brightness\":" +
-                lampe.getIntensity() + "}," + "\"color\":{\"xy\":{\"x\":" + lampe.getX() + ",\"y\":" + lampe.getY() + "}}}";
-        requester.setLampState(3, result);
-    }
-
-    public Lamp fetchCurrentLampStatus() {
-        try {
-            JsonObject request = requester.getState(new URL(requester.base));
-            Lamp lamp = new Lamp();
-
-            String dataString = request.get("data").toString();
-            dataString = dataString.substring(1, dataString.length() - 1);
-
-            JsonReader reader = Json.createReader(new ByteArrayInputStream(dataString.getBytes()));
-            JsonObject data = reader.readObject();
-
-            JsonObject metadata = data.getJsonObject("metadata");
-
-            lamp.setName(metadata.getString("name"));
-            lamp.setState(data.getJsonObject("on").getBoolean("on"));
-            lamp.setIntensity(data.getJsonObject("dimming").getInt("brightness"));
-
-            JsonObject xyObject = data.getJsonObject("color").getJsonObject("xy");
-
-            float x = Float.parseFloat(xyObject.get("x").toString()), y = Float.parseFloat(xyObject.get("y").toString());
-
-            lamp.setX(x);
-            lamp.setY(y);
-
-            lamp.setColorName(xyWerte.get(Arrays.asList(x, y)));
-
-            return lamp;
-        } catch (MalformedURLException ex) {
-            ex.printStackTrace();
-        }
-
-        return null;
-    }
-
-    public void getRequest() throws Exception {
-        JsonObject request = requester.getState(new URL(requester.base));
-        String string = "{" + request.toString().substring(86, 934) + "}";
-        InputStream is = new ByteArrayInputStream(string.getBytes(StandardCharsets.UTF_8));
-        JsonReader jsonReader = Json.createReader(is);
-        JsonObject o = jsonReader.readObject();
-        System.out.println(o.toString());
-        JsonObject o2 = o.getJsonObject("metadata");
-        lampe.setName(o.getJsonObject("metadata").getString("name"));
-        lampe.setState(o.getJsonObject("on").getBoolean("on"));
-        lampe.setIntensity(o.getJsonObject("dimming").getInt("brightness"));
-        String s = o.getJsonObject("color").getJsonObject("xy").toString().substring(1, 22);
-        List<Float> fl = new ArrayList<>(2);
-        String[] strings = s.split(",");
-        for (String e :
-                strings) {
-            e = e.substring(4);
-            fl.add(Float.parseFloat(e));
-        }
-        lampe.setX(fl.get(0));
-        lampe.setY(fl.get(1));
-        System.out.println(xyWerte.get(fl));
-        lampe.setColorName(xyWerte.get(fl));
-        System.out.println("Name :" + lampe.getColorName());
-    }
-
-    public static void main(String[] args) throws Exception {
-        Java2NodeRedLampAdapter j = new Java2NodeRedLampAdapter();
-        Lamp lamp = j.fetchCurrentLampStatus();
-        System.out.println(lamp.getName() + ", " + lamp.getColorName() + ", " + lamp.getColor() + ", " + lamp.getState() + ", " + lamp.getIntensity());
-
-        //j.getRequest();
-    }
-
 }

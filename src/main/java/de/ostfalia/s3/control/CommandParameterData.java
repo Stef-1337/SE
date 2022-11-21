@@ -1,5 +1,6 @@
 package de.ostfalia.s3.control;
 
+import de.ostfalia.s1.lamp.HueColor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,10 +11,11 @@ import java.util.List;
 @Setter
 public class CommandParameterData {
 
-    private String name;
-    private boolean on;
-    private double intensity;
-    private double intensityStep;
-    private List<Color> colors;
+    private String name = "";
+    private boolean on = false;
+    private int intensity;
+    private int intensityStep;
+    private int time;
+    private List<HueColor> colors;
 
 }

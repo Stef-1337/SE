@@ -1,17 +1,24 @@
 package de.ostfalia.s3.boundary;
 
 import de.ostfalia.s1.lamp.AbstractLampController;
+import de.ostfalia.s1.lamp.Java2NodeRedLampAdapter;
+import de.ostfalia.s3.control.ColorService;
 import de.ostfalia.s3.control.CommandParameterData;
 import de.ostfalia.s3.control.CommandProcessor;
 import de.ostfalia.s3.control.commands.AbstractCommand;
 import de.ostfalia.s3.control.commands.StateCommand;
 import lombok.Getter;
 import lombok.Setter;
+import org.primefaces.event.SelectEvent;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.event.ValueChangeEvent;
+import javax.faces.model.SelectItem;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -24,7 +31,12 @@ public class RemoteControlView implements Serializable {
 
     private static final int SIZE = 8;
 
+    private String name;
+
     private List<Integer> slots;
+
+    @Inject
+    private ColorService colorService;
 
     private CommandProcessor commandProcessor;
 
@@ -58,11 +70,40 @@ public class RemoteControlView implements Serializable {
 
     public void onApplySwitchButtonClick() {
         setCommand(slotSelected, new StateCommand(controller, data.getName(), data.isOn()));
+        System.out.println("apply");
     }
 
-    public void onApplyColorButtonClick(){
+    public void onApplyBrightnessButtonClick() {
+        setCommand(slotSelected, new StateCommand(controller, data.getName(), data.isOn()));
+    }
+
+    public void onApplyDimButtonClick() {
+        setCommand(slotSelected, new StateCommand(controller, data.getName(), data.isOn()));
+    }
+
+    public void onApplyColorButtonClick() {
+        setCommand(slotSelected, new StateCommand(controller, data.getName(), data.isOn()));
+    }
+
+    public void onApplyFlashButtonClick() {
+        setCommand(slotSelected, new StateCommand(controller, data.getName(), data.isOn()));
+    }
+
+    public void onApplyPartyButtonClick() {
+        setCommand(slotSelected, new StateCommand(controller, data.getName(), data.isOn()));
+    }
+
+    public void onApplyColorButtonClick2(){
         //setCommand(slot, new ColorCommand("Farbe " + status.getColor().toString(), status.getColor()));
     }
 
+    public void print(){
+        System.out.print("hash ");
+        System.out.print(commands.get(1).getName());
+    }
+
+//    public void addColor(SelectEvent s){
+//        data.getColors().add((String) s.getObject());
+//    }
 }
 
