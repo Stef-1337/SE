@@ -14,11 +14,14 @@ public class DimCommand extends AbstractThreadCommand {
     String color;
     HueColor hueColor;
 
-    public DimCommand(AbstractLampController controller, String name, Boolean to, Float brightness, HueColor hueColor) {
+    int time;
+
+    public DimCommand(AbstractLampController controller, String name, Boolean to, Float brightness, HueColor hueColor, int time) {
         super(controller, name);
         this.to = to;
         this.brightness = brightness;
         this.hueColor = hueColor;
+        this.time = time;
     }
 
     @Override
@@ -31,7 +34,7 @@ public class DimCommand extends AbstractThreadCommand {
                 while (!getThread().isInterrupted()) {
                     while (brightnessChange > 0 && change == true) {
                         new BrightnessCommand(controller, "brightness", brightnessChange -= 5).execute(controller);
-                        Thread.sleep(100);
+                        Thread.sleep(time);
                         System.out.println(1);
                         System.out.println("1      " + brightnessChange);
                         System.out.println(controller.getAdapter().getLampe());
@@ -41,7 +44,7 @@ public class DimCommand extends AbstractThreadCommand {
                     }
                     while (brightnessChange < 100 && change == false) {
                         new BrightnessCommand(controller, "brightness", brightnessChange += 5).execute(controller);
-                        Thread.sleep(100);
+                        Thread.sleep(time);
                         System.out.println(2);
                         System.out.println("2      " + brightnessChange);
                         System.out.println(controller.getAdapter().getLampe());
@@ -59,7 +62,7 @@ public class DimCommand extends AbstractThreadCommand {
 
     @Override
     public List<String> getConfig() {
-        return List.of("Empty");
+        return List.of("Dim: " + time);
     }
 }
 
