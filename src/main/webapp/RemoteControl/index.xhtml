@@ -26,7 +26,7 @@
                             <f:selectItems value="#{remoteControlView.slots}"/>
                         </p:selectOneMenu>
                         <p:commandButton value="add" process="form" update="remote"
-                                         actionListener="#{remoteControlView.onApplySwitchButtonClick}"
+                                         action="#{remoteControlView.onApplySwitchButtonClick}"
                                          id="btn1"
                                          styleClass="mr-2">
                         </p:commandButton>
@@ -51,7 +51,7 @@
                             <p:slider for="sliderbri"/>
                         </h:panelGrid>
                         <p:commandButton value="add" process="brightness" update="remote"
-                                         actionListener="#{remoteControlView.onApplyBrightnessButtonClick}" id="btn2"
+                                         action="#{remoteControlView.onApplyBrightnessButtonClick}" id="btn2"
                                          styleClass="mr-2"/>
                         <p:defaultCommand target="btn2" scope="panel2"/>
                     </h:panelGrid>
@@ -99,8 +99,10 @@
                                            itemValue="#{color}"/>
                         </p:selectOneMenu>
                         <p:commandButton value="add" process="color" update="remote"
-                                         actionListener="#{remoteControlView.onApplyColorButtonClick}" id="btn4"
-                                         styleClass="mr-2"/>
+                                         action="#{remoteControlView.onApplyColorButtonClick}"
+                                         id="btn4"
+                                         styleClass="mr-2">
+                        </p:commandButton>
                         <p:defaultCommand target="btn4" scope="panel4"/>
                     </h:panelGrid>
                 </p:panel>
@@ -228,6 +230,9 @@
                 </p:panel>
             </h:form>
         </div>
+
+        <p:commandButton value="add" process="color" update="remote" action="#{remoteControlView.onApplyColorButtonClick}"
+                         styleClass="mr-2"/>
 
     </ui:define>
 

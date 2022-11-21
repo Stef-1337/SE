@@ -94,15 +94,15 @@ public class RemoteControlView implements Serializable {
         getCommand(slotSelected).ifPresent(command -> commandProcessor.execute(command));
     }
 
-    public void onApplySwitchButtonClick(ActionEvent event){
+    public void onApplySwitchButtonClick(){
         addCommand(new StateCommand(controller, data.getName(), data.isOn()));
     }
 
-    public void onApplyBrightnessButtonClick(ActionEvent event) {
+    public void onApplyBrightnessButtonClick() {
         addCommand(new BrightnessCommand(controller, data.getName(), data.getIntensity()));
     }
 
-    public void onApplyColorButtonClick(ActionEvent event){
+    public void onApplyColorButtonClick(){
         //TODO wird noch nicht aufgerufen
         System.out.println("color");
         addCommand(new ColorCommand(controller, data.getName(), data.getColors().get(0)));
