@@ -1,6 +1,5 @@
 package de.ostfalia.s1.lamp;
 
-
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.model.SelectItem;
@@ -9,14 +8,13 @@ import javax.inject.Named;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
-import javax.json.bind.Jsonb;
-import javax.json.bind.JsonbBuilder;
 import java.awt.*;
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -311,24 +309,26 @@ public class Java2NodeRedLampAdapter implements ILamp, Serializable {
             JsonObject request = requester.getState(new URL(requester.base));
             Lamp lamp = new Lamp();
 
-            JsonReader reader = Json.createReader(new ByteArrayInputStream(("{" + request.toString().substring(86, 934) + "}").getBytes(StandardCharsets.UTF_8)));
+            String dataString = request.get("data").toString();
+            dataString = dataString.substring(1, dataString.length() - 1);
+
+            JsonReader reader = Json.createReader(new ByteArrayInputStream(dataString.getBytes()));
             JsonObject data = reader.readObject();
+
             JsonObject metadata = data.getJsonObject("metadata");
 
             lamp.setName(metadata.getString("name"));
             lamp.setState(data.getJsonObject("on").getBoolean("on"));
             lamp.setIntensity(data.getJsonObject("dimming").getInt("brightness"));
 
-            String colorStrings = data.getJsonObject("color").getJsonObject("xy").toString().substring(1, 22);
-            List<Float> colors = new ArrayList<>();
+            JsonObject xyObject = data.getJsonObject("color").getJsonObject("xy");
 
-            for (String colorString : colorStrings.split(","))
-                colors.add(Float.parseFloat(colorString.substring(4)));
+            float x = Float.parseFloat(xyObject.get("x").toString()), y = Float.parseFloat(xyObject.get("y").toString());
 
-            lamp.setX(colors.get(0));
-            lamp.setY(colors.get(1));
+            lamp.setX(x);
+            lamp.setY(y);
 
-            lamp.setColorName(xyWerte.get(colors));
+            lamp.setColorName(xyWerte.get(Arrays.asList(x, y)));
 
             return lamp;
         } catch (MalformedURLException ex) {
