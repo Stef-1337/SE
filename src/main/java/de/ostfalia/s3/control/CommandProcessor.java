@@ -33,10 +33,16 @@ public class CommandProcessor {
             ICommand command = undoList.get(undoList.size() - 1);
 
             if (command instanceof AbstractCommand abstractCommand) {
+                if (abstractCommand instanceof AbstractThreadCommand threadCommand) threadCommand.stopThread();
                 abstractCommand.undo();
+
             } else command.undo(controller);
 
             undoList.remove(command);
+            if (undoList.size() > 0) {
+                ICommand current = undoList.get(undoList.size() - 1);
+                if (current instanceof AbstractThreadCommand threadCommand) threadCommand.execute(controller);
+            }
         }
     }
 
@@ -45,13 +51,10 @@ public class CommandProcessor {
     }
 
     public void execute(ICommand command) {
-        System.out.println("Executing " + command);
-
         int index = undoList.size() - 1;
-        if(index >= 0) {
+        if (index >= 0) {
             ICommand previous = undoList.get(index);
             if (previous instanceof AbstractThreadCommand) {
-                System.out.println("Stopping thread");
                 ((AbstractThreadCommand) previous).stopThread();
             }
         }
