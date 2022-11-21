@@ -28,7 +28,8 @@
                         <p:commandButton value="add" process="form" update="remote"
                                          actionListener="#{remoteControlView.onApplySwitchButtonClick}"
                                          id="btn1"
-                                         styleClass="mr-2"/>
+                                         styleClass="mr-2">
+                        </p:commandButton>
                         <p:defaultCommand target="btn1" scope="panel1"/>
                     </h:panelGrid>
                 </p:panel>
@@ -238,13 +239,13 @@
             <div class="card">
                 <p:panel header="Fernbedienung" style="text-align: center">
                     <p:panelGrid columns="2" layout="grid" styleClass="showcase-text-align-center">
-                        <p:dataList id="remote1" value="#{remoteControlView.getCommandUnchecked(1).config}"
-                                    emptyMessage="n.d." var="product" type="definition" lazy=""
+                        <p:dataList id="remote1"
+                                    emptyMessage="n.d." type="definition" lazy=""
                                     style="text-align: center">
                             <f:facet name="header">
                                 #{remoteControlView.getCommandUnchecked(1).name}
                             </f:facet>
-                            #{product}
+                            #{remoteControlView.getCommandUnchecked(1).config}
                             <p:effect type="pulsate" event="click"/>
                         </p:dataList>
 
@@ -280,8 +281,6 @@
                             <p:effect type="pulsate" event="click"/>
                         </p:dataList>
 
-
-
                         <p:dataList id="remote5" value="#{remoteControlView.getCommandUnchecked(5).config}"
                                     emptyMessage="n.d." var="product" type="definition" lazy=""
                                     style="text-align: center">
@@ -302,14 +301,29 @@
                             <p:effect type="pulsate" event="click"/>
                         </p:dataList>
 
+                        <p:dataList id="remote7" value="#{remoteControlView.getCommandUnchecked(7).config}"
+                                    emptyMessage="n.d." var="product" type="definition" lazy=""
+                                    style="text-align: center">
+                            <f:facet name="header">
+                                #{remoteControlView.getCommandUnchecked(7).name}
+                            </f:facet>
+                            #{product}
+                            <p:effect type="pulsate" event="click"/>
+                        </p:dataList>
 
-                        <h:outputText value="Content"/>
-                        <h:outputText value="Content"/>
+                        <p:dataList id="remote8" value="#{remoteControlView.getCommandUnchecked(8).config}"
+                                    emptyMessage="n.d." var="product" type="definition" lazy=""
+                                    style="text-align: center">
+                            <f:facet name="header">
+                                #{remoteControlView.getCommandUnchecked(8).name}
+                            </f:facet>
+                            #{product}
+                            <p:effect type="pulsate" event="click"/>
+                        </p:dataList>
                     </p:panelGrid>
                 </p:panel>
             </div>
         </h:form>
-        <h:form id="test"> </h:form>
     </ui:define>
 </ui:composition>
 
