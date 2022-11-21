@@ -4,6 +4,7 @@ import de.ostfalia.s1.lamp.AbstractLampController;
 import de.ostfalia.s1.lamp.ColorSelector;
 import de.ostfalia.s1.lamp.HueColor;
 
+import java.util.List;
 import java.util.Random;
 
 public class PartyCommand extends AbstractThreadCommand {
@@ -102,5 +103,10 @@ public class PartyCommand extends AbstractThreadCommand {
         });
         runThread(thread);
 
+    }
+
+    @Override
+    public List<String> getConfig() {
+        return List.of("Empty");
     }
 }

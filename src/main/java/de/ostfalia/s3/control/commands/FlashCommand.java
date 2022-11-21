@@ -37,4 +37,9 @@ public class FlashCommand extends AbstractThreadCommand {
         });
        runThread(thread);
     }
+
+    @Override
+    public List<String> getConfig() {
+        return List.of("Empty");
+    }
 }

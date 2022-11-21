@@ -228,7 +228,7 @@
             <div class="card">
                 <p:panel header="Fernbedienung" style="text-align: center">
                     <p:panelGrid columns="2" layout="grid" styleClass="showcase-text-align-center">
-                        <p:dataList id="remote1" value="#{remoteControlView.commands.get(1).stringList}"
+                        <p:dataList id="remote1" value="#{remoteControlView.getCommandUnchecked(1).config}"
                                     emptyMessage="n.d." var="product" type="definition" lazy=""
                                     style="text-align: center">
                             <f:facet name="header">

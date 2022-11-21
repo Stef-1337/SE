@@ -27,6 +27,7 @@ public class StateCommand extends AbstractCommand {
 
     @Override
     public List<String> getConfig() {
+        System.out.println("Moin config");
         List<String> config = new ArrayList<>();
         config.add(String.valueOf(to));
         System.out.println(config.get(1));

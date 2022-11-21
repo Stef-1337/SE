@@ -3,6 +3,11 @@ package de.ostfalia.s3.control.commands;
 import de.ostfalia.s1.lamp.AbstractLampController;
 import de.ostfalia.s1.lamp.HueColor;
 
+import java.sql.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class DimCommand extends AbstractThreadCommand {
     Boolean to;
     Float brightness;
@@ -50,6 +55,11 @@ public class DimCommand extends AbstractThreadCommand {
             }
         });
         runThread(thread);
+    }
+
+    @Override
+    public List<String> getConfig() {
+        return List.of("Empty");
     }
 }
 

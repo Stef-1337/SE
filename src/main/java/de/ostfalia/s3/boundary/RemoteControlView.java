@@ -64,6 +64,10 @@ public class RemoteControlView implements Serializable {
         return Optional.ofNullable(commands.get(slot));
     }
 
+    public AbstractCommand getCommandUnchecked(int slot){
+        return commands.get(slot);
+    }
+
     public void onButtonClick() {
         getCommand(slotSelected).ifPresent(command -> commandProcessor.execute(command));
     }

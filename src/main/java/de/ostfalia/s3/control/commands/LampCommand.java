@@ -4,6 +4,7 @@ import de.ostfalia.s1.lamp.AbstractLampController;
 import de.ostfalia.s1.lamp.HueColor;
 
 import java.awt.*;
+import java.util.List;
 
 public class LampCommand extends AbstractCommand {
     Boolean to;
@@ -24,5 +25,10 @@ public class LampCommand extends AbstractCommand {
         new BrightnessCommand(controller, "brightness", brightness).execute(controller);
         new ColorCommand(controller, "color", hueColor).execute(controller);
 
+    }
+
+    @Override
+    public java.util.List<String> getConfig() {
+        return List.of("Empty");
     }
 }
