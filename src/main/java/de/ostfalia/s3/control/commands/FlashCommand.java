@@ -6,7 +6,7 @@ import de.ostfalia.s1.lamp.HueColor;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FlashCommand extends AbstractCommand {
+public class FlashCommand extends AbstractThreadCommand {
     Boolean to;
     Float brightness;
     String color;
@@ -22,7 +22,8 @@ public class FlashCommand extends AbstractCommand {
     public void execute(AbstractLampController controller) {
         Thread thread = new Thread(() -> {
             try {
-                while (true){
+                while (!getThread().isInterrupted()){
+                    //new LampCommand(controller, "lamp", to, brightness, hueColor).execute(controller);
                     new StateCommand(controller,"state", true).execute(controller);
                     System.out.println("an");
                     Thread.sleep(200);
@@ -34,8 +35,6 @@ public class FlashCommand extends AbstractCommand {
                 e.printStackTrace();
             }
         });
-        thread.start();
-
-
+       runThread(thread);
     }
 }

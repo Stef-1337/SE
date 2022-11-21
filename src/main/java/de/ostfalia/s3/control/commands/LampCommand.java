@@ -5,7 +5,7 @@ import de.ostfalia.s1.lamp.HueColor;
 
 import java.awt.*;
 
-public class LampCommand extends AbstractCommand{
+public class LampCommand extends AbstractCommand {
     Boolean to;
     Float brightness;
     String color;
@@ -20,9 +20,9 @@ public class LampCommand extends AbstractCommand{
 
     @Override
     public void execute(AbstractLampController controller) {
-         new StateCommand(controller, "state", to).execute(controller);
+        new StateCommand(controller, "state", to).execute(controller);
         new BrightnessCommand(controller, "brightness", brightness).execute(controller);
-        new  ColorCommand(controller,"color",hueColor).execute(controller);
+        new ColorCommand(controller, "color", hueColor).execute(controller);
 
     }
 }

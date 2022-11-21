@@ -6,7 +6,7 @@ import de.ostfalia.s1.lamp.HueColor;
 
 import java.util.Random;
 
-public class PartyCommand extends AbstractCommand {
+public class PartyCommand extends AbstractThreadCommand {
     Boolean to;
     Float brightness;
     String color;
@@ -32,15 +32,20 @@ public class PartyCommand extends AbstractCommand {
             Float curBrightness = brightness;
             HueColor curHuecolor = hueColor;
             try {
-                while (true) {
-                    while (curBrightness > 0 && change == 0) {
+                while (!getThread().isInterrupted()) {
+                    while (curBrightness > 5 && change == 0) {
                         new BrightnessCommand(controller, "brightness", curBrightness -= 5).execute(controller);
                         Thread.sleep(1);
                         System.out.println(curBrightness);
                         System.out.println(controller.getAdapter().getLampe());
                         if (curBrightness == brightness - 15 || curBrightness <= 6) {
                             System.out.println("change 1");
-                            change = 1;
+                            Random random = new Random();
+                            change = random.nextInt(3);
+                            if (curBrightness <= 5){
+                                change = 1;
+                            }
+                            System.out.println(change);
                         }
                     }
                     if (change == 1) {
@@ -48,22 +53,30 @@ public class PartyCommand extends AbstractCommand {
                         new StateCommand(controller, "state", false).execute(controller);
                         System.out.println(controller.getAdapter().getLampe());
                         Thread.sleep(1);
-                        new StateCommand(controller, "state", true).execute(controller);
-                        new ColorCommand(controller, "color", hueColor).execute(controller);   //color muss hier zu einer anderen geändert werden ToDo
+                        //new StateCommand(controller, "state", true).execute(controller);
+                        //new ColorCommand(controller, "color", hueColor).execute(controller);
                         System.out.println(controller.getAdapter().getLampe());
-                        new BrightnessCommand(controller, "bribhtness", curBrightness).execute(controller);
+                        //new BrightnessCommand(controller, "brightness", curBrightness).execute(controller);
+                        new LampCommand(controller, "lamp", true, curBrightness, hueColor).execute(controller);
                         System.out.println(controller.getAdapter().getLampe());
-                        change = 2;
+                        Random random = new Random();
+                        change = random.nextInt(3);
                         System.out.println("change 2");
+                        System.out.println(change);
                         System.out.println(controller.getAdapter().getLampe());
                     }
-                    while (curBrightness < 100 && change == 2) {
+                    while (curBrightness < 90 && change == 2) {
                         new BrightnessCommand(controller, "brightness", curBrightness += 10).execute(controller);
                         System.out.println(curBrightness);
                         System.out.println(controller.getAdapter().getLampe());
                         if (curBrightness >= 89) {
-                            change = 3;
+                            Random random = new Random();
+                            change = random.nextInt(3);
+                            if (change == 2){
+                                change = 3;
+                            }
                             System.out.println("change 3");
+                            System.out.println(change);
                         }
                     }
                     while (change == 3) {
@@ -77,7 +90,8 @@ public class PartyCommand extends AbstractCommand {
                         System.out.println(controller.getAdapter().getLampe());
                         Thread.sleep(100);
                         if (count == 7) {
-                            change = 0;
+                            change = random.nextInt(3);
+                            System.out.println(change);
                             count = 0;
                         }
                     }
@@ -86,7 +100,7 @@ public class PartyCommand extends AbstractCommand {
                 e.printStackTrace();
             }
         });
-        thread.start();
+        runThread(thread);
 
     }
 }

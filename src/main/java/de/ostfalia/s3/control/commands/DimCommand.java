@@ -3,7 +3,7 @@ package de.ostfalia.s3.control.commands;
 import de.ostfalia.s1.lamp.AbstractLampController;
 import de.ostfalia.s1.lamp.HueColor;
 
-public class DimCommand extends AbstractCommand {
+public class DimCommand extends AbstractThreadCommand {
     Boolean to;
     Float brightness;
     String color;
@@ -23,7 +23,7 @@ public class DimCommand extends AbstractCommand {
             Boolean change = true;
             new LampCommand(controller, "lamp", to, brightness, hueColor);
             try {
-                while (true) {
+                while (!getThread().isInterrupted()) {
                     while (brightnessChange > 0 && change == true) {
                         new BrightnessCommand(controller, "brightness", brightnessChange -= 5).execute(controller);
                         Thread.sleep(100);
@@ -46,10 +46,10 @@ public class DimCommand extends AbstractCommand {
                     }
                 }
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                System.out.println("abbgebrochen");;
             }
         });
-        thread.start();
+        runThread(thread);
     }
 }
 
