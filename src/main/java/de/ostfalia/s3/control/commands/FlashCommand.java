@@ -11,11 +11,13 @@ public class FlashCommand extends AbstractThreadCommand {
     Float brightness;
     String color;
     HueColor hueColor;
-    public FlashCommand(AbstractLampController controller, String name, Boolean to, Float brightness, HueColor hueColor) {
+    int time;
+    public FlashCommand(AbstractLampController controller, String name, Boolean to, Float brightness, HueColor hueColor, int time) {
         super(controller, name);
         this.to = to;
         this.brightness = brightness;
         this.hueColor = hueColor;
+        this.time = time;
     }
 
     @Override
@@ -26,10 +28,10 @@ public class FlashCommand extends AbstractThreadCommand {
                     //new LampCommand(controller, "lamp", to, brightness, hueColor).execute(controller);
                     new StateCommand(controller,"state", true).execute(controller);
                     System.out.println("an");
-                    Thread.sleep(200);
+                    Thread.sleep(time);
                     new StateCommand(controller, "state", false).execute(controller);
                     System.out.println("aus");
-                    Thread.sleep(200);
+                    Thread.sleep(time);
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -40,6 +42,6 @@ public class FlashCommand extends AbstractThreadCommand {
 
     @Override
     public List<String> getConfig() {
-        return List.of("Empty");
+        return List.of("Flash: " + time);
     }
 }
