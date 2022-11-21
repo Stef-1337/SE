@@ -4,6 +4,7 @@ import de.ostfalia.s1.lamp.AbstractLampController;
 import de.ostfalia.s1.lamp.Lamp;
 import de.ostfalia.s1.lamp.LampController;
 import de.ostfalia.s3.control.commands.AbstractCommand;
+import de.ostfalia.s3.control.commands.AbstractThreadCommand;
 import de.ostfalia.s3.control.commands.ICommand;
 import de.ostfalia.s3.control.commands.StateCommand;
 import lombok.Getter;
@@ -28,7 +29,7 @@ public class CommandProcessor {
     }
 
     public void undo() {
-        if(undoList.size() > 0) {
+        if (undoList.size() > 0) {
             ICommand command = undoList.get(undoList.size() - 1);
 
             if (command instanceof AbstractCommand abstractCommand) {
@@ -39,19 +40,29 @@ public class CommandProcessor {
         }
     }
 
-    public void undo(int index){
+    public void undo(int index) {
         //TODO
     }
 
     public void execute(ICommand command) {
-        command.execute(controller);
-    }
+        System.out.println("Executing " + command);
 
-    public void execute(AbstractCommand command) {
-        command = command.executeAndClone();
+        int index = undoList.size() - 1;
+        if(index >= 0) {
+            ICommand previous = undoList.get(index);
+            if (previous instanceof AbstractThreadCommand) {
+                System.out.println("Stopping thread");
+                ((AbstractThreadCommand) previous).stopThread();
+            }
+        }
 
-        if (command != null)
-            undoList.add(command);
+        if (command instanceof AbstractCommand) {
+            command = ((AbstractCommand) command).executeAndClone();
+
+            if (command != null)
+                undoList.add(command);
+        } else
+            command.execute(controller);
     }
 
     public void execute(ICommand... commands) {
