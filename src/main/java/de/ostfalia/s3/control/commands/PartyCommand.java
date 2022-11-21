@@ -13,11 +13,17 @@ public class PartyCommand extends AbstractThreadCommand {
     String color;
     HueColor hueColor;
 
-    public PartyCommand(AbstractLampController controller, String name, Boolean to, Float brightness, HueColor hueColor) {
+    int time;
+
+    int amount;
+
+    public PartyCommand(AbstractLampController controller, String name, Boolean to, Float brightness, HueColor hueColor, int time, int amount) {
         super(controller, name);
         this.to = to;
         this.brightness = brightness;
         this.hueColor = hueColor;
+        this.time = time;
+        this.amount = amount;
     }
 
     @Override
@@ -90,7 +96,7 @@ public class PartyCommand extends AbstractThreadCommand {
                         System.out.println(randomcolor);
                         System.out.println(controller.getAdapter().getLampe());
                         Thread.sleep(100);
-                        if (count == 7) {
+                        if (count == amount) {
                             change = random.nextInt(3);
                             System.out.println(change);
                             count = 0;
@@ -107,6 +113,6 @@ public class PartyCommand extends AbstractThreadCommand {
 
     @Override
     public List<String> getConfig() {
-        return List.of("Empty");
+        return List.of("Party: " + time + "Amount of changes: " + amount );
     }
 }

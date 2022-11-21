@@ -29,6 +29,6 @@ public class LampCommand extends AbstractCommand {
 
     @Override
     public java.util.List<String> getConfig() {
-        return List.of("Empty");
+        return List.of("State: " + to + " Brightness: " + brightness + " HueColor: " + hueColor);
     }
 }
