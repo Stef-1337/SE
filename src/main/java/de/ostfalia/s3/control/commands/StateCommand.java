@@ -14,6 +14,8 @@ public class StateCommand extends AbstractCommand {
     @Override
     public void execute(AbstractLampController controller) {
         controller.switchChanged(to);
+        System.out.println("state");
+        System.out.println(controller.getAdapter().getLampe());
     }
 
 }
