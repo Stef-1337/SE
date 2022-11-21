@@ -89,10 +89,10 @@ public class PartyCommand extends AbstractThreadCommand {
                     while (change == 3) {
                         Random random = new Random();
                         ColorSelector colorSelector = new ColorSelector();
-                        int randomNum = random.nextInt(9);
+                        int randomNum = random.nextInt(8);
                         HueColor randomcolor = colorSelector.getColors().get(randomNum);
                         count++;
-                        new ColorCommand(controller, "color", randomcolor).execute(controller);       //Absprechen, ob Color als String oder als Color ToDo
+                        new ColorCommand(controller, "color", randomcolor).execute(controller);
                         System.out.println(randomcolor);
                         System.out.println(controller.getAdapter().getLampe());
                         Thread.sleep(100);
