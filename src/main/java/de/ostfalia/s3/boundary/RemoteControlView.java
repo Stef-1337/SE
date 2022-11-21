@@ -2,6 +2,7 @@ package de.ostfalia.s3.boundary;
 
 import de.ostfalia.s1.lamp.AbstractLampController;
 import de.ostfalia.s1.lamp.Java2NodeRedLampAdapter;
+import de.ostfalia.s3.control.ColorService;
 import de.ostfalia.s3.control.CommandParameterData;
 import de.ostfalia.s3.control.CommandProcessor;
 import de.ostfalia.s3.control.commands.AbstractCommand;
@@ -13,6 +14,7 @@ import org.primefaces.event.SelectEvent;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -32,6 +34,9 @@ public class RemoteControlView implements Serializable {
     private String name;
 
     private List<Integer> slots;
+
+    @Inject
+    private ColorService colorService;
 
     private CommandProcessor commandProcessor;
 
@@ -97,8 +102,8 @@ public class RemoteControlView implements Serializable {
         System.out.print(commands.get(1).getName());
     }
 
-    public void addColor(SelectEvent s){
-        data.getColors().add((String) s.getObject());
-    }
+//    public void addColor(SelectEvent s){
+//        data.getColors().add((String) s.getObject());
+//    }
 }
 
