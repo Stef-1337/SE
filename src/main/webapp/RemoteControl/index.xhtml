@@ -63,7 +63,7 @@
                 <p:panel header="Dimm Command" id="panel3" toggleable="true" collapsed="true" styleClass="mb-5">
                     <h:panelGrid columns="5" cellpadding="10">
                         <p:inputText id="name3" placeholder="Befehlsname" value="#{remoteControlView.data.name}"/>
-                        <p:selectOneMenu>
+                        <p:selectOneMenu value="#{remoteControlView.slotSelected}">
                             <f:selectItem itemLabel="Position wählen" itemDisabled="true" noSelectionOption="true"/>
                             <f:selectItems value="#{remoteControlView.slots}"/>
                         </p:selectOneMenu>
@@ -85,7 +85,7 @@
                 <p:panel header="Color Command" id="panel4" toggleable="true" collapsed="true" styleClass="mb-5">
                     <h:panelGrid columns="5" cellpadding="10">
                         <p:inputText id="name4" placeholder="Befehlsname" value="#{remoteControlView.data.name}"/>
-                        <p:selectOneMenu>
+                        <p:selectOneMenu value="#{remoteControlView.slotSelected}">
                             <f:selectItem itemLabel="Position wählen" itemDisabled="true" noSelectionOption="true"/>
                             <f:selectItems value="#{remoteControlView.slots}"/>
                         </p:selectOneMenu>
@@ -111,7 +111,7 @@
                 <p:panel header="Flash Command" id="panel5" toggleable="true" collapsed="true" styleClass="mb-5">
                     <h:panelGrid columns="5" cellpadding="10">
                         <p:inputText id="name5" placeholder="Befehlsname" value="#{remoteControlView.data.name}"/>
-                        <p:selectOneMenu>
+                        <p:selectOneMenu value="#{remoteControlView.slotSelected}">
                             <f:selectItem itemLabel="Position wählen" itemDisabled="true" noSelectionOption="true"/>
                             <f:selectItems value="#{remoteControlView.slots}"/>
                         </p:selectOneMenu>
@@ -133,7 +133,7 @@
                 <p:panel header="Rainbow Command" id="panel6" toggleable="true" collapsed="true" styleClass="mb-5">
                     <h:panelGrid columns="5" cellpadding="10">
                         <p:inputText id="name6" placeholder="Befehlsname" value="#{remoteControlView.data.name}"/>
-                        <p:selectOneMenu>
+                        <p:selectOneMenu value="#{remoteControlView.slotSelected}">
                             <f:selectItem itemLabel="Position wählen" itemDisabled="true" noSelectionOption="true"/>
                             <f:selectItems value="#{remoteControlView.slots}"/>
                         </p:selectOneMenu>
@@ -157,7 +157,7 @@
                 <p:panel header="Party Command" id="panel7" toggleable="true" collapsed="true" styleClass="mb-5">
                     <h:panelGrid columns="5" cellpadding="10">
                         <p:inputText id="name7" placeholder="Befehlsname" value="#{remoteControlView.data.name}"/>
-                        <p:selectOneMenu>
+                        <p:selectOneMenu value="#{remoteControlView.slotSelected}">
                             <f:selectItem itemLabel="Position wählen" itemDisabled="true" noSelectionOption="true"/>
                             <f:selectItems value="#{remoteControlView.slots}"/>
                         </p:selectOneMenu>
@@ -183,7 +183,7 @@
                 <p:panel header="Individual Command" id="panel9" toggleable="true" collapsed="true" styleClass="mb-5">
                     <h:panelGrid columns="6" cellpadding="10">
                         <p:inputText id="name9" placeholder="Individual" value="#{remoteControlView.data.name}"/>
-                        <p:selectOneMenu>
+                        <p:selectOneMenu value="#{remoteControlView.slotSelected}">
                             <f:selectItem itemLabel="Position wählen" itemDisabled="true" noSelectionOption="true"/>
                             <f:selectItems value="#{remoteControlView.slots}"/>
                         </p:selectOneMenu>
@@ -215,7 +215,7 @@
                     <h:panelGrid columns="5" cellpadding="10">
                         <p:inputText id="name8" placeholder="Undo" disabled="true"
                                      value="#{remoteControlView.data.name}"/>
-                        <p:selectOneMenu>
+                        <p:selectOneMenu value="#{remoteControlView.slotSelected}">
                             <f:selectItem itemLabel="Position wählen" itemDisabled="true" noSelectionOption="true"/>
                             <f:selectItems value="#{remoteControlView.slots}"/>
                         </p:selectOneMenu>
