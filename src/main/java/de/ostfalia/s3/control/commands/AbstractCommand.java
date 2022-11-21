@@ -22,7 +22,7 @@ public abstract class AbstractCommand implements ICommand, Cloneable {
     private List<String> configList;
 
     public AbstractCommand(AbstractLampController controller, String name) {
-        this.name = name;
+        this.name = name.equals("") ? getClass().getSimpleName().replace("Command", "") : name;
         this.controller = controller;
     }
 
