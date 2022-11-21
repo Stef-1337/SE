@@ -54,10 +54,16 @@ public class RemoteControlView implements Serializable {
     public RemoteControlView(){
         slots = new ArrayList<>(SIZE);
 
+        initDefaults();
+
         for (int i = 1; i < 9; i++){
             slots.add(i);
         }
+    }
 
+    private void initDefaults(){
+        commands.put(1, new StateCommand(controller, "On", true));
+        commands.put(2, new StateCommand(controller, "Off", false));
     }
 
     public void setCommand(int slot, AbstractCommand command) {
