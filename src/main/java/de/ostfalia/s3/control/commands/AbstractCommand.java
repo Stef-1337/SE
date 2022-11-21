@@ -5,6 +5,7 @@ import de.ostfalia.s1.lamp.ILamp;
 import de.ostfalia.s1.lamp.Java2NodeRedLampAdapter;
 import de.ostfalia.s1.lamp.Lamp;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -16,6 +17,9 @@ public abstract class AbstractCommand implements ICommand, Cloneable {
     private AbstractLampController controller;
     @Getter
     private Lamp status;
+    @Getter
+    @Setter
+    private List<String> configList;
 
     public AbstractCommand(AbstractLampController controller, String name) {
         this.name = name;

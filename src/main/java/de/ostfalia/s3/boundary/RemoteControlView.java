@@ -6,16 +6,19 @@ import de.ostfalia.s3.control.ColorService;
 import de.ostfalia.s3.control.CommandParameterData;
 import de.ostfalia.s3.control.CommandProcessor;
 import de.ostfalia.s3.control.commands.AbstractCommand;
+import de.ostfalia.s3.control.commands.BrightnessCommand;
 import de.ostfalia.s3.control.commands.StateCommand;
 import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.event.SelectEvent;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.swing.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -54,10 +57,16 @@ public class RemoteControlView implements Serializable {
         for (int i = 1; i < 9; i++){
             slots.add(i);
         }
+
     }
 
     public void setCommand(int slot, AbstractCommand command) {
-        if (slot < SIZE) commands.put(slot, command);
+        System.out.println("Try setting " + slot + ", " + command);
+        if(command.getName().length() != 0)
+            if (slot < SIZE){
+                commands.put(slot, command);
+                data = new CommandParameterData();
+            }
     }
 
     public Optional<AbstractCommand> getCommand(int slot){
@@ -72,13 +81,12 @@ public class RemoteControlView implements Serializable {
         getCommand(slotSelected).ifPresent(command -> commandProcessor.execute(command));
     }
 
-    public void onApplySwitchButtonClick() {
+    public void onApplySwitchButtonClick(ActionEvent event){
         setCommand(slotSelected, new StateCommand(controller, data.getName(), data.isOn()));
-        System.out.println("apply");
     }
 
-    public void onApplyBrightnessButtonClick() {
-        setCommand(slotSelected, new StateCommand(controller, data.getName(), data.isOn()));
+    public void onApplyBrightnessButtonClick(ActionEvent event) {
+        setCommand(slotSelected, new BrightnessCommand(controller, data.getName(), data.getIntensity()));
     }
 
     public void onApplyDimButtonClick() {
