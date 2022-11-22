@@ -71,7 +71,7 @@ public class RemoteControlView implements Serializable {
     public void setCommand(int slot, AbstractCommand command) {
         System.out.println("Try setting " + slot + ", " + command);
         if(command.getName().length() != 0)
-            if (slot < SIZE){
+            if (slot <= SIZE){
                 commands.put(slot, command);
                 data = new CommandParameterData();
                 slotSelected = 0;
