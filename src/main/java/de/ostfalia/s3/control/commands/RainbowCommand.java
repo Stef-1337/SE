@@ -30,40 +30,6 @@ public class RainbowCommand extends AbstractThreadCommand {
             try {
                 while (!getThread().isInterrupted()) {
                     ColorSelector colorSelector = new ColorSelector();
-                    /*ColorSelector colorSelector = new ColorSelector();
-                    new LampCommand(controller, "rot", true, brightness, colorSelector.getColors().get(8)).execute(controller);
-                    System.out.println(controller.getAdapter().getLampe());
-                    Thread.sleep(time);
-                    new LampCommand(controller, "rot", true, brightness, colorSelector.getColors().get(7)).execute(controller);
-                    System.out.println(controller.getAdapter().getLampe());
-                    Thread.sleep(time);
-                    new LampCommand(controller, "rot", true, brightness, colorSelector.getColors().get(6)).execute(controller);
-                    System.out.println(controller.getAdapter().getLampe());
-                    Thread.sleep(time);
-                    new LampCommand(controller, "rot", true, brightness, colorSelector.getColors().get(5)).execute(controller);
-                    System.out.println(controller.getAdapter().getLampe());
-                    Thread.sleep(time);
-                    new LampCommand(controller, "rot", true, brightness, colorSelector.getColors().get(4)).execute(controller);
-                    System.out.println(controller.getAdapter().getLampe());
-                    Thread.sleep(time);
-                    new LampCommand(controller, "rot", true, brightness, colorSelector.getColors().get(2)).execute(controller);
-                    System.out.println(controller.getAdapter().getLampe());
-                    Thread.sleep(time * 2);
-                    new LampCommand(controller, "rot", true, brightness, colorSelector.getColors().get(4)).execute(controller);
-                    System.out.println(controller.getAdapter().getLampe());
-                    Thread.sleep(time);
-                    new LampCommand(controller, "rot", true, brightness, colorSelector.getColors().get(5)).execute(controller);
-                    System.out.println(controller.getAdapter().getLampe());
-                    Thread.sleep(time);
-                    new LampCommand(controller, "rot", true, brightness, colorSelector.getColors().get(6)).execute(controller);
-                    System.out.println(controller.getAdapter().getLampe());
-                    Thread.sleep(time);
-                    new LampCommand(controller, "rot", true, brightness, colorSelector.getColors().get(7)).execute(controller);
-                    System.out.println(controller.getAdapter().getLampe());
-                    Thread.sleep(time);
-                    new LampCommand(controller, "rot", true, brightness, colorSelector.getColors().get(8)).execute(controller);
-                    System.out.println(controller.getAdapter().getLampe());
-                    Thread.sleep(time * 2);*/
                     for (int i = 8; i > 1; i--) {
                         if (!(i == 3)) {
                             Thread.sleep(time);
