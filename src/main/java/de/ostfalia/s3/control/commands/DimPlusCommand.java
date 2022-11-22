@@ -4,9 +4,9 @@ import de.ostfalia.s1.lamp.AbstractLampController;
 
 import java.util.List;
 
-public class DimPlus extends AbstractCommand {
+public class DimPlusCommand extends AbstractCommand {
     private float plus;
-    public DimPlus(AbstractLampController controller, String name, float plus) {
+    public DimPlusCommand(AbstractLampController controller, String name, float plus) {
         super(controller, name);
         this.plus = plus;
     }

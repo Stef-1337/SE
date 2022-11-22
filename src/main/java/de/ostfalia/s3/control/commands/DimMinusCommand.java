@@ -4,9 +4,9 @@ import de.ostfalia.s1.lamp.AbstractLampController;
 
 import java.util.List;
 
-public class DimMinus extends AbstractCommand{
+public class DimMinusCommand extends AbstractCommand{
     private float minus;
-    public DimMinus(AbstractLampController controller, String name, float minus) {
+    public DimMinusCommand(AbstractLampController controller, String name, float minus) {
         super(controller, name);
         this.minus = minus;
     }
