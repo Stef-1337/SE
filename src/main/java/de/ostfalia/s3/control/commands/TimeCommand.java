@@ -6,12 +6,11 @@ import java.util.List;
 
 public class TimeCommand extends AbstractThreadCommand {
     private int time;
-    private boolean to;
 
-    public TimeCommand(AbstractLampController controller, String name, int time, boolean to) {
+
+    public TimeCommand(AbstractLampController controller, String name, int time) {
         super(controller, name);
         this.time = time;
-        this.to = to;
     }
 
     @Override
@@ -19,7 +18,7 @@ public class TimeCommand extends AbstractThreadCommand {
         Thread thread = new Thread(() -> {
             try {
                 Thread.sleep(time);
-                new StateCommand(controller, "time", !to);
+                new StateCommand(controller, "time", !controller.getAdapter().getState()).execute(controller);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -30,6 +29,6 @@ public class TimeCommand extends AbstractThreadCommand {
 
     @Override
     public List<String> getConfig() {
-        return List.of("Time: " + time + "State: " + !to);
+        return List.of("Time: " + time + "State: toggle ");
     }
 }
