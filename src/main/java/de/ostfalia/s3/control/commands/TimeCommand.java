@@ -16,12 +16,16 @@ public class TimeCommand extends AbstractThreadCommand {
 
     @Override
     public void execute(AbstractLampController controller) {
-        try {
-            Thread.sleep(time);
-            new StateCommand(controller, "time", !to);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        Thread thread = new Thread(() -> {
+            try {
+                Thread.sleep(time);
+                new StateCommand(controller, "time", !to);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        runThread(thread);
+
     }
 
     @Override
