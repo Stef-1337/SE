@@ -24,6 +24,6 @@ public class DimPlus extends AbstractCommand {
     }
     @Override
     public List<String> getConfig() {
-        return null;
+        return List.of("Dim: +" + plus);
     }
 }
