@@ -15,14 +15,13 @@ public class DimPlusMinusCommand extends AbstractCommand {
 
     @Override
     public void execute(AbstractLampController controller) {
-        if (controller.getAdapter().getIntensity() + change <= 100 || controller.getAdapter().getIntensity() + change >=0){
+        if (controller.getAdapter().getIntensity() + change <= 100 && controller.getAdapter().getIntensity() + change >= 0){
             new BrightnessCommand(controller, "dimPlus", controller.getAdapter().getIntensity() + change).execute(controller);
         }else {
             if (controller.getAdapter().getIntensity() + change > 100) {
                 new BrightnessCommand(controller, "dim100", 100F).execute(controller);
-            }
-            if (controller.getAdapter().getIntensity() - change < 0){
-                new BrightnessCommand(controller, "dim0", 0).execute(controller);
+            }else {
+                new BrightnessCommand(controller, "dim0", 0F).execute(controller);
             }
         }
 
