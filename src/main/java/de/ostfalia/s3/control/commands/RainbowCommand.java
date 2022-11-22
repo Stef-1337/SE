@@ -52,6 +52,6 @@ public class RainbowCommand extends AbstractThreadCommand {
 
     @Override
     public List<String> getConfig() {
-        return List.of("Rainbow: " + " Time between: " + time);
+        return List.of("Rainbow: Time between: " + time);
     }
 }
