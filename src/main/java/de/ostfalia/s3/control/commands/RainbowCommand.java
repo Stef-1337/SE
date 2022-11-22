@@ -6,7 +6,7 @@ import de.ostfalia.s1.lamp.HueColor;
 
 import java.util.List;
 
-public class RaimbowCommand extends AbstractThreadCommand {
+public class RainbowCommand extends AbstractThreadCommand {
 
     Boolean to;
     Float brightness;
@@ -16,7 +16,7 @@ public class RaimbowCommand extends AbstractThreadCommand {
     int time;
 
 
-    public RaimbowCommand(AbstractLampController controller, String name, Boolean to, Float brightness, HueColor hueColor, int time) {
+    public RainbowCommand(AbstractLampController controller, String name, Boolean to, Float brightness, HueColor hueColor, int time) {
         super(controller, name);
         this.to = to;
         this.brightness = brightness;
