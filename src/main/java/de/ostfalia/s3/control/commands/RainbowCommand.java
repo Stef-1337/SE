@@ -8,12 +8,12 @@ import java.util.List;
 
 public class RainbowCommand extends AbstractThreadCommand {
 
-    Boolean to;
-    Float brightness;
+    private Boolean to;
+    private Float brightness;
 
-    HueColor hueColor;
+    private HueColor hueColor;
 
-    int time;
+    private int time;
 
 
     public RainbowCommand(AbstractLampController controller, String name, Boolean to, Float brightness, HueColor hueColor, int time) {
@@ -30,6 +30,7 @@ public class RainbowCommand extends AbstractThreadCommand {
             try {
                 while (!getThread().isInterrupted()) {
                     ColorSelector colorSelector = new ColorSelector();
+                    /*ColorSelector colorSelector = new ColorSelector();
                     new LampCommand(controller, "rot", true, brightness, colorSelector.getColors().get(8)).execute(controller);
                     System.out.println(controller.getAdapter().getLampe());
                     Thread.sleep(time);
@@ -62,12 +63,11 @@ public class RainbowCommand extends AbstractThreadCommand {
                     Thread.sleep(time);
                     new LampCommand(controller, "rot", true, brightness, colorSelector.getColors().get(8)).execute(controller);
                     System.out.println(controller.getAdapter().getLampe());
-                    Thread.sleep(time * 2);
+                    Thread.sleep(time * 2);*/
                     for (int i = 8; i > 1; i--) {
                         if (!(i == 3)) {
                             Thread.sleep(time);
                             new LampCommand(controller, "rainbow", true, brightness, colorSelector.getColors().get(i)).execute(controller);
-
                         }
                     }
                     for (int i = 2; i < 9; i++) {

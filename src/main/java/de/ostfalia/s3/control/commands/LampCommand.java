@@ -7,10 +7,9 @@ import java.awt.*;
 import java.util.List;
 
 public class LampCommand extends AbstractCommand {
-    Boolean to;
-    Float brightness;
-    String color;
-    HueColor hueColor;
+    private Boolean to;
+    private Float brightness;
+    private HueColor hueColor;
 
     public LampCommand(AbstractLampController controller, String name, Boolean to, Float brightness, HueColor hueColor) {
         super(controller, name);

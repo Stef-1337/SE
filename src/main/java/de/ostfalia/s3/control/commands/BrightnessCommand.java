@@ -17,6 +17,7 @@ public class BrightnessCommand extends AbstractCommand {
     @Override
     public void execute(AbstractLampController controller) {
         controller.brightnessChanged(brightness);
+        System.out.println(controller.getAdapter().getLampe());
     }
 
     @Override

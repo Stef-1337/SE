@@ -8,14 +8,13 @@ import java.util.List;
 import java.util.Random;
 
 public class PartyCommand extends AbstractThreadCommand {
-    Boolean to;
-    Float brightness;
-    String color;
-    HueColor hueColor;
+    private Boolean to;
+    private Float brightness;
+    private HueColor hueColor;
 
-    int time;
+    private int time;
 
-    int amount;
+    private int amount;
 
     public PartyCommand(AbstractLampController controller, String name, Boolean to, Float brightness, HueColor hueColor, int time, int amount) {
         super(controller, name);
@@ -43,47 +42,30 @@ public class PartyCommand extends AbstractThreadCommand {
                     while (curBrightness > 5 && change == 0) {
                         new BrightnessCommand(controller, "brightness", curBrightness -= 5).execute(controller);
                         Thread.sleep(1);
-                        System.out.println(curBrightness);
-                        System.out.println(controller.getAdapter().getLampe());
                         if (curBrightness == brightness - 15 || curBrightness <= 6) {
-                            System.out.println("change 1");
                             Random random = new Random();
                             change = random.nextInt(3);
-                            if (curBrightness <= 5){
+                            if (curBrightness <= 5) {
                                 change = 1;
                             }
-                            System.out.println(change);
                         }
                     }
                     if (change == 1) {
                         curBrightness = brightness / 3;
                         new StateCommand(controller, "state", false).execute(controller);
-                        System.out.println(controller.getAdapter().getLampe());
-                        Thread.sleep(1);
-                        //new StateCommand(controller, "state", true).execute(controller);
-                        //new ColorCommand(controller, "color", hueColor).execute(controller);
-                        System.out.println(controller.getAdapter().getLampe());
-                        //new BrightnessCommand(controller, "brightness", curBrightness).execute(controller);
+                        Thread.sleep(100);
                         new LampCommand(controller, "lamp", true, curBrightness, hueColor).execute(controller);
-                        System.out.println(controller.getAdapter().getLampe());
                         Random random = new Random();
                         change = random.nextInt(3);
-                        System.out.println("change 2");
-                        System.out.println(change);
-                        System.out.println(controller.getAdapter().getLampe());
                     }
                     while (curBrightness < 90 && change == 2) {
                         new BrightnessCommand(controller, "brightness", curBrightness += 10).execute(controller);
-                        System.out.println(curBrightness);
-                        System.out.println(controller.getAdapter().getLampe());
                         if (curBrightness >= 89) {
                             Random random = new Random();
                             change = random.nextInt(3);
-                            if (change == 2){
+                            if (change == 2) {
                                 change = 3;
                             }
-                            System.out.println("change 3");
-                            System.out.println(change);
                         }
                     }
                     while (change == 3) {
@@ -93,12 +75,9 @@ public class PartyCommand extends AbstractThreadCommand {
                         HueColor randomcolor = colorSelector.getColors().get(randomNum);
                         count++;
                         new ColorCommand(controller, "color", randomcolor).execute(controller);
-                        System.out.println(randomcolor);
-                        System.out.println(controller.getAdapter().getLampe());
                         Thread.sleep(100);
                         if (count == amount) {
                             change = random.nextInt(3);
-                            System.out.println(change);
                             count = 0;
                         }
                     }
@@ -113,6 +92,6 @@ public class PartyCommand extends AbstractThreadCommand {
 
     @Override
     public List<String> getConfig() {
-        return List.of("Party: " + time + "Amount of changes: " + amount );
+        return List.of("Party: " + time + "Amount of changes: " + amount);
     }
 }

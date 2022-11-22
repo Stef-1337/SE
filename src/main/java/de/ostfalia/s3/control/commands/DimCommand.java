@@ -3,18 +3,15 @@ package de.ostfalia.s3.control.commands;
 import de.ostfalia.s1.lamp.AbstractLampController;
 import de.ostfalia.s1.lamp.HueColor;
 
-import java.sql.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 import java.util.List;
 
 public class DimCommand extends AbstractThreadCommand {
-    Boolean to;
-    Float brightness;
-    String color;
-    HueColor hueColor;
+    private Boolean to;
+    private Float brightness;
+    private HueColor hueColor;
 
-    int time;
+    private int time;
 
     public DimCommand(AbstractLampController controller, String name, Boolean to, Float brightness, HueColor hueColor, int time) {
         super(controller, name);
@@ -35,9 +32,6 @@ public class DimCommand extends AbstractThreadCommand {
                     while (brightnessChange > 0 && change == true) {
                         new BrightnessCommand(controller, "brightness", brightnessChange -= 5).execute(controller);
                         Thread.sleep(time);
-                        System.out.println(1);
-                        System.out.println("1      " + brightnessChange);
-                        System.out.println(controller.getAdapter().getLampe());
                         if (brightnessChange <= 6) {
                             change = false;
                         }
@@ -45,16 +39,14 @@ public class DimCommand extends AbstractThreadCommand {
                     while (brightnessChange < 100 && change == false) {
                         new BrightnessCommand(controller, "brightness", brightnessChange += 5).execute(controller);
                         Thread.sleep(time);
-                        System.out.println(2);
-                        System.out.println("2      " + brightnessChange);
-                        System.out.println(controller.getAdapter().getLampe());
                         if (brightnessChange >= 94) {
                             change = true;
                         }
                     }
                 }
             } catch (InterruptedException e) {
-                System.out.println("abbgebrochen");;
+                System.out.println("abbgebrochen");
+                ;
             }
         });
         runThread(thread);

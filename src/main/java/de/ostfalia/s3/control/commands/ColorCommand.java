@@ -8,7 +8,7 @@ import java.util.List;
 
 public class ColorCommand extends AbstractCommand {
 
-    private String color;
+
     private HueColor hueColor;
 
     public ColorCommand(AbstractLampController controller, String name, HueColor hueColor) {
@@ -19,6 +19,7 @@ public class ColorCommand extends AbstractCommand {
     @Override
     public void execute(AbstractLampController controller) {
         controller.colorChanged(String.valueOf(hueColor));
+        System.out.println(controller.getAdapter().getLampe());
     }
 
     @Override

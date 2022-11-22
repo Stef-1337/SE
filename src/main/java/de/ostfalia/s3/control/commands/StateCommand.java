@@ -9,7 +9,7 @@ public class StateCommand extends AbstractCommand {
 
     private boolean to;
 
-    public StateCommand(AbstractLampController controller, String command, boolean state){
+    public StateCommand(AbstractLampController controller, String command, boolean state) {
         super(controller, command);
         this.to = state;
     }

@@ -7,11 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FlashCommand extends AbstractThreadCommand {
-    Boolean to;
-    Float brightness;
-    String color;
-    HueColor hueColor;
-    int time;
+    private Boolean to;
+    private Float brightness;
+    private HueColor hueColor;
+    private int time;
+
     public FlashCommand(AbstractLampController controller, String name, Boolean to, Float brightness, HueColor hueColor, int time) {
         super(controller, name);
         this.to = to;
@@ -24,20 +24,17 @@ public class FlashCommand extends AbstractThreadCommand {
     public void execute(AbstractLampController controller) {
         Thread thread = new Thread(() -> {
             try {
-                while (!getThread().isInterrupted()){
-                    //new LampCommand(controller, "lamp", to, brightness, hueColor).execute(controller);
-                    new StateCommand(controller,"state", true).execute(controller);
-                    System.out.println("an");
+                while (!getThread().isInterrupted()) {
+                    new StateCommand(controller, "state", true).execute(controller);
                     Thread.sleep(time);
                     new StateCommand(controller, "state", false).execute(controller);
-                    System.out.println("aus");
                     Thread.sleep(time);
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         });
-       runThread(thread);
+        runThread(thread);
     }
 
     @Override
