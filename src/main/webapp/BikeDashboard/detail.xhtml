@@ -13,8 +13,6 @@
 
     <ui:define name="content">
 
-        #{bicycleDetailView.setNow()}
-
         <div class="card">
             <p:panel header="BikeDashboard" style="text-align: center">
                 <h:panelGrid columns="5" cellpadding="10" styleClass="mb-3">
@@ -24,7 +22,8 @@
                             <h:selectOneMenu id="selectOne" value="#{bicycleDetailView.channel}" required="true"
                                              label="Text 3" var="c">
                                 <f:selectItems value="#{bicycleDetailView.bs.channels}"/>
-                                <f:ajax execute="auswahl1" render="chart"/>
+<!--                                <f:ajax execute="auswahl1" render="chart"/>-->
+                                <p:ajax event="change" update="chartForm"/>
                             </h:selectOneMenu>
                         </h:form>
                     </h:column>
@@ -49,7 +48,8 @@
                                 <p:datePicker id="range" selectionMode="range" value="#{bicycleDetailView.timeRange}"
                                               showTime="true" locale="de" pattern="dd.MM.yyyy" readonlyInput="true"
                                               valueChangeListener="#{bicycleDetailView.resetStep()}">
-                                    <f:ajax execute="dauer" render="chart"/>
+<!--                                    <f:ajax execute="dauer" render="chart"/>-->
+                                    <p:ajax event="change" update="chartForm"/>
                                 </p:datePicker>
                             </div>
                         </h:column>
@@ -77,7 +77,8 @@
                                 var="b" itemValue="#{b}" itemLabel="#{b == -1 ? bicycleDetailView.channel2Label : b}"
                                 noSelectionValue=""/>
                                 <!--                                <f:selectItem itemLabel="Select One" itemValue="" noSelectionOption="true"/>-->
-                                <f:ajax execute="auswahl2" render="chart"/>
+<!--                                <f:ajax execute="auswahl2" render="chart"/>-->
+                                <p:ajax event="change" update="chartForm"/>
                             </h:selectOneMenu>
                         </h:form>
                     </h:column>

@@ -36,11 +36,7 @@ public class BicycleService implements Serializable {
     public List<Bicycle> getFahrradDaten(int channel, LocalDateTime from, LocalDateTime to, long step) {
         if (channels == null) {
             channels = getBicycleIDs();
-            System.out.println("Channels: " + channels);
         }
-
-        long now = System.currentTimeMillis();
-        System.out.println("Getting fahrraddaten");
 
         TypedQuery<Bicycle> query = em.createNamedQuery("bicycle.getByBicycleChannelWithTimeLimits", Bicycle.class);
 
@@ -69,17 +65,12 @@ public class BicycleService implements Serializable {
                 break;
             }
         }
-
-        long total = System.currentTimeMillis() - now;
-        System.out.println("Found fahrraddaten:");
-        System.out.println(list.size() + " in " + total + "ms");
-
         return list;
     }
 
     public List<Integer> getBicycleIDs() {
-        System.out.println("Get ids:");
         List<Integer> list = new ArrayList<>();
+        list.add(-1);
 
         List<Bicycle> channelBicycle = em.createNamedQuery("bicycle.getBicycleIDs", Bicycle.class).getResultList();
 

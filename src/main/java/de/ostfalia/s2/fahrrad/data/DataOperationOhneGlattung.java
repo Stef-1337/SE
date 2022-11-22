@@ -7,7 +7,7 @@ import java.util.List;
 
 public class DataOperationOhneGlattung extends DataOperation {
     @Override
-    public void smooth(List<Bicycle> data) {
-
+    public List<Bicycle> smooth(List<Bicycle> data) {
+        return data;
     }
 }

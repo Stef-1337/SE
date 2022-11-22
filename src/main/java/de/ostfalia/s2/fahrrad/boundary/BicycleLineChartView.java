@@ -78,7 +78,6 @@ public class BicycleLineChartView {
 
             List<Bicycle> cache = caches.get(channel);
             if(cache.size() <= 0){
-                System.out.println("Fetching from db");
                 cache = bs.getFahrradDaten(channel, from, to, step);
                 caches.put(channel, cache);
             }
@@ -181,7 +180,6 @@ public class BicycleLineChartView {
     }
 
     public LineChartModel getLineModel(String name, long step, TimeUnit factor, boolean smoothed, Kennzahl type, List<Date> timeRange, Integer channel1, Integer channel2) {
-        System.out.println("line model anfang");
         return getLineModel(name, step == -1 ? -1 : factor.toMillis(step), smoothed, type, timeRange, channel1, channel2);
     }
 
