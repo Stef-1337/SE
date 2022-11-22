@@ -110,6 +110,37 @@
         </div>
 
         <div class="card">
+            <h:form id="colortest">
+                <p:panel header="Test Command" id="panel10" toggleable="true" collapsed="true" styleClass="mb-5">
+                    <h:panelGrid columns="5" cellpadding="10">
+                        <p:inputText id="name10" placeholder="Befehlsname" value="#{remoteControlView.data.name}"/>
+                        <p:toggleSwitch value="#{remoteControlView.data.on}" label="state: " onIcon="pi pi-power-off"
+                                        offIcon="pi pi-power-off"/>
+                        <p:selectOneMenu value="#{remoteControlView.slotSelected}">
+                            <f:selectItem itemLabel="Position wählen" itemDisabled="true" noSelectionOption="true"/>
+                            <f:selectItems value="#{remoteControlView.slots}"/>
+                        </p:selectOneMenu>
+                        <p:selectOneMenu valueChangeListener="#{remoteControlView.onColorChanged}">
+                            <f:selectItems value="#{remoteControlView.colorSelector.colors}" var="color" itemValue="#{color}" itemLabel="#{color.name}"/>
+                        </p:selectOneMenu>
+<!--                        <p:selectOneMenu value="#{remoteControlView.data.color}" label="Colors" style="width: 15rem"-->
+<!--                                         panelStyle="width: 15rem" scrollHeight="250">-->
+<!--                            <f:selectItems value="#{remoteControlView.colorService.colors}" var="color"-->
+<!--                                           itemLabel="#{color.name}"-->
+<!--                                           itemValue="#{color}"/>-->
+<!--                        </p:selectOneMenu>-->
+                        <p:commandButton value="add" icon="pi pi-id-card" process="colortest" update="remote"
+                                         action="#{remoteControlView.onApplyColorButtonClick}"
+                                         id="btn10"
+                                         styleClass="mr-2">
+                        </p:commandButton>
+                        <p:defaultCommand target="btn10" scope="panel10"/>
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+        </div>
+
+        <div class="card">
             <h:form id="flash">
                 <p:panel header="Flash Command" id="panel5" toggleable="true" collapsed="true" styleClass="mb-5">
                     <h:panelGrid columns="5" cellpadding="10">

@@ -24,6 +24,6 @@ public class ColorCommand extends AbstractCommand {
 
     @Override
     public List<String> getConfig() {
-        return List.of("HueColor: " + hueColor);
+        return List.of("HueColor: " + hueColor.getName());
     }
 }

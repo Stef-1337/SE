@@ -22,6 +22,20 @@ public class ColorService {
     @Getter
     private List<HueColor> colors;
 
+    public ColorService(){
+        colors = new ArrayList<>();
+
+        colors.add(new HueColor("red", "	#FF0000", 255, 0, 0, (float) 0.675, (float) 0.322, Colors.RED));
+        colors.add(new HueColor("orange", "#FFA500", 255, 165, 0, (float) 0.5567, (float) 0.4091, Colors.ORANGE));
+        colors.add(new HueColor("yellow", "#FFFF00", 255, 255, 0, (float) 0.4325, (float) 0.5007, Colors.YELLOW));
+        colors.add(new HueColor("green", "#008000", 0, 128, 0, (float) 0.4091, (float) 0.518, Colors.GREEN));
+        colors.add(new HueColor("cyan", "#00FFFF", 0, 255, 255, (float) 0.2857, (float) 0.2744, Colors.CYAN));
+        colors.add(new HueColor("blue", "#0000FF", 0, 0, 255, (float) 0.167, (float) 0.04, Colors.BLUE));
+        colors.add(new HueColor("purple", "#800080", 128, 0, 128, (float) 0.3826, (float) 0.1597, Colors.PURPLE));
+        colors.add(new HueColor("pink", "#FFC0CB", 255, 192, 203, (float) 0.3947, (float) 0.3114, Colors.PINK));
+        colors.add(new HueColor("white", "#FFFFFF", 255, 255, 255, (float) 0.3227, (float) 0.3287, Colors.WHITE));
+    }
+
     public List<SelectItem> getAll() {
         items = new ArrayList<>();
         SelectItemGroup group1 = new SelectItemGroup("Rot");

@@ -1,6 +1,8 @@
 package de.ostfalia.s3.boundary;
 
 import de.ostfalia.s1.lamp.AbstractLampController;
+import de.ostfalia.s1.lamp.ColorSelector;
+import de.ostfalia.s1.lamp.HueColor;
 import de.ostfalia.s1.lamp.Java2NodeRedLampAdapter;
 import de.ostfalia.s3.control.ColorService;
 import de.ostfalia.s3.control.CommandParameterData;
@@ -52,6 +54,8 @@ public class RemoteControlView implements Serializable {
     private int slotSelected;
 
     private CommandParameterData data = new CommandParameterData();
+
+    private ColorSelector colorSelector = new ColorSelector();
 
     public RemoteControlView(){
         slots = new ArrayList<>(SIZE);
@@ -105,7 +109,12 @@ public class RemoteControlView implements Serializable {
     public void onApplyColorButtonClick(){
         //TODO wird noch nicht aufgerufen
         System.out.println("color");
-        addCommand(new ColorCommand(controller, data.getName(), data.getColors().get(0)));
+        addCommand(new ColorCommand(controller, data.getName(), data.getColor()));
+    }
+
+    public void onColorChanged(ValueChangeEvent e){
+        System.out.println(e.getNewValue());
+        data.setColor((HueColor) e.getNewValue());
     }
 
 }
