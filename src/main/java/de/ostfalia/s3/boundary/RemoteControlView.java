@@ -10,6 +10,7 @@ import de.ostfalia.s3.control.CommandProcessor;
 import de.ostfalia.s3.control.commands.AbstractCommand;
 import de.ostfalia.s3.control.commands.BrightnessCommand;
 import de.ostfalia.s3.control.commands.ColorCommand;
+import de.ostfalia.s3.control.commands.LampCommand;
 import de.ostfalia.s3.control.commands.StateCommand;
 import lombok.Getter;
 import lombok.Setter;
@@ -38,24 +39,21 @@ public class RemoteControlView implements Serializable {
 
     private static final int SIZE = 8;
 
-    private String name;
-
     private List<Integer> slots;
+    private String name;
 
     @Inject
     private ColorService colorService;
 
     private CommandProcessor commandProcessor;
+    private AbstractLampController controller;
+    private ColorSelector colorSelector = new ColorSelector();
 
     private HashMap<Integer, AbstractCommand> commands = new HashMap<>();
 
-    private AbstractLampController controller;
-
     private int slotSelected;
 
-    private CommandParameterData data = new CommandParameterData();
-
-    private ColorSelector colorSelector = new ColorSelector();
+    private CommandParameterData data = new CommandParameterData(colorSelector);
 
     public RemoteControlView(){
         slots = new ArrayList<>(SIZE);
@@ -77,7 +75,7 @@ public class RemoteControlView implements Serializable {
         if(command.getName().length() != 0)
             if (slot <= SIZE){
                 commands.put(slot, command);
-                data = new CommandParameterData();
+                data = new CommandParameterData(colorSelector);
                 slotSelected = 0;
             }
     }
@@ -107,14 +105,13 @@ public class RemoteControlView implements Serializable {
     }
 
     public void onApplyColorButtonClick(){
-        //TODO wird noch nicht aufgerufen
-        System.out.println("color");
+        System.out.println("Color click: " + data.getColorList());
+        System.out.println(data.getColors());
         addCommand(new ColorCommand(controller, data.getName(), data.getColor()));
     }
 
-    public void onColorChanged(ValueChangeEvent e){
-        System.out.println(e.getNewValue());
-        data.setColor((HueColor) e.getNewValue());
+    public void onApplyLampButtonClick(){
+        addCommand(new LampCommand(controller, data.getName(), data.isOn(), (float) data.getIntensity(), data.getColor()));
     }
 
 }

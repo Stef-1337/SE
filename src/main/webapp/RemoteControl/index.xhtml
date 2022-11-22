@@ -92,12 +92,9 @@
                         </p:selectOneMenu>
                         <p:toggleSwitch value="true" label="state: " disabled="true" onIcon="pi pi-power-off"
                                         offIcon="pi pi-power-off"/>
-                        <p:selectOneMenu value="#{remoteControlView.data.colors}" label="Colors" style="width: 15rem"
-                                         panelStyle="width: 15rem" scrollHeight="250">
-                            <f:selectItems value="#{remoteControlView.colorService.colors}" var="color"
-                                           itemLabel="#{color.name}"
-                                           itemValue="#{color}"/>
-                        </p:selectOneMenu>
+                        <p:selectCheckboxMenu value="#{remoteControlView.data.colorList}" label="Colors">
+                            <f:selectItems value="#{remoteControlView.colorSelector.colorList}" var="color" itemLabel="#{color.name}" itemValue="#{color.name}"/>
+                        </p:selectCheckboxMenu>
                         <p:commandButton value="add" process="color" update="remote"
                                          action="#{remoteControlView.onApplyColorButtonClick}"
                                          id="btn4"
@@ -120,17 +117,11 @@
                             <f:selectItem itemLabel="Position wählen" itemDisabled="true" noSelectionOption="true"/>
                             <f:selectItems value="#{remoteControlView.slots}"/>
                         </p:selectOneMenu>
-                        <p:selectOneMenu valueChangeListener="#{remoteControlView.onColorChanged}">
-                            <f:selectItems value="#{remoteControlView.colorSelector.colors}" var="color" itemValue="#{color}" itemLabel="#{color.name}"/>
+                        <p:selectOneMenu value="#{remoteControlView.data.colorList}" label="colors" style="width: 15rem" panelStyle="width: 15rem" scrollHeight="250">
+                            <f:selectItems value="#{remoteControlView.colorSelector.colorList}" var="color" itemValue="#{color.name}" itemLabel="#{color.name}"/>
                         </p:selectOneMenu>
-<!--                        <p:selectOneMenu value="#{remoteControlView.data.color}" label="Colors" style="width: 15rem"-->
-<!--                                         panelStyle="width: 15rem" scrollHeight="250">-->
-<!--                            <f:selectItems value="#{remoteControlView.colorService.colors}" var="color"-->
-<!--                                           itemLabel="#{color.name}"-->
-<!--                                           itemValue="#{color}"/>-->
-<!--                        </p:selectOneMenu>-->
                         <p:commandButton value="add" icon="pi pi-id-card" process="colortest" update="remote"
-                                         action="#{remoteControlView.onApplyColorButtonClick}"
+                                         action="#{remoteControlView.onApplyLampButtonClick}"
                                          id="btn10"
                                          styleClass="mr-2">
                         </p:commandButton>
@@ -195,7 +186,7 @@
                             <f:selectItem itemLabel="Position wählen" itemDisabled="true" noSelectionOption="true"/>
                             <f:selectItems value="#{remoteControlView.slots}"/>
                         </p:selectOneMenu>
-                        <p:selectCheckboxMenu id="menu" value="#{remoteControlView.data.colors}" label="Colors"
+                        <p:selectCheckboxMenu id="menu" value="#{remoteControlView.data.colorList}" label="Colors"
                                               style="width: 15rem"
                                               panelStyle="width: 15rem" scrollHeight="250"
                                               dynamic="true">
@@ -228,7 +219,7 @@
                                          value="#{remoteControlView.data.intensity}"/>
                             <p:slider for="sliderbri2"/>
                         </h:panelGrid>
-                        <p:selectOneMenu value="#{remoteControlView.data.colors}" label="Colors" style="width: 15rem"
+                        <p:selectOneMenu value="#{remoteControlView.data.colorList}" label="Colors" style="width: 15rem"
                                          panelStyle="width: 15rem" scrollHeight="250">
                             <f:selectItems value="#{remoteControlView.colorService.colors}" var="color"
                                            itemLabel="#{color.name}"

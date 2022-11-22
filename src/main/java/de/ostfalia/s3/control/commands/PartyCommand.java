@@ -72,7 +72,7 @@ public class PartyCommand extends AbstractThreadCommand {
                         Random random = new Random();
                         ColorSelector colorSelector = new ColorSelector();
                         int randomNum = random.nextInt(8);
-                        HueColor randomcolor = colorSelector.getColors().get(randomNum);
+                        HueColor randomcolor = colorSelector.getColorList().get(randomNum);
                         count++;
                         new ColorCommand(controller, "color", randomcolor).execute(controller);
                         Thread.sleep(100);
