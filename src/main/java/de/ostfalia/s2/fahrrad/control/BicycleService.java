@@ -1,13 +1,17 @@
 package de.ostfalia.s2.fahrrad.control;
 
 import de.ostfalia.s2.fahrrad.entity.Bicycle;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.event.ValueChangeEvent;
 import javax.persistence.EntityManager;
+import javax.persistence.NamedQuery;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.io.Serializable;
+import java.sql.Array;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +24,8 @@ public class BicycleService implements Serializable {
 
     private final static int STEP = 86400;
 
+    private List<Integer> channels;
+
     /**
      * @param channel Bicycle channel
      * @param from    Min timestamp
@@ -28,6 +34,14 @@ public class BicycleService implements Serializable {
      * @return Matching bicycles
      */
     public List<Bicycle> getFahrradDaten(int channel, LocalDateTime from, LocalDateTime to, long step) {
+        if (channels == null) {
+            channels = getBicycleIDs();
+            System.out.println("Channels: " + channels);
+        }
+
+        long now = System.currentTimeMillis();
+        System.out.println("Getting fahrraddaten");
+
         TypedQuery<Bicycle> query = em.createNamedQuery("bicycle.getByBicycleChannelWithTimeLimits", Bicycle.class);
 
         query.setParameter("channelBicycle", channel);
@@ -44,6 +58,7 @@ public class BicycleService implements Serializable {
             query.setFirstResult(first);
 
             List<Bicycle> temp = query.getResultList();
+
             for (Bicycle bike : query.getResultList()) {
                 list.add(bike);
             }
@@ -55,16 +70,28 @@ public class BicycleService implements Serializable {
             }
         }
 
+        long total = System.currentTimeMillis() - now;
+        System.out.println("Found fahrraddaten:");
+        System.out.println(list.size() + " in " + total + "ms");
+
         return list;
     }
 
-    public List<Bicycle> getAll(Boolean b) {
-        List<Bicycle> bicycleList = em.createNamedQuery("bicycle.getAll", Bicycle.class).getResultList();
-        if(b) {
-            bicycleList.add(0, new Bicycle());
-            bicycleList.get(0).setChannel(-1);
-        }
-        return bicycleList;
+    public List<Integer> getBicycleIDs() {
+        System.out.println("Get ids:");
+        List<Integer> list = new ArrayList<>();
+
+        List<Bicycle> channelBicycle = em.createNamedQuery("bicycle.getBicycleIDs", Bicycle.class).getResultList();
+
+        channelBicycle.forEach(bicycle -> list.add(bicycle.getChannel()));
+
+        return list;
+    }
+
+    public List<Integer> getChannels(){
+        if(channels == null) channels = getBicycleIDs();
+
+        return channels;
     }
 
 }

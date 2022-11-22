@@ -23,14 +23,7 @@
                             <h:outputLabel for="selectOne" value="Fahrrad 1: "/>
                             <h:selectOneMenu id="selectOne" value="#{bicycleDetailView.channel}" required="true"
                                              label="Text 3" var="c">
-                                <f:selectItems value="#{bicycleDetailView.getBicycles(false)}"
-                                               var="b"
-                                               itemValue="#{b.channel}"
-                                               itemLabel="#{b.channel}"
-                                               itemDescription="#{b.channel}"
-                                               itemDisabled="#{b.channel}"
-                                               itemLabelEscaped="true"
-                                               noSelectionValue="#{bicycleDetailView.getBicycles(false)[0]}"/>
+                                <f:selectItems value="#{bicycleDetailView.bs.channels}"/>
                                 <f:ajax execute="auswahl1" render="chart"/>
                             </h:selectOneMenu>
                         </h:form>
@@ -80,15 +73,10 @@
                             <h:outputLabel for="selectTwo" value="Fahrrad 2: "/>
                             <h:selectOneMenu id="selectTwo" value="#{bicycleDetailView.channel2}" required="true"
                                              label="Text 3" var="c">
+                                <f:selectItems value="#{bicycleDetailView.bs.channels}"
+                                var="b" itemValue="#{b}" itemLabel="#{b == -1 ? bicycleDetailView.channel2Label : b}"
+                                noSelectionValue=""/>
                                 <!--                                <f:selectItem itemLabel="Select One" itemValue="" noSelectionOption="true"/>-->
-                                <f:selectItems value="#{bicycleDetailView.getBicycles(true)}"
-                                               var="b"
-                                               itemValue="#{b.channel}"
-                                               itemLabel="#{b.channel == -1 ? bicycleDetailView.channel2Label : b.channel}"
-                                               itemDescription="#{b.channel}"
-                                               itemDisabled="#{b.channel}"
-                                               itemLabelEscaped="true"
-                                               noSelectionValue=""/>
                                 <f:ajax execute="auswahl2" render="chart"/>
                             </h:selectOneMenu>
                         </h:form>

@@ -7,17 +7,23 @@ import de.ostfalia.s2.fahrrad.kennzahl.Kennzahl;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.event.ValueChangeEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PostLoad;
 import java.io.Serializable;
+import java.sql.Array;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -54,14 +60,17 @@ public class BicycleDetailView implements Serializable {
 
     private Boolean isAverage = true, isAverage2 = true;
 
+    private HashMap<Integer, List<Bicycle>> caches;
+
+    private List<Bicycle> cache;
+
+    private List<Integer> bicycles;
+
     public void resetStep() {
         step = -1;
         s = "automatisch festgelegt";
         timeUnit = TimeUnit.HOURS;
-    }
-
-    public List<Bicycle> getBicycles(Boolean b) {
-        return bs.getAll(b);
+        caches = null;
     }
 
     public String getNum(int i, double d1, double d2, boolean b) {

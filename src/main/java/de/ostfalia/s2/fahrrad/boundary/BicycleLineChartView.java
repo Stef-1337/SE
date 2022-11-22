@@ -44,6 +44,8 @@ public class BicycleLineChartView {
     private List<Bicycle> daten;
     private final HashMap<String, LineChartModel> lineModelList = new HashMap<>();
 
+    private List<Bicycle> cache;
+
     public void init(String key, String name, long step, boolean smoothed, Kennzahl type, List<Date> timeRange, Integer... channels) {
         LocalDateTime from, to;
 
@@ -61,12 +63,27 @@ public class BicycleLineChartView {
             step = timeIntervall / STEPS;
         }
 
+        Bean<BicycleDetailView> bean = (Bean<BicycleDetailView>) beanManager.getBeans("bicycleDetailView").stream().filter(Objects::nonNull).findFirst().get();
+        BicycleDetailView viewBean = (BicycleDetailView) beanManager.getReference(bean, BicycleDetailView.class, beanManager.createCreationalContext(bean));
+
         int count = 0;
+        HashMap<Integer, List<Bicycle>> caches = viewBean.getCaches();
+        if (caches == null) caches = new HashMap<>();
+
         for (Integer channel : channels) {
             if (channel == null || channel == -1)
                 continue;
 
-            daten = bs.getFahrradDaten(channel, from, to, step);
+            if (!caches.containsKey(channel)) caches.put(channel, new ArrayList<>());
+
+            List<Bicycle> cache = caches.get(channel);
+            if(cache.size() <= 0){
+                System.out.println("Fetching from db");
+                cache = bs.getFahrradDaten(channel, from, to, step);
+                caches.put(channel, cache);
+            }
+
+            daten = cache;
 
             DataOperation operation = new DataOperationOhneGlattung();
             if (smoothed) {
@@ -74,9 +91,6 @@ public class BicycleLineChartView {
             }
 
             detailDatas.put(channel, new BicycleDetailData(operation.operateData(type.getType(), daten, step), name, step, type.getType()));
-
-            Bean<BicycleDetailView> bean = (Bean<BicycleDetailView>) beanManager.getBeans("bicycleDetailView").stream().filter(Objects::nonNull).findFirst().get();
-            BicycleDetailView viewBean = (BicycleDetailView) beanManager.getReference(bean, BicycleDetailView.class, beanManager.createCreationalContext(bean));
 
             double total = operation.getTotal();
             double average = operation.getAverage();
@@ -90,6 +104,8 @@ public class BicycleLineChartView {
             }
             count++;
         }
+        viewBean.setCaches(caches);
+
         initBicycleData(key, name);
     }
 
@@ -165,6 +181,7 @@ public class BicycleLineChartView {
     }
 
     public LineChartModel getLineModel(String name, long step, TimeUnit factor, boolean smoothed, Kennzahl type, List<Date> timeRange, Integer channel1, Integer channel2) {
+        System.out.println("line model anfang");
         return getLineModel(name, step == -1 ? -1 : factor.toMillis(step), smoothed, type, timeRange, channel1, channel2);
     }
 
