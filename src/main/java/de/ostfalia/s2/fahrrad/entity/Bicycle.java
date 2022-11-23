@@ -7,9 +7,8 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-@NamedQuery(name = "bicycle.getAll", query = "select bc from Bicycle bc group by channel")
 @NamedQuery(name = "bicycle.getByBicycleChannelWithTimeLimits", query = "select bc from Bicycle bc where channel = :channelBicycle AND bc.timestamp >= :from AND bc.timestamp <= :to")
-
+@NamedQuery(name = "bicycle.getBicycleIDs", query = "select bc from Bicycle bc group by channel")
 @Entity
 @Table(name = "bicycle")
 @Getter

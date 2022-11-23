@@ -23,7 +23,7 @@ public abstract class DataOperation implements Serializable {
 
     public List<ResultBike> operateData(KennzahlType type, List<Bicycle> data, long step) {
         init(type, data);
-        smooth(data);
+        this.data = smooth(data);
         calculateSteps(step);
         calculateTotal();
         calculateAverage();
@@ -32,7 +32,7 @@ public abstract class DataOperation implements Serializable {
     }
 
     public void init(KennzahlType type, List<Bicycle> data) {
-        this.data = data;
+        this.data = new ArrayList<>();
         this.type = type;
     }
 
@@ -44,7 +44,7 @@ public abstract class DataOperation implements Serializable {
         average = type.getAverage(data);
     }
 
-    public abstract void smooth(List<Bicycle> data);
+    public abstract List<Bicycle> smooth(List<Bicycle> data);
 
     public void calculateSteps(long step) {
         result = new ArrayList<>();
