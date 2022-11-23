@@ -31,10 +31,6 @@ public class CommandParameterData {
     }
 
     public List<HueColor> getColors(){
-        List<HueColor> colorList = new ArrayList<>();
-
-        this.colorList.forEach(color -> colorList.add(colorSelector.getColor(color)));
-
         return this.colorList.stream().map(name -> colorSelector.getColor(name)).toList();
     }
 
