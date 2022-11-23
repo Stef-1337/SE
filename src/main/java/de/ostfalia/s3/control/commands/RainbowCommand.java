@@ -31,13 +31,13 @@ public class RainbowCommand extends AbstractThreadCommand {
                 while (!getThread().isInterrupted()) {
                     ColorSelector colorSelector = new ColorSelector();
                     for (int i = 8; i > 1; i--) {
-                        if (!(i == 3)) {
+                        if (!(i == 4)) {
                             Thread.sleep(time);
                             new LampCommand(controller, "rainbow", true, brightness, colorSelector.getColorList().get(i)).execute(controller);
                         }
                     }
                     for (int i = 2; i < 9; i++) {
-                        if (!(i == 3)) {
+                        if (!(i == 4)) {
                             Thread.sleep(time);
                             new LampCommand(controller, "rainbow", true, brightness, colorSelector.getColorList().get(i)).execute(controller);
                         }
