@@ -105,8 +105,6 @@ public class RemoteControlView implements Serializable {
     }
 
     public void onApplyColorButtonClick(){
-        System.out.println("Color click: " + data.getColorList());
-        System.out.println(data.getColors());
         addCommand(new ColorCommand(controller, data.getName(), data.getColor()));
     }
 

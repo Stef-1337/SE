@@ -90,11 +90,9 @@
                             <f:selectItem itemLabel="Position wählen" itemDisabled="true" noSelectionOption="true"/>
                             <f:selectItems value="#{remoteControlView.slots}"/>
                         </p:selectOneMenu>
-                        <p:toggleSwitch value="true" label="state: " disabled="true" onIcon="pi pi-power-off"
-                                        offIcon="pi pi-power-off"/>
-                        <p:selectCheckboxMenu value="#{remoteControlView.data.colorList}" label="Colors">
+                        <p:selectOneMenu value="#{remoteControlView.data.colorName}" label="Color">
                             <f:selectItems value="#{remoteControlView.colorSelector.colorList}" var="color" itemLabel="#{color.name}" itemValue="#{color.name}"/>
-                        </p:selectCheckboxMenu>
+                        </p:selectOneMenu>
                         <p:commandButton value="add" process="color" update="remote"
                                          action="#{remoteControlView.onApplyColorButtonClick}"
                                          id="btn4"
