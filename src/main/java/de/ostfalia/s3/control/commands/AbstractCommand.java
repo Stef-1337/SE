@@ -57,4 +57,8 @@ public abstract class AbstractCommand implements ICommand, Cloneable {
 
     public abstract List<String> getConfig();
 
+    public String toString(){
+        return getClass().getSimpleName() + " (" + name + ": " + getConfig() + ")";
+    }
+
 }

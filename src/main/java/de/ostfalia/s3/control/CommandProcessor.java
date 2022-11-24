@@ -7,6 +7,7 @@ import de.ostfalia.s3.control.commands.AbstractCommand;
 import de.ostfalia.s3.control.commands.AbstractThreadCommand;
 import de.ostfalia.s3.control.commands.ICommand;
 import de.ostfalia.s3.control.commands.StateCommand;
+import de.ostfalia.s3.control.commands.UndoCommand;
 import lombok.Getter;
 
 import java.sql.Array;
@@ -29,25 +30,30 @@ public class CommandProcessor {
     }
 
     public void undo() {
-        if (undoList.size() > 0) {
-            ICommand command = undoList.get(undoList.size() - 1);
-
-            if (command instanceof AbstractCommand abstractCommand) {
-                if (abstractCommand instanceof AbstractThreadCommand threadCommand) threadCommand.stopThread();
-                abstractCommand.undo();
-
-            } else command.undo(controller);
-
-            undoList.remove(command);
-            if (undoList.size() > 0) {
-                ICommand current = undoList.get(undoList.size() - 1);
-                if (current instanceof AbstractThreadCommand threadCommand) threadCommand.execute(controller);
-            }
-        }
+        undo(Math.min(0, undoList.size() - 1));
     }
 
     public void undo(int index) {
-        //TODO
+        if (undoList.size() > 0) {
+            int i = undoList.size() - index;
+            System.out.println("Index: " + i + " vs " + undoList.size() + " vs " + index);
+            if (index <= undoList.size()) {
+                ICommand command = undoList.get(i);
+                System.out.println("Going back to " + command + " (" + i + ")");
+
+                if (command instanceof AbstractCommand abstractCommand) {
+                    if (abstractCommand instanceof AbstractThreadCommand threadCommand) threadCommand.stopThread();
+                    abstractCommand.undo();
+
+                } else command.undo(controller);
+
+                for (int x = index - 1; x < undoList.size(); x++) undoList.remove(x);
+                if (undoList.size() > 0) {
+                    ICommand current = undoList.get(undoList.size() - 1);
+                    if (current instanceof AbstractThreadCommand threadCommand) threadCommand.execute(controller);
+                }
+            }else System.out.println("Not enough commands");
+        }
     }
 
     public void execute(ICommand command) {
@@ -62,7 +68,7 @@ public class CommandProcessor {
         if (command instanceof AbstractCommand) {
             command = ((AbstractCommand) command).executeAndClone();
 
-            if (command != null)
+            if (command != null && !(command instanceof UndoCommand))
                 undoList.add(command);
         } else
             command.execute(controller);
