@@ -18,10 +18,11 @@ public class SOSCommand extends AbstractThreadCommand{
     public void execute(AbstractLampController controller) {
         Thread thread = new Thread(() -> {
             try{
+                new StateCommand(controller, "off", false).execute(controller);
+                Thread.sleep(time);
                 while (!getThread().isInterrupted()) {
 
-                    new StateCommand(controller, "off", false).execute(controller);
-                    Thread.sleep(time);
+
                     for (int i = 0; i < 3; i++) {
                         new StateCommand(controller, "on", true).execute(controller);
                         Thread.sleep(time*2);
