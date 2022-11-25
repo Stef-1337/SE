@@ -263,14 +263,17 @@
         <h:form id="remote">
             <div class="card">
                 <p:panel header="Fernbedienung" style="text-align: center">
-                    <p:panelGrid columns="2" layout="grid" styleClass="showcase-text-align-center">
-                        <p:dataList id="remote1" value="#{remoteControlView.getCommandUnchecked(1).config}"
+                    <p:panelGrid columns="2" layout="grid" style="margin: -15px" styleClass="showcase-text-align-center">
+                        <p:dataList id="remote1"  value="#{remoteControlView.getCommandUnchecked(1).config}"
                                     emptyMessage="n.d." var="product" type="definition" lazy=""
-                                    style="text-align: center">
+                                    style="text-align: center; -webkit-text-size-adjust: auto">
                             <f:facet name="header">
                                 #{remoteControlView.getCommandUnchecked(1).name}
                             </f:facet>
-                            #{product}
+                            <p:outputLabel style="font-size: 12px">
+                                #{product}
+                            </p:outputLabel>
+
                             <p:effect type="pulsate" event="click"/>
                         </p:dataList>
 
