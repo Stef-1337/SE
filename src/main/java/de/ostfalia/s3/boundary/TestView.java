@@ -38,6 +38,7 @@ public class TestView implements Serializable {
     }
 
     public void test(){
+        System.out.println(hueColor.getName());
         System.out.println("läuft");
     }
 }

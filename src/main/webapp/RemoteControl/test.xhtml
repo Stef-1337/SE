@@ -35,7 +35,7 @@
         <div class="card">
             <h:form id="form2">
                 <p:selectOneMenu value="#{testView.hueColor}" converter="ColorConverter" label="Color">
-                    <f:selectItems value="#{remoteControlView.colorSelector.colorList}" var="color" itemLabel="#{color.name}" itemValue="#{color}"/>
+                    <f:selectItems value="#{remoteControlView.colorSelector.colorList}" var="color" itemLabel="#{color.name}" itemValue="#{color.name}"/>
                 </p:selectOneMenu>
                         <p:commandButton value="add" process="form2" update="remote" id="btn2" action="#{testView.test}" styleClass="mr-2"/>
 

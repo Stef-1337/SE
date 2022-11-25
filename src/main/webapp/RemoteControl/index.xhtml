@@ -90,7 +90,7 @@
                             <f:selectItem itemLabel="Position wählen" itemDisabled="true" noSelectionOption="true"/>
                             <f:selectItems value="#{remoteControlView.slots}"/>
                         </p:selectOneMenu>
-                        <p:selectOneMenu value="#{remoteControlView.data.colorName}" label="Color">
+                        <p:selectOneMenu value="#{remoteControlView.data.color}" converter="ColorConverter" label="Color">
                             <f:selectItems value="#{remoteControlView.colorSelector.colorList}" var="color" itemLabel="#{color.name}" itemValue="#{color.name}"/>
                         </p:selectOneMenu>
                         <p:commandButton value="add" process="color" update="remote"

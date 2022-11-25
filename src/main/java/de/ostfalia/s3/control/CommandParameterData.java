@@ -22,6 +22,7 @@ public class CommandParameterData {
     private int intensityStep;
     private int time;
     private String colorName;
+    private HueColor color;
     private List<String> colorList;
 
     public CommandParameterData (ColorSelector selector){
@@ -37,9 +38,9 @@ public class CommandParameterData {
         return colors;
     }
 
-    public HueColor getColor(){
-        return colorSelector.getColor(colorName);
-    }
+//    public HueColor getColor(){
+//        return colorSelector.getColor(colorName);
+//    }
 
 
 
