@@ -7,26 +7,19 @@ import de.ostfalia.s1.lamp.HueColor;
 import java.util.List;
 
 public class DimCommand extends AbstractThreadCommand {
-    private Boolean to;
-    private Float brightness;
-    private HueColor hueColor;
 
     private int time;
 
-    public DimCommand(AbstractLampController controller, String name, Boolean to, Float brightness, HueColor hueColor, int time) {
+    public DimCommand(AbstractLampController controller, String name, int time) {
         super(controller, name);
-        this.to = to;
-        this.brightness = brightness;
-        this.hueColor = hueColor;
         this.time = time;
     }
 
     @Override
     public void execute(AbstractLampController controller) {
         Thread thread = new Thread(() -> {
-            Float brightnessChange = brightness;
+            Float brightnessChange = controller.getAdapter().getIntensity();
             Boolean change = true;
-            new LampCommand(controller, "lamp", to, brightness, hueColor);
             try {
                 while (!getThread().isInterrupted()) {
                     while (brightnessChange > 0 && change == true) {

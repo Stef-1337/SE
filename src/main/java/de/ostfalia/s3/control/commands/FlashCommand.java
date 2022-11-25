@@ -7,16 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FlashCommand extends AbstractThreadCommand {
-    private Boolean to;
-    private Float brightness;
-    private HueColor hueColor;
     private int time;
 
-    public FlashCommand(AbstractLampController controller, String name, Boolean to, Float brightness, HueColor hueColor, int time) {
+    public FlashCommand(AbstractLampController controller, String name, int time) {
         super(controller, name);
-        this.to = to;
-        this.brightness = brightness;
-        this.hueColor = hueColor;
         this.time = time;
     }
 

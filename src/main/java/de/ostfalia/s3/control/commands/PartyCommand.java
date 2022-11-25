@@ -8,24 +8,17 @@ import java.util.List;
 import java.util.Random;
 
 public class PartyCommand extends AbstractThreadCommand {
-    private Boolean to;
-    private Float brightness;
-    private HueColor hueColor;
-
-    private List<HueColor>colors;
-
+    private List<HueColor> colors;
     private int time;
-
     private int amount;
+    private Float brightness;
 
-    public PartyCommand(AbstractLampController controller, String name, Boolean to, Float brightness, HueColor hueColor, List<HueColor>colors, int time, int amount) {
+    public PartyCommand(AbstractLampController controller, String name, List<HueColor> colors, int time, int amount) {
         super(controller, name);
-        this.to = to;
-        this.brightness = brightness;
-        this.hueColor = hueColor;
         this.colors = colors;
         this.time = time;
         this.amount = amount;
+        this.brightness = controller.getAdapter().getIntensity();
     }
 
     @Override
@@ -33,20 +26,21 @@ public class PartyCommand extends AbstractThreadCommand {
 
 
         Thread thread = new Thread(() -> {
-            new LampCommand(controller, "lamp", to, brightness, hueColor).execute(controller);
+            Float curBrightness = controller.getAdapter().getIntensity();
+            int size = colors.size();
+            Random random = new Random();
+            int randomNum = random.nextInt(size);
+            new LampCommand(controller, "lamp", true,curBrightness, colors.get(randomNum)).execute(controller);
             int change = 0;
             int count = 0;
 
-            Boolean curTo = to;
-            Float curBrightness = brightness;
-            HueColor curHuecolor = hueColor;
+
             try {
                 while (!getThread().isInterrupted()) {
                     while (curBrightness > 5 && change == 0) {
                         new BrightnessCommand(controller, "brightness", curBrightness -= 5).execute(controller);
                         Thread.sleep(1);
                         if (curBrightness == brightness - 15 || curBrightness <= 6) {
-                            Random random = new Random();
                             change = random.nextInt(3);
                             if (curBrightness <= 5) {
                                 change = 1;
@@ -57,14 +51,13 @@ public class PartyCommand extends AbstractThreadCommand {
                         curBrightness = brightness / 3;
                         new StateCommand(controller, "state", false).execute(controller);
                         Thread.sleep(100);
-                        new LampCommand(controller, "lamp", true, curBrightness, hueColor).execute(controller);
-                        Random random = new Random();
+                        randomNum = random.nextInt(size);
+                        new LampCommand(controller, "lamp", true, curBrightness, colors.get(randomNum)).execute(controller);
                         change = random.nextInt(3);
                     }
                     while (curBrightness < 90 && change == 2) {
                         new BrightnessCommand(controller, "brightness", curBrightness += 10).execute(controller);
                         if (curBrightness >= 89) {
-                            Random random = new Random();
                             change = random.nextInt(3);
                             if (change == 2) {
                                 change = 3;
@@ -72,8 +65,7 @@ public class PartyCommand extends AbstractThreadCommand {
                         }
                     }
                     while (change == 3) {
-                        Random random = new Random();
-                        int randomNum = random.nextInt(8);
+                        randomNum = random.nextInt(size);
                         HueColor randomcolor = colors.get(randomNum);
                         count++;
                         new ColorCommand(controller, "color", randomcolor).execute(controller);
