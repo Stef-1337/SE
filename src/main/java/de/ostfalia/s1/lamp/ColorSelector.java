@@ -12,6 +12,8 @@ public class ColorSelector {
 
     @Getter
     private List<HueColor> colorList;
+
+    @Getter
     private HashMap<String, HueColor> colors;
 
     public ColorSelector(){
