@@ -32,7 +32,7 @@ public class PartyCommand extends AbstractThreadCommand {
             int change = 0;
             int count = 0;
             int amount = 10 + random.nextInt() * (40);
-
+            System.out.println(amount + "amount");
 
             try {
                 while (!getThread().isInterrupted()) {
