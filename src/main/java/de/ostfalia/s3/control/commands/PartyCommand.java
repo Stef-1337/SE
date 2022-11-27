@@ -4,6 +4,7 @@ import de.ostfalia.s1.lamp.AbstractLampController;
 import de.ostfalia.s1.lamp.ColorSelector;
 import de.ostfalia.s1.lamp.HueColor;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -102,6 +103,9 @@ public class PartyCommand extends AbstractThreadCommand {
 
     @Override
     public List<String> getConfig() {
-        return List.of("Party: " + time );
+        List <String> colorNames = new ArrayList<>(colors.size());
+        colors.forEach(c -> colorNames.add(c.getName()));
+        return List.of("Party: " + time + "ms" + "\n Farben: " + colorNames.toString());
     }
+
 }

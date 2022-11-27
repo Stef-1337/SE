@@ -51,6 +51,6 @@ public class SOSCommand extends AbstractThreadCommand{
 
     @Override
     public List<String> getConfig() {
-        return List.of("SOS: " + time + "intervall");
+        return List.of("SOS intervall: " + time + "s");
     }
 }
