@@ -1,5 +1,6 @@
 package de.ostfalia.s3.boundary;
 
+import de.ostfalia.s1.lamp.HueColor;
 import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.PrimeFaces;
@@ -21,6 +22,8 @@ public class TestView implements Serializable {
 
     List<String> config;
 
+    HueColor hueColor;
+
     public TestView(){
         for (int i = 1; i < 9; i++){
             slots.add(i);
@@ -32,5 +35,10 @@ public class TestView implements Serializable {
 
     public void reset() {
         PrimeFaces.current().resetInputs("form:remote");
+    }
+
+    public void test(){
+        System.out.println(hueColor.getName());
+        System.out.println("läuft");
     }
 }

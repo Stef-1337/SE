@@ -90,13 +90,8 @@
                             <f:selectItem itemLabel="Position wählen" itemDisabled="true" noSelectionOption="true"/>
                             <f:selectItems value="#{remoteControlView.slots}"/>
                         </p:selectOneMenu>
-                        <p:toggleSwitch value="true" label="state: " disabled="true" onIcon="pi pi-power-off"
-                                        offIcon="pi pi-power-off"/>
-                        <p:selectOneMenu value="#{remoteControlView.data.colors}" label="Colors" style="width: 15rem"
-                                         panelStyle="width: 15rem" scrollHeight="250">
-                            <f:selectItems value="#{remoteControlView.colorService.colors}" var="color"
-                                           itemLabel="#{color.name}"
-                                           itemValue="#{color}"/>
+                        <p:selectOneMenu value="#{remoteControlView.data.color}" converter="ColorConverter" label="Color">
+                            <f:selectItems value="#{remoteControlView.colorSelector.colorList}" var="color" itemLabel="#{color.name}" itemValue="#{color.name}"/>
                         </p:selectOneMenu>
                         <p:commandButton value="add" process="color" update="remote"
                                          action="#{remoteControlView.onApplyColorButtonClick}"
@@ -104,6 +99,31 @@
                                          styleClass="mr-2">
                         </p:commandButton>
                         <p:defaultCommand target="btn4" scope="panel4"/>
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+        </div>
+
+        <div class="card">
+            <h:form id="colortest">
+                <p:panel header="Test Command" id="panel10" toggleable="true" collapsed="true" styleClass="mb-5">
+                    <h:panelGrid columns="5" cellpadding="10">
+                        <p:inputText id="name10" placeholder="Befehlsname" value="#{remoteControlView.data.name}"/>
+                        <p:toggleSwitch value="#{remoteControlView.data.on}" label="state: " onIcon="pi pi-power-off"
+                                        offIcon="pi pi-power-off"/>
+                        <p:selectOneMenu value="#{remoteControlView.slotSelected}">
+                            <f:selectItem itemLabel="Position wählen" itemDisabled="true" noSelectionOption="true"/>
+                            <f:selectItems value="#{remoteControlView.slots}"/>
+                        </p:selectOneMenu>
+                        <p:selectOneMenu value="#{remoteControlView.data.colorList}" label="colors" style="width: 15rem" panelStyle="width: 15rem" scrollHeight="250">
+                            <f:selectItems value="#{remoteControlView.colorSelector.colorList}" var="color" itemValue="#{color.name}" itemLabel="#{color.name}"/>
+                        </p:selectOneMenu>
+                        <p:commandButton value="add" icon="pi pi-id-card" process="colortest" update="remote"
+                                         action="#{remoteControlView.onApplyLampButtonClick}"
+                                         id="btn10"
+                                         styleClass="mr-2">
+                        </p:commandButton>
+                        <p:defaultCommand target="btn10" scope="panel10"/>
                     </h:panelGrid>
                 </p:panel>
             </h:form>
@@ -164,7 +184,7 @@
                             <f:selectItem itemLabel="Position wählen" itemDisabled="true" noSelectionOption="true"/>
                             <f:selectItems value="#{remoteControlView.slots}"/>
                         </p:selectOneMenu>
-                        <p:selectCheckboxMenu id="menu" value="#{remoteControlView.data.colors}" label="Colors"
+                        <p:selectCheckboxMenu id="menu" value="#{remoteControlView.data.colorList}" label="Colors"
                                               style="width: 15rem"
                                               panelStyle="width: 15rem" scrollHeight="250"
                                               dynamic="true">
@@ -197,7 +217,7 @@
                                          value="#{remoteControlView.data.intensity}"/>
                             <p:slider for="sliderbri2"/>
                         </h:panelGrid>
-                        <p:selectOneMenu value="#{remoteControlView.data.colors}" label="Colors" style="width: 15rem"
+                        <p:selectOneMenu value="#{remoteControlView.data.colorList}" label="Colors" style="width: 15rem"
                                          panelStyle="width: 15rem" scrollHeight="250">
                             <f:selectItems value="#{remoteControlView.colorService.colors}" var="color"
                                            itemLabel="#{color.name}"
@@ -243,14 +263,17 @@
         <h:form id="remote">
             <div class="card">
                 <p:panel header="Fernbedienung" style="text-align: center">
-                    <p:panelGrid columns="2" layout="grid" styleClass="showcase-text-align-center">
-                        <p:dataList id="remote1" value="#{remoteControlView.getCommandUnchecked(1).config}"
+                    <p:panelGrid columns="2" layout="grid" style="margin: -15px" styleClass="showcase-text-align-center">
+                        <p:dataList id="remote1"  value="#{remoteControlView.getCommandUnchecked(1).config}"
                                     emptyMessage="n.d." var="product" type="definition" lazy=""
-                                    style="text-align: center">
+                                    style="text-align: center; -webkit-text-size-adjust: auto">
                             <f:facet name="header">
                                 #{remoteControlView.getCommandUnchecked(1).name}
                             </f:facet>
-                            #{product}
+                            <p:outputLabel style="font-size: 12px">
+                                #{product}
+                            </p:outputLabel>
+
                             <p:effect type="pulsate" event="click"/>
                         </p:dataList>
 
