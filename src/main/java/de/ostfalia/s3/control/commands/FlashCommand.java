@@ -33,6 +33,6 @@ public class FlashCommand extends AbstractThreadCommand {
 
     @Override
     public List<String> getConfig() {
-        return List.of("Flash: " + time);
+        return List.of("Flash: " + time + "ms");
     }
 }

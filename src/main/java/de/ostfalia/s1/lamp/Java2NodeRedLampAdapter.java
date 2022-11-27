@@ -215,7 +215,8 @@ public class Java2NodeRedLampAdapter implements ILamp, Serializable {
     }
 
     public void initHashmap() {
-        try (BufferedReader br = new BufferedReader(new FileReader("src/main/java/de/ostfalia/s1/lamp/Farbcodes.csv"))) {
+        File f = new File("src/main/resources/Farbcodes.csv");
+        try (BufferedReader br = new BufferedReader(new FileReader(f.getAbsolutePath().replace("WildFly Server/wildfly-26.1.2.Final/bin/", "lab/")))) {
             String line;
             int i = 0;
             while ((line = br.readLine()) != null) {
@@ -365,9 +366,8 @@ public class Java2NodeRedLampAdapter implements ILamp, Serializable {
     }
 
     public static void main(String[] args) throws Exception {
-        Java2NodeRedLampAdapter j = new Java2NodeRedLampAdapter();
-        Lamp lamp = j.fetchCurrentLampStatus();
-        System.out.println(lamp.getName() + ", " + lamp.getColorName() + ", " + lamp.getColor() + ", " + lamp.getState() + ", " + lamp.getIntensity());
+        File f = new File("src/main/resources/Farbcodes.csv");
+        System.out.println(f.getAbsolutePath());
 
         //j.getRequest();
     }

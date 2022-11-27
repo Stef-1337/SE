@@ -15,7 +15,9 @@ import de.ostfalia.s3.control.commands.FlashCommand;
 import de.ostfalia.s3.control.commands.LampCommand;
 import de.ostfalia.s3.control.commands.PartyCommand;
 import de.ostfalia.s3.control.commands.RainbowCommand;
+import de.ostfalia.s3.control.commands.SOSCommand;
 import de.ostfalia.s3.control.commands.StateCommand;
+import de.ostfalia.s3.control.commands.TimeCommand;
 import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.event.SelectEvent;
@@ -50,7 +52,8 @@ public class RemoteControlView implements Serializable {
     private ColorService colorService;
 
     private CommandProcessor commandProcessor;
-    private AbstractLampController controller;
+
+    private AbstractLampController controller = new AbstractLampController();
     private ColorSelector colorSelector = new ColorSelector();
 
     private HashMap<Integer, AbstractCommand> commands = new HashMap<>();
@@ -120,19 +123,29 @@ public class RemoteControlView implements Serializable {
         addCommand(new FlashCommand(controller, data.getName(), data.getTime()));
     }
 
+    public void onApplyTimeButtonClick(){
+        addCommand(new TimeCommand(controller, data.getName(), data.getTime()));
+    }
+
+    public void onApplySOSButtonClick(){
+        addCommand(new SOSCommand(controller, data.getName(), data.getTime()));
+    }
+
     public void onApplyRainbowButtonClick(){
         addCommand(new RainbowCommand(controller, data.getName(), data.getTime()));
     }
 
-//    public void onApplyPartyButtonClick(){
-//        addCommand(new PartyCommand(controller, data.getName(), data.getColors(), data.getTime(), 10));
-//    }
-
-
+    public void onApplyPartyButtonClick(){
+        System.out.println("party");
+        data.getColorList().forEach(e -> System.out.println(e.toString()));
+        addCommand(new PartyCommand(controller, data.getName(), data.getColorList(),data.getTime()));
+    }
 
     public void onApplyLampButtonClick(){
         addCommand(new LampCommand(controller, data.getName(), data.isOn(), (float) data.getIntensity(), data.getColor()));
     }
+    public void onApplyUndoButtonClick(){
+        }
 
 }
 

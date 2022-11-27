@@ -5,6 +5,7 @@ import de.ostfalia.s1.lamp.HueColor;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.faces.event.ValueChangeEvent;
 import java.awt.*;
 import java.sql.Array;
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class CommandParameterData {
     private int time;
     private String colorName;
     private HueColor color;
-    private List<String> colorList;
+    private List<HueColor> colorList;
 
     public CommandParameterData (ColorSelector selector){
         this.colorSelector = selector;
@@ -31,12 +32,12 @@ public class CommandParameterData {
         colorName = "";
     }
 
-    public List<HueColor> getColors(){
-        List<HueColor> colors = new ArrayList<>();
-        colorList.forEach(color -> colors.add(colorSelector.getColor(color)));
-
-        return colors;
-    }
+//    public List<HueColor> getColors(){
+//        List<HueColor> colors = new ArrayList<>();
+//        colorList.forEach(color -> colors.add(colorSelector.getColor(color)));
+//
+//        return colors;
+//    }
 
 //    public HueColor getColor(){
 //        return colorSelector.getColor(colorName);

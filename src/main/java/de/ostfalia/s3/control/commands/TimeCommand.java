@@ -29,6 +29,6 @@ public class TimeCommand extends AbstractThreadCommand {
 
     @Override
     public List<String> getConfig() {
-        return List.of("Time: " + time + "State: toggle ");
+        return List.of("Time: " + time * 0.001 + "\n" + "State: toggle ");
     }
 }

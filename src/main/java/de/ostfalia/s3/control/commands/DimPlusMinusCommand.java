@@ -28,6 +28,10 @@ public class DimPlusMinusCommand extends AbstractCommand {
     }
     @Override
     public List<String> getConfig() {
-        return List.of("Dim: +" + change);
+        String s = "";
+        if (change > 0){
+            s = "+";
+        }
+        return List.of("Dim: " + s + change);
     }
 }
