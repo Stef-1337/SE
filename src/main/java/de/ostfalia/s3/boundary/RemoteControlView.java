@@ -136,8 +136,6 @@ public class RemoteControlView implements Serializable {
     }
 
     public void onApplyPartyButtonClick(){
-        System.out.println("party");
-        data.getColorList().forEach(e -> System.out.println(e.toString()));
         addCommand(new PartyCommand(controller, data.getName(), data.getColorList(),data.getTime()));
     }
 
@@ -146,6 +144,10 @@ public class RemoteControlView implements Serializable {
     }
     public void onApplyUndoButtonClick(){
         }
+
+    public void doNothing(){
+
+    }
 
 }
 

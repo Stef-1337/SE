@@ -2,7 +2,8 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:p="http://primefaces.org/ui" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
                 template="/WEB-INF/template/default.xhtml">
     <ui:define name="metadata">
         <title>Remote Control</title>
@@ -287,24 +288,29 @@
             <div class="card">
                 <p:panel header="Fernbedienung" style="text-align: center">
                     <p:panelGrid columns="2" layout="grid" style="margin: -15px" styleClass="showcase-text-align-center">
-                        <p:dataList id="remote1"  value="#{remoteControlView.getCommandUnchecked(1).config}"
-                                    emptyMessage="n.d." var="product" type="definition" lazy=""
-                                    style="text-align: center; -webkit-text-size-adjust: auto">
-                            <f:facet name="header">
-                                <p:outputLabel style=" font-size: 14px; margin: fill; text-align: center">
-                                    #{remoteControlView.getCommandUnchecked(1).name}
+
+                        <p:commandLink action="#{remoteControlView.getCommandUnchecked(1).execute(remoteControlView.controller)}" >
+                            <p:dataList id="remote1"  value="#{remoteControlView.getCommandUnchecked(1).config}"
+                                        emptyMessage="n.d." var="product" type="definition" lazy=""
+                                        style="text-align: center; -webkit-text-size-adjust: auto">
+                                <f:facet name="header">
+                                    <p:outputLabel style=" font-size: 14px; margin: fill; text-align: center">
+                                        #{remoteControlView.getCommandUnchecked(1).name}
+                                    </p:outputLabel>
+                                </f:facet>
+                                <p:outputLabel style="font-size: 12px">
+                                    #{product}
                                 </p:outputLabel>
-                            </f:facet>
-                            <p:outputLabel style="font-size: 12px">
-                                #{product}
-                            </p:outputLabel>
 
-                            <p:effect type="pulsate" event="click"/>
-                        </p:dataList>
+                                <p:effect type="pulsate" event="click">
+                                </p:effect>
+                            </p:dataList>
+                        </p:commandLink>
 
-                        <p:dataList id="remote2" value="#{remoteControlView.getCommandUnchecked(2).config}"
-                                    emptyMessage="n.d." var="product" type="definition" lazy=""
-                                    style="text-align: center; -webkit-text-size-adjust: auto">
+
+                        <p:commandLink action="#{remoteControlView.getCommandUnchecked(2).execute(remoteControlView.controller)}" >
+                        <p:dataList id="remote2" value="#{remoteControlView.getCommandUnchecked(2).config}" emptyMessage="n.d." var="product" type="definition" lazy=""
+                                    style="text-align: center; -webkit-text-size-adjust: auto" >
                             <f:facet name="header">
                                 <p:outputLabel style=" font-size: 14px; margin: fill; text-align: center">
                                 #{remoteControlView.getCommandUnchecked(2).name}
@@ -315,8 +321,10 @@
                             </p:outputLabel>
                             <p:effect type="pulsate" event="click"/>
                         </p:dataList>
+                        </p:commandLink>
 
-                        <p:dataList id="remote3" value="#{remoteControlView.getCommandUnchecked(3).config}"
+                        <p:commandLink action="#{remoteControlView.getCommandUnchecked(3).execute(remoteControlView.controller)}">
+                        <p:dataList id="remote3" touchable="true" value="#{remoteControlView.getCommandUnchecked(3).config}"
                                     emptyMessage="n.d." var="product" type="definition" lazy=""
                                     style="text-align: center; -webkit-text-size-adjust: auto">
                             <f:facet name="header">
@@ -329,7 +337,9 @@
                             </p:outputLabel>
                             <p:effect type="pulsate" event="click"/>
                         </p:dataList>
+                        </p:commandLink>
 
+                        <p:commandLink action="#{remoteControlView.getCommandUnchecked(4).execute(remoteControlView.controller)}">
                         <p:dataList id="remote4" value="#{remoteControlView.getCommandUnchecked(4).config}"
                                     emptyMessage="n.d." var="product" type="definition" lazy=""
                                     style="text-align: center; -webkit-text-size-adjust: auto">
@@ -343,7 +353,9 @@
                             </p:outputLabel>
                             <p:effect type="pulsate" event="click"/>
                         </p:dataList>
+                        </p:commandLink>
 
+                        <p:commandLink action="#{remoteControlView.getCommandUnchecked(5).execute(remoteControlView.controller)}">
                         <p:dataList id="remote5" value="#{remoteControlView.getCommandUnchecked(5).config}"
                                     emptyMessage="n.d." var="product" type="definition" lazy=""
                                     style="text-align: center; -webkit-text-size-adjust: auto">
@@ -357,7 +369,9 @@
                             </p:outputLabel>
                             <p:effect type="pulsate" event="click"/>
                         </p:dataList>
+                        </p:commandLink>
 
+                        <p:commandLink action="#{remoteControlView.getCommandUnchecked(6).execute(remoteControlView.controller)}">
                         <p:dataList id="remote6" value="#{remoteControlView.getCommandUnchecked(6).config}"
                                     emptyMessage="n.d." var="product" type="definition" lazy=""
                                     style="text-align: center; -webkit-text-size-adjust: auto">
@@ -371,7 +385,9 @@
                             </p:outputLabel>
                             <p:effect type="pulsate" event="click"/>
                         </p:dataList>
+                        </p:commandLink>
 
+                        <p:commandLink action="#{remoteControlView.getCommandUnchecked(7).execute(remoteControlView.controller)}">
                         <p:dataList id="remote7" value="#{remoteControlView.getCommandUnchecked(7).config}"
                                     emptyMessage="n.d." var="product" type="definition" lazy=""
                                     style="text-align: center; -webkit-text-size-adjust: auto">
@@ -385,7 +401,9 @@
                             </p:outputLabel>
                             <p:effect type="pulsate" event="click"/>
                         </p:dataList>
+                        </p:commandLink>
 
+                        <p:commandLink action="#{remoteControlView.getCommandUnchecked(8).execute(remoteControlView.controller)}">
                         <p:dataList id="remote8" value="#{remoteControlView.getCommandUnchecked(8).config}"
                                     emptyMessage="n.d." var="product" type="definition" lazy=""
                                     style="text-align: center; -webkit-text-size-adjust: auto">
@@ -397,8 +415,10 @@
                             <p:outputLabel style="font-size: 12px">
                                 #{product}
                             </p:outputLabel>
-                            <p:effect type="pulsate" event="click"/>
+                            <p:effect type="pulsate" event="click" />
                         </p:dataList>
+                        </p:commandLink>
+
                     </p:panelGrid>
                 </p:panel>
             </div>
