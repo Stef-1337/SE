@@ -10,7 +10,11 @@ import de.ostfalia.s3.control.CommandProcessor;
 import de.ostfalia.s3.control.commands.AbstractCommand;
 import de.ostfalia.s3.control.commands.BrightnessCommand;
 import de.ostfalia.s3.control.commands.ColorCommand;
+import de.ostfalia.s3.control.commands.DimPlusMinusCommand;
+import de.ostfalia.s3.control.commands.FlashCommand;
 import de.ostfalia.s3.control.commands.LampCommand;
+import de.ostfalia.s3.control.commands.PartyCommand;
+import de.ostfalia.s3.control.commands.RainbowCommand;
 import de.ostfalia.s3.control.commands.StateCommand;
 import lombok.Getter;
 import lombok.Setter;
@@ -104,10 +108,27 @@ public class RemoteControlView implements Serializable {
         addCommand(new BrightnessCommand(controller, data.getName(), data.getIntensity()));
     }
 
+    public void onApplyDimmButtonClick() {
+        addCommand(new DimPlusMinusCommand(controller, data.getName(), data.getIntensityStep()));
+    }
+
     public void onApplyColorButtonClick(){
-        System.out.println("test");
         addCommand(new ColorCommand(controller, data.getName(), data.getColor()));
     }
+
+    public void onApplyFlashButtonClick(){
+        addCommand(new FlashCommand(controller, data.getName(), data.getTime()));
+    }
+
+    public void onApplyRainbowButtonClick(){
+        addCommand(new RainbowCommand(controller, data.getName(), data.getTime()));
+    }
+
+//    public void onApplyPartyButtonClick(){
+//        addCommand(new PartyCommand(controller, data.getName(), data.getColors(), data.getTime(), 10));
+//    }
+
+
 
     public void onApplyLampButtonClick(){
         addCommand(new LampCommand(controller, data.getName(), data.isOn(), (float) data.getIntensity(), data.getColor()));
