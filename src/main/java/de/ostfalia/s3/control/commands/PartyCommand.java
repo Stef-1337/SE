@@ -4,7 +4,6 @@ import de.ostfalia.s1.lamp.AbstractLampController;
 import de.ostfalia.s1.lamp.ColorSelector;
 import de.ostfalia.s1.lamp.HueColor;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -27,7 +26,7 @@ public class PartyCommand extends AbstractThreadCommand {
 
         Thread thread = new Thread(() -> {
             Float curBrightness = controller.getAdapter().getIntensity();
-            int size = colors.size() - 1;
+            int size = colors.size();
             Random random = new Random();
             int randomNum = random.nextInt(size);
             new LampCommand(controller, "lamp", true,curBrightness, colors.get(randomNum)).execute(controller);
