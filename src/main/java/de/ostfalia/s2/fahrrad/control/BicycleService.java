@@ -70,7 +70,6 @@ public class BicycleService implements Serializable {
 
     public List<Integer> getBicycleIDs() {
         List<Integer> list = new ArrayList<>();
-        list.add(-1);
 
         List<Bicycle> channelBicycle = em.createNamedQuery("bicycle.getBicycleIDs", Bicycle.class).getResultList();
 
@@ -79,11 +78,21 @@ public class BicycleService implements Serializable {
         return list;
     }
 
-    public List<Integer> getChannels(){
+    public List<Integer> getChannels(boolean isExtended){
         if(channels == null) channels = getBicycleIDs();
-
+        if (isExtended) {
+            List<Integer> list = new ArrayList<>(channels);
+            list.add(0,-1);
+            return list;
+        }
         return channels;
     }
+
+//    public List<Integer> getChannelsRequired(){
+//        List<Integer> integerList = getChannels();
+//        integerList.remove(0);
+//        return integerList;
+//    }
 
 }
 
