@@ -18,7 +18,7 @@ public class UndoCommand extends AbstractCommand {
 
     @Override
     public List<String> getConfig() {
-        return List.of("Index: " + index);
+        return List.of("Index: " + (index == -1 ? "Last" : index));
     }
 
     @Override

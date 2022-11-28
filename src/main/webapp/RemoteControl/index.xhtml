@@ -269,7 +269,7 @@
                             <f:selectItem itemLabel="Position wählen" itemDisabled="true" noSelectionOption="true"/>
                             <f:selectItems value="#{remoteControlView.slots}"/>
                         </p:selectOneMenu>
-                        <p:commandButton value="add" process="color" update="remote"
+                        <p:commandButton value="add" process="undo" update="remote"
                                          action="#{remoteControlView.onApplyUndoButtonClick}" id="btn8"
                                          styleClass="mr-2"/>
                         <p:defaultCommand target="btn8" scope="panel8"/>
