@@ -18,6 +18,7 @@ import de.ostfalia.s3.control.commands.RainbowCommand;
 import de.ostfalia.s3.control.commands.SOSCommand;
 import de.ostfalia.s3.control.commands.StateCommand;
 import de.ostfalia.s3.control.commands.TimeCommand;
+import de.ostfalia.s3.control.commands.UndoCommand;
 import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.event.SelectEvent;
