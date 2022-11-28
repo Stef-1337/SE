@@ -36,8 +36,8 @@ public class RaceCommand extends AbstractCommand {
         double dummyRotation1 = 50000;
         double dummyRotation2 = 100000;
 
-        double rotation1 = dummyRotation1; //Dummies ersetzen durch Durchschnittswerte bicycle1
-        double rotation2 = dummyRotation2; //Dummies ersetzen durch Durchschnittswerte bicycle2
+        double rotation1 = dummyRotation1; //Dummies ersetzen durch Distanz bicycle1
+        double rotation2 = dummyRotation2; //Dummies ersetzen durch Distanz bicycle2
 
         double difference;
         double max;
