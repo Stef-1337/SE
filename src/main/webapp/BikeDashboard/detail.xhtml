@@ -21,7 +21,7 @@
                             <h:outputLabel for="selectOne" value="Fahrrad 1: "/>
                             <h:selectOneMenu id="selectOne" value="#{bicycleDetailView.channel}" required="true"
                                              label="Text 3" var="c">
-                                <f:selectItems value="#{bicycleDetailView.bs.channels}"/>
+                                <f:selectItems value="#{bicycleDetailView.bs.getChannels(false)}"/>
 <!--                                <f:ajax execute="auswahl1" render="chart"/>-->
                                 <p:ajax event="change" update="chartForm"/>
                             </h:selectOneMenu>
@@ -73,7 +73,7 @@
                             <h:outputLabel for="selectTwo" value="Fahrrad 2: "/>
                             <h:selectOneMenu id="selectTwo" value="#{bicycleDetailView.channel2}" required="true"
                                              label="Text 3" var="c">
-                                <f:selectItems value="#{bicycleDetailView.bs.channels}"
+                                <f:selectItems value="#{bicycleDetailView.bs.getChannels(true)}"
                                 var="b" itemValue="#{b}" itemLabel="#{b == -1 ? bicycleDetailView.channel2Label : b}"
                                 noSelectionValue=""/>
                                 <!--                                <f:selectItem itemLabel="Select One" itemValue="" noSelectionOption="true"/>-->
