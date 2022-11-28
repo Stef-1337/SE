@@ -2,8 +2,6 @@ package de.ostfalia.s3.boundary;
 
 import de.ostfalia.s1.lamp.AbstractLampController;
 import de.ostfalia.s1.lamp.ColorSelector;
-import de.ostfalia.s1.lamp.HueColor;
-import de.ostfalia.s1.lamp.Java2NodeRedLampAdapter;
 import de.ostfalia.s3.control.ColorService;
 import de.ostfalia.s3.control.CommandParameterData;
 import de.ostfalia.s3.control.CommandProcessor;
@@ -20,19 +18,12 @@ import de.ostfalia.s3.control.commands.StateCommand;
 import de.ostfalia.s3.control.commands.TimeCommand;
 import lombok.Getter;
 import lombok.Setter;
-import org.primefaces.event.SelectEvent;
 
 import javax.enterprise.context.SessionScoped;
-import javax.faces.event.ActionEvent;
-import javax.faces.event.ValueChangeEvent;
-import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.swing.*;
-import java.awt.*;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -99,15 +90,11 @@ public class RemoteControlView implements Serializable {
         return commands.get(slot);
     }
 
-    public void runCommand(int slot){
+    public void onRunCommandClick(int slot){
         AbstractCommand command = getCommandUnchecked(slot);
         if(command != null)
             commandProcessor.execute(command);
         else System.out.println("No command found");
-    }
-
-    public void onButtonClick() {
-        getCommand(slotSelected).ifPresent(command -> commandProcessor.execute(command));
     }
 
     public void onApplySwitchButtonClick(){
