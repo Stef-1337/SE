@@ -21,6 +21,7 @@ import de.ostfalia.s3.control.commands.TimeCommand;
 import de.ostfalia.s3.control.commands.UndoCommand;
 import lombok.Getter;
 import lombok.Setter;
+import org.h2.command.Command;
 import org.primefaces.event.SelectEvent;
 
 import javax.enterprise.context.SessionScoped;
@@ -65,6 +66,8 @@ public class RemoteControlView implements Serializable {
 
     public RemoteControlView() {
         slots = new ArrayList<>(SIZE);
+
+        commandProcessor = new CommandProcessor(controller);
 
         initDefaults();
 
