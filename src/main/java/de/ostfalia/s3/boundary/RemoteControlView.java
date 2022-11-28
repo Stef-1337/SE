@@ -99,6 +99,13 @@ public class RemoteControlView implements Serializable {
         return commands.get(slot);
     }
 
+    public void runCommand(int slot){
+        AbstractCommand command = getCommandUnchecked(slot);
+        if(command != null)
+            commandProcessor.execute(command);
+        else System.out.println("No command found");
+    }
+
     public void onButtonClick() {
         getCommand(slotSelected).ifPresent(command -> commandProcessor.execute(command));
     }

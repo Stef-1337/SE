@@ -289,7 +289,7 @@
                 <p:panel header="Fernbedienung" style="text-align: center">
                     <p:panelGrid columns="2" layout="grid" style="margin: -15px" styleClass="showcase-text-align-center">
 
-                        <p:commandLink action="#{remoteControlView.getCommandUnchecked(1).execute(remoteControlView.controller)}" >
+                        <p:commandLink action="#{remoteControlView.runCommand(1)}" >
                             <p:dataList id="remote1"  value="#{remoteControlView.getCommandUnchecked(1).config}"
                                         emptyMessage="n.d." var="product" type="definition" lazy=""
                                         style="text-align: center; -webkit-text-size-adjust: auto">
@@ -308,7 +308,7 @@
                         </p:commandLink>
 
 
-                        <p:commandLink action="#{remoteControlView.getCommandUnchecked(2).execute(remoteControlView.controller)}" >
+                        <p:commandLink action="#{remoteControlView.runCommand(2)}" >
                         <p:dataList id="remote2" value="#{remoteControlView.getCommandUnchecked(2).config}" emptyMessage="n.d." var="product" type="definition" lazy=""
                                     style="text-align: center; -webkit-text-size-adjust: auto" >
                             <f:facet name="header">
@@ -323,7 +323,7 @@
                         </p:dataList>
                         </p:commandLink>
 
-                        <p:commandLink action="#{remoteControlView.getCommandUnchecked(3).execute(remoteControlView.controller)}">
+                        <p:commandLink action="#{remoteControlView.runCommand(3)}">
                         <p:dataList id="remote3" touchable="true" value="#{remoteControlView.getCommandUnchecked(3).config}"
                                     emptyMessage="n.d." var="product" type="definition" lazy=""
                                     style="text-align: center; -webkit-text-size-adjust: auto">
@@ -339,7 +339,7 @@
                         </p:dataList>
                         </p:commandLink>
 
-                        <p:commandLink action="#{remoteControlView.getCommandUnchecked(4).execute(remoteControlView.controller)}">
+                        <p:commandLink action="#{remoteControlView.runCommand(4)}">
                         <p:dataList id="remote4" value="#{remoteControlView.getCommandUnchecked(4).config}"
                                     emptyMessage="n.d." var="product" type="definition" lazy=""
                                     style="text-align: center; -webkit-text-size-adjust: auto">
@@ -355,7 +355,7 @@
                         </p:dataList>
                         </p:commandLink>
 
-                        <p:commandLink action="#{remoteControlView.getCommandUnchecked(5).execute(remoteControlView.controller)}">
+                        <p:commandLink action="#{remoteControlView.runCommand(5)}">
                         <p:dataList id="remote5" value="#{remoteControlView.getCommandUnchecked(5).config}"
                                     emptyMessage="n.d." var="product" type="definition" lazy=""
                                     style="text-align: center; -webkit-text-size-adjust: auto">
@@ -371,7 +371,7 @@
                         </p:dataList>
                         </p:commandLink>
 
-                        <p:commandLink action="#{remoteControlView.getCommandUnchecked(6).execute(remoteControlView.controller)}">
+                        <p:commandLink action="#{remoteControlView.runCommand(6)}">
                         <p:dataList id="remote6" value="#{remoteControlView.getCommandUnchecked(6).config}"
                                     emptyMessage="n.d." var="product" type="definition" lazy=""
                                     style="text-align: center; -webkit-text-size-adjust: auto">
@@ -387,7 +387,7 @@
                         </p:dataList>
                         </p:commandLink>
 
-                        <p:commandLink action="#{remoteControlView.getCommandUnchecked(7).execute(remoteControlView.controller)}">
+                        <p:commandLink action="#{remoteControlView.runCommand(7)}">
                         <p:dataList id="remote7" value="#{remoteControlView.getCommandUnchecked(7).config}"
                                     emptyMessage="n.d." var="product" type="definition" lazy=""
                                     style="text-align: center; -webkit-text-size-adjust: auto">
@@ -403,7 +403,7 @@
                         </p:dataList>
                         </p:commandLink>
 
-                        <p:commandLink action="#{remoteControlView.getCommandUnchecked(8).execute(remoteControlView.controller)}">
+                        <p:commandLink action="#{remoteControlView.runCommand(8)}">
                         <p:dataList id="remote8" value="#{remoteControlView.getCommandUnchecked(8).config}"
                                     emptyMessage="n.d." var="product" type="definition" lazy=""
                                     style="text-align: center; -webkit-text-size-adjust: auto">
