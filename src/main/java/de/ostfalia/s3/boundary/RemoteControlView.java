@@ -18,8 +18,10 @@ import de.ostfalia.s3.control.commands.RainbowCommand;
 import de.ostfalia.s3.control.commands.SOSCommand;
 import de.ostfalia.s3.control.commands.StateCommand;
 import de.ostfalia.s3.control.commands.TimeCommand;
+import de.ostfalia.s3.control.commands.UndoCommand;
 import lombok.Getter;
 import lombok.Setter;
+import org.h2.command.Command;
 import org.primefaces.event.SelectEvent;
 
 import javax.enterprise.context.SessionScoped;
@@ -62,48 +64,53 @@ public class RemoteControlView implements Serializable {
 
     private CommandParameterData data = new CommandParameterData(colorSelector);
 
-    public RemoteControlView(){
+    public RemoteControlView() {
         slots = new ArrayList<>(SIZE);
+
+        commandProcessor = new CommandProcessor(controller);
 
         initDefaults();
 
-        for (int i = 1; i < 9; i++){
+        for (int i = 1; i < 9; i++) {
             slots.add(i);
         }
     }
 
-    private void initDefaults(){
+    private void initDefaults() {
         commands.put(1, new StateCommand(controller, "On", true));
         commands.put(2, new StateCommand(controller, "Off", false));
     }
 
     public void setCommand(int slot, AbstractCommand command) {
         System.out.println("Try setting " + slot + ", " + command);
-        if(command.getName().length() != 0)
-            if (slot <= SIZE){
+        if (command.getName().length() != 0)
+            if (slot <= SIZE) {
                 commands.put(slot, command);
                 data = new CommandParameterData(colorSelector);
                 slotSelected = 0;
             }
     }
 
-    public void addCommand(AbstractCommand command){
+    public void addCommand(AbstractCommand command) {
         setCommand(slotSelected, command);
     }
 
-    public Optional<AbstractCommand> getCommand(int slot){
+    public Optional<AbstractCommand> getCommand(int slot) {
         return Optional.ofNullable(commands.get(slot));
     }
 
-    public AbstractCommand getCommandUnchecked(int slot){
+    public AbstractCommand getCommandUnchecked(int slot) {
         return commands.get(slot);
     }
 
-    public void onButtonClick() {
-        getCommand(slotSelected).ifPresent(command -> commandProcessor.execute(command));
+    public void onRunCommandClick(int slot){
+        AbstractCommand command = getCommandUnchecked(slot);
+        if(command != null)
+            commandProcessor.execute(command);
+        else System.out.println("No command found");
     }
 
-    public void onApplySwitchButtonClick(){
+    public void onApplySwitchButtonClick() {
         addCommand(new StateCommand(controller, data.getName(), data.isOn()));
     }
 
@@ -115,7 +122,7 @@ public class RemoteControlView implements Serializable {
         addCommand(new DimPlusMinusCommand(controller, data.getName(), data.getIntensityStep()));
     }
 
-    public void onApplyColorButtonClick(){
+    public void onApplyColorButtonClick() {
         addCommand(new ColorCommand(controller, data.getName(), data.getColor()));
     }
 
@@ -135,17 +142,23 @@ public class RemoteControlView implements Serializable {
         addCommand(new RainbowCommand(controller, data.getName(), data.getTime()));
     }
 
-    public void onApplyPartyButtonClick(){
+    public void onApplyPartyButtonClick() {
         System.out.println("party");
         data.getColorList().forEach(e -> System.out.println(e.toString()));
-        addCommand(new PartyCommand(controller, data.getName(), data.getColorList(),data.getTime()));
+        addCommand(new PartyCommand(controller, data.getName(), data.getColorList(), data.getTime()));
     }
 
     public void onApplyLampButtonClick(){
         addCommand(new LampCommand(controller, data.getName(), data.isOn(), (float) data.getIntensity(), data.getColor()));
     }
-    public void onApplyUndoButtonClick(){
-        }
+
+    public void onApplyUndoButtonClick() {
+        addCommand(new UndoCommand(controller, data.getName(), -1, commandProcessor));
+    }
+
+    public void doNothing(){
+
+    }
 
 }
 
