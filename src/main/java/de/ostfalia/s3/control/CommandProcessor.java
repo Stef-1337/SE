@@ -29,31 +29,25 @@ public class CommandProcessor {
         this.undoList = new ArrayList<>();
     }
 
-    public void undo() {
-        undo(Math.min(0, undoList.size() - 1));
-    }
-
     public void undo(int index) {
-        if (undoList.size() > 0) {
-            int i = undoList.size() - index;
-            System.out.println("Index: " + i + " vs " + undoList.size() + " vs " + index);
-            if (index <= undoList.size()) {
-                ICommand command = undoList.get(i);
-                System.out.println("Going back to " + command + " (" + i + ")");
+        if(index == -1)
+            index = undoList.size() - 1;
 
-                if (command instanceof AbstractCommand abstractCommand) {
-                    if (abstractCommand instanceof AbstractThreadCommand threadCommand) threadCommand.stopThread();
-                    abstractCommand.undo();
+        int size = undoList.size();
 
-                } else command.undo(controller);
+        if (size > 0 && size > index) {
+            ICommand command = undoList.get(index);
 
-                for (int x = index - 1; x < undoList.size(); x++) undoList.remove(x);
-                if (undoList.size() > 0) {
-                    ICommand current = undoList.get(undoList.size() - 1);
-                    if (current instanceof AbstractThreadCommand threadCommand) threadCommand.execute(controller);
-                }
-            }else System.out.println("Not enough commands");
-        }
+            for (int i = size - 1; i >= index; i--) {
+                undoList.remove(i);
+            }
+            if (command instanceof AbstractCommand abstractCommand) {
+                if (abstractCommand instanceof AbstractThreadCommand threadCommand) threadCommand.stopThread();
+                abstractCommand.undo();
+
+            } else command.undo(controller);
+
+        } else System.out.println("Nothing left to undo..");
     }
 
     public void execute(ICommand command) {
@@ -68,8 +62,11 @@ public class CommandProcessor {
         if (command instanceof AbstractCommand) {
             command = ((AbstractCommand) command).executeAndClone();
 
-            if (command != null && !(command instanceof UndoCommand))
+            if (command != null && !(command instanceof UndoCommand)) {
                 undoList.add(command);
+                if(undoList.size() > 5)
+                    undoList.remove(0);
+            }
         } else
             command.execute(controller);
     }
