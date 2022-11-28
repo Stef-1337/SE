@@ -18,7 +18,6 @@ import de.ostfalia.s3.control.commands.RainbowCommand;
 import de.ostfalia.s3.control.commands.SOSCommand;
 import de.ostfalia.s3.control.commands.StateCommand;
 import de.ostfalia.s3.control.commands.TimeCommand;
-import de.ostfalia.s3.control.commands.UndoCommand;
 import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.event.SelectEvent;
@@ -100,8 +99,11 @@ public class RemoteControlView implements Serializable {
         return commands.get(slot);
     }
 
-    public void onButtonClick() {
-        getCommand(slotSelected).ifPresent(command -> commandProcessor.execute(command));
+    public void onRunCommandClick(int slot){
+        AbstractCommand command = getCommandUnchecked(slot);
+        if(command != null)
+            commandProcessor.execute(command);
+        else System.out.println("No command found");
     }
 
     public void onApplySwitchButtonClick() {
@@ -120,19 +122,19 @@ public class RemoteControlView implements Serializable {
         addCommand(new ColorCommand(controller, data.getName(), data.getColor()));
     }
 
-    public void onApplyFlashButtonClick() {
+    public void onApplyFlashButtonClick(){
         addCommand(new FlashCommand(controller, data.getName(), data.getTime()));
     }
 
-    public void onApplyTimeButtonClick() {
+    public void onApplyTimeButtonClick(){
         addCommand(new TimeCommand(controller, data.getName(), data.getTime()));
     }
 
-    public void onApplySOSButtonClick() {
+    public void onApplySOSButtonClick(){
         addCommand(new SOSCommand(controller, data.getName(), data.getTime()));
     }
 
-    public void onApplyRainbowButtonClick() {
+    public void onApplyRainbowButtonClick(){
         addCommand(new RainbowCommand(controller, data.getName(), data.getTime()));
     }
 
@@ -142,12 +144,16 @@ public class RemoteControlView implements Serializable {
         addCommand(new PartyCommand(controller, data.getName(), data.getColorList(), data.getTime()));
     }
 
-    public void onApplyLampButtonClick() {
+    public void onApplyLampButtonClick(){
         addCommand(new LampCommand(controller, data.getName(), data.isOn(), (float) data.getIntensity(), data.getColor()));
     }
 
     public void onApplyUndoButtonClick() {
         addCommand(new UndoCommand(controller, data.getName(), -1, commandProcessor));
+    }
+
+    public void doNothing(){
+
     }
 
 }
