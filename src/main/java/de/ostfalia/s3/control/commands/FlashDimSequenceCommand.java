@@ -23,7 +23,7 @@ public class FlashDimSequenceCommand extends AbstractThreadCommand {
             try {
                 while (!getThread().isInterrupted()) {
                     for (int i = 0; i < 2; i++) {
-                        new DimCommand(controller, "dim", time).execute(controller);
+                        new VerlaufCommand(controller, "dim", time).execute(controller);
                         Thread.sleep(5);
                     }
                     for (int i = 0; i < 3; i++) {

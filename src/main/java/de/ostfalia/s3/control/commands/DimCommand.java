@@ -1,53 +1,37 @@
 package de.ostfalia.s3.control.commands;
 
 import de.ostfalia.s1.lamp.AbstractLampController;
-import de.ostfalia.s1.lamp.HueColor;
-
 
 import java.util.List;
 
-public class DimCommand extends AbstractThreadCommand {
-
-    private int time;
-
-    public DimCommand(AbstractLampController controller, String name, int time) {
+public class DimCommand extends AbstractCommand {
+    private float change;
+    public DimCommand(AbstractLampController controller, String name, float change) {
         super(controller, name);
-        this.time = time;
+        this.change = change;
     }
+
+
 
     @Override
     public void execute(AbstractLampController controller) {
-        Thread thread = new Thread(() -> {
-            Float brightnessChange = controller.getAdapter().getIntensity();
-            Boolean change = true;
-            try {
-                while (!getThread().isInterrupted()) {
-                    while (brightnessChange > 4 && change == true) {
-                        new BrightnessCommand(controller, "brightness", brightnessChange -= 5).execute(controller);
-                        Thread.sleep(time);
-                        if (brightnessChange <= 6) {
-                            change = false;
-                        }
-                    }
-                    while (brightnessChange < 96 && change == false) {
-                        new BrightnessCommand(controller, "brightness", brightnessChange += 5).execute(controller);
-                        Thread.sleep(time);
-                        if (brightnessChange >= 94) {
-                            change = true;
-                        }
-                    }
-                }
-            } catch (InterruptedException e) {
-                System.out.println("abbgebrochen");
-                ;
+        if (controller.getAdapter().getIntensity() + change <= 100 && controller.getAdapter().getIntensity() + change >= 0){
+            new BrightnessCommand(controller, "dimPlus", controller.getAdapter().getIntensity() + change).execute(controller);
+        }else {
+            if (controller.getAdapter().getIntensity() + change > 100) {
+                new BrightnessCommand(controller, "dim100", 100F).execute(controller);
+            }else {
+                new BrightnessCommand(controller, "dim0", 0F).execute(controller);
             }
-        });
-        runThread(thread);
-    }
+        }
 
+    }
     @Override
     public List<String> getConfig() {
-        return List.of("Dim: " + time);
+        String s = "";
+        if (change > 0){
+            s = "+";
+        }
+        return List.of("Dim: " + s + change);
     }
 }
-
