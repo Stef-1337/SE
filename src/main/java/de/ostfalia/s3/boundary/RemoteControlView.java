@@ -2,6 +2,8 @@ package de.ostfalia.s3.boundary;
 
 import de.ostfalia.s1.lamp.AbstractLampController;
 import de.ostfalia.s1.lamp.ColorSelector;
+import de.ostfalia.s1.lamp.HueColor;
+import de.ostfalia.s2.fahrrad.boundary.BicycleDetailView;
 import de.ostfalia.s3.control.ColorService;
 import de.ostfalia.s3.control.CommandParameterData;
 import de.ostfalia.s3.control.CommandProcessor;
@@ -12,6 +14,7 @@ import de.ostfalia.s3.control.commands.DimCommand;
 import de.ostfalia.s3.control.commands.FlashCommand;
 import de.ostfalia.s3.control.commands.LampCommand;
 import de.ostfalia.s3.control.commands.PartyCommand;
+import de.ostfalia.s3.control.commands.RaceCommand;
 import de.ostfalia.s3.control.commands.RainbowCommand;
 import de.ostfalia.s3.control.commands.SOSCommand;
 import de.ostfalia.s3.control.commands.StateCommand;
@@ -25,6 +28,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -141,9 +145,28 @@ public class RemoteControlView implements Serializable {
         addCommand(new LampCommand(controller, data.getName(), data.isOn(), (float) data.getIntensity(), data.getColor()));
     }
 
+    public void onApplyDriveButtonClick(){
+        System.out.println("drive");
+//        addCommand(new DriveCommand(controller, data.getName(), channel));
+    }
+
+    public void onApplyRaceButtonClick(){
+        System.out.println("race");
+//        addCommand(new RaceCommand(controller, data.getName(), data.getChannel1(), data.getChannel2(), data.getColor(), data.getColor2(), data.getTimeRange());
+    }
+
     public void onApplyUndoButtonClick() {
         addCommand(new UndoCommand(controller, data.getName(), -1, commandProcessor));
     }
+
+    public void onRunUndoButtonClick() {
+
+    }
+
+    public void onRunResetButtonClick() {
+
+    }
+
 
     public void doNothing(){
 

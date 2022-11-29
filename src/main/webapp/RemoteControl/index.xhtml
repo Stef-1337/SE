@@ -234,7 +234,7 @@
             <h:form id="individual">
                 <p:panel header="Individual Command" id="panel9" toggleable="true" collapsed="true" styleClass="mb-5">
                     <h:panelGrid columns="6" cellpadding="10">
-                        <p:inputText id="name9" maxlength="9" placeholder="Individual" value="#{remoteControlView.data.name}"/>
+                        <p:inputText id="name9" maxlength="9" placeholder="Befehlsname" value="#{remoteControlView.data.name}"/>
                         <p:selectOneMenu value="#{remoteControlView.slotSelected}">
                             <f:selectItem itemLabel="Position wählen" itemDisabled="true" noSelectionOption="true"/>
                             <f:selectItems value="#{remoteControlView.slots}"/>
@@ -257,6 +257,69 @@
                                          action="#{remoteControlView.onApplyLampButtonClick}" id="btn9"
                                          styleClass="mr-2"/>
                         <p:defaultCommand target="btn9" scope="panel9"/>
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+        </div>
+
+        <div class="card">
+            <h:form id="drive">
+                <p:panel header="Drive Command" id="panel19" toggleable="true" collapsed="true" styleClass="mb-5">
+                    <h:panelGrid columns="6" cellpadding="10">
+                        <p:inputText id="name19" maxlength="9" placeholder="Befehlsname" value="#{remoteControlView.data.name}"/>
+                        <p:selectOneMenu value="#{remoteControlView.slotSelected}">
+                            <f:selectItem itemLabel="Position wählen" itemDisabled="true" noSelectionOption="true"/>
+                            <f:selectItems value="#{remoteControlView.slots}"/>
+                        </p:selectOneMenu>
+                        <p:selectOneMenu value="#{remoteControlView.data.channel1}" required="true">
+                            <f:selectItem itemLabel="Fahrrad wählen" itemDisabled="true" noSelectionOption="true"/>
+                            <f:selectItems value="#{bicycleDetailView.bs.getChannels(false)}"/>
+                        </p:selectOneMenu>
+                        <p:commandButton value="add" process="drive" update="remote"
+                                         action="#{remoteControlView.onApplyDriveButtonClick}" id="btn19"
+                                         styleClass="mr-2"/>
+                        <p:defaultCommand target="btn19" scope="panel19"/>
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+        </div>
+
+        <div class="card">
+            <h:form id="race">
+                <p:panel header="Race Command" id="panel20" toggleable="true" collapsed="true" styleClass="mb-5">
+                    <h:panelGrid columns="6" cellpadding="10">
+                        <p:inputText id="name20" maxlength="9" placeholder="Befehlsname" value="#{remoteControlView.data.name}"/>
+                        <p:selectOneMenu value="#{remoteControlView.slotSelected}">
+                            <f:selectItem itemLabel="Position wählen" itemDisabled="true" noSelectionOption="true"/>
+                            <f:selectItems value="#{remoteControlView.slots}"/>
+                        </p:selectOneMenu>
+                        <p:selectOneMenu value="#{remoteControlView.data.channel1}" required="true">
+                            <f:selectItem itemLabel="Fahrrad wählen" itemDisabled="true" noSelectionOption="true"/>
+                            <f:selectItems value="#{bicycleDetailView.bs.getChannels(false)}"/>
+                        </p:selectOneMenu>
+                        <p:selectOneMenu value="#{remoteControlView.data.color}" required="true" converter="ColorConverter"
+                                         label="Color"  style="width: 15rem"  panelStyle="width: 15rem"
+                                         scrollHeight="250">
+                            <f:selectItems value="#{remoteControlView.colorSelector.colorList}" var="color"
+                                           itemLabel="#{color.name}" itemValue="#{color.name}"/>
+                        </p:selectOneMenu>
+                        <p:selectOneMenu value="#{remoteControlView.data.channel2}" required="true">
+                            <f:selectItem itemLabel="Fahrrad(2) wählen" itemDisabled="true" noSelectionOption="true"/>
+                            <f:selectItems value="#{bicycleDetailView.bs.getChannels(false)}"/>
+                        </p:selectOneMenu>
+                        <p:selectOneMenu value="#{remoteControlView.data.color2}" required="true" converter="ColorConverter"
+                                         label="Color"  style="width: 15rem"  panelStyle="width: 15rem"
+                                         scrollHeight="250">
+                            <f:selectItems value="#{remoteControlView.colorSelector.colorList}" var="color"
+                                           itemLabel="#{color.name}" itemValue="#{color.name}"/>
+                        </p:selectOneMenu>
+                        <p:datePicker id="range" selectionMode="range" required="true" value="#{remoteControlView.data.timeRange}"
+                                      showTime="true" locale="de" pattern="dd.MM.yyyy" readonlyInput="true">
+                        </p:datePicker>
+                        <p:commandButton value="add" process="race" update="remote"
+                                         action="#{remoteControlView.onApplyRaceButtonClick}" id="btn20"
+                                         styleClass="mr-2"/>
+                        <p:defaultCommand target="btn20" scope="panel20"/>
                     </h:panelGrid>
                 </p:panel>
             </h:form>
@@ -430,6 +493,34 @@
                                     #{product}
                                 </p:outputLabel>
 
+                                <p:effect type="pulsate" event="click">
+                                </p:effect>
+                            </p:dataList>
+                        </p:commandLink>
+
+                        <p:commandLink id="cl9" action="#{remoteControlView.onRunUndoButtonClick}" >
+                            <p:dataList id="remote9" value="up to 5 steps back" type="definition" lazy=""
+                                        style="text-align: center; -webkit-text-size-adjust: auto">
+                                <f:facet name="header">
+                                    <p:outputLabel style=" font-size: 14px; margin: fill; text-align: center">Undo
+                                    </p:outputLabel>
+                                </f:facet>
+                                <p:outputLabel style="font-size: 12px">
+                                </p:outputLabel>
+
+                                <p:effect type="pulsate" event="click">
+                                </p:effect>
+                            </p:dataList>
+                        </p:commandLink>
+
+                        <p:commandLink id="cl10" action="#{remoteControlView.onRunResetButtonClick}" >
+                            <p:dataList id="remote10" value="reset remote" type="definition" lazy=""
+                                        style="text-align: center; -webkit-text-size-adjust: auto">
+                                <f:facet name="header">
+                                    <p:outputLabel style=" font-size: 14px; margin: fill; text-align: center">
+                                      Reset
+                                    </p:outputLabel>
+                                </f:facet>
                                 <p:effect type="pulsate" event="click">
                                 </p:effect>
                             </p:dataList>
