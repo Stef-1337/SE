@@ -22,14 +22,14 @@ public class DimCommand extends AbstractThreadCommand {
             Boolean change = true;
             try {
                 while (!getThread().isInterrupted()) {
-                    while (brightnessChange > 0 && change == true) {
+                    while (brightnessChange > 4 && change == true) {
                         new BrightnessCommand(controller, "brightness", brightnessChange -= 5).execute(controller);
                         Thread.sleep(time);
                         if (brightnessChange <= 6) {
                             change = false;
                         }
                     }
-                    while (brightnessChange < 100 && change == false) {
+                    while (brightnessChange < 96 && change == false) {
                         new BrightnessCommand(controller, "brightness", brightnessChange += 5).execute(controller);
                         Thread.sleep(time);
                         if (brightnessChange >= 94) {
