@@ -26,7 +26,7 @@ public class PartyCommand extends AbstractThreadCommand {
 
         Thread thread = new Thread(() -> {
             Float curBrightness = controller.getAdapter().getIntensity();
-            int size = colors.size() -1;
+            int size = colors.size();
             Random random = new Random();
             int randomNum = random.nextInt(size);
             System.out.println(size);
