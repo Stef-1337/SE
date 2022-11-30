@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui" xmlns:h="http://java.sun.com/jsf/html"
+                template="/WEB-INF/template/default.xhtml">
+    <ui:define name="metadata">
+        <title>Remote Control</title>
+        <f:metadata>
+
+        </f:metadata>
+
+    </ui:define>
+
+    <ui:define name="content">
+        <div class="card">
+            <h:form id="form">
+
+                <p:panel header="State Command" id="panel1" toggleable="true" collapsed="true" styleClass="mb-5">
+                    <h:panelGrid columns="5" cellpadding="10">
+                        <p:inputText id="name" placeholder="Befehlsname" value="#{testView.name}"/>
+                        <p:toggleSwitch value="#{testView.on}" label="state: " onIcon="pi pi-power-off"
+                                        offIcon="pi pi-power-off"/>
+                        <p:selectOneMenu>
+                            <f:selectItem itemLabel="Position wählen" itemDisabled="true" noSelectionOption="true"/>
+                            <f:selectItems value="#{testView.slots}"/>
+                        </p:selectOneMenu>
+                        <p:commandButton value="add" process="form" update="remote" id="btn1" styleClass="mr-2"/>
+                        <p:defaultCommand target="btn1" scope="panel1"/>
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+        </div>
+
+        <div class="card">
+            <h:form id="form2">
+                <p:selectOneMenu value="#{testView.hueColor}" converter="ColorConverter" label="Color">
+                    <f:selectItems value="#{remoteControlView.colorSelector.colorList}" var="color" itemLabel="#{color.name}" itemValue="#{color.name}"/>
+                </p:selectOneMenu>
+                        <p:commandButton value="add" process="form2" update="remote" id="btn2" action="#{testView.test}" styleClass="mr-2"/>
+
+            </h:form>
+        </div>
+    </ui:define>
+
+
+    <ui:define name="footer">
+    </ui:define>
+
+    <ui:define name="rechts">
+
+        <h:form id="remote">
+            <div class="card">
+                <p:panel header="Fernbedienung" style="text-align: center">
+                    <p:panelGrid columns="2" layout="grid" styleClass="showcase-text-align-center">
+                            <p:dataList value="#{testView.config}" var="product" type="definition"
+                                        style="text-align: center">
+                                <f:facet name="header">
+                                    #{testView.name}
+                                </f:facet>
+                                #{product}
+                                <p:effect type="pulsate" event="click"/>
+                            </p:dataList>
+
+                        <h:outputText value="Content"/>
+                        <h:outputText value="Content"/>
+
+                        <h:outputText value="Content"/>
+                        <h:outputText value="Content"/>
+
+                        <h:outputText value="Content"/>
+                        <h:outputText value="Content"/>
+                    </p:panelGrid>
+                </p:panel>
+            </div>
+        </h:form>
+
+    </ui:define>
+</ui:composition>
+
