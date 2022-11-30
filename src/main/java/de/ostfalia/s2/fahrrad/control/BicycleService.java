@@ -88,12 +88,6 @@ public class BicycleService implements Serializable {
         return channels;
     }
 
-//    public List<Integer> getChannelsRequired(){
-//        List<Integer> integerList = getChannels();
-//        integerList.remove(0);
-//        return integerList;
-//    }
-
 }
 
 

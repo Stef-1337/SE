@@ -94,37 +94,37 @@ public class Lamp implements ILamp, Serializable {
     }
 
     @Override
-    public void switchOn() {
+    public void switchOn() throws IOException {
         state = true;
     }
 
     @Override
-    public void switchOn(float intensity) {
+    public void switchOn(float intensity) throws IOException {
         state = true;
         this.setIntensity(intensity);
     }
 
     @Override
-    public void switchOn(Color color) {
+    public void switchOn(Color color) throws IOException {
         this.setColor(color);
     }
 
     @Override
-    public void switchOff() {
+    public void switchOff() throws IOException {
         state = false;
     }
 
     @Override
-    public Color getColor() {
+    public Color getColor() throws IOException {
         return this.color;
     }
 
     @Override
-    public void setColor(Color color) {
+    public void setColor(Color color) throws IOException {
         this.color = color;
     }
 
-    public void setColor(String color) {
+    public void setColor(String color) throws IOException {
         String[] strings = color.split(" ");
         System.out.println(strings[0]);
         setColorName(strings[0]);
@@ -139,17 +139,17 @@ public class Lamp implements ILamp, Serializable {
     }
 
     @Override
-    public float getIntensity() {
+    public float getIntensity() throws IOException {
         return this.intensity;
     }
 
     @Override
-    public void setIntensity(float intensity) {
+    public void setIntensity(float intensity) throws IOException {
         this.intensity = intensity;
         this.intensityPercentage = (float) (intensity / 2.5);
     }
 
-    public float getIntensityPercentage() {
+    public float getIntensityPercentage() throws IOException {
         return this.intensityPercentage;
     }
 
@@ -158,7 +158,7 @@ public class Lamp implements ILamp, Serializable {
     }
 
     @Override
-    public boolean getState() {
+    public boolean getState() throws IOException {
         return state;
     }
 
@@ -172,24 +172,5 @@ public class Lamp implements ILamp, Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    @Override
-    public String toString() {
-        return "Lamp{" +
-                "name='" + name + '\'' +
-                ", state=" + state +
-                ", intensity=" + intensity +
-                ", intensityPercentage=" + intensityPercentage +
-                ", color=" + color +
-                ", colorName='" + colorName + '\'' +
-                ", hex='" + hex + '\'' +
-                ", rgbR=" + rgbR +
-                ", rgbG=" + rgbG +
-                ", rgbB=" + rgbB +
-                ", x=" + x +
-                ", y=" + y +
-                ", cat=" + cat +
-                '}';
     }
 }

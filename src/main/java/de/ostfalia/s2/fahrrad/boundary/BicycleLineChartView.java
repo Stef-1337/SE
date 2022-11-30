@@ -8,7 +8,7 @@ import de.ostfalia.s2.fahrrad.entity.Bicycle;
 import de.ostfalia.s2.fahrrad.entity.BicycleDetailData;
 import de.ostfalia.s2.fahrrad.kennzahl.Kennzahl;
 import org.primefaces.model.charts.ChartData;
-import org.primefaces.model.charts.axes.cartesian.CartesianScaleTitle;
+import org.primefaces.model.charts.axes.cartesian.CartesianScaleLabel;
 import org.primefaces.model.charts.axes.cartesian.CartesianScales;
 import org.primefaces.model.charts.axes.cartesian.linear.CartesianLinearAxes;
 import org.primefaces.model.charts.line.LineChartDataSet;
@@ -146,11 +146,11 @@ public class BicycleLineChartView {
         CartesianLinearAxes linearAxes = new CartesianLinearAxes();
         linearAxes.setId("small-scale");
         linearAxes.setPosition("right");
-        CartesianScaleTitle yRightLabel = new CartesianScaleTitle();
+        CartesianScaleLabel yRightLabel = new CartesianScaleLabel();
         yRightLabel.setDisplay(true);
-        yRightLabel.setText("Fahrraddaten");
+        yRightLabel.setLabelString("Fahrraddaten");
 
-        linearAxes.setScaleTitle(yRightLabel);
+        linearAxes.setScaleLabel(yRightLabel);
         cartesianScales.addYAxesData(linearAxes);
 
         options.setScales(cartesianScales);
