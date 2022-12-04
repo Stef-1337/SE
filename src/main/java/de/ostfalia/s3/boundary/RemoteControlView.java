@@ -2,15 +2,13 @@ package de.ostfalia.s3.boundary;
 
 import de.ostfalia.s1.lamp.AbstractLampController;
 import de.ostfalia.s1.lamp.ColorSelector;
-import de.ostfalia.s1.lamp.HueColor;
-import de.ostfalia.s1.lamp.Java2NodeRedLampAdapter;
 import de.ostfalia.s3.control.ColorService;
 import de.ostfalia.s3.control.CommandParameterData;
 import de.ostfalia.s3.control.CommandProcessor;
 import de.ostfalia.s3.control.commands.AbstractCommand;
 import de.ostfalia.s3.control.commands.BrightnessCommand;
 import de.ostfalia.s3.control.commands.ColorCommand;
-import de.ostfalia.s3.control.commands.DimPlusMinusCommand;
+import de.ostfalia.s3.control.commands.DimCommand;
 import de.ostfalia.s3.control.commands.FlashCommand;
 import de.ostfalia.s3.control.commands.LampCommand;
 import de.ostfalia.s3.control.commands.PartyCommand;
@@ -21,20 +19,12 @@ import de.ostfalia.s3.control.commands.TimeCommand;
 import de.ostfalia.s3.control.commands.UndoCommand;
 import lombok.Getter;
 import lombok.Setter;
-import org.h2.command.Command;
-import org.primefaces.event.SelectEvent;
 
 import javax.enterprise.context.SessionScoped;
-import javax.faces.event.ActionEvent;
-import javax.faces.event.ValueChangeEvent;
-import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.swing.*;
-import java.awt.*;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -119,7 +109,7 @@ public class RemoteControlView implements Serializable {
     }
 
     public void onApplyDimmButtonClick() {
-        addCommand(new DimPlusMinusCommand(controller, data.getName(), data.getIntensityStep()));
+        addCommand(new DimCommand(controller, data.getName(), data.getIntensityStep()));
     }
 
     public void onApplyColorButtonClick() {
