@@ -7,10 +7,11 @@ import de.ostfalia.s2.fahrrad.kennzahl.strategy.KennzahlDistance;
 import de.ostfalia.s2.fahrrad.kennzahl.strategy.KennzahlSpeed;
 
 
+import javax.ejb.Singleton;
 import java.time.LocalDateTime;
 import java.util.*;
 
-@ Singelton
+@Singleton
 public class Datacollector {
     int id;
     List<Bicycle> list;
