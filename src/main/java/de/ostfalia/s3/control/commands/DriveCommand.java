@@ -5,6 +5,7 @@ import de.ostfalia.s2.fahrrad.control.BicycleService;
 import de.ostfalia.s2.fahrrad.entity.Bicycle;
 import de.ostfalia.s2.fahrrad.entity.BicycleDetailData;
 import de.ostfalia.s2.fahrrad.kennzahl.strategy.KennzahlSpeed;
+import de.ostfalia.s3.entity.Datacollector;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -28,9 +29,8 @@ public class DriveCommand extends AbstractThreadCommand{
         Thread thread = new Thread(() -> {
 
         while (!getThread().isInterrupted()) {
-            List<Bicycle> fahrrad = bs.getFahrradDaten(channel, LocalDateTime.now(), LocalDateTime.now().minusMinutes(1), 1);
-            KennzahlSpeed speed = null;
-            double ms = speed.getAverage(fahrrad);
+            Datacollector bicycle = new Datacollector(channel, 1);
+            double ms = bicycle.speed();
             float km = (float) (ms / 3600);
             float helligkeit = (km / 50) * 100;
             new BrightnessCommand(controller, "fahrrad", helligkeit).execute(controller);
