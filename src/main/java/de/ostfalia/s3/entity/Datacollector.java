@@ -14,16 +14,19 @@ public class Datacollector {
 
     int time;
     private static Datacollector datacollector = null;
-    BicycleService bs = null;
+    BicycleService bs = new BicycleService();
 
     private Datacollector(int id, int time){
         this.id = id;
+        System.out.println("private");
     }
 
     public static Datacollector getInstance(int id, int time){
         if (datacollector == null) {
             datacollector = new Datacollector(id, time);
+            System.out.println("private");
         }
+        System.out.println("static");
         return datacollector;
     }
 
