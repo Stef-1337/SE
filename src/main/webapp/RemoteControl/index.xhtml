@@ -514,6 +514,7 @@
                         </p:commandLink>
 
                         <p:commandLink id="cl10" action="#{remoteControlView.onRunResetButtonClick}" >
+                            <f:ajax render="remote"/>
                             <p:dataList id="remote10" value="reset remote" type="definition" lazy=""
                                         style="text-align: center; -webkit-text-size-adjust: auto">
                                 <f:facet name="header">

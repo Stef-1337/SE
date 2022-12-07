@@ -75,6 +75,11 @@ public class RemoteControlView implements Serializable {
         commands.put(2, new StateCommand(controller, "Off", false));
     }
 
+    private void resetCommands(){
+        commands.clear();
+        initDefaults();
+    }
+
     public void setCommand(int slot, AbstractCommand command) {
         System.out.println("Try setting " + slot + ", " + command);
         if (command.getName().length() != 0)
@@ -164,7 +169,7 @@ public class RemoteControlView implements Serializable {
     }
 
     public void onRunResetButtonClick() {
-
+        resetCommands();
     }
 
 
