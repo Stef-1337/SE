@@ -34,7 +34,7 @@ public class Datacollector {
 
     public double speed(){
         List<Bicycle> list =  bs.getFahrradDaten(id, LocalDateTime.now(), LocalDateTime.now().minusMinutes(time), 1);
-        KennzahlSpeed tmp = null;
+        KennzahlSpeed tmp = new KennzahlSpeed();
         return tmp.getAverage(list);
     }
 
@@ -44,7 +44,7 @@ public class Datacollector {
             setId(channel);
         }
             List<Bicycle> list = bs.getFahrradDaten(id, LocalDateTime.now(), LocalDateTime.now().minusMinutes(time), 1);
-        KennzahlDistance tmp = null;
+        KennzahlDistance tmp = new KennzahlDistance();
         return tmp.getTotal(list);
     }
 
