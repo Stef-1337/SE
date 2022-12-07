@@ -18,6 +18,7 @@ public class Datacollector {
 
     private Datacollector(int id, int time){
         this.id = id;
+        this.time = time;
         System.out.println("private");
     }
 
