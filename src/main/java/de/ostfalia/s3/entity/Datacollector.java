@@ -11,7 +11,7 @@ import javax.ejb.Singleton;
 import java.time.LocalDateTime;
 import java.util.*;
 
-@Singleton
+
 public class Datacollector {
     int id;
     List<Bicycle> list;
