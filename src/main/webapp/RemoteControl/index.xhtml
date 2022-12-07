@@ -346,6 +346,8 @@
     </ui:define>
 
     <ui:define name="footer">
+        <p:commandLink id="lnk" value="View" action="#{testView.viewCommands}" styleClass="font-bold">
+        </p:commandLink>
     </ui:define>
 
     <ui:define name="rechts">
@@ -498,11 +500,12 @@
                             </p:dataList>
                         </p:commandLink>
 
-                        <p:commandLink id="cl9" action="#{remoteControlView.onRunUndoButtonClick}" >
+                        <p:commandLink id="cl9" action="#{remoteControlView.viewCommands}" styleClass="mr-2" >
                             <p:dataList id="remote9" value="up to 5 steps back" type="definition" lazy=""
                                         style="text-align: center; -webkit-text-size-adjust: auto">
                                 <f:facet name="header">
-                                    <p:outputLabel style=" font-size: 14px; margin: fill; text-align: center">Undo
+                                    <p:outputLabel style=" font-size: 14px; margin: fill; text-align: center">
+                                        Undo
                                     </p:outputLabel>
                                 </f:facet>
                                 <p:outputLabel style="font-size: 12px">

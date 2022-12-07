@@ -22,6 +22,8 @@ import de.ostfalia.s3.control.commands.TimeCommand;
 import de.ostfalia.s3.control.commands.UndoCommand;
 import lombok.Getter;
 import lombok.Setter;
+import org.primefaces.PrimeFaces;
+import org.primefaces.model.DialogFrameworkOptions;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
@@ -41,6 +43,7 @@ public class RemoteControlView implements Serializable {
 
     private static final int SIZE = 8;
 
+    int undoIndex;
     private List<Integer> slots;
     private String name;
 
@@ -161,11 +164,10 @@ public class RemoteControlView implements Serializable {
     }
 
     public void onApplyUndoButtonClick() {
-        addCommand(new UndoCommand(controller, data.getName(), -1, commandProcessor));
+        addCommand(new UndoCommand(controller, data.getName(), undoIndex, commandProcessor));
     }
 
     public void onRunUndoButtonClick() {
-
     }
 
     public void onRunResetButtonClick() {
@@ -176,6 +178,15 @@ public class RemoteControlView implements Serializable {
     public void doNothing(){
 
     }
+
+    public void viewCommands() {
+        DialogFrameworkOptions options = DialogFrameworkOptions.builder()
+                .resizable(false)
+                .build();
+        System.out.println("test");
+        PrimeFaces.current().dialog().openDynamic("src/main/webapp/RemoteControl/commandView.xhtml", options, null);
+    }
+
 
 }
 
