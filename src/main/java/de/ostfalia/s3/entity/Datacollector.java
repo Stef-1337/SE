@@ -2,37 +2,49 @@ package de.ostfalia.s3.entity;
 
 import de.ostfalia.s2.fahrrad.control.BicycleService;
 import de.ostfalia.s2.fahrrad.entity.Bicycle;
-import de.ostfalia.s2.fahrrad.kennzahl.Kennzahl;
 import de.ostfalia.s2.fahrrad.kennzahl.strategy.KennzahlDistance;
 import de.ostfalia.s2.fahrrad.kennzahl.strategy.KennzahlSpeed;
 
-
-import javax.ejb.Singleton;
 import java.time.LocalDateTime;
 import java.util.*;
 
 
 public class Datacollector {
     int id;
-    List<Bicycle> list;
-    int time;
 
-    public Datacollector(int id, int time){
-        BicycleService bs = null;
-        this.list = bs.getFahrradDaten(id, LocalDateTime.now(), LocalDateTime.now().minusMinutes(time), 1);
+    int time;
+    private static Datacollector datacollector = null;
+    BicycleService bs = null;
+
+    private Datacollector(int id, int time){
         this.id = id;
     }
 
+    public static Datacollector getInstance(int id, int time){
+        if (datacollector == null) {
+            datacollector = new Datacollector(id, time);
+        }
+        return datacollector;
+    }
+
+
     public double speed(){
+        List<Bicycle> list =  bs.getFahrradDaten(id, LocalDateTime.now(), LocalDateTime.now().minusMinutes(time), 1);
         KennzahlSpeed tmp = null;
         return tmp.getAverage(list);
     }
 
-    public double distanz(){
+
+    public double distanz(int channel){
+        if (channel != id) {
+            setId(channel);
+        }
+            List<Bicycle> list = bs.getFahrradDaten(id, LocalDateTime.now(), LocalDateTime.now().minusMinutes(time), 1);
         KennzahlDistance tmp = null;
         return tmp.getTotal(list);
     }
 
-
-
+    public void setId(int id) {
+        this.id = id;
+    }
 }

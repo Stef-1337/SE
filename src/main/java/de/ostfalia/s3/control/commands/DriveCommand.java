@@ -7,6 +7,7 @@ import de.ostfalia.s2.fahrrad.entity.BicycleDetailData;
 import de.ostfalia.s2.fahrrad.kennzahl.strategy.KennzahlSpeed;
 import de.ostfalia.s3.entity.Datacollector;
 
+import javax.ejb.Schedule;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -27,14 +28,19 @@ public class DriveCommand extends AbstractThreadCommand{
     public void execute(AbstractLampController controller) {
 
         Thread thread = new Thread(() -> {
-
-        while (!getThread().isInterrupted()) {
-            Datacollector bicycle = new Datacollector(channel, 1);
-            double ms = bicycle.speed();
-            float km = (float) (ms / 3600);
-            float helligkeit = (km / 50) * 100;
-            new BrightnessCommand(controller, "fahrrad", helligkeit).execute(controller);
-        }
+            try {
+                Datacollector bicycle = Datacollector.getInstance(channel, 1);
+                while (!getThread().isInterrupted()) {
+                    double ms = bicycle.speed();
+                    Thread.sleep(60000);
+                    float km = (float) (ms / 3600);
+                    float helligkeit = (km / 50) * 100;
+                    new BrightnessCommand(controller, "fahrrad", helligkeit).execute(controller);
+                }
+            }
+        catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         });
         runThread(thread);
     }
