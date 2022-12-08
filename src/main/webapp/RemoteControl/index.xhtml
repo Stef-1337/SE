@@ -336,7 +336,7 @@
 <!--                            <f:selectItems value="#{remoteControlView.slots}"/>-->
 <!--                        </p:selectOneMenu>-->
 <!--                        <p:commandButton value="add" process="undo" update="remote"-->
-<!--                                         action="#{remoteControlView.onApplyUndoButtonClick}" id="btn8"-->
+<!--                                         action="#{remoteControlView.onApplyUndoButtonClick()}" id="btn8"-->
 <!--                                         styleClass="mr-2"/>-->
 <!--                        <p:defaultCommand target="btn8" scope="panel8"/>-->
 <!--                    </h:panelGrid>-->
@@ -346,7 +346,7 @@
     </ui:define>
 
     <ui:define name="footer">
-        <p:commandLink id="lnk" value="View" action="#{remoteControlView.onApplyUndoButtonClick}" styleClass="font-bold">
+        <p:commandLink id="lnk" value="View" action="#{remoteControlView.viewCommands()}" styleClass="font-bold">
         </p:commandLink>
     </ui:define>
 

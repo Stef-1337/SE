@@ -2,8 +2,6 @@ package de.ostfalia.s3.boundary;
 
 import de.ostfalia.s1.lamp.AbstractLampController;
 import de.ostfalia.s1.lamp.ColorSelector;
-import de.ostfalia.s1.lamp.HueColor;
-import de.ostfalia.s2.fahrrad.boundary.BicycleDetailView;
 import de.ostfalia.s3.control.ColorService;
 import de.ostfalia.s3.control.CommandParameterData;
 import de.ostfalia.s3.control.CommandProcessor;
@@ -14,7 +12,6 @@ import de.ostfalia.s3.control.commands.DimCommand;
 import de.ostfalia.s3.control.commands.FlashCommand;
 import de.ostfalia.s3.control.commands.LampCommand;
 import de.ostfalia.s3.control.commands.PartyCommand;
-import de.ostfalia.s3.control.commands.RaceCommand;
 import de.ostfalia.s3.control.commands.RainbowCommand;
 import de.ostfalia.s3.control.commands.SOSCommand;
 import de.ostfalia.s3.control.commands.StateCommand;
@@ -26,11 +23,11 @@ import org.primefaces.PrimeFaces;
 import org.primefaces.model.DialogFrameworkOptions;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.event.ValueChangeEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -43,7 +40,7 @@ public class RemoteControlView implements Serializable {
 
     private static final int SIZE = 8;
 
-    int undoIndex;
+    String undoString;
     private List<Integer> slots;
     private String name;
 
@@ -164,11 +161,19 @@ public class RemoteControlView implements Serializable {
     }
 
     public void onApplyUndoButtonClick() {
-        addCommand(new UndoCommand(controller, data.getName(), -1, commandProcessor));
-        System.out.println(commandProcessor.getUndoList().toString());
+//        addCommand(new UndoCommand(controller, data.getName(), undoString, commandProcessor));
     }
 
     public void onRunUndoButtonClick() {
+        System.out.println("wird aufgerufen");
+        System.out.println(undoString);
+        if (undoString != null) {
+            new UndoCommand(controller, data.getName(), Integer.parseInt(undoString.split(":")[0]), commandProcessor).execute(controller);
+        }
+    }
+
+    public void undoListener(ValueChangeEvent e){
+        undoString = e.toString();
     }
 
     public void onRunResetButtonClick() {
@@ -184,8 +189,7 @@ public class RemoteControlView implements Serializable {
         DialogFrameworkOptions options = DialogFrameworkOptions.builder()
                 .resizable(false)
                 .build();
-        System.out.println("test");
-        PrimeFaces.current().dialog().openDynamic("src/main/webapp/RemoteControl/commandView.xhtml", options, null);
+        PrimeFaces.current().dialog().openDynamic("/RemoteControl/commandView", options, null);
     }
 
 

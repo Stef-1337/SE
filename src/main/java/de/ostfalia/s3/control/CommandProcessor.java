@@ -76,4 +76,21 @@ public class CommandProcessor {
             execute(command);
     }
 
+    public int getIndex( ICommand iCommand){
+        for (int i = 0; i < undoList.size(); i++){
+            if (undoList.get(i).equals(iCommand)){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public List<String> getUndoListString(){
+        List<String> stringList = new ArrayList<>();
+        for (int i = 0; i < undoList.size(); i++){
+            ICommand command = undoList.get(i);
+            stringList.add(i + ": " + command.getName());
+        }
+        return stringList;
+    }
 }

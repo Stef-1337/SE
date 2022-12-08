@@ -16,8 +16,6 @@ import javax.faces.convert.FacesConverter;
 @FacesConverter("TimeConverter")
 public class TimeConverter implements Converter {
 
-    ColorSelector colorSelector = new ColorSelector();
-
     @Override
     public Object getAsObject(FacesContext facesContext, UIComponent uiComponent, String s) {
         int time = Integer.parseInt(s);

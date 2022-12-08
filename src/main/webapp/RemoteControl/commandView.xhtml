@@ -26,13 +26,12 @@
 <!--</h:body>-->
 
 <h:body>
-    <p:selectOneListbox id="basic" value="#{remoteControlView.undoIndex}"  valueChangeListener="#{remoteControlView.onApplyUndoButtonClick()}">
-        <f:selectItem itemLabel="#{remoteControlView.commandProcessor.undoList.get(0).name}" itemValue="0" />
-        <f:selectItem itemLabel="#{remoteControlView.commandProcessor.undoList.get(1).name}" itemValue="1"/>
-        <f:selectItem itemLabel="#{remoteControlView.commandProcessor.undoList.get(2).name}" itemValue="2"/>
-        <f:selectItem itemLabel="#{remoteControlView.commandProcessor.undoList.get(3).name}" itemValue="3"/>
-        <f:selectItem itemLabel="#{remoteControlView.commandProcessor.undoList.get(4).name}" itemValue="4"/>
+    <p:selectOneListbox id="basic" value="#{remoteControlView.undoString}" valueChangeListener="#{remoteControlView.undoListener}" converter="CommandConverter">
+        <f:selectItems var="commandName" value="#{remoteControlView.commandProcessor.undoListString}" itemLabel="#{commandName}"
+                       itemValue="#{commandName}"/>
+        <p:ajax event="change" update="#{remoteControlView.undoString}"  listener="#{remoteControlView.undoListener}" process="#{remoteControlView.onRunUndoButtonClick()}"/>
     </p:selectOneListbox>
+
 </h:body>
 
 </html>
