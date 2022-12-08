@@ -164,7 +164,8 @@ public class RemoteControlView implements Serializable {
     }
 
     public void onApplyUndoButtonClick() {
-        addCommand(new UndoCommand(controller, data.getName(), undoIndex, commandProcessor));
+        addCommand(new UndoCommand(controller, data.getName(), -1, commandProcessor));
+        System.out.println(commandProcessor.getUndoList().toString());
     }
 
     public void onRunUndoButtonClick() {
