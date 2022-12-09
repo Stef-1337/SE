@@ -69,23 +69,23 @@ public class Java2NodeRedLampAdapter implements ILamp, Serializable {
         SelectItemGroup group8 = new SelectItemGroup("Pink");
         SelectItemGroup group9 = new SelectItemGroup("Weiß");
 
-        SelectItem option11 = new SelectItem(new HueColor("lightsalmon", "#FFA07A", 255, 160, 122, (float) 0.5015, (float) 0.3530, Colors.RED),"lightsalmon");
+        SelectItem option11 = new SelectItem(new HueColor("lightsalmon", "#FFA07A", 255, 160, 122, (float) 0.5015, (float) 0.3530, Colors.RED), "lightsalmon");
         SelectItem option12 = new SelectItem(new HueColor("salmon", "	#FA8072", 250, 128, 114, (float) 0.5347, (float) 0.3256, Colors.RED), "salmon");
         SelectItem option13 = new SelectItem(new HueColor("darksalmon", "#E9967A", 233, 150, 122, (float) 0.4849, (float) 0.3476, Colors.RED), "darksalmon");
         SelectItem option14 = new SelectItem(new HueColor("lightcoral", "#F08080", 240, 128, 128, (float) 0.5065, (float) 0.3145, Colors.RED), "lightcoral");
         SelectItem option15 = new SelectItem(new HueColor("indianred", "#CD5C5C", 205, 92, 92, (float) 0.5475, (float) 0.3113, Colors.RED), "indianred");
         SelectItem option16 = new SelectItem(new HueColor("crimson", "#DC143C", 220, 20, 60, (float) 0.6435, (float) 0.3045, Colors.RED), "crimson");
-        SelectItem option17 = new SelectItem(new HueColor("firebrick", "#B22222", 178, 34, 34, (float) 0.6554, (float) 0.3111, Colors.RED),  "firebrick");
+        SelectItem option17 = new SelectItem(new HueColor("firebrick", "#B22222", 178, 34, 34, (float) 0.6554, (float) 0.3111, Colors.RED), "firebrick");
         SelectItem option18 = new SelectItem(new HueColor("red", "	#FF0000", 255, 0, 0, (float) 0.675, (float) 0.322, Colors.RED), "red");
         SelectItem option19 = new SelectItem(new HueColor("darkred", "#8B0000", 139, 0, 0, (float) 0.675, (float) 0.322, Colors.RED), "darkred");
         group1.setSelectItems(new SelectItem[]{option11, option12, option13, option14, option15, option16, option17, option18, option19});
 
 
         SelectItem option21 = new SelectItem(new HueColor("coral", "#FF7F50", 255, 127, 80, (float) 0.5754, (float) 0.3480, Colors.ORANGE), "coral");
-        SelectItem option22 = new SelectItem(new HueColor("tomato", "#FF6347", 255, 99, 71, (float) 0.6111, (float) 0.3260, Colors.ORANGE),  "tomato");
+        SelectItem option22 = new SelectItem(new HueColor("tomato", "#FF6347", 255, 99, 71, (float) 0.6111, (float) 0.3260, Colors.ORANGE), "tomato");
         SelectItem option23 = new SelectItem(new HueColor("orangered", "#FF4500", 255, 69, 0, (float) 0.6725, (float) 0.3230, Colors.ORANGE), "orangered");
         SelectItem option24 = new SelectItem(new HueColor("gold", "#FFD700", 255, 215, 0, (float) 0.4852, (float) 0.4619, Colors.ORANGE), "gold");
-        SelectItem option25 = new SelectItem(new HueColor("orange", "#FFA500", 255, 165, 0, (float) 0.5567, (float) 0.4091, Colors.ORANGE),  "orange");
+        SelectItem option25 = new SelectItem(new HueColor("orange", "#FFA500", 255, 165, 0, (float) 0.5567, (float) 0.4091, Colors.ORANGE), "orange");
         SelectItem option26 = new SelectItem(new HueColor("darkorange", "#FF8C00", 255, 140, 0, (float) 0.5921, (float) 0.3830, Colors.ORANGE), "darkorange");
         group2.setSelectItems(new SelectItem[]{option21, option22, option23, option24, option25, option26});
 
@@ -98,7 +98,7 @@ public class Java2NodeRedLampAdapter implements ILamp, Serializable {
         SelectItem option36 = new SelectItem(new HueColor("peachpuff", "#FFDAB9", 255, 218, 185, (float) 0.3948, (float) 0.3597, Colors.YELLOW), "peachpuff");
         SelectItem option37 = new SelectItem(new HueColor("palegoldenrod", "#EEE8AA", 238, 232, 170, (float) 0.3762, (float) 0.3978, Colors.YELLOW), "palegoldenrod");
         SelectItem option38 = new SelectItem(new HueColor("khaki", "#F0E68C", 240, 230, 140, (float) 0.4023, (float) 0.4267, Colors.YELLOW), "khaki");
-        SelectItem option39 = new SelectItem(new HueColor("darkkhaki", "#BDB76B", 189, 183, 107, (float) 0.4019, (float) 0.4324, Colors.YELLOW),"darkkhaki");
+        SelectItem option39 = new SelectItem(new HueColor("darkkhaki", "#BDB76B", 189, 183, 107, (float) 0.4019, (float) 0.4324, Colors.YELLOW), "darkkhaki");
         SelectItem option310 = new SelectItem(new HueColor("yellow", "#FFFF00", 255, 255, 0, (float) 0.4325, (float) 0.5007, Colors.YELLOW), "yellow");
         group3.setSelectItems(new SelectItem[]{option31, option32, option33, option34, option35, option36, option37, option38, option39, option310});
 
@@ -121,18 +121,18 @@ public class Java2NodeRedLampAdapter implements ILamp, Serializable {
         SelectItem option416 = new SelectItem(new HueColor("seagreen", "#2E8B57", 46, 139, 87, (float) 0.3580, (float) 0.4172, Colors.GREEN), "seagreen");
         SelectItem option417 = new SelectItem(new HueColor("olive", "#808000", 128, 128, 0, (float) 0.4325, (float) 0.5007, Colors.GREEN), "olive");
         SelectItem option418 = new SelectItem(new HueColor("darkolivegreen", "#556B2F", 85, 107, 47, (float) 0.3886, (float) 0.4776, Colors.GREEN), "darkolivegreen");
-        SelectItem option419 = new SelectItem(new HueColor("olivedrab", "#6B8E23", 107, 142, 35, (float) 0.4091, (float) 0.518, Colors.GREEN),  "olivedrab");
+        SelectItem option419 = new SelectItem(new HueColor("olivedrab", "#6B8E23", 107, 142, 35, (float) 0.4091, (float) 0.518, Colors.GREEN), "olivedrab");
         group4.setSelectItems(new SelectItem[]{option41, option42, option43, option44, option45, option46, option47, option48, option49, option410, option411, option412, option413, option414, option415, option416, option417, option418, option419});
 
         SelectItem option51 = new SelectItem(new HueColor("lightcyan", "#E0FFFF", 224, 255, 255, (float) 0.3096, (float) 0.3216, Colors.CYAN), "lightcyan");
         SelectItem option52 = new SelectItem(new HueColor("cyan", "#00FFFF", 0, 255, 255, (float) 0.2857, (float) 0.2744, Colors.CYAN), "cyan");
-        SelectItem option53 = new SelectItem(new HueColor("aqua", "#00FFFF", 0, 255, 255, (float) 0.2857, (float) 0.2744, Colors.CYAN),  "aqua");
-        SelectItem option54 = new SelectItem(new HueColor("aquamarine", "#7FFFD4", 127, 255, 212, (float) 0.3230, (float) 0.3480, Colors.CYAN),"aquamarine");
+        SelectItem option53 = new SelectItem(new HueColor("aqua", "#00FFFF", 0, 255, 255, (float) 0.2857, (float) 0.2744, Colors.CYAN), "aqua");
+        SelectItem option54 = new SelectItem(new HueColor("aquamarine", "#7FFFD4", 127, 255, 212, (float) 0.3230, (float) 0.3480, Colors.CYAN), "aquamarine");
         SelectItem option55 = new SelectItem(new HueColor("mediumaquamarine", "#66CDAA", 102, 205, 170, (float) 0.3231, (float) 0.3483, Colors.CYAN), "mediumaquamarine");
         SelectItem option56 = new SelectItem(new HueColor("paleturquoise", "#AFEEEE", 175, 238, 238, (float) 0.3032, (float) 0.3090, Colors.CYAN), "paleturquoise");
         SelectItem option57 = new SelectItem(new HueColor("turquoise", "#40E0D0", 64, 224, 208, (float) 0.3005, (float) 0.3036, Colors.CYAN), "turquoise");
         SelectItem option58 = new SelectItem(new HueColor("mediumturquoise", "#48D1CC", 72, 209, 204, (float) 0.2937, (float) 0.2902, Colors.CYAN), "mediumturquoise");
-        SelectItem option59 = new SelectItem(new HueColor("darkturquoise", "#00CED1", 0, 206, 209, (float) 0.2834, (float) 0.2698, Colors.CYAN),"darkturquoise");
+        SelectItem option59 = new SelectItem(new HueColor("darkturquoise", "#00CED1", 0, 206, 209, (float) 0.2834, (float) 0.2698, Colors.CYAN), "darkturquoise");
         SelectItem option510 = new SelectItem(new HueColor("lightseagreen", "#20B2AA", 32, 178, 170, (float) 0.2944, (float) 0.2916, Colors.CYAN), "lightseagreen");
         SelectItem option511 = new SelectItem(new HueColor("cadetblue", "#5F9EA0", 95, 158, 160, (float) 0.2963, (float) 0.2953, Colors.CYAN), "cadetblue");
         SelectItem option512 = new SelectItem(new HueColor("darkcyan", "#008B8B", 0, 139, 139, (float) 0.2857, (float) 0.2744, Colors.CYAN), "darkcyan");
@@ -146,11 +146,11 @@ public class Java2NodeRedLampAdapter implements ILamp, Serializable {
         SelectItem option65 = new SelectItem(new HueColor("deepskyblue", "#00BFFF", 0, 191, 255, (float) 0.2425, (float) 0.1892, Colors.BLUE), "deepskyblue");
         SelectItem option66 = new SelectItem(new HueColor("lightsteelblue", "#B0C4DE", 176, 196, 222, (float) 0.2926, (float) 0.2880, Colors.BLUE), "lightsteelblue");
         SelectItem option67 = new SelectItem(new HueColor("dodgerblue", "#1E90FF", 30, 144, 255, (float) 0.2124, (float) 0.1297, Colors.BLUE), "dodgerblue");
-        SelectItem option68 = new SelectItem(new HueColor("cornflowerblue", "#6495ED", 100, 149, 237, (float) 0.2355, (float) 0.1753, Colors.BLUE),  "cornflowerblue");
+        SelectItem option68 = new SelectItem(new HueColor("cornflowerblue", "#6495ED", 100, 149, 237, (float) 0.2355, (float) 0.1753, Colors.BLUE), "cornflowerblue");
         SelectItem option69 = new SelectItem(new HueColor("steelblue", "#4682B4", 70, 130, 180, (float) 0.2491, (float) 0.2021, Colors.BLUE), "steelblue");
         SelectItem option610 = new SelectItem(new HueColor("royalblue", "#4169E1", 65, 105, 225, (float) 0.2051, (float) 0.1152, Colors.BLUE), "royalblue");
         SelectItem option611 = new SelectItem(new HueColor("blue", "#0000FF", 0, 0, 255, (float) 0.167, (float) 0.04, Colors.BLUE), "blue");
-        SelectItem option612 = new SelectItem(new HueColor("mediumblue", "#0000CD", 0, 0, 205, (float) 0.167, (float) 0.04, Colors.BLUE),  "mediumblue");
+        SelectItem option612 = new SelectItem(new HueColor("mediumblue", "#0000CD", 0, 0, 205, (float) 0.167, (float) 0.04, Colors.BLUE), "mediumblue");
         SelectItem option613 = new SelectItem(new HueColor("darkblue", "#00008B", 0, 0, 139, (float) 0.167, (float) 0.04, Colors.BLUE), "darkblue");
         SelectItem option614 = new SelectItem(new HueColor("navy", "#000080", 0, 0, 128, (float) 0.167, (float) 0.04, Colors.BLUE), "navy");
         SelectItem option615 = new SelectItem(new HueColor("midnightblue", "#191970", 25, 25, 112, (float) 0.1821, (float) 0.0698, Colors.BLUE), "midnightblue");
@@ -184,13 +184,13 @@ public class Java2NodeRedLampAdapter implements ILamp, Serializable {
         SelectItem option86 = new SelectItem(new HueColor("mediumvioletred", "#C71585", 199, 21, 133, (float) 0.4997, (float) 0.2247, Colors.PINK), "mediumvioletred");
         group8.setSelectItems(new SelectItem[]{option81, option82, option83, option84, option85, option86});
 
-        SelectItem option91 = new SelectItem(new HueColor("white", "#FFFFFF", 255, 255, 255, (float) 0.3227, (float) 0.3287, Colors.WHITE),  "white");
-        SelectItem option92 = new SelectItem(new HueColor("snow", "#FFFAFA", 255, 250, 250, (float) 0.3280, (float) 0.3286, Colors.WHITE),  "snow");
+        SelectItem option91 = new SelectItem(new HueColor("white", "#FFFFFF", 255, 255, 255, (float) 0.3227, (float) 0.3287, Colors.WHITE), "white");
+        SelectItem option92 = new SelectItem(new HueColor("snow", "#FFFAFA", 255, 250, 250, (float) 0.3280, (float) 0.3286, Colors.WHITE), "snow");
         SelectItem option93 = new SelectItem(new HueColor("honeydew", "#F0FFF0", 240, 255, 240, (float) 0.3210, (float) 0.3441, Colors.WHITE), "honeydew");
-        SelectItem option94 = new SelectItem(new HueColor("mintcream", "#F5FFFA", 245, 255, 250, (float) 0.3162, (float) 0.3346, Colors.WHITE),  "mintcream");
+        SelectItem option94 = new SelectItem(new HueColor("mintcream", "#F5FFFA", 245, 255, 250, (float) 0.3162, (float) 0.3346, Colors.WHITE), "mintcream");
         SelectItem option95 = new SelectItem(new HueColor("azure", "#F0FFFF", 240, 255, 255, (float) 0.3125, (float) 0.3274, Colors.WHITE), "azure");
         SelectItem option96 = new SelectItem(new HueColor("aliceblue", "#F0F8FF", 240, 248, 255, (float) 0.3098, (float) 0.3220, Colors.WHITE), "aliceblue");
-        SelectItem option97 = new SelectItem(new HueColor("ghostwhite", "#F8F8FF", 248, 248, 255, (float) 0.3098, (float) 0.3220, Colors.WHITE),  "ghostwhite");
+        SelectItem option97 = new SelectItem(new HueColor("ghostwhite", "#F8F8FF", 248, 248, 255, (float) 0.3098, (float) 0.3220, Colors.WHITE), "ghostwhite");
         SelectItem option98 = new SelectItem(new HueColor("whitesmoke", "#F5F5F5", 245, 245, 245, (float) 0.3227, (float) 0.3290, Colors.WHITE), "whitesmoke");
         SelectItem option99 = new SelectItem(new HueColor("seashell", "#FFF5EE", 255, 245, 238, (float) 0.3385, (float) 0.3353, Colors.WHITE), "seashell");
         SelectItem option910 = new SelectItem(new HueColor("beige", "#F5F5DC", 245, 245, 220, (float) 0.3401, (float) 0.3559, Colors.WHITE), "beige");
@@ -215,8 +215,11 @@ public class Java2NodeRedLampAdapter implements ILamp, Serializable {
     }
 
     public void initHashmap() {
-        File f = new File("src/main/resources/Farbcodes.csv");
-        try (BufferedReader br = new BufferedReader(new FileReader(f.getAbsolutePath().replace("WildFly Server/wildfly-26.1.2.Final/bin/", "lab/")))) {
+        try {
+            InputStream stream = getClass().getResourceAsStream("/Farbcodes.csv");
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(stream));
+
             String line;
             int i = 0;
             while ((line = br.readLine()) != null) {
@@ -229,6 +232,8 @@ public class Java2NodeRedLampAdapter implements ILamp, Serializable {
             List<Float> floatList = new ArrayList<>(2);
             floatList.add((float) 0.4212);
             floatList.add((float) 0.1823);
+
+            System.out.println(xyWerte.size());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -329,7 +334,17 @@ public class Java2NodeRedLampAdapter implements ILamp, Serializable {
             lamp.setX(x);
             lamp.setY(y);
 
-            lamp.setColorName(xyWerte.get(Arrays.asList(x, y)));
+            String colorName = "null";
+
+            if (!xyWerte.isEmpty())
+                for (List<Float> keys : xyWerte.keySet())
+                    if (keys.contains(x) && keys.contains(y)) {
+                        colorName = xyWerte.get(keys);
+
+                        break;
+                    }
+
+            lamp.setColorName(colorName);
 
             return lamp;
         } catch (MalformedURLException ex) {
