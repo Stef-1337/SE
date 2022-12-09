@@ -12,26 +12,16 @@
     </style>
 </h:head>
 
-<!--<h:body>-->
-<!--    <p:dataTable var="undo" value="#{remoteControlView.commandProcessor.undoList}">-->
-<!--        <p:column headerText="Command">-->
-<!--            <h:outputText value="#{undo.name}"/>-->
-<!--        </p:column>-->
-
-<!--        <p:column headerText="Config">-->
-<!--            <h:outputText value="#{undo.config}"/>-->
-<!--        </p:column>-->
-
-<!--    </p:dataTable>-->
-<!--</h:body>-->
-
 <h:body>
-    <p:selectOneListbox id="basic" value="#{remoteControlView.undoString}" valueChangeListener="#{remoteControlView.undoListener}" converter="CommandConverter">
-        <f:selectItems var="commandName" value="#{remoteControlView.commandProcessor.undoListString}" itemLabel="#{commandName}"
-                       itemValue="#{commandName}"/>
-        <p:ajax event="change" update="#{remoteControlView.undoString}"  listener="#{remoteControlView.undoListener}" process="#{remoteControlView.onRunUndoButtonClick()}"/>
-    </p:selectOneListbox>
-
+    <div class="card">
+        <h:form>
+            <p:selectOneListbox id="basic" onchange="submit()"
+                                valueChangeListener="#{remoteControlView.onSelectBoxClick}">
+                <f:selectItems value="#{remoteControlView.commandProcessor.undoListString}" var="command"
+                               itemLabel="#{command}"/>
+            </p:selectOneListbox>
+        </h:form>
+    </div>
 </h:body>
 
 </html>

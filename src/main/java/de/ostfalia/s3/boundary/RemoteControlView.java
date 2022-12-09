@@ -10,6 +10,7 @@ import de.ostfalia.s3.control.commands.BrightnessCommand;
 import de.ostfalia.s3.control.commands.ColorCommand;
 import de.ostfalia.s3.control.commands.DimCommand;
 import de.ostfalia.s3.control.commands.FlashCommand;
+import de.ostfalia.s3.control.commands.ICommand;
 import de.ostfalia.s3.control.commands.LampCommand;
 import de.ostfalia.s3.control.commands.PartyCommand;
 import de.ostfalia.s3.control.commands.RainbowCommand;
@@ -40,7 +41,6 @@ public class RemoteControlView implements Serializable {
 
     private static final int SIZE = 8;
 
-    String undoString;
     private List<Integer> slots;
     private String name;
 
@@ -160,29 +160,14 @@ public class RemoteControlView implements Serializable {
 //        addCommand(new RaceCommand(controller, data.getName(), data.getChannel1(), data.getChannel2(), data.getColor(), data.getColor2(), data.getTimeRange());
     }
 
-    public void onApplyUndoButtonClick() {
-//        addCommand(new UndoCommand(controller, data.getName(), undoString, commandProcessor));
-    }
-
-    public void onRunUndoButtonClick() {
-        System.out.println("wird aufgerufen");
-        System.out.println(undoString);
-        if (undoString != null) {
-            new UndoCommand(controller, data.getName(), Integer.parseInt(undoString.split(":")[0]), commandProcessor).execute(controller);
-        }
-    }
-
-    public void undoListener(ValueChangeEvent e){
-        undoString = e.toString();
+    public void onSelectBoxClick(ValueChangeEvent event){
+        String undoString = (String) event.getNewValue();
+        System.out.println("Trying to go back to " + undoString);
+        new UndoCommand(controller, "Undo", Integer.parseInt(undoString.split(":")[0]), commandProcessor).execute(controller);
     }
 
     public void onRunResetButtonClick() {
         resetCommands();
-    }
-
-
-    public void doNothing(){
-
     }
 
     public void viewCommands() {
