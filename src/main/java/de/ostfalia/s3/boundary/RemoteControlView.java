@@ -73,6 +73,14 @@ public class RemoteControlView implements Serializable {
     private void initDefaults() {
         commands.put(1, new StateCommand(controller, "On", true));
         commands.put(2, new StateCommand(controller, "Off", false));
+        initTest();
+    }
+
+    private void initTest(){
+        commands.put(3, new ColorCommand(controller, "Color", colorSelector.getColor("red")));
+        commands.put(4, new ColorCommand(controller, "Color", colorSelector.getColor("blue")));
+        commands.put(5, new PartyCommand(controller, "Party", colorSelector.getColorList(), 100));
+        commands.put(6, new BrightnessCommand(controller, "Brightness", 100));
     }
 
     private void resetCommands(){

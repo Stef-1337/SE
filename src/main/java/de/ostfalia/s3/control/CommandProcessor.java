@@ -30,7 +30,7 @@ public class CommandProcessor {
     }
 
     public void undo(int index) {
-        if(index == -1)
+        if (index == -1)
             index = undoList.size() - 1;
 
         int size = undoList.size();
@@ -47,6 +47,11 @@ public class CommandProcessor {
 
             } else command.undo(controller);
 
+            if(undoList.size() > 0){
+                ICommand current = undoList.get(undoList.size() - 1);
+                if(current instanceof AbstractThreadCommand currentThread)
+                    currentThread.execute(controller);
+            }
         } else System.out.println("Nothing left to undo..");
     }
 
@@ -64,7 +69,7 @@ public class CommandProcessor {
 
             if (command != null && !(command instanceof UndoCommand)) {
                 undoList.add(command);
-                if(undoList.size() > 5)
+                if (undoList.size() > 5)
                     undoList.remove(0);
             }
         } else
@@ -76,20 +81,28 @@ public class CommandProcessor {
             execute(command);
     }
 
-    public int getIndex( ICommand iCommand){
-        for (int i = 0; i < undoList.size(); i++){
-            if (undoList.get(i).equals(iCommand)){
+    public int getIndex(ICommand iCommand) {
+        for (int i = 0; i < undoList.size(); i++) {
+            if (undoList.get(i).equals(iCommand)) {
                 return i;
             }
         }
         return -1;
     }
 
-    public List<String> getUndoListString(){
+    public List<String> getUndoListString() {
         List<String> stringList = new ArrayList<>();
-        for (int i = 0; i < undoList.size(); i++){
+        for (int i = 0; i < undoList.size(); i++) {
             ICommand command = undoList.get(i);
-            stringList.add(i + ": " + command.getName());
+
+            String description = i + ": " + command.getName();
+
+            if (command instanceof AbstractCommand abstractCommand) {
+                Lamp status = abstractCommand.getStatus();
+                description += " (Vorher: " + (status.getState() ? "an" : "aus") + ", " + status.getColorName() + ", " + status.getIntensity() + ")";
+            }
+
+            stringList.add(description);
         }
         return stringList;
     }
