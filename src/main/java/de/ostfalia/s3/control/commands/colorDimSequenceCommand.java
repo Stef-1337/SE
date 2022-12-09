@@ -34,7 +34,8 @@ public class colorDimSequenceCommand extends AbstractThreadCommand {
                         new BrightnessCommand(controller, "brightness", brightnessChange -= time).execute(controller);
                         Thread.sleep(time * 2);
 
-                        if(brightnessChange <= 0) {
+                        if(brightnessChange < 0) brightnessChange = 0f;
+                        if(brightnessChange == 0) {
                             new ColorCommand(controller, "color", colorList.get(rand.nextInt(colorList.size()))).execute(controller);
                         }
                     }
@@ -42,7 +43,8 @@ public class colorDimSequenceCommand extends AbstractThreadCommand {
                         new BrightnessCommand(controller, "brightness", brightnessChange += time).execute(controller);
                         Thread.sleep(time * 2);
 
-                        if(brightnessChange >= 100) {
+                        if(brightnessChange > 100) brightnessChange = 100f;
+                        if(brightnessChange == 100) {
                             new ColorCommand(controller, "color", colorList.get(rand.nextInt(colorList.size()))).execute(controller);
                         }
                     }
