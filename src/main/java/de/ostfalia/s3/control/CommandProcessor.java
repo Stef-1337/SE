@@ -99,7 +99,8 @@ public class CommandProcessor {
 
             if (command instanceof AbstractCommand abstractCommand) {
                 Lamp status = abstractCommand.getStatus();
-                description += " (Vorher: " + (status.getState() ? "an" : "aus") + ", " + status.getColorName() + ", " + status.getIntensity() + ")";
+                String colorName = status.getColorName();
+                description += " (Vorher: " + (status.getState() ? "an" : "aus") + ", " + (colorName.equals("null") ? "XY: " + status.getX() + ", " + status.getY() : "Farbe: " + colorName) + ", " + status.getIntensity() + ")";
             }
 
             stringList.add(description);

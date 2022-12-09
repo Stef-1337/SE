@@ -229,9 +229,9 @@ public class Java2NodeRedLampAdapter implements ILamp, Serializable {
                 floatList.add(Float.valueOf(values[6]));
                 xyWerte.put(floatList, values[0]);
             }
-            List<Float> floatList = new ArrayList<>(2);
-            floatList.add((float) 0.4212);
-            floatList.add((float) 0.1823);
+//            List<Float> floatList = new ArrayList<>(2);
+//            floatList.add((float) 0.4212);
+//            floatList.add((float) 0.1823);
 
             System.out.println(xyWerte.size());
         } catch (IOException e) {
@@ -334,15 +334,21 @@ public class Java2NodeRedLampAdapter implements ILamp, Serializable {
             lamp.setX(x);
             lamp.setY(y);
 
+            new Color(0, 0, 0);
+
             String colorName = "null";
 
-            if (!xyWerte.isEmpty())
-                for (List<Float> keys : xyWerte.keySet())
-                    if (keys.contains(x) && keys.contains(y)) {
-                        colorName = xyWerte.get(keys);
+            if (xyWerte.isEmpty()) {
+                System.out.println("Init hashmap");
+                initHashmap();
+            }
 
-                        break;
-                    }
+            for (List<Float> keys : xyWerte.keySet())
+                if (keys.contains(x) && keys.contains(y)) {
+                    colorName = xyWerte.get(keys);
+
+                    break;
+                }
 
             lamp.setColorName(colorName);
 
