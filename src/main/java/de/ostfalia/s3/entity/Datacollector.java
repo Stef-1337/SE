@@ -16,7 +16,7 @@ public class Datacollector {
     private static Datacollector datacollector = null;
     BicycleService bs = new BicycleService();
 
-    private Datacollector(int id, int time){
+    public Datacollector(int id, int time){
         this.id = id;
         this.time = time;
         System.out.println("private");
