@@ -162,7 +162,6 @@ public class RemoteControlView implements Serializable {
 
     public void onSelectBoxClick(ValueChangeEvent event){
         String undoString = (String) event.getNewValue();
-        System.out.println("Trying to go back to " + undoString);
         new UndoCommand(controller, "Undo", Integer.parseInt(undoString.split(":")[0]), commandProcessor).execute(controller);
     }
 
