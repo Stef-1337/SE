@@ -60,6 +60,7 @@ public class DataSingleton implements Serializable {
         for (int channel : getChannels()) {
             TypedQuery<Bicycle> query = entityManager.createNamedQuery("bicycle.getByBicycleChannelWithTimeLimits", Bicycle.class);
 
+            //TODO zeit anpassen wenn datenbank wieder geht
             LocalDateTime to = LocalDateTime.now();
             to = LocalDateTime.of(2022, 12, 9, 8, 30);
 

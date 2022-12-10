@@ -37,6 +37,7 @@ public class BikeDriveCommand extends AbstractThreadCommand {
                         new BrightnessCommand(controller, "Low", 1f).execute(controller);
                         System.out.println("No data");
                     } else {
+                        //TODO nicht mehr start benutzen wenn die db wieder geht
                         Bicycle current = result.get(start++);
 
                         int frequency = current.getRotations_per_second() / 4;
