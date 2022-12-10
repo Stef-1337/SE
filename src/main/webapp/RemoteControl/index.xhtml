@@ -287,7 +287,7 @@
         <div class="card">
             <h:form id="race">
                 <p:panel header="Race Command" id="panel20" toggleable="true" collapsed="true" styleClass="mb-5">
-                    <h:panelGrid columns="6" cellpadding="10">
+                    <h:panelGrid columns="5" cellpadding="10">
                         <p:inputText id="name20" maxlength="9" placeholder="Befehlsname" value="#{remoteControlView.data.name}"/>
                         <p:selectOneMenu value="#{remoteControlView.slotSelected}">
                             <f:selectItem itemLabel="Position wählen" itemDisabled="true" noSelectionOption="true"/>
@@ -313,9 +313,7 @@
                             <f:selectItems value="#{remoteControlView.colorSelector.colorList}" var="color"
                                            itemLabel="#{color.name}" itemValue="#{color.name}"/>
                         </p:selectOneMenu>
-                        <p:datePicker id="range" selectionMode="range" required="true" value="#{remoteControlView.data.timeRange}"
-                                      showTime="true" locale="de" pattern="dd.MM.yyyy" readonlyInput="true">
-                        </p:datePicker>
+
                         <p:commandButton value="add" process="race" update="remote"
                                          action="#{remoteControlView.onApplyRaceButtonClick}" id="btn20"
                                          styleClass="mr-2"/>

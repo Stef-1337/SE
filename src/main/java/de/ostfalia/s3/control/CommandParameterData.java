@@ -29,7 +29,6 @@ public class CommandParameterData {
     private Integer channel1;
     private Integer channel2;
     private HueColor color2;
-    private List<Date> timeRange;
 
     public CommandParameterData (ColorSelector selector){
         this.colorSelector = selector;
