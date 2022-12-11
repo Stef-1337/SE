@@ -2,7 +2,6 @@ package de.ostfalia.s3.boundary;
 
 import de.ostfalia.s1.lamp.AbstractLampController;
 import de.ostfalia.s1.lamp.ColorSelector;
-import de.ostfalia.s3.control.ColorService;
 import de.ostfalia.s3.control.CommandParameterData;
 import de.ostfalia.s3.control.CommandProcessor;
 import de.ostfalia.s3.control.commands.AbstractCommand;
@@ -11,7 +10,6 @@ import de.ostfalia.s3.control.commands.BrightnessCommand;
 import de.ostfalia.s3.control.commands.ColorCommand;
 import de.ostfalia.s3.control.commands.DimCommand;
 import de.ostfalia.s3.control.commands.FlashCommand;
-import de.ostfalia.s3.control.commands.ICommand;
 import de.ostfalia.s3.control.commands.LampCommand;
 import de.ostfalia.s3.control.commands.PartyCommand;
 import de.ostfalia.s3.control.commands.RaceCommandNew;
@@ -27,7 +25,6 @@ import org.primefaces.model.DialogFrameworkOptions;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.event.ValueChangeEvent;
-import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -45,9 +42,6 @@ public class RemoteControlView implements Serializable {
 
     private List<Integer> slots;
     private String name;
-
-    @Inject
-    private ColorService colorService;
 
     private CommandProcessor commandProcessor;
 
