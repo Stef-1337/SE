@@ -29,9 +29,7 @@
                         <p:commandButton value="add" process="state" update="remote"
                                          action="#{remoteControlView.onApplySwitchButtonClick}"
                                          id="btn1"
-                                         styleClass="mr-2">
-                            <p:link outcome="/RemoteControl/test.jsf"/>
-                        </p:commandButton>
+                                         styleClass="mr-2"/>
                         <p:defaultCommand target="btn1" scope="panel1"/>
                     </h:panelGrid>
                 </p:panel>
@@ -322,6 +320,10 @@
                 </p:panel>
             </h:form>
         </div>
+    </ui:define>
+
+    <ui:define name="footer">
+
     </ui:define>
 
     <ui:define name="rechts">
