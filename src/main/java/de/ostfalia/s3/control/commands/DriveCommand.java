@@ -2,16 +2,12 @@ package de.ostfalia.s3.control.commands;
 
 import de.ostfalia.s1.lamp.AbstractLampController;
 import de.ostfalia.s2.fahrrad.control.BicycleService;
-import de.ostfalia.s2.fahrrad.entity.Bicycle;
-import de.ostfalia.s2.fahrrad.entity.BicycleDetailData;
-import de.ostfalia.s2.fahrrad.kennzahl.strategy.KennzahlSpeed;
+import de.ostfalia.s3.control.commands.command.AbstractThreadCommand;
 import de.ostfalia.s3.entity.Datacollector;
 
-import javax.ejb.Schedule;
-import java.time.LocalDateTime;
 import java.util.List;
 
-public class DriveCommand extends AbstractThreadCommand{
+public class DriveCommand extends AbstractThreadCommand {
     int channel;
     BicycleService bs;
     public DriveCommand(AbstractLampController controller, String name, int channel) {

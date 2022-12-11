@@ -1,14 +1,10 @@
 package de.ostfalia.s3.control.commands;
 
 import de.ostfalia.s1.lamp.AbstractLampController;
-import de.ostfalia.s1.lamp.ColorSelector;
 import de.ostfalia.s2.fahrrad.entity.Bicycle;
-import de.ostfalia.s2.fahrrad.kennzahl.Kennzahl;
+import de.ostfalia.s3.control.commands.command.AbstractThreadCommand;
 import de.ostfalia.s3.entity.DataSingleton;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
 import java.util.List;
 
 public class BikeDriveCommand extends AbstractThreadCommand {

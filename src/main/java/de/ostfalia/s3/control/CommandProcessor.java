@@ -2,18 +2,14 @@ package de.ostfalia.s3.control;
 
 import de.ostfalia.s1.lamp.AbstractLampController;
 import de.ostfalia.s1.lamp.Lamp;
-import de.ostfalia.s1.lamp.LampController;
-import de.ostfalia.s3.control.commands.AbstractCommand;
-import de.ostfalia.s3.control.commands.AbstractThreadCommand;
-import de.ostfalia.s3.control.commands.ICommand;
-import de.ostfalia.s3.control.commands.StateCommand;
+import de.ostfalia.s3.control.commands.command.AbstractCommand;
+import de.ostfalia.s3.control.commands.command.AbstractThreadCommand;
+import de.ostfalia.s3.control.commands.command.ICommand;
 import de.ostfalia.s3.control.commands.UndoCommand;
 import lombok.Getter;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class CommandProcessor {
 

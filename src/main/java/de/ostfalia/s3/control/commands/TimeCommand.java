@@ -1,6 +1,7 @@
 package de.ostfalia.s3.control.commands;
 
 import de.ostfalia.s1.lamp.AbstractLampController;
+import de.ostfalia.s3.control.commands.command.AbstractThreadCommand;
 
 import java.util.List;
 
@@ -29,6 +30,6 @@ public class TimeCommand extends AbstractThreadCommand {
 
     @Override
     public List<String> getConfig() {
-        return List.of("Time: " + time * 0.001 + "\n" + "State: toggle ");
+        return List.of("Time: " + time * 0.001 + "s\nState: toggle ");
     }
 }

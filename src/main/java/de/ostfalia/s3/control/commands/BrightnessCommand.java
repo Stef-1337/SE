@@ -1,8 +1,8 @@
 package de.ostfalia.s3.control.commands;
 
 import de.ostfalia.s1.lamp.AbstractLampController;
+import de.ostfalia.s3.control.commands.command.AbstractCommand;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class BrightnessCommand extends AbstractCommand {

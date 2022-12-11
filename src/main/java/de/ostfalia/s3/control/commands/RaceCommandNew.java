@@ -3,6 +3,7 @@ package de.ostfalia.s3.control.commands;
 import de.ostfalia.s1.lamp.AbstractLampController;
 import de.ostfalia.s1.lamp.HueColor;
 import de.ostfalia.s2.fahrrad.entity.Bicycle;
+import de.ostfalia.s3.control.commands.command.AbstractThreadCommand;
 import de.ostfalia.s3.entity.DataSingleton;
 
 import java.util.List;

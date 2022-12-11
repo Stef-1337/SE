@@ -2,7 +2,7 @@ package de.ostfalia.s3.control.commands;
 
 import de.ostfalia.s1.lamp.AbstractLampController;
 import de.ostfalia.s1.lamp.ColorSelector;
-import de.ostfalia.s1.lamp.HueColor;
+import de.ostfalia.s3.control.commands.command.AbstractThreadCommand;
 
 import java.util.List;
 
@@ -43,6 +43,6 @@ public class RainbowCommand extends AbstractThreadCommand {
 
     @Override
     public List<String> getConfig() {
-        return List.of("Rainbow: Time between: " + time +"ms");
+        return List.of("Speed: " + time +"ms");
     }
 }

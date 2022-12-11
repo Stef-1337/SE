@@ -1,9 +1,8 @@
 package de.ostfalia.s3.control.commands;
 
 import de.ostfalia.s1.lamp.AbstractLampController;
-import de.ostfalia.s1.lamp.HueColor;
+import de.ostfalia.s3.control.commands.command.AbstractThreadCommand;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class FlashCommand extends AbstractThreadCommand {
