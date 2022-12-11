@@ -1,10 +1,11 @@
 package de.ostfalia.s3.control.commands;
 
 import de.ostfalia.s1.lamp.AbstractLampController;
+import de.ostfalia.s3.control.commands.command.AbstractCommand;
 
 import java.util.List;
 
-public class ToggleCommand extends AbstractCommand{
+public class ToggleCommand extends AbstractCommand {
 
     public ToggleCommand(AbstractLampController controller, String name) {
         super(controller, name);
@@ -12,7 +13,7 @@ public class ToggleCommand extends AbstractCommand{
 
     @Override
     public void execute(AbstractLampController controller) {
-            new StateCommand(controller, "toggle", !controller.getAdapter().getState()).execute(controller);
+        new StateCommand(controller, "toggle", !controller.getAdapter().getState()).execute(controller);
     }
 
     @Override

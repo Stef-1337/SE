@@ -1,10 +1,11 @@
 package de.ostfalia.s3.control.commands;
 
 import de.ostfalia.s1.lamp.AbstractLampController;
+import de.ostfalia.s3.control.commands.command.AbstractThreadCommand;
 
 import java.util.List;
 
-public class SOSCommand extends AbstractThreadCommand{
+public class SOSCommand extends AbstractThreadCommand {
 
 
     private int time;
@@ -51,6 +52,6 @@ public class SOSCommand extends AbstractThreadCommand{
 
     @Override
     public List<String> getConfig() {
-        return List.of("SOS intervall: " + time + "s");
+        return List.of("Intervall: " + time + "ms");
     }
 }

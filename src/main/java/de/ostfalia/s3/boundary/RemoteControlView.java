@@ -2,16 +2,17 @@ package de.ostfalia.s3.boundary;
 
 import de.ostfalia.s1.lamp.AbstractLampController;
 import de.ostfalia.s1.lamp.ColorSelector;
-import de.ostfalia.s3.control.ColorService;
 import de.ostfalia.s3.control.CommandParameterData;
 import de.ostfalia.s3.control.CommandProcessor;
-import de.ostfalia.s3.control.commands.AbstractCommand;
+import de.ostfalia.s3.control.commands.command.AbstractCommand;
+import de.ostfalia.s3.control.commands.BikeDriveCommand;
 import de.ostfalia.s3.control.commands.BrightnessCommand;
 import de.ostfalia.s3.control.commands.ColorCommand;
 import de.ostfalia.s3.control.commands.DimCommand;
 import de.ostfalia.s3.control.commands.FlashCommand;
 import de.ostfalia.s3.control.commands.LampCommand;
 import de.ostfalia.s3.control.commands.PartyCommand;
+import de.ostfalia.s3.control.commands.RaceCommandNew;
 import de.ostfalia.s3.control.commands.RainbowCommand;
 import de.ostfalia.s3.control.commands.SOSCommand;
 import de.ostfalia.s3.control.commands.StateCommand;
@@ -19,9 +20,11 @@ import de.ostfalia.s3.control.commands.TimeCommand;
 import de.ostfalia.s3.control.commands.UndoCommand;
 import lombok.Getter;
 import lombok.Setter;
+import org.primefaces.PrimeFaces;
+import org.primefaces.model.DialogFrameworkOptions;
 
 import javax.enterprise.context.SessionScoped;
-import javax.inject.Inject;
+import javax.faces.event.ValueChangeEvent;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -39,9 +42,6 @@ public class RemoteControlView implements Serializable {
 
     private List<Integer> slots;
     private String name;
-
-    @Inject
-    private ColorService colorService;
 
     private CommandProcessor commandProcessor;
 
@@ -69,6 +69,11 @@ public class RemoteControlView implements Serializable {
     private void initDefaults() {
         commands.put(1, new StateCommand(controller, "On", true));
         commands.put(2, new StateCommand(controller, "Off", false));
+    }
+
+    private void resetCommands(){
+        commands.clear();
+        initDefaults();
     }
 
     public void setCommand(int slot, AbstractCommand command) {
@@ -141,13 +146,30 @@ public class RemoteControlView implements Serializable {
         addCommand(new LampCommand(controller, data.getName(), data.isOn(), (float) data.getIntensity(), data.getColor()));
     }
 
-    public void onApplyUndoButtonClick() {
-        addCommand(new UndoCommand(controller, data.getName(), -1, commandProcessor));
+    public void onApplyDriveButtonClick(){
+        addCommand(new BikeDriveCommand(controller, data.getName(), data.getChannel1()));
     }
 
-    public void doNothing(){
-
+    public void onApplyRaceButtonClick(){
+        addCommand(new RaceCommandNew(controller, data.getName(), data.getChannel1(), data.getChannel2(), data.getColor(), data.getColor2()));
     }
+
+    public void onSelectBoxClick(ValueChangeEvent event){
+        String undoString = (String) event.getNewValue();
+        new UndoCommand(controller, "Undo", Integer.parseInt(undoString.split(":")[0]), commandProcessor).execute(controller);
+    }
+
+    public void onRunResetButtonClick() {
+        resetCommands();
+    }
+
+    public void viewCommands() {
+        DialogFrameworkOptions options = DialogFrameworkOptions.builder()
+                .resizable(false)
+                .build();
+        PrimeFaces.current().dialog().openDynamic("/RemoteControl/commandView", options, null);
+    }
+
 
 }
 

@@ -2,18 +2,14 @@ package de.ostfalia.s3.control;
 
 import de.ostfalia.s1.lamp.AbstractLampController;
 import de.ostfalia.s1.lamp.Lamp;
-import de.ostfalia.s1.lamp.LampController;
-import de.ostfalia.s3.control.commands.AbstractCommand;
-import de.ostfalia.s3.control.commands.AbstractThreadCommand;
-import de.ostfalia.s3.control.commands.ICommand;
-import de.ostfalia.s3.control.commands.StateCommand;
+import de.ostfalia.s3.control.commands.command.AbstractCommand;
+import de.ostfalia.s3.control.commands.command.AbstractThreadCommand;
+import de.ostfalia.s3.control.commands.command.ICommand;
 import de.ostfalia.s3.control.commands.UndoCommand;
 import lombok.Getter;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class CommandProcessor {
 
@@ -30,7 +26,7 @@ public class CommandProcessor {
     }
 
     public void undo(int index) {
-        if(index == -1)
+        if (index == -1)
             index = undoList.size() - 1;
 
         int size = undoList.size();
@@ -47,6 +43,11 @@ public class CommandProcessor {
 
             } else command.undo(controller);
 
+            if(undoList.size() > 0){
+                ICommand current = undoList.get(undoList.size() - 1);
+                if(current instanceof AbstractThreadCommand currentThread)
+                    currentThread.execute(controller);
+            }
         } else System.out.println("Nothing left to undo..");
     }
 
@@ -64,7 +65,7 @@ public class CommandProcessor {
 
             if (command != null && !(command instanceof UndoCommand)) {
                 undoList.add(command);
-                if(undoList.size() > 5)
+                if (undoList.size() > 5)
                     undoList.remove(0);
             }
         } else
@@ -76,4 +77,30 @@ public class CommandProcessor {
             execute(command);
     }
 
+    public int getIndex(ICommand iCommand) {
+        for (int i = 0; i < undoList.size(); i++) {
+            if (undoList.get(i).equals(iCommand)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public List<String> getUndoListString() {
+        List<String> stringList = new ArrayList<>();
+        for (int i = 0; i < undoList.size(); i++) {
+            ICommand command = undoList.get(i);
+
+            String description = i + ": " + command.getName();
+
+            if (command instanceof AbstractCommand abstractCommand) {
+                Lamp status = abstractCommand.getStatus();
+                String colorName = status.getColorName();
+                description += " (Vorher: " + (status.getState() ? "an" : "aus") + ", " + (colorName.equals("null") ? "XY: " + status.getX() + ", " + status.getY() : "Farbe: " + colorName) + ", " + status.getIntensity() + ")";
+            }
+
+            stringList.add(description);
+        }
+        return stringList;
+    }
 }

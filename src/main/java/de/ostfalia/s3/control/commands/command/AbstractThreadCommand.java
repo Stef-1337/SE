@@ -1,4 +1,4 @@
-package de.ostfalia.s3.control.commands;
+package de.ostfalia.s3.control.commands.command;
 
 import de.ostfalia.s1.lamp.AbstractLampController;
 import lombok.Getter;

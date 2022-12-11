@@ -2,8 +2,8 @@ package de.ostfalia.s3.control.commands;
 
 import de.ostfalia.s1.lamp.AbstractLampController;
 import de.ostfalia.s1.lamp.HueColor;
+import de.ostfalia.s3.control.commands.command.AbstractCommand;
 
-import java.awt.*;
 import java.util.List;
 
 public class ColorCommand extends AbstractCommand {

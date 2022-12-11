@@ -1,7 +1,6 @@
-package de.ostfalia.s3.control.commands;
+package de.ostfalia.s3.control.commands.command;
 
 import de.ostfalia.s1.lamp.AbstractLampController;
-import de.ostfalia.s1.lamp.ILamp;
 import de.ostfalia.s1.lamp.Java2NodeRedLampAdapter;
 import de.ostfalia.s1.lamp.Lamp;
 import lombok.Getter;
