@@ -165,7 +165,7 @@ public class RemoteControlView implements Serializable {
 
     public void onApplyRaceButtonClick(){
         System.out.println("race");
-//        addCommand(new RaceCommand(controller, data.getName(), data.getChannel1(), data.getChannel2(), data.getColor(), data.getColor2(), data.getTimeRange());
+//        addCommand(new RaceCommand(controller, data.getName(), data.getChannel1(), data.getChannel2(), data.getColor(), data.getColor2());
     }
 
     public void onSelectBoxClick(ValueChangeEvent event){
