@@ -2,6 +2,7 @@ package de.ostfalia.s3.entity;
 
 import de.ostfalia.s2.fahrrad.control.BicycleService;
 import de.ostfalia.s2.fahrrad.entity.Bicycle;
+import lombok.Getter;
 
 import javax.ejb.Local;
 import javax.ejb.Schedule;
@@ -39,8 +40,11 @@ public class DataSingleton implements Serializable {
 
     private List<Integer> channels;
 
+    @Getter
+    private int index;
+
     private DataSingleton() {
-//        fetchData();
+
     }
 
     private HashMap<Integer, List<Bicycle>> data = new HashMap<>();
@@ -51,7 +55,12 @@ public class DataSingleton implements Serializable {
         return data.get(channel);
     }
 
-    @Schedule(hour = "*", minute = "*", second = "*/15", persistent = false)
+    @Schedule(hour="*", minute="*", second="*", persistent = false)
+    public void tick(){
+        index++;
+    }
+
+    @Schedule(hour = "*", minute = "*", second = "*/60", persistent = false)
     public void call() {
         if (instance != this) instance = this;
 
@@ -60,9 +69,9 @@ public class DataSingleton implements Serializable {
         for (int channel : getChannels()) {
             TypedQuery<Bicycle> query = entityManager.createNamedQuery("bicycle.getByBicycleChannelWithTimeLimits", Bicycle.class);
 
-            //TODO zeit anpassen wenn datenbank wieder geht
             LocalDateTime to = LocalDateTime.now();
             to = LocalDateTime.of(2022, 12, 9, 8, 30);
+            //TODO entfernen, wenn Datenbank wieder geht
 
             LocalDateTime from = to.minusMinutes(1);
 
@@ -73,6 +82,8 @@ public class DataSingleton implements Serializable {
             List<Bicycle> results = query.getResultList();
             data.put(channel, results);
         }
+
+        index = 0;
 
         System.out.println("Fetched data for " + channels);
         this.data = data;

@@ -21,16 +21,14 @@ public class BikeDriveCommand extends AbstractThreadCommand {
         this.channel = channel;
     }
 
-    private int start = 0;
-
     @Override
     public void execute(AbstractLampController controller) {
         new StateCommand(controller, "On", true).execute(controller);
+        DataSingleton data = DataSingleton.getInstance();
 
         runThread(new Thread(() -> {
             while (!getThread().isInterrupted()) {
                 try {
-                    DataSingleton data = DataSingleton.getInstance();
                     List<Bicycle> result = data.getData(channel);
 
                     if (result.isEmpty()) {
@@ -38,17 +36,17 @@ public class BikeDriveCommand extends AbstractThreadCommand {
                         System.out.println("No data");
                     } else {
                         //TODO nicht mehr start benutzen wenn die db wieder geht
-                        Bicycle current = result.get(start++);
+                        System.out.println(data.getIndex() + ", " + result.size());
+
+                        Bicycle current = result.get(Math.min(data.getIndex(), result.size() - 1));
 
                         int frequency = current.getRotations_per_second() / 4;
                         double kmh = frequency * 2.111 * 3.6;
                         double brightness = kmh * 2.0;
-                        if(brightness > 100) brightness = 100;
+                        if (brightness > 100) brightness = 100;
 
                         System.out.println("Brightness: " + brightness);
                         new BrightnessCommand(controller, "BikeDrive", (float) brightness).execute(controller);
-
-                        if (start == 61) start = 0;
                     }
 
                     Thread.sleep(1000);
