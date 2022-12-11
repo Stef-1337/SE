@@ -10,6 +10,7 @@ import de.ostfalia.s3.control.commands.BrightnessCommand;
 import de.ostfalia.s3.control.commands.ColorCommand;
 import de.ostfalia.s3.control.commands.DimCommand;
 import de.ostfalia.s3.control.commands.FlashCommand;
+import de.ostfalia.s3.control.commands.ICommand;
 import de.ostfalia.s3.control.commands.LampCommand;
 import de.ostfalia.s3.control.commands.PartyCommand;
 import de.ostfalia.s3.control.commands.RainbowCommand;
@@ -19,8 +20,11 @@ import de.ostfalia.s3.control.commands.TimeCommand;
 import de.ostfalia.s3.control.commands.UndoCommand;
 import lombok.Getter;
 import lombok.Setter;
+import org.primefaces.PrimeFaces;
+import org.primefaces.model.DialogFrameworkOptions;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.event.ValueChangeEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -69,6 +73,19 @@ public class RemoteControlView implements Serializable {
     private void initDefaults() {
         commands.put(1, new StateCommand(controller, "On", true));
         commands.put(2, new StateCommand(controller, "Off", false));
+        initTest();
+    }
+
+    private void initTest(){
+        commands.put(3, new ColorCommand(controller, "Color", colorSelector.getColor("red")));
+        commands.put(4, new ColorCommand(controller, "Color", colorSelector.getColor("blue")));
+        commands.put(5, new PartyCommand(controller, "Party", colorSelector.getColorList(), 100));
+        commands.put(6, new BrightnessCommand(controller, "Brightness", 100));
+    }
+
+    private void resetCommands(){
+        commands.clear();
+        initDefaults();
     }
 
     public void setCommand(int slot, AbstractCommand command) {
@@ -141,13 +158,32 @@ public class RemoteControlView implements Serializable {
         addCommand(new LampCommand(controller, data.getName(), data.isOn(), (float) data.getIntensity(), data.getColor()));
     }
 
-    public void onApplyUndoButtonClick() {
-        addCommand(new UndoCommand(controller, data.getName(), -1, commandProcessor));
+    public void onApplyDriveButtonClick(){
+        System.out.println("drive");
+//        addCommand(new DriveCommand(controller, data.getName(), channel));
     }
 
-    public void doNothing(){
-
+    public void onApplyRaceButtonClick(){
+        System.out.println("race");
+//        addCommand(new RaceCommand(controller, data.getName(), data.getChannel1(), data.getChannel2(), data.getColor(), data.getColor2(), data.getTimeRange());
     }
+
+    public void onSelectBoxClick(ValueChangeEvent event){
+        String undoString = (String) event.getNewValue();
+        new UndoCommand(controller, "Undo", Integer.parseInt(undoString.split(":")[0]), commandProcessor).execute(controller);
+    }
+
+    public void onRunResetButtonClick() {
+        resetCommands();
+    }
+
+    public void viewCommands() {
+        DialogFrameworkOptions options = DialogFrameworkOptions.builder()
+                .resizable(false)
+                .build();
+        PrimeFaces.current().dialog().openDynamic("/RemoteControl/commandView", options, null);
+    }
+
 
 }
 

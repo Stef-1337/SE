@@ -9,6 +9,7 @@ import javax.faces.event.ValueChangeEvent;
 import java.awt.*;
 import java.sql.Array;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -25,6 +26,10 @@ public class CommandParameterData {
     private String colorName;
     private HueColor color;
     private List<HueColor> colorList;
+    private Integer channel1;
+    private Integer channel2;
+    private HueColor color2;
+    private List<Date> timeRange;
 
     public CommandParameterData (ColorSelector selector){
         this.colorSelector = selector;
