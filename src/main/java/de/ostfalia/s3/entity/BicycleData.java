@@ -8,7 +8,7 @@ public class BicycleData {
 
 int counter;
 
-@Schedule(second = "*/1",minute = "*",hour = "*",persistent = false)
+//@Schedule(second = "*/1",minute = "*",hour = "*",persistent = false)
 public void call(){
     System.out.println("TEST"+counter);
     counter++;

@@ -9,6 +9,14 @@ import java.io.Serializable;
 @ViewScoped
 public class Datacollector implements Serializable {
 
+    public static Datacollector getInstance(int channel, int x){
+        return null;
+    }
+
+    public double speed(){
+        return 0.0;
+    }
+
         @Inject
         BicycleData db;
 
