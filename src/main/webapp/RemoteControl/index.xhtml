@@ -259,6 +259,71 @@
                 </p:panel>
             </h:form>
         </div>
+        <div class="colorDimSequence">
+            <h:form id="color">
+                <p:panel header="Drive Command" id="panel24" toggleable="true" collapsed="true" styleClass="mb-5">
+                    <h:panelGrid columns="6" cellpadding="10">
+                        <p:inputText id="name24" maxlength="9" placeholder="Befehlsname" value="#{remoteControlView.data.name}"/>
+                        <p:selectOneMenu value="#{remoteControlView.slotSelected}">
+                            <f:selectItem itemLabel="Position wählen" itemDisabled="true" noSelectionOption="true"/>
+                            <f:selectItems value="#{remoteControlView.slots}"/>
+                        </p:selectOneMenu>
+                        <p:selectOneMenu value="#{remoteControlView.data.channel1}" required="true">
+                            <f:selectItem itemLabel="Fahrrad wählen" itemDisabled="true" noSelectionOption="true"/>
+                            <f:selectItems value="#{bicycleDetailView.bs.getChannels(false)}"/>
+                        </p:selectOneMenu>
+                        <p:commandButton value="add" process="drive" update="remote"
+                                         action="#{remoteControlView.onApplyDriveButtonClick}" id="btn24"
+                                         styleClass="mr-2"/>
+                        <p:defaultCommand target="btn24" scope="panel24"/>
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+        </div>
+
+        <div class="flashDimSequence">
+            <h:form id="flash">
+                <p:panel header="Drive Command" id="panel25" toggleable="true" collapsed="true" styleClass="mb-5">
+                    <h:panelGrid columns="6" cellpadding="10">
+                        <p:inputText id="name25" maxlength="9" placeholder="Befehlsname" value="#{remoteControlView.data.name}"/>
+                        <p:selectOneMenu value="#{remoteControlView.slotSelected}">
+                            <f:selectItem itemLabel="Position wählen" itemDisabled="true" noSelectionOption="true"/>
+                            <f:selectItems value="#{remoteControlView.slots}"/>
+                        </p:selectOneMenu>
+                        <p:selectOneMenu value="#{remoteControlView.data.channel1}" required="true">
+                            <f:selectItem itemLabel="Fahrrad wählen" itemDisabled="true" noSelectionOption="true"/>
+                            <f:selectItems value="#{bicycleDetailView.bs.getChannels(false)}"/>
+                        </p:selectOneMenu>
+                        <p:commandButton value="add" process="drive" update="remote"
+                                         action="#{remoteControlView.onApplyDriveButtonClick}" id="btn25"
+                                         styleClass="mr-2"/>
+                        <p:defaultCommand target="btn25" scope="panel25"/>
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+        </div>
+
+        <div class="stateColorChange">
+            <h:form id="color">
+                <p:panel header="Drive Command" id="panel26" toggleable="true" collapsed="true" styleClass="mb-5">
+                    <h:panelGrid columns="6" cellpadding="10">
+                        <p:inputText id="name26" maxlength="9" placeholder="Befehlsname" value="#{remoteControlView.data.name}"/>
+                        <p:selectOneMenu value="#{remoteControlView.slotSelected}">
+                            <f:selectItem itemLabel="Position wählen" itemDisabled="true" noSelectionOption="true"/>
+                            <f:selectItems value="#{remoteControlView.slots}"/>
+                        </p:selectOneMenu>
+                        <p:selectOneMenu value="#{remoteControlView.data.channel1}" required="true">
+                            <f:selectItem itemLabel="Fahrrad wählen" itemDisabled="true" noSelectionOption="true"/>
+                            <f:selectItems value="#{bicycleDetailView.bs.getChannels(false)}"/>
+                        </p:selectOneMenu>
+                        <p:commandButton value="add" process="drive" update="remote"
+                                         action="#{remoteControlView.onApplyDriveButtonClick}" id="btn24"
+                                         styleClass="mr-2"/>
+                        <p:defaultCommand target="btn26" scope="panel26"/>
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+        </div>
 
         <div class="card">
             <h:form id="drive">
