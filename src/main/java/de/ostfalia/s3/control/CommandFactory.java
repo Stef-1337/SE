@@ -1,7 +1,8 @@
-package de.ostfalia.s3.control.commands.command;
+package de.ostfalia.s3.control;
 
 import de.ostfalia.s1.lamp.AbstractLampController;
 import de.ostfalia.s3.control.CommandParameterData;
+import de.ostfalia.s3.control.commands.command.ICommand;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -14,7 +15,7 @@ public class CommandFactory {
     }
 
     public ICommand createCommand(String clazz, CommandParameterData data) {
-        ICommand command = null;
+        ICommand command;
 
         try {
             String path = "de.ostfalia.s3.control.commands.";
@@ -24,7 +25,6 @@ public class CommandFactory {
             command = (ICommand) commandObject;
         } catch (ClassCastException | ClassNotFoundException | NoSuchMethodException | InvocationTargetException | InstantiationException |
                  IllegalAccessException ex) {
-            ex.printStackTrace();
             System.out.println("Can't build command for " + clazz);
             return null;
         }
