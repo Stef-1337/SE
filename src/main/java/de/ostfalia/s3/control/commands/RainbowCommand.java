@@ -2,12 +2,17 @@ package de.ostfalia.s3.control.commands;
 
 import de.ostfalia.s1.lamp.AbstractLampController;
 import de.ostfalia.s1.lamp.ColorSelector;
+import de.ostfalia.s3.control.CommandParameterData;
 import de.ostfalia.s3.control.commands.command.AbstractThreadCommand;
 
 import java.util.List;
 
 public class RainbowCommand extends AbstractThreadCommand {
     private int time;
+
+    public RainbowCommand(CommandParameterData data){
+        this(data.getController(), data.getName(), data.getTime());
+    }
 
     public RainbowCommand(AbstractLampController controller, String name, int time) {
         super(controller, name);

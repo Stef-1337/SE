@@ -2,6 +2,7 @@ package de.ostfalia.s3.control.commands;
 
 import de.ostfalia.s1.lamp.AbstractLampController;
 import de.ostfalia.s1.lamp.HueColor;
+import de.ostfalia.s3.control.CommandParameterData;
 import de.ostfalia.s3.control.commands.command.AbstractThreadCommand;
 
 import java.util.ArrayList;
@@ -12,6 +13,10 @@ public class PartyCommand extends AbstractThreadCommand {
     private List<HueColor> colors;
     private int time;
     private Float brightness;
+
+    public PartyCommand(CommandParameterData data){
+        this(data.getController(), data.getName(), data.getColorList(), data.getTime());
+    }
 
     public PartyCommand(AbstractLampController controller, String name, List<HueColor> colors, int time) {
         super(controller, name);

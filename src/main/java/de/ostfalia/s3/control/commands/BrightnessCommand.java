@@ -1,6 +1,7 @@
 package de.ostfalia.s3.control.commands;
 
 import de.ostfalia.s1.lamp.AbstractLampController;
+import de.ostfalia.s3.control.CommandParameterData;
 import de.ostfalia.s3.control.commands.command.AbstractCommand;
 
 import java.util.List;
@@ -8,6 +9,10 @@ import java.util.List;
 public class BrightnessCommand extends AbstractCommand {
 
     private float brightness;
+
+    public BrightnessCommand(CommandParameterData data){
+        this(data.getController(), data.getName(), data.getIntensity());
+    }
 
     public BrightnessCommand(AbstractLampController controller, String name, float brightness) {
         super(controller, name);

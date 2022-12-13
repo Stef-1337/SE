@@ -2,6 +2,7 @@ package de.ostfalia.s3.control.commands;
 
 import de.ostfalia.s1.lamp.AbstractLampController;
 import de.ostfalia.s2.fahrrad.entity.Bicycle;
+import de.ostfalia.s3.control.CommandParameterData;
 import de.ostfalia.s3.control.commands.command.AbstractThreadCommand;
 import de.ostfalia.s3.entity.DataSingleton;
 
@@ -10,6 +11,10 @@ import java.util.List;
 public class BikeDriveCommand extends AbstractThreadCommand {
 
     private int channel;
+
+    public BikeDriveCommand(CommandParameterData data){
+        this(data.getController(), data.getName(), data.getChannel1());
+    }
 
     public BikeDriveCommand(AbstractLampController controller, String name, int channel) {
         super(controller, name);

@@ -1,6 +1,7 @@
 package de.ostfalia.s3.control.commands;
 
 import de.ostfalia.s1.lamp.AbstractLampController;
+import de.ostfalia.s3.control.CommandParameterData;
 import de.ostfalia.s3.control.commands.command.AbstractThreadCommand;
 
 import java.util.List;
@@ -8,6 +9,9 @@ import java.util.List;
 public class TimeCommand extends AbstractThreadCommand {
     private int time;
 
+    public TimeCommand(CommandParameterData data){
+        this(data.getController(), data.getName(), data.getTime());
+    }
 
     public TimeCommand(AbstractLampController controller, String name, int time) {
         super(controller, name);

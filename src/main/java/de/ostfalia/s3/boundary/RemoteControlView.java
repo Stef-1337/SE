@@ -12,12 +12,14 @@ import de.ostfalia.s3.control.commands.DimCommand;
 import de.ostfalia.s3.control.commands.FlashCommand;
 import de.ostfalia.s3.control.commands.LampCommand;
 import de.ostfalia.s3.control.commands.PartyCommand;
-import de.ostfalia.s3.control.commands.RaceCommandNew;
+import de.ostfalia.s3.control.commands.RaceCommand;
 import de.ostfalia.s3.control.commands.RainbowCommand;
 import de.ostfalia.s3.control.commands.SOSCommand;
 import de.ostfalia.s3.control.commands.StateCommand;
 import de.ostfalia.s3.control.commands.TimeCommand;
 import de.ostfalia.s3.control.commands.UndoCommand;
+import de.ostfalia.s3.control.commands.command.CommandFactory;
+import de.ostfalia.s3.control.commands.command.ICommand;
 import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.PrimeFaces;
@@ -52,12 +54,15 @@ public class RemoteControlView implements Serializable {
 
     private int slotSelected;
 
-    private CommandParameterData data = new CommandParameterData(colorSelector);
+    private CommandParameterData data = new CommandParameterData(controller, colorSelector);
+
+    private CommandFactory factory;
 
     public RemoteControlView() {
         slots = new ArrayList<>(SIZE);
 
         commandProcessor = new CommandProcessor(controller);
+        factory = new CommandFactory(controller);
 
         initDefaults();
 
@@ -71,7 +76,7 @@ public class RemoteControlView implements Serializable {
         commands.put(2, new StateCommand(controller, "Off", false));
     }
 
-    private void resetCommands(){
+    private void resetCommands() {
         commands.clear();
         initDefaults();
     }
@@ -81,7 +86,7 @@ public class RemoteControlView implements Serializable {
         if (command.getName().length() != 0)
             if (slot <= SIZE) {
                 commands.put(slot, command);
-                data = new CommandParameterData(colorSelector);
+                data = new CommandParameterData(controller, colorSelector);
                 slotSelected = 0;
             }
     }
@@ -98,63 +103,22 @@ public class RemoteControlView implements Serializable {
         return commands.get(slot);
     }
 
-    public void onRunCommandClick(int slot){
+    public void onRunCommandClick(int slot) {
         AbstractCommand command = getCommandUnchecked(slot);
-        if(command != null)
+        if (command != null)
             commandProcessor.execute(command);
         else System.out.println("No command found");
     }
 
-    public void onApplySwitchButtonClick() {
-        addCommand(new StateCommand(controller, data.getName(), data.isOn()));
+    public void onApplyCommandClick(String clazz) {
+        ICommand command = factory.createCommand(clazz, data);
+
+        if (command instanceof AbstractCommand abstractCommand)
+            addCommand(abstractCommand);
+        else System.out.println("Invalid command.");
     }
 
-    public void onApplyBrightnessButtonClick() {
-        addCommand(new BrightnessCommand(controller, data.getName(), data.getIntensity()));
-    }
-
-    public void onApplyDimmButtonClick() {
-        addCommand(new DimCommand(controller, data.getName(), data.getIntensityStep()));
-    }
-
-    public void onApplyColorButtonClick() {
-        addCommand(new ColorCommand(controller, data.getName(), data.getColor()));
-    }
-
-    public void onApplyFlashButtonClick(){
-        addCommand(new FlashCommand(controller, data.getName(), data.getTime()));
-    }
-
-    public void onApplyTimeButtonClick(){
-        addCommand(new TimeCommand(controller, data.getName(), data.getTime()));
-    }
-
-    public void onApplySOSButtonClick(){
-        addCommand(new SOSCommand(controller, data.getName(), data.getTime()));
-    }
-
-    public void onApplyRainbowButtonClick(){
-        addCommand(new RainbowCommand(controller, data.getName(), data.getTime()));
-    }
-
-    public void onApplyPartyButtonClick() {
-        data.getColorList().forEach(e -> System.out.println(e.toString()));
-        addCommand(new PartyCommand(controller, data.getName(), data.getColorList(), data.getTime()));
-    }
-
-    public void onApplyLampButtonClick(){
-        addCommand(new LampCommand(controller, data.getName(), data.isOn(), (float) data.getIntensity(), data.getColor()));
-    }
-
-    public void onApplyDriveButtonClick(){
-        addCommand(new BikeDriveCommand(controller, data.getName(), data.getChannel1()));
-    }
-
-    public void onApplyRaceButtonClick(){
-        addCommand(new RaceCommandNew(controller, data.getName(), data.getChannel1(), data.getChannel2(), data.getColor(), data.getColor2()));
-    }
-
-    public void onSelectBoxClick(ValueChangeEvent event){
+    public void onSelectBoxClick(ValueChangeEvent event) {
         String undoString = (String) event.getNewValue();
         new UndoCommand(controller, "Undo", Integer.parseInt(undoString.split(":")[0]), commandProcessor).execute(controller);
     }

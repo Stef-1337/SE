@@ -1,12 +1,17 @@
 package de.ostfalia.s3.control.commands;
 
 import de.ostfalia.s1.lamp.AbstractLampController;
+import de.ostfalia.s3.control.CommandParameterData;
 import de.ostfalia.s3.control.commands.command.AbstractCommand;
 
 import java.util.List;
 
 public class DimCommand extends AbstractCommand {
     private float change;
+
+    public DimCommand(CommandParameterData data){
+        this(data.getController(), data.getName(), data.getIntensityStep());
+    }
 
     public DimCommand(AbstractLampController controller, String name, float change) {
         super(controller, name);

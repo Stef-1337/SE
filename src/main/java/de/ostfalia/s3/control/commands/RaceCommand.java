@@ -2,67 +2,67 @@ package de.ostfalia.s3.control.commands;
 
 import de.ostfalia.s1.lamp.AbstractLampController;
 import de.ostfalia.s1.lamp.HueColor;
-import de.ostfalia.s3.control.commands.command.AbstractCommand;
+import de.ostfalia.s2.fahrrad.entity.Bicycle;
+import de.ostfalia.s3.control.CommandParameterData;
+import de.ostfalia.s3.control.commands.command.AbstractThreadCommand;
+import de.ostfalia.s3.entity.DataSingleton;
 
-import java.time.LocalDateTime;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
-public class RaceCommand extends AbstractCommand {
+public class RaceCommand extends AbstractThreadCommand {
 
-    private int bChannel1;
-    private int bChannel2;
-    private HueColor hueColor1;
-    private HueColor hueColor2;
-    private LocalDateTime start;
-    private LocalDateTime end;
+    private int channel1, channel2;
+    private HueColor color1, color2;
 
-    public RaceCommand (AbstractLampController controller, String name, int bChannel1, int bChannel2, HueColor hueColor1, HueColor hueColor2, LocalDateTime start, LocalDateTime end) {
-        super(controller, name);
-        this.bChannel1 = bChannel1;
-        this.bChannel2 = bChannel2;
-        this.hueColor1 = hueColor1;
-        this.hueColor2 = hueColor2;
-        this.start = start;
-        this.end = end;
+    public RaceCommand(CommandParameterData data) {
+        this(data.getController(), data.getName(), data.getChannel1(), data.getChannel2(), data.getColor(), data.getColor2());
     }
 
-    @Override
-    public List<String> getConfig() {
-        return List.of("bicycle "+ bChannel1 + ":" + hueColor1.getName() + " bicyle" + bChannel2 + ":" + hueColor2.getName());
+    public RaceCommand(AbstractLampController controller, String name, int channel1, int channel2, HueColor color1, HueColor color2) {
+        super(controller, name);
+
+        this.channel1 = channel1;
+        this.channel2 = channel2;
+
+        this.color1 = color1;
+        this.color2 = color2;
     }
 
     @Override
     public void execute(AbstractLampController controller) {
-        double dummyRotation1 = 50000;
-        double dummyRotation2 = 100000;
+        DataSingleton data = DataSingleton.getInstance();
 
-        double rotation1 = dummyRotation1; //Dummies ersetzen durch Distanz bicycle1
-        double rotation2 = dummyRotation2; //Dummies ersetzen durch Distanz bicycle2
+        new LampCommand(controller, "On", true, 100f, color1).execute(controller);
+        runThread(new Thread(() -> {
+            while (!getThread().isInterrupted()) {
+                try {
+                    double total1 = 0, total2 = 0;
 
-        double difference;
-        double max;
+                    for (Bicycle bike : data.getData(channel1))
+                        total1 += getDistance(bike.getRotations_per_second());
 
-        if (rotation1 < rotation2) {
-            controller.colorChanged(String.valueOf(hueColor2));
-            difference = rotation2 - rotation1;
-            max = rotation2;
-        } else if(rotation1 >= rotation2) {
-            controller.colorChanged(String.valueOf(hueColor1));
-            difference = rotation1 - rotation2;
-            max = rotation1;
-        } else {
-            //Fehler
-            return;
-        }
+                    for (Bicycle bike : data.getData(channel2))
+                        total2 += getDistance(bike.getRotations_per_second());
 
-        float brightness;
+                    System.out.println("1: " + total1 + ", 2:" + total2);
 
-        if(difference > 0 && max != 0) {
-            brightness = (float) (difference / max * 100);
-        } else {
-            brightness = 1;
-        }
+                    new ColorCommand(controller, "RaceColor", (total1 > total2 ? color1 : color2)).execute(controller);
 
-        controller.brightnessChanged(brightness);
+                    Thread.sleep(TimeUnit.SECONDS.toMillis(10));
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }));
+    }
+
+    private double getDistance(int rotations) {
+        return (rotations / 4.0) * 2.111;
+    }
+
+    @Override
+    public List<String> getConfig() {
+        return List.of("Channel1: " + channel1 + ", " + color1.getName(), "Channel2: " + channel2 + ", " + color2.getName());
     }
 }

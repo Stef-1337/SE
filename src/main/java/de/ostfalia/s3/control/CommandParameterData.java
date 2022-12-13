@@ -1,5 +1,6 @@
 package de.ostfalia.s3.control;
 
+import de.ostfalia.s1.lamp.AbstractLampController;
 import de.ostfalia.s1.lamp.ColorSelector;
 import de.ostfalia.s1.lamp.HueColor;
 import lombok.Getter;
@@ -16,6 +17,8 @@ import java.util.List;
 @Setter
 public class CommandParameterData {
 
+    private AbstractLampController controller;
+
     private ColorSelector colorSelector;
 
     private String name = "";
@@ -30,7 +33,9 @@ public class CommandParameterData {
     private Integer channel2;
     private HueColor color2;
 
-    public CommandParameterData (ColorSelector selector){
+    public CommandParameterData (AbstractLampController controller, ColorSelector selector){
+        this.controller = controller;
+
         this.colorSelector = selector;
         colorList = new ArrayList<>();
         colorName = "";

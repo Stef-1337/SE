@@ -27,7 +27,7 @@
                             <f:selectItems value="#{remoteControlView.slots}"/>
                         </p:selectOneMenu>
                         <p:commandButton value="add" process="state" update="remote"
-                                         action="#{remoteControlView.onApplySwitchButtonClick}"
+                                         action="#{remoteControlView.onApplyCommandClick('State')}"
                                          id="btn1"
                                          styleClass="mr-2"/>
                         <p:defaultCommand target="btn1" scope="panel1"/>
@@ -51,7 +51,7 @@
                             <p:slider for="sliderbri"/>
                         </h:panelGrid>
                         <p:commandButton value="add" process="brightness" update="remote"
-                                         action="#{remoteControlView.onApplyBrightnessButtonClick}" id="btn2"
+                                         action="#{remoteControlView.onApplyCommandClick('Brightness')}" id="btn2"
                                          styleClass="mr-2"/>
                         <p:defaultCommand target="btn2" scope="panel2"/>
                     </h:panelGrid>
@@ -73,7 +73,7 @@
                             <p:slider for="txt3" step="10" minValue="-100" maxValue="100"/>
                         </h:panelGrid>
                         <p:commandButton value="add" process="dimm" update="remote"
-                                         action="#{remoteControlView.onApplyDimmButtonClick}" id="btn3"
+                                         action="#{remoteControlView.onApplyCommandClick('Dim')}" id="btn3"
                                          styleClass="mr-2"/>
                         <p:defaultCommand target="btn3" scope="panel3"/>
                     </h:panelGrid>
@@ -97,7 +97,7 @@
                                            itemLabel="#{color.name}" itemValue="#{color.name}"/>
                         </p:selectOneMenu>
                         <p:commandButton value="add" process="color" update="remote"
-                                         action="#{remoteControlView.onApplyColorButtonClick}"
+                                         action="#{remoteControlView.onApplyCommandClick('Color')}"
                                          id="btn4"
                                          styleClass="mr-2">
                             <f:ajax execute="color" render="remote"/>
@@ -122,7 +122,7 @@
                                    suffix=" ms">
                         </p:spinner>
                         <p:commandButton value="add" process="flash" update="remote"
-                                         action="#{remoteControlView.onApplyFlashButtonClick}" id="btn5"
+                                         action="#{remoteControlView.onApplyCommandClick('Flash')}" id="btn5"
                                          styleClass="mr-2"/>
                         <p:defaultCommand target="btn5" scope="panel5"/>
                     </h:panelGrid>
@@ -144,7 +144,7 @@
                                    suffix=" s">
                         </p:spinner>
                         <p:commandButton value="add" process="time" update="remote"
-                                         action="#{remoteControlView.onApplyTimeButtonClick}" id="btn12"
+                                         action="#{remoteControlView.onApplyCommandClick('Time')}" id="btn12"
                                          styleClass="mr-2"/>
                         <p:defaultCommand target="btn12" scope="panel12"/>
                     </h:panelGrid>
@@ -166,7 +166,7 @@
                                    suffix=" s">
                         </p:spinner>
                         <p:commandButton value="add" process="sos" update="remote"
-                                         action="#{remoteControlView.onApplySOSButtonClick}" id="btn13"
+                                         action="#{remoteControlView.onApplyCommandClick('SOS')}" id="btn13"
                                          styleClass="mr-2"/>
                         <p:defaultCommand target="btn13" scope="panel13"/>
                     </h:panelGrid>
@@ -190,7 +190,7 @@
                                    suffix=" ms">
                         </p:spinner>
                         <p:commandButton value="add" process="rainbow" update="remote"
-                                         action="#{remoteControlView.onApplyRainbowButtonClick}" id="btn6"
+                                         action="#{remoteControlView.onApplyCommandClick('Rainbow')}" id="btn6"
                                          styleClass="mr-2"/>
                         <p:defaultCommand target="btn6" scope="panel6"/>
                     </h:panelGrid>
@@ -218,7 +218,7 @@
                                    suffix=" ms">
                         </p:spinner>
                         <p:commandButton value="add" process="party" update="remote"
-                                         action="#{remoteControlView.onApplyPartyButtonClick}"
+                                         action="#{remoteControlView.onApplyCommandClick('Party')}"
                                          id="btn7"
                                          styleClass="mr-2">
                         </p:commandButton>
@@ -252,7 +252,7 @@
                                            itemLabel="#{color.name}" itemValue="#{color.name}"/>
                         </p:selectOneMenu>
                         <p:commandButton value="add" process="individual" update="remote"
-                                         action="#{remoteControlView.onApplyLampButtonClick}" id="btn9"
+                                         action="#{remoteControlView.onApplyCommandClick('Lamp')}" id="btn9"
                                          styleClass="mr-2"/>
                         <p:defaultCommand target="btn9" scope="panel9"/>
                     </h:panelGrid>
@@ -274,7 +274,7 @@
                             <f:selectItems value="#{bicycleDetailView.bs.getChannels(false)}"/>
                         </p:selectOneMenu>
                         <p:commandButton value="add" process="drive" update="remote"
-                                         action="#{remoteControlView.onApplyDriveButtonClick}" id="btn19"
+                                         action="#{remoteControlView.onApplyCommandClick('BikeDrive')}" id="btn19"
                                          styleClass="mr-2"/>
                         <p:defaultCommand target="btn19" scope="panel19"/>
                     </h:panelGrid>
@@ -313,7 +313,7 @@
                         </p:selectOneMenu>
 
                         <p:commandButton value="add" process="race" update="remote"
-                                         action="#{remoteControlView.onApplyRaceButtonClick}" id="btn20"
+                                         action="#{remoteControlView.onApplyCommandClick('Race')}" id="btn20"
                                          styleClass="mr-2"/>
                         <p:defaultCommand target="btn20" scope="panel20"/>
                     </h:panelGrid>

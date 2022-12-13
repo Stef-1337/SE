@@ -1,11 +1,16 @@
 package de.ostfalia.s3.control.commands;
 
 import de.ostfalia.s1.lamp.AbstractLampController;
+import de.ostfalia.s3.control.CommandParameterData;
 import de.ostfalia.s3.control.commands.command.AbstractCommand;
 
 import java.util.List;
 
 public class ToggleCommand extends AbstractCommand {
+
+    public ToggleCommand(CommandParameterData data){
+        this(data.getController(), data.getName());
+    }
 
     public ToggleCommand(AbstractLampController controller, String name) {
         super(controller, name);
