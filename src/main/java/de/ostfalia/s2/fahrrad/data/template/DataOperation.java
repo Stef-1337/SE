@@ -79,4 +79,5 @@ public abstract class DataOperation implements Serializable {
     public List<Bicycle> getData() {
         return data;
     }
+
 }

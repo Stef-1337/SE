@@ -10,6 +10,7 @@ import java.util.List;
 public class DriveCommand extends AbstractThreadCommand {
     int channel;
     BicycleService bs;
+
     public DriveCommand(AbstractLampController controller, String name, int channel) {
         super(controller, name);
         this.channel = channel;
@@ -17,7 +18,7 @@ public class DriveCommand extends AbstractThreadCommand {
 
     @Override
     public List<String> getConfig() {
-        return List.of("Drive: Geschwindigkeit von " + channel );
+        return List.of("Drive: Geschwindigkeit von " + channel);
     }
 
     @Override
@@ -33,8 +34,7 @@ public class DriveCommand extends AbstractThreadCommand {
                     float helligkeit = (km / 50) * 100;
                     new BrightnessCommand(controller, "fahrrad", helligkeit).execute(controller);
                 }
-            }
-        catch (InterruptedException e) {
+            } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
         });

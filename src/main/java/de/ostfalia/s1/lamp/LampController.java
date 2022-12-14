@@ -45,4 +45,5 @@ public class LampController implements Serializable {
         adapter.putRequest();
     }
 
+
 }

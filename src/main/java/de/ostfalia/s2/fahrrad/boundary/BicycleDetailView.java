@@ -70,16 +70,12 @@ public class BicycleDetailView implements Serializable {
 
     private List<Integer> bicycles;
 
-    public BicycleDetailView(){
-        if(timeRange == null || timeRange.isEmpty()){
-            initTimeRange();
+    public BicycleDetailView() {
+        if (timeRange == null || timeRange.isEmpty()) {
+            timeRange = new ArrayList<>();
+            timeRange.add(java.sql.Timestamp.valueOf(LocalDateTime.now().minusHours(1)));
+            timeRange.add(java.sql.Timestamp.valueOf(LocalDateTime.now()));
         }
-    }
-
-    public void initTimeRange(){
-        timeRange = new ArrayList<>();
-        timeRange.add(java.sql.Timestamp.valueOf(LocalDateTime.now().minusHours(1)));
-        timeRange.add(java.sql.Timestamp.valueOf(LocalDateTime.now()));
     }
 
     public void resetStep() {
@@ -87,12 +83,6 @@ public class BicycleDetailView implements Serializable {
         s = "automatisch festgelegt";
         timeUnit = TimeUnit.HOURS;
         caches = null;
-    }
-
-    public void clear(){
-        resetStep();
-        initTimeRange();
-        if(caches != null) caches.clear();
     }
 
     public String getNum(int i, double d1, double d2, boolean b) {

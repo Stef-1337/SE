@@ -88,4 +88,5 @@ public class HueColor {
     public String toString() {
         return name + " " + hex + " " + rgbR + " " + rgbG + " " + rgbB + " " + x + " " + y + " " + kategorie;
     }
+
 }

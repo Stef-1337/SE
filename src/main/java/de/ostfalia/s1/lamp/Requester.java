@@ -7,6 +7,7 @@ import javax.json.JsonReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 public class Requester {
@@ -20,13 +21,15 @@ public class Requester {
         return connection;
     }
 
-    private void setState(String json, URL url) throws Exception {
+    private void setState(String json, URL url) {
         HttpURLConnection connection = null;
         try {
             connection = setupConnection(url, "PUT");
             sendJsonCommand(json, connection);
             JsonReader jsonReader = Json.createReader(connection.getInputStream());
             jsonReader.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
         } finally {
             if (connection != null) connection.disconnect();
         }
@@ -46,7 +49,7 @@ public class Requester {
         os.close();
     }
 
-    public JsonObject getState(URL url) throws Exception {
+    public JsonObject getState(URL url) {
         HttpURLConnection connection = null;
         JsonObject jsonObject = null;
         try {
@@ -56,13 +59,21 @@ public class Requester {
             jsonObject = jsonReader.readObject();
             jsonReader.close();
             return jsonObject;
+        } catch (Exception ex) {
+            ex.printStackTrace();
         } finally {
             if (connection != null) connection.disconnect();
         }
+
+        return null;
     }
 
-    public void setLampState(int lamp, String json) throws Exception {
-        URL url = new URL(base);
-        setState(json, url);
+    public void setLampState(int lamp, String json) {
+        try {
+            URL url = new URL(base);
+            setState(json, url);
+        } catch (MalformedURLException ex) {
+            ex.printStackTrace();
+        }
     }
 }

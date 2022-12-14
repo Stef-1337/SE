@@ -6,13 +6,14 @@ import javax.ejb.Singleton;
 @Singleton
 public class BicycleData {
 
-int counter;
+    int counter;
 
-//@Schedule(second = "*/1",minute = "*",hour = "*",persistent = false)
-public void call(){
-    System.out.println("TEST"+counter);
-    counter++;
-}
+    //@Schedule(second = "*/1",minute = "*",hour = "*",persistent = false)
+    public void call() {
+        System.out.println("TEST" + counter);
+        counter++;
+    }
+
     public int getCounter() {
         return counter;
     }

@@ -46,5 +46,4 @@ public class Bicycle implements Serializable {
     public String channelToString() {
         return String.valueOf(channel);
     }
-
 }

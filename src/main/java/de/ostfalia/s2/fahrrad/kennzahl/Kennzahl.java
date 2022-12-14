@@ -28,5 +28,4 @@ public enum Kennzahl {
         this.unitA = unitA;
         this.unitB = unitB;
     }
-
 }

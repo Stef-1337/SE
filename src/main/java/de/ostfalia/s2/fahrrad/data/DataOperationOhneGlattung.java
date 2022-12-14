@@ -10,4 +10,5 @@ public class DataOperationOhneGlattung extends DataOperation {
     public List<Bicycle> smooth(List<Bicycle> data) {
         return data;
     }
+
 }
