@@ -127,6 +127,7 @@ public class TalsperrendatenLineChartView {
         CartesianLinearAxes linearAxes = new CartesianLinearAxes();
         linearAxes.setId("large-scale");
         linearAxes.setPosition("left");
+
         CartesianScaleTitle yLeftLabel = new CartesianScaleTitle();
         yLeftLabel.setDisplay(true);
         yLeftLabel.setText("Stauinhalt in Mio. m^3");

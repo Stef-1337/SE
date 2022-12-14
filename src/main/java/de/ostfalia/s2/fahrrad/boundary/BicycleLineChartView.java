@@ -146,6 +146,7 @@ public class BicycleLineChartView {
         CartesianLinearAxes linearAxes = new CartesianLinearAxes();
         linearAxes.setId("small-scale");
         linearAxes.setPosition("right");
+
         CartesianScaleTitle yRightLabel = new CartesianScaleTitle();
         yRightLabel.setDisplay(true);
         yRightLabel.setText("Fahrraddaten");
