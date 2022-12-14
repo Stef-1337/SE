@@ -1,0 +1,17 @@
+.inputNumber
+{
+    width: 20px !important;
+    margin-left: auto;
+    margin-right: auto;
+    float: left;
+}
+
+.headline_class {
+    font-weight: bold;
+    font-size: 25px;
+}
+
+#headline_id {
+    font-weight: bold;
+    font-size: 25px;
+}

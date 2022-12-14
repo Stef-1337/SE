@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui" xmlns:h="http://java.sun.com/jsf/html"
+                template="/WEB-INF/template/default.xhtml">
+    <ui:define name="metadata">
+        <f:metadata>
+            <f:viewParam name="channelBicycle" value="#{bicycleDetailView.channel}"/>
+        </f:metadata>
+
+    </ui:define>
+
+    <ui:define name="content">
+
+        <div class="card">
+            <p:panel header="BikeDashboard" style="text-align: center">
+                <h:panelGrid columns="5" cellpadding="10" styleClass="mb-3">
+                    <h:column>
+                        <h:form id="auswahl1">
+                            <h:outputLabel for="selectOne" value="Fahrrad 1: "/>
+                            <h:selectOneMenu id="selectOne" value="#{bicycleDetailView.channel}" required="true"
+                                             label="Text 3" var="c">
+                                <f:selectItems value="#{bicycleDetailView.bs.getChannels(false)}"/>
+<!--                                <f:ajax execute="auswahl1" render="chart"/>-->
+                                <p:ajax event="change" update="chartForm"/>
+                            </h:selectOneMenu>
+                        </h:form>
+                    </h:column>
+
+                    <h:column>
+                        <h:form>
+                            <div class="field col-12 md:col-4">
+                                <h:outputLabel for="kennzahl" value="Kennzahl: "/>
+                                <h:selectOneMenu id="kennzahl" value="#{bicycleDetailView.keyFigure}" required="true"
+                                                 label="Text 4">
+                                    <f:selectItems value="#{bicycleDetailView.keyFigures}"/>
+                                    <f:ajax execute="kennzahl" render="chart"/>
+                                </h:selectOneMenu>
+                            </div>
+                        </h:form>
+                    </h:column>
+
+                    <h:form id="dauer">
+                        <h:column>
+                            <div class="field col-12 md:col-4">
+                                <p:outputLabel for="range" value="Betrachtungszeitraum: "/>
+                                <p:datePicker id="range" selectionMode="range" value="#{bicycleDetailView.timeRange}"
+                                              showTime="true" locale="de" pattern="dd.MM.yyyy" readonlyInput="true"
+                                              valueChangeListener="#{bicycleDetailView.resetStep()}">
+<!--                                    <f:ajax execute="dauer" render="chart"/>-->
+                                    <p:ajax event="change" update="chartForm"/>
+                                </p:datePicker>
+                            </div>
+                        </h:column>
+                    </h:form>
+
+                    <h:column>
+                        <div class="card">
+                            <h:form>
+                                <p:growl id="msg"/>
+                                <p:selectBooleanCheckbox id="glätten" value="#{bicycleDetailView.smoothed}"
+                                                         itemLabel="Werte glätten">
+                                    <!--                                        <p:ajax update="msg" listener="#{selectBooleanView.addMessage}"/>-->
+                                    <f:ajax execute="glätten" render="chart"/>
+                                </p:selectBooleanCheckbox>
+                            </h:form>
+                        </div>
+                    </h:column>
+
+                    <h:column>
+                        <h:form id="auswahl2">
+                            <h:outputLabel for="selectTwo" value="Fahrrad 2: "/>
+                            <h:selectOneMenu id="selectTwo" value="#{bicycleDetailView.channel2}" required="true"
+                                             label="Text 3" var="c">
+                                <f:selectItems value="#{bicycleDetailView.bs.getChannels(true)}"
+                                var="b" itemValue="#{b}" itemLabel="#{b == -1 ? bicycleDetailView.channel2Label : b}"
+                                noSelectionValue=""/>
+                                <!--                                <f:selectItem itemLabel="Select One" itemValue="" noSelectionOption="true"/>-->
+<!--                                <f:ajax execute="auswahl2" render="chart"/>-->
+                                <p:ajax event="change" update="chartForm"/>
+                            </h:selectOneMenu>
+                        </h:form>
+                    </h:column>
+                </h:panelGrid>
+
+                <p:growl id="messages"/>
+            </p:panel>
+
+
+        </div>
+
+        <h:form id="chartForm">
+            <p:outputPanel id="graph" styleClass="mb-3">
+                <p:lineChart id="chart"
+                             model="#{bicycleLineChartView.getLineModel('Fahrraddaten', bicycleDetailView.step, bicycleDetailView.timeUnit, bicycleDetailView.smoothed, bicycleDetailView.keyFigure, bicycleDetailView.timeRange, bicycleDetailView.channel, bicycleDetailView.channel2)}"/>
+                <p:autoUpdate/>
+                <f:ajax render="outForm"/>
+            </p:outputPanel>
+            <!--            <p:poll interval="10" update="graph"/>-->
+        </h:form>
+
+
+    </ui:define>
+    <ui:define name="footer">
+
+    </ui:define>
+
+    <ui:define name="rechts">
+
+        <div class="card">
+            <h:form id="outForm1">
+                <p:panel header="Numerische Kennzahlen Channel: #{bicycleDetailView.channel}" style="text-align: center">
+                    <p:autoUpdate/>
+                    <h:panelGrid columns="1" cellpadding="5"
+                                 style=" text-align:center; margin-left:auto; margin-right:auto;" styleClass="mb-3">
+
+                        <p:selectOneMenu id="numKen" value="#{bicycleDetailView.isAverage}"
+                                         style="margin-left:auto; margin-right:auto;">
+                            <f:selectItem itemLabel="Select One" itemValue="" noSelectionOption="true"/>
+                            <f:selectItem itemLabel="Durchschnitt" itemValue="true"/>
+                            <f:selectItem itemLabel="Summe" itemValue="false"/>
+                            <f:ajax execute="numKen" render="out"/>
+                        </p:selectOneMenu>
+                        <p:outputPanel>
+                            <h3 style="margin-left:auto; margin-right:auto;"> #{bicycleDetailView.getNum(1, bicycleDetailView.average, bicycleDetailView.total, bicycleDetailView.isAverage)} </h3>
+                            <p:autoUpdate/>
+                        </p:outputPanel>
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+        </div>
+
+        <div class="card">
+            <h:form id="outForm2">
+                <p:panel header="Numerische Kennzahlen Channel: #{bicycleDetailView.channel2 == -1 ? bicycleDetailView.channel2Label : bicycleDetailView.channel2}" style="text-align: center">
+                    <p:autoUpdate/>
+                    <h:panelGrid columns="1" cellpadding="5"
+                                 style=" text-align:center; margin-left:auto; margin-right:auto;" styleClass="mb-3">
+
+                        <p:selectOneMenu id="numKen2" value="#{bicycleDetailView.isAverage2}"
+                                         style="margin-left:auto; margin-right:auto;">
+                            <f:selectItem itemLabel="Select One" itemValue="" noSelectionOption="true"/>
+                            <f:selectItem itemLabel="Durchschnitt" itemValue="true"/>
+                            <f:selectItem itemLabel="Summe" itemValue="false"/>
+                            <f:ajax execute="numKen" render="out"/>
+                        </p:selectOneMenu>
+                        <p:outputPanel>
+                            <h3 style="margin-left:auto; margin-right:auto;"> #{bicycleDetailView.getNum(2, bicycleDetailView.average2, bicycleDetailView.total2, bicycleDetailView.isAverage2)} </h3>
+                            <p:autoUpdate/>
+                        </p:outputPanel>
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+        </div>
+
+        <div class="card">
+            <h:form id="outForm3">
+                <p:panel header="manuelle Intervallänge" style="text-align: center">
+                    <h:panelGrid columns="1" cellpadding="5"
+                                 style=" text-align:center; margin-left:auto; margin-right:auto;" styleClass="mb-3">
+                        <p:inputText id="input" value="#{bicycleDetailView.s}" style=" text-align:center; margin-left:auto; margin-right:auto;" valueChangeListener="#{bicycleDetailView.stepChanged}" >
+                            <p:autoUpdate/>
+                        </p:inputText>
+                        <p:selectOneMenu id="numKen3" value="#{bicycleDetailView.timeUnit}"
+                                         style="margin-left:auto; margin-right:auto;">
+                            <f:selectItem itemLabel="Select One" itemValue=""/>
+                            <f:selectItem itemLabel="ms" itemValue="MILLISECONDS" noSelectionOption="true"/>
+                            <f:selectItem itemLabel="sec" itemValue="SECONDS" noSelectionOption="true"/>
+                            <f:selectItem itemLabel="min" itemValue="MINUTES" noSelectionOption="true"/>
+                            <f:selectItem itemLabel="h" itemValue="HOURS"
+                                          noSelectionOption="true"/>
+                            <f:selectItem itemLabel="d" itemValue="DAYS" noSelectionOption="true"/>
+                        </p:selectOneMenu>
+                        <p:commandButton value="ok" process="@form" style="margin-left:auto; margin-right:auto;" />
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+        </div>
+    </ui:define>
+</ui:composition>
+

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/WEB-INF/template/default.xhtml">
+    <ui:define name="metadata"><!--META DATA... used only for edge cases...--></ui:define>
+    <ui:define name="head">
+        <!--head inserts into the header Tag-->
+        <style>.p-grid{border: black 1px solid}
+
+        div[class^="p-col-"], div[class*=" p-col-"]{border: red 1px solid}</style>
+    </ui:define>
+    <ui:define name="content"> Hauptkontent<br/>
+    Text
+        <br/><br/>
+    Noch mehr Text und so weiter
+        <br/>
+        <br/>
+        Bilder
+        <br/>
+        <br/>
+        Graphen,...
+    </ui:define>
+    <ui:define name="rechts"> Rechte Spalte</ui:define>
+    <ui:define name="footer">
+        Footer<br/>
+    Das Template darf und soll selbstverständlich angepasst werden und dient nur als Beispiel.
+    </ui:define>
+
+
+</ui:composition>
