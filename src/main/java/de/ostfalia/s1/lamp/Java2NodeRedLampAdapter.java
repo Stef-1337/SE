@@ -311,6 +311,7 @@ public class Java2NodeRedLampAdapter implements ILamp, Serializable {
 
     public Lamp fetchCurrentLampStatus() {
         try {
+
             JsonObject request = requester.getState(new URL(requester.base));
             Lamp lamp = new Lamp();
 
