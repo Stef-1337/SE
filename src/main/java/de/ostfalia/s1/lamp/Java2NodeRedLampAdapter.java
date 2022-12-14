@@ -23,7 +23,6 @@ import java.util.List;
 @SessionScoped
 public class Java2NodeRedLampAdapter implements ILamp, Serializable {
 
-
     private static Lamp lampe = new Lamp();
     HashMap<List<Float>, String> xyWerte = new HashMap<>();
     private Requester requester = new Requester();

@@ -28,7 +28,7 @@ public class Requester {
             sendJsonCommand(json, connection);
             JsonReader jsonReader = Json.createReader(connection.getInputStream());
             jsonReader.close();
-        }catch(IOException ex){
+        } catch (IOException ex) {
             ex.printStackTrace();
         } finally {
             if (connection != null) connection.disconnect();
@@ -59,7 +59,7 @@ public class Requester {
             jsonObject = jsonReader.readObject();
             jsonReader.close();
             return jsonObject;
-        } catch(Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
             if (connection != null) connection.disconnect();
@@ -72,7 +72,7 @@ public class Requester {
         try {
             URL url = new URL(base);
             setState(json, url);
-        }catch(MalformedURLException ex){
+        } catch (MalformedURLException ex) {
             ex.printStackTrace();
         }
     }

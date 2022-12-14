@@ -41,5 +41,4 @@ public class AbstractLampController {
         adapter.getLampe().setColor(color);
         adapter.putRequest();
     }
-
 }

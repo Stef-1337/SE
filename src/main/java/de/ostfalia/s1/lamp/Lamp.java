@@ -192,4 +192,5 @@ public class Lamp implements ILamp, Serializable {
                 ", cat=" + cat +
                 '}';
     }
+
 }

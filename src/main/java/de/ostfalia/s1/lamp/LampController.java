@@ -31,4 +31,5 @@ public class LampController extends AbstractLampController implements Serializab
         colorChanged(e.getNewValue().toString());
     }
 
+
 }
