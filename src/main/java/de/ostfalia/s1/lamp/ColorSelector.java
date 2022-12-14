@@ -16,7 +16,7 @@ public class ColorSelector {
     @Getter
     private HashMap<String, HueColor> colors;
 
-    public ColorSelector(){
+    public ColorSelector() {
         colorList = List.of(new HueColor("white", "#FFFFFF", 255, 255, 255, (float) 0.3227, (float) 0.3287, Colors.WHITE),
                 new HueColor("pink", "#FFC0CB", 255, 192, 203, (float) 0.3947, (float) 0.3114, Colors.PINK),
                 new HueColor("purple", "#800080", 128, 0, 128, (float) 0.3826, (float) 0.1597, Colors.PURPLE),
@@ -31,7 +31,7 @@ public class ColorSelector {
         colorList.forEach(color -> colors.put(color.getName(), color));
     }
 
-    public HueColor getColor(String color){
+    public HueColor getColor(String color) {
         return colors.get(color);
     }
 
