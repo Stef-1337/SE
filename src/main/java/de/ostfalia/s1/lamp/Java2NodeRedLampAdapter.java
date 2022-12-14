@@ -236,7 +236,6 @@ public class Java2NodeRedLampAdapter implements ILamp, Serializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     public void commitXY(String string) {
