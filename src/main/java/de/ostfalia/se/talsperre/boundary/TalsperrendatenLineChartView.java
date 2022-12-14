@@ -3,7 +3,7 @@ package de.ostfalia.se.talsperre.boundary;
 import de.ostfalia.se.talsperre.control.TalsperrendatenService;
 import de.ostfalia.se.talsperre.entity.Talsperrendaten;
 import org.primefaces.model.charts.ChartData;
-import org.primefaces.model.charts.axes.cartesian.CartesianScaleLabel;
+import org.primefaces.model.charts.axes.cartesian.CartesianScaleTitle;
 import org.primefaces.model.charts.axes.cartesian.CartesianScales;
 import org.primefaces.model.charts.axes.cartesian.linear.CartesianLinearAxes;
 import org.primefaces.model.charts.line.LineChartDataSet;
@@ -127,20 +127,21 @@ public class TalsperrendatenLineChartView {
         CartesianLinearAxes linearAxes = new CartesianLinearAxes();
         linearAxes.setId("large-scale");
         linearAxes.setPosition("left");
-        CartesianScaleLabel yLeftLabel = new CartesianScaleLabel();
+
+        CartesianScaleTitle yLeftLabel = new CartesianScaleTitle();
         yLeftLabel.setDisplay(true);
-        yLeftLabel.setLabelString("Stauinhalt in Mio. m^3");
+        yLeftLabel.setText("Stauinhalt in Mio. m^3");
         yLeftLabel.setFontColor("rgb(65, 139, 178)");
-        linearAxes.setScaleLabel(yLeftLabel);
+        linearAxes.setScaleTitle(yLeftLabel);
 
         CartesianLinearAxes linearAxes2 = new CartesianLinearAxes();
         linearAxes2.setId("small-scale");
         linearAxes2.setPosition("right");
-        CartesianScaleLabel yRightLabel = new CartesianScaleLabel();
+        CartesianScaleTitle yRightLabel = new CartesianScaleTitle();
         yRightLabel.setDisplay(true);
-        yRightLabel.setLabelString("Zu-/Abfluss in m^3/sec");
+        yRightLabel.setText("Zu-/Abfluss in m^3/sec");
 
-        linearAxes2.setScaleLabel(yRightLabel);
+        linearAxes2.setScaleTitle(yRightLabel);
 
         cScales.addYAxesData(linearAxes);
         cScales.addYAxesData(linearAxes2);
