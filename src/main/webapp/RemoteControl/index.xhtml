@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                template="/WEB-INF/template/default.xhtml">
+    <ui:define name="metadata">
+        <title>Remote Control</title>
+        <f:metadata>
+
+        </f:metadata>
+
+    </ui:define>
+
+
+    #{bicycleDetailView.bs.getChannels(false)}
+    <ui:define name="content">
+        <div class="card">
+            <h:form id="state">
+                <p:panel header="State Command" id="panel1" toggleable="true" collapsed="true" styleClass="mb-5">
+                    <h:panelGrid columns="5" cellpadding="10">
+                        <p:inputText id="name" maxlength="9" placeholder="Befehlsname" value="#{remoteControlView.data.name}"/>
+                        <p:toggleSwitch value="#{remoteControlView.data.on}" label="state: " onIcon="pi pi-power-off"
+                                        offIcon="pi pi-power-off"/>
+                        <p:selectOneMenu value="#{remoteControlView.slotSelected}">
+                            <f:selectItem itemLabel="Position wählen" itemDisabled="true" noSelectionOption="true"/>
+                            <f:selectItems value="#{remoteControlView.slots}"/>
+                        </p:selectOneMenu>
+                        <p:commandButton value="add" process="state" update="remote"
+                                         action="#{remoteControlView.onApplyCommandClick('State')}"
+                                         id="btn1"
+                                         styleClass="mr-2"/>
+                        <p:defaultCommand target="btn1" scope="panel1"/>
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+        </div>
+
+        <div class="card">
+            <h:form id="brightness">
+                <p:panel header="Brightness Command" id="panel2" toggleable="true" collapsed="true" styleClass="mb-5">
+                    <h:panelGrid columns="5" cellpadding="10">
+                        <p:inputText id="name2" maxlength="9" placeholder="Befehlsname" value="#{remoteControlView.data.name}"/>
+                        <p:selectOneMenu value="#{remoteControlView.slotSelected}">
+                            <f:selectItem itemLabel="Position wählen" itemDisabled="true" noSelectionOption="true"/>
+                            <f:selectItems value="#{remoteControlView.slots}"/>
+                        </p:selectOneMenu>
+                        <h:panelGrid columns="1" style="margin-bottom: 10px">
+                            <p:inputText id="sliderbri" placeholder="intensity"
+                                         value="#{remoteControlView.data.intensity}"/>
+                            <p:slider for="sliderbri"/>
+                        </h:panelGrid>
+                        <p:commandButton value="add" process="brightness" update="remote"
+                                         action="#{remoteControlView.onApplyCommandClick('Brightness')}" id="btn2"
+                                         styleClass="mr-2"/>
+                        <p:defaultCommand target="btn2" scope="panel2"/>
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+        </div>
+
+        <div class="card">
+            <h:form id="dimm">
+                <p:panel header="Dimm Command" id="panel3" toggleable="true" collapsed="true" styleClass="mb-5">
+                    <h:panelGrid columns="5" cellpadding="10">
+                        <p:inputText id="name3" maxlength="9" placeholder="Befehlsname" value="#{remoteControlView.data.name}"/>
+                        <p:selectOneMenu value="#{remoteControlView.slotSelected}">
+                            <f:selectItem itemLabel="Position wählen" itemDisabled="true" noSelectionOption="true"/>
+                            <f:selectItems value="#{remoteControlView.slots}"/>
+                        </p:selectOneMenu>
+                        <h:panelGrid columns="1" style="margin-bottom: 10px">
+                            <p:inputText id="txt3" value="#{remoteControlView.data.intensityStep}"/>
+                            <p:slider for="txt3" step="10" minValue="-100" maxValue="100"/>
+                        </h:panelGrid>
+                        <p:commandButton value="add" process="dimm" update="remote"
+                                         action="#{remoteControlView.onApplyCommandClick('Dim')}" id="btn3"
+                                         styleClass="mr-2"/>
+                        <p:defaultCommand target="btn3" scope="panel3"/>
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+        </div>
+
+        <div class="card">
+            <h:form id="color">
+                <p:panel header="Color Command" id="panel4" toggleable="true" collapsed="true" styleClass="mb-5">
+                    <h:panelGrid columns="5" cellpadding="10">
+                        <p:inputText id="name4" maxlength="9" placeholder="Befehlsname" value="#{remoteControlView.data.name}"/>
+                        <p:selectOneMenu value="#{remoteControlView.slotSelected}">
+                            <f:selectItem itemLabel="Position wählen" itemDisabled="true" noSelectionOption="true"/>
+                            <f:selectItems value="#{remoteControlView.slots}"/>
+                        </p:selectOneMenu>
+                        <p:selectOneMenu value="#{remoteControlView.data.color}" converter="ColorConverter"
+                                         label="Color" style="width: 15rem"  panelStyle="width: 15rem"
+                                         scrollHeight="250">
+                            <f:selectItems value="#{remoteControlView.colorSelector.colorList}" var="color"
+                                           itemLabel="#{color.name}" itemValue="#{color.name}"/>
+                        </p:selectOneMenu>
+                        <p:commandButton value="add" process="color" update="remote"
+                                         action="#{remoteControlView.onApplyCommandClick('Color')}"
+                                         id="btn4"
+                                         styleClass="mr-2">
+                            <f:ajax execute="color" render="remote"/>
+                        </p:commandButton>
+                        <p:defaultCommand target="btn4" scope="panel4"/>
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+        </div>
+
+        <div class="card">
+            <h:form id="flash">
+                <p:panel header="Flash Command" id="panel5" toggleable="true" collapsed="true" styleClass="mb-5">
+                    <h:panelGrid columns="5" cellpadding="10">
+                        <p:inputText id="name5" maxlength="9" placeholder="Befehlsname" value="#{remoteControlView.data.name}"/>
+                        <p:selectOneMenu value="#{remoteControlView.slotSelected}">
+                            <f:selectItem itemLabel="Position wählen" itemDisabled="true" noSelectionOption="true"/>
+                            <f:selectItems value="#{remoteControlView.slots}"/>
+                        </p:selectOneMenu>
+                        <p:spinner id="spinner2" value="#{remoteControlView.data.time}" placeholder="Time in ms"
+                                   min="100" max="10000" stepFactor="100"
+                                   suffix=" ms">
+                        </p:spinner>
+                        <p:commandButton value="add" process="flash" update="remote"
+                                         action="#{remoteControlView.onApplyCommandClick('Flash')}" id="btn5"
+                                         styleClass="mr-2"/>
+                        <p:defaultCommand target="btn5" scope="panel5"/>
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+        </div>
+
+        <div class="card">
+            <h:form id="time">
+                <p:panel header="Time Command" id="panel12" toggleable="true" collapsed="true" styleClass="mb-5">
+                    <h:panelGrid columns="5" cellpadding="10">
+                        <p:inputText id="name12" maxlength="9" placeholder="Befehlsname" value="#{remoteControlView.data.name}"/>
+                        <p:selectOneMenu value="#{remoteControlView.slotSelected}">
+                            <f:selectItem itemLabel="Position wählen" itemDisabled="true" noSelectionOption="true"/>
+                            <f:selectItems value="#{remoteControlView.slots}"/>
+                        </p:selectOneMenu>
+                        <p:spinner id="spinner3" value="#{remoteControlView.data.time}" placeholder="Time in s"
+                                   min="1" max="10000" stepFactor="1" converter="TimeConverter"
+                                   suffix=" s">
+                        </p:spinner>
+                        <p:commandButton value="add" process="time" update="remote"
+                                         action="#{remoteControlView.onApplyCommandClick('Time')}" id="btn12"
+                                         styleClass="mr-2"/>
+                        <p:defaultCommand target="btn12" scope="panel12"/>
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+        </div>
+
+        <div class="card">
+            <h:form id="sos">
+                <p:panel header="SOS Command" id="panel13" toggleable="true" collapsed="true" styleClass="mb-5">
+                    <h:panelGrid columns="5" cellpadding="10">
+                        <p:inputText id="name13" maxlength="9" placeholder="Befehlsname" value="#{remoteControlView.data.name}"/>
+                        <p:selectOneMenu value="#{remoteControlView.slotSelected}">
+                            <f:selectItem itemLabel="Position wählen" itemDisabled="true" noSelectionOption="true"/>
+                            <f:selectItems value="#{remoteControlView.slots}"/>
+                        </p:selectOneMenu>
+                        <p:spinner id="spinner4" value="#{remoteControlView.data.time}" placeholder="Time in s"
+                                   min="1" max="10000" stepFactor="1" converter="TimeConverter"
+                                   suffix=" s">
+                        </p:spinner>
+                        <p:commandButton value="add" process="sos" update="remote"
+                                         action="#{remoteControlView.onApplyCommandClick('SOS')}" id="btn13"
+                                         styleClass="mr-2"/>
+                        <p:defaultCommand target="btn13" scope="panel13"/>
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+        </div>
+
+        <div class="card">
+            <h:form id="rainbow">
+                <p:panel header="Rainbow Command" id="panel6" toggleable="true" collapsed="true" styleClass="mb-5">
+                    <h:panelGrid columns="5" cellpadding="10">
+                        <p:inputText id="name6" maxlength="9" placeholder="Befehlsname" value="#{remoteControlView.data.name}"/>
+                        <p:selectOneMenu value="#{remoteControlView.slotSelected}">
+                            <f:selectItem itemLabel="Position wählen" itemDisabled="true" noSelectionOption="true"/>
+                            <f:selectItems value="#{remoteControlView.slots}"/>
+                        </p:selectOneMenu>
+                        <p:toggleSwitch value="true" label="state: " disabled="true" onIcon="pi pi-power-off"
+                                        offIcon="pi pi-power-off"/>
+                        <p:spinner id="spinner1" value="#{remoteControlView.data.time}" placeholder="Time in ms"
+                                   min="100" max="10000" stepFactor="100"
+                                   suffix=" ms">
+                        </p:spinner>
+                        <p:commandButton value="add" process="rainbow" update="remote"
+                                         action="#{remoteControlView.onApplyCommandClick('Rainbow')}" id="btn6"
+                                         styleClass="mr-2"/>
+                        <p:defaultCommand target="btn6" scope="panel6"/>
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+        </div>
+
+        <div class="card">
+            <h:form id="party">
+                <p:panel header="Party Command" id="panel7" toggleable="true" collapsed="true" styleClass="mb-5">
+                    <h:panelGrid columns="5" cellpadding="10">
+                        <p:inputText id="name7" maxlength="9" placeholder="Befehlsname" value="#{remoteControlView.data.name}"/>
+                        <p:selectOneMenu value="#{remoteControlView.slotSelected}">
+                            <f:selectItem itemLabel="Position wählen" itemDisabled="true" noSelectionOption="true"/>
+                            <f:selectItems value="#{remoteControlView.slots}"/>
+                        </p:selectOneMenu>
+                        <p:selectCheckboxMenu value="#{remoteControlView.data.colorList}" converter="ColorConverter"
+                                              label="Color" style="width: 15rem" panelStyle="width: 15rem"
+                                              scrollHeight="250" dynamic="true">
+                            <f:selectItems value="#{remoteControlView.colorSelector.colorList}" var="color"
+                                           itemLabel="#{color.name}" itemValue="#{color.name}"/>
+                        </p:selectCheckboxMenu>
+                        <p:spinner id="spinner5" value="#{remoteControlView.data.time}" placeholder="Time in ms"
+                                   min="100" max="10000" stepFactor="100"
+                                   suffix=" ms">
+                        </p:spinner>
+                        <p:commandButton value="add" process="party" update="remote"
+                                         action="#{remoteControlView.onApplyCommandClick('Party')}"
+                                         id="btn7"
+                                         styleClass="mr-2">
+                        </p:commandButton>
+                        <p:defaultCommand target="btn7" scope="panel7"/>
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+        </div>
+
+        <div class="card">
+            <h:form id="individual">
+                <p:panel header="Individual Command" id="panel9" toggleable="true" collapsed="true" styleClass="mb-5">
+                    <h:panelGrid columns="6" cellpadding="10">
+                        <p:inputText id="name9" maxlength="9" placeholder="Befehlsname" value="#{remoteControlView.data.name}"/>
+                        <p:selectOneMenu value="#{remoteControlView.slotSelected}">
+                            <f:selectItem itemLabel="Position wählen" itemDisabled="true" noSelectionOption="true"/>
+                            <f:selectItems value="#{remoteControlView.slots}"/>
+                        </p:selectOneMenu>
+                        <p:toggleSwitch value="#{remoteControlView.data.on}" label="state: " onIcon="pi pi-power-off"
+                                        offIcon="pi pi-power-off"/>
+                        <h:panelGrid columns="1" style="margin-bottom: 10px">
+                            <p:inputText id="sliderbri2" placeholder="intensity"
+                                         value="#{remoteControlView.data.intensity}"/>
+                            <p:slider for="sliderbri2"/>
+                        </h:panelGrid>
+
+                        <p:selectOneMenu value="#{remoteControlView.data.color}" converter="ColorConverter"
+                                         label="Color"  style="width: 15rem"  panelStyle="width: 15rem"
+                                         scrollHeight="250">
+                            <f:selectItems value="#{remoteControlView.colorSelector.colorList}" var="color"
+                                           itemLabel="#{color.name}" itemValue="#{color.name}"/>
+                        </p:selectOneMenu>
+                        <p:commandButton value="add" process="individual" update="remote"
+                                         action="#{remoteControlView.onApplyCommandClick('Lamp')}" id="btn9"
+                                         styleClass="mr-2"/>
+                        <p:defaultCommand target="btn9" scope="panel9"/>
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+        </div>
+
+        <div class="card">
+            <h:form id="drive">
+                <p:panel header="Drive Command" id="panel19" toggleable="true" collapsed="true" styleClass="mb-5">
+                    <h:panelGrid columns="6" cellpadding="10">
+                        <p:inputText id="name19" maxlength="9" placeholder="Befehlsname" value="#{remoteControlView.data.name}"/>
+                        <p:selectOneMenu value="#{remoteControlView.slotSelected}">
+                            <f:selectItem itemLabel="Position wählen" itemDisabled="true" noSelectionOption="true"/>
+                            <f:selectItems value="#{remoteControlView.slots}"/>
+                        </p:selectOneMenu>
+                        <p:selectOneMenu value="#{remoteControlView.data.channel1}" required="true">
+                            <f:selectItem itemLabel="Fahrrad wählen" itemDisabled="true" noSelectionOption="true"/>
+                            <f:selectItems value="#{bicycleDetailView.bs.getChannels(false)}"/>
+                        </p:selectOneMenu>
+                        <p:commandButton value="add" process="drive" update="remote"
+                                         action="#{remoteControlView.onApplyCommandClick('BikeDrive')}" id="btn19"
+                                         styleClass="mr-2"/>
+                        <p:defaultCommand target="btn19" scope="panel19"/>
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+        </div>
+
+        <div class="card">
+            <h:form id="race">
+                <p:panel header="Race Command" id="panel20" toggleable="true" collapsed="true" styleClass="mb-5">
+                    <h:panelGrid columns="5" cellpadding="10">
+                        <p:inputText id="name20" maxlength="9" placeholder="Befehlsname" value="#{remoteControlView.data.name}"/>
+                        <p:selectOneMenu value="#{remoteControlView.slotSelected}">
+                            <f:selectItem itemLabel="Position wählen" itemDisabled="true" noSelectionOption="true"/>
+                            <f:selectItems value="#{remoteControlView.slots}"/>
+                        </p:selectOneMenu>
+                        <p:selectOneMenu value="#{remoteControlView.data.channel1}" required="true">
+                            <f:selectItem itemLabel="Fahrrad wählen" itemDisabled="true" noSelectionOption="true"/>
+                            <f:selectItems value="#{bicycleDetailView.bs.getChannels(false)}"/>
+                        </p:selectOneMenu>
+                        <p:selectOneMenu value="#{remoteControlView.data.color}" required="true" converter="ColorConverter"
+                                         label="Color"  style="width: 15rem"  panelStyle="width: 15rem"
+                                         scrollHeight="250">
+                            <f:selectItems value="#{remoteControlView.colorSelector.colorList}" var="color"
+                                           itemLabel="#{color.name}" itemValue="#{color.name}"/>
+                        </p:selectOneMenu>
+                        <p:selectOneMenu value="#{remoteControlView.data.channel2}" required="true">
+                            <f:selectItem itemLabel="Fahrrad(2) wählen" itemDisabled="true" noSelectionOption="true"/>
+                            <f:selectItems value="#{bicycleDetailView.bs.getChannels(false)}"/>
+                        </p:selectOneMenu>
+                        <p:selectOneMenu value="#{remoteControlView.data.color2}" required="true" converter="ColorConverter"
+                                         label="Color"  style="width: 15rem"  panelStyle="width: 15rem"
+                                         scrollHeight="250">
+                            <f:selectItems value="#{remoteControlView.colorSelector.colorList}" var="color"
+                                           itemLabel="#{color.name}" itemValue="#{color.name}"/>
+                        </p:selectOneMenu>
+
+                        <p:commandButton value="add" process="race" update="remote"
+                                         action="#{remoteControlView.onApplyCommandClick('Race')}" id="btn20"
+                                         styleClass="mr-2"/>
+                        <p:defaultCommand target="btn20" scope="panel20"/>
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+        </div>
+    </ui:define>
+
+    <ui:define name="footer">
+
+    </ui:define>
+
+    <ui:define name="rechts">
+        <h:form id="remote">
+            <div class="card">
+                <p:panel header="Fernbedienung" style="text-align: center">
+                    <p:panelGrid columns="2" layout="grid" style="margin: -15px" styleClass="showcase-text-align-center">
+
+                        <p:commandLink id="cl1" action="#{remoteControlView.onRunCommandClick(1)}" >
+                            <p:dataList id="remote1"  value="#{remoteControlView.getCommandUnchecked(1).config}"
+                                        emptyMessage="n.d." var="product" type="definition" lazy=""
+                                        style="text-align: center; -webkit-text-size-adjust: auto">
+                                <f:facet name="header">
+                                    <p:outputLabel style=" font-size: 14px; margin: fill; text-align: center">
+                                        1: #{remoteControlView.getCommandUnchecked(1).name}
+                                    </p:outputLabel>
+                                </f:facet>
+                                <p:outputLabel style="font-size: 12px">
+                                    #{product}
+                                </p:outputLabel>
+
+                                <p:effect type="pulsate" event="click">
+                                </p:effect>
+                            </p:dataList>
+                        </p:commandLink>
+
+                        <p:commandLink id="cl2" action="#{remoteControlView.onRunCommandClick(2)}" >
+                            <p:dataList id="remote2"  value="#{remoteControlView.getCommandUnchecked(2).config}"
+                                        emptyMessage="n.d." var="product" type="definition" lazy=""
+                                        style="text-align: center; -webkit-text-size-adjust: auto">
+                                <f:facet name="header">
+                                    <p:outputLabel style=" font-size: 14px; margin: fill; text-align: center">
+                                        2: #{remoteControlView.getCommandUnchecked(2).name}
+                                    </p:outputLabel>
+                                </f:facet>
+                                <p:outputLabel style="font-size: 12px">
+                                    #{product}
+                                </p:outputLabel>
+
+                                <p:effect type="pulsate" event="click">
+                                </p:effect>
+                            </p:dataList>
+                        </p:commandLink>
+
+                        <p:commandLink id="cl3" action="#{remoteControlView.onRunCommandClick(3)}" >
+                            <p:dataList id="remote3"  value="#{remoteControlView.getCommandUnchecked(3).config}"
+                                        emptyMessage="n.d." var="product" type="definition" lazy=""
+                                        style="text-align: center; -webkit-text-size-adjust: auto">
+                                <f:facet name="header">
+                                    <p:outputLabel style=" font-size: 14px; margin: fill; text-align: center">
+                                        3: #{remoteControlView.getCommandUnchecked(3).name}
+                                    </p:outputLabel>
+                                </f:facet>
+                                <p:outputLabel style="font-size: 12px">
+                                    #{product}
+                                </p:outputLabel>
+
+                                <p:effect type="pulsate" event="click">
+                                </p:effect>
+                            </p:dataList>
+                        </p:commandLink>
+
+                        <p:commandLink id="cl4" action="#{remoteControlView.onRunCommandClick(4)}" >
+                            <p:dataList id="remote4"  value="#{remoteControlView.getCommandUnchecked(4).config}"
+                                        emptyMessage="n.d." var="product" type="definition" lazy=""
+                                        style="text-align: center; -webkit-text-size-adjust: auto">
+                                <f:facet name="header">
+                                    <p:outputLabel style=" font-size: 14px; margin: fill; text-align: center">
+                                        4: #{remoteControlView.getCommandUnchecked(4).name}
+                                    </p:outputLabel>
+                                </f:facet>
+                                <p:outputLabel style="font-size: 12px">
+                                    #{product}
+                                </p:outputLabel>
+
+                                <p:effect type="pulsate" event="click">
+                                </p:effect>
+                            </p:dataList>
+                        </p:commandLink>
+
+                        <p:commandLink id="cl5" action="#{remoteControlView.onRunCommandClick(5)}" >
+                            <p:dataList id="remote5"  value="#{remoteControlView.getCommandUnchecked(5).config}"
+                                        emptyMessage="n.d." var="product" type="definition" lazy=""
+                                        style="text-align: center; -webkit-text-size-adjust: auto">
+                                <f:facet name="header">
+                                    <p:outputLabel style=" font-size: 14px; margin: fill; text-align: center">
+                                        5: #{remoteControlView.getCommandUnchecked(5).name}
+                                    </p:outputLabel>
+                                </f:facet>
+                                <p:outputLabel style="font-size: 12px">
+                                    #{product}
+                                </p:outputLabel>
+
+                                <p:effect type="pulsate" event="click">
+                                </p:effect>
+                            </p:dataList>
+                        </p:commandLink>
+
+                        <p:commandLink id="cl6" action="#{remoteControlView.onRunCommandClick(6)}" >
+                            <p:dataList id="remote6"  value="#{remoteControlView.getCommandUnchecked(6).config}"
+                                        emptyMessage="n.d." var="product" type="definition" lazy=""
+                                        style="text-align: center; -webkit-text-size-adjust: auto">
+                                <f:facet name="header">
+                                    <p:outputLabel style=" font-size: 14px; margin: fill; text-align: center">
+                                        6: #{remoteControlView.getCommandUnchecked(6).name}
+                                    </p:outputLabel>
+                                </f:facet>
+                                <p:outputLabel style="font-size: 12px">
+                                    #{product}
+                                </p:outputLabel>
+
+                                <p:effect type="pulsate" event="click">
+                                </p:effect>
+                            </p:dataList>
+                        </p:commandLink>
+
+                        <p:commandLink id="cl7" action="#{remoteControlView.onRunCommandClick(7)}" >
+                            <p:dataList id="remote7"  value="#{remoteControlView.getCommandUnchecked(7).config}"
+                                        emptyMessage="n.d." var="product" type="definition" lazy=""
+                                        style="text-align: center; -webkit-text-size-adjust: auto">
+                                <f:facet name="header">
+                                    <p:outputLabel style=" font-size: 14px; margin: fill; text-align: center">
+                                        7: #{remoteControlView.getCommandUnchecked(7).name}
+                                    </p:outputLabel>
+                                </f:facet>
+                                <p:outputLabel style="font-size: 12px">
+                                    #{product}
+                                </p:outputLabel>
+
+                                <p:effect type="pulsate" event="click">
+                                </p:effect>
+                            </p:dataList>
+                        </p:commandLink>
+
+                        <p:commandLink id="cl8" action="#{remoteControlView.onRunCommandClick(8)}" >
+                            <p:dataList id="remote8"  value="#{remoteControlView.getCommandUnchecked(8).config}"
+                                        emptyMessage="n.d." var="product" type="definition" lazy=""
+                                        style="text-align: center; -webkit-text-size-adjust: auto">
+                                <f:facet name="header">
+                                    <p:outputLabel style=" font-size: 14px; margin: fill; text-align: center">
+                                        8: #{remoteControlView.getCommandUnchecked(8).name}
+                                    </p:outputLabel>
+                                </f:facet>
+                                <p:outputLabel style="font-size: 12px">
+                                    #{product}
+                                </p:outputLabel>
+
+                                <p:effect type="pulsate" event="click">
+                                </p:effect>
+                            </p:dataList>
+                        </p:commandLink>
+
+                        <p:commandLink id="cl9" action="#{remoteControlView.viewCommands}" styleClass="mr-2" >
+                            <p:dataList id="remote9" value="up to 5 steps back" type="definition" lazy=""
+                                        style="text-align: center; -webkit-text-size-adjust: auto">
+                                <f:facet name="header">
+                                    <p:outputLabel style=" font-size: 14px; margin: fill; text-align: center">
+                                        Undo
+                                    </p:outputLabel>
+                                </f:facet>
+                                <p:outputLabel style="font-size: 12px">
+                                </p:outputLabel>
+
+                                <p:effect type="pulsate" event="click">
+                                </p:effect>
+                            </p:dataList>
+                        </p:commandLink>
+
+                        <p:commandLink id="cl10" action="#{remoteControlView.onRunResetButtonClick}" >
+                            <f:ajax render="remote"/>
+                            <p:dataList id="remote10" value="reset remote" type="definition" lazy=""
+                                        style="text-align: center; -webkit-text-size-adjust: auto">
+                                <f:facet name="header">
+                                    <p:outputLabel style=" font-size: 14px; margin: fill; text-align: center">
+                                      Reset
+                                    </p:outputLabel>
+                                </f:facet>
+                                <p:effect type="pulsate" event="click">
+                                </p:effect>
+                            </p:dataList>
+                        </p:commandLink>
+
+                    </p:panelGrid>
+                </p:panel>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>
+
