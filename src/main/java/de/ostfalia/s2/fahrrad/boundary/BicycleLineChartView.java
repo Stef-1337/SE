@@ -77,7 +77,7 @@ public class BicycleLineChartView {
             if (!caches.containsKey(channel)) caches.put(channel, new ArrayList<>());
 
             List<Bicycle> cache = caches.get(channel);
-            if(cache.size() <= 0){
+            if (cache.size() <= 0) {
                 cache = bs.getFahrradDaten(channel, from, to, step);
                 caches.put(channel, cache);
             }

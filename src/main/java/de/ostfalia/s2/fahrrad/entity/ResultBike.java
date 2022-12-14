@@ -15,7 +15,7 @@ public class ResultBike {
     private LocalDateTime timestamp;
     private Double rotations, active;
 
-    public ResultBike(int channel, long step, int numbers, LocalDateTime timestamp, Double rotations, Double active){
+    public ResultBike(int channel, long step, int numbers, LocalDateTime timestamp, Double rotations, Double active) {
         this.channel = channel;
         this.step = step;
         this.numbers = numbers;

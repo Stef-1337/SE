@@ -35,4 +35,5 @@ public class KennzahlRotations implements KennzahlType {
     public double getAverage(List<Bicycle> data) {
         return getTotal(data) / data.size();
     }
+
 }

@@ -36,7 +36,7 @@ public class DataOperationMitGlattung extends DataOperation {
             double avg = total / count;
 
             if (rotations > avg * 2 || rotations < avg * 0.5)
-                bike.setRotations_per_second((int)Math.round(avg));
+                bike.setRotations_per_second((int) Math.round(avg));
 
             bicycles.add(bike);
         }

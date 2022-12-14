@@ -78,11 +78,11 @@ public class BicycleService implements Serializable {
         return list;
     }
 
-    public List<Integer> getChannels(boolean isExtended){
-        if(channels == null) channels = getBicycleIDs();
+    public List<Integer> getChannels(boolean isExtended) {
+        if (channels == null) channels = getBicycleIDs();
         if (isExtended) {
             List<Integer> list = new ArrayList<>(channels);
-            list.add(0,-1);
+            list.add(0, -1);
             return list;
         }
         return channels;

@@ -31,7 +31,7 @@ public class BicycleDetailData {
         this.name = name;
     }
 
-    public BicycleDetailData(List<ResultBike> daten, String name, long step, KennzahlType type){
+    public BicycleDetailData(List<ResultBike> daten, String name, long step, KennzahlType type) {
         this(daten, name);
 
         this.step = step;
@@ -39,12 +39,12 @@ public class BicycleDetailData {
 
         daten.sort(Comparator.comparing(ResultBike::getTimestamp));
 
-        if(daten.size() > 0){
+        if (daten.size() > 0) {
             type.apply(this);
         }
     }
 
-    public void addInterval(LocalDateTime timestamp){
+    public void addInterval(LocalDateTime timestamp) {
         getIntervals().add(FORMATTER.format(timestamp));
     }
 

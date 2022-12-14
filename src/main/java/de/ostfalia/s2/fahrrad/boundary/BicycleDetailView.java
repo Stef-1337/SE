@@ -70,8 +70,8 @@ public class BicycleDetailView implements Serializable {
 
     private List<Integer> bicycles;
 
-    public BicycleDetailView(){
-        if(timeRange == null || timeRange.isEmpty()){
+    public BicycleDetailView() {
+        if (timeRange == null || timeRange.isEmpty()) {
             timeRange = new ArrayList<>();
             timeRange.add(java.sql.Timestamp.valueOf(LocalDateTime.now().minusHours(1)));
             timeRange.add(java.sql.Timestamp.valueOf(LocalDateTime.now()));

@@ -40,4 +40,5 @@ public class KennzahlSpeed implements KennzahlType {
     public double getAverage(List<Bicycle> data) {
         return getTotal(data) / data.size();
     }
+
 }
