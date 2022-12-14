@@ -11,7 +11,7 @@ public class VerlaufCommand extends AbstractThreadCommand {
 
     private int time;
 
-    public VerlaufCommand(CommandParameterData data){
+    public VerlaufCommand(CommandParameterData data) {
         this(data.getController(), data.getName(), data.getTime());
     }
 

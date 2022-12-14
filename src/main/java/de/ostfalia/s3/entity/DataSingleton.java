@@ -55,8 +55,8 @@ public class DataSingleton implements Serializable {
         return data.get(channel);
     }
 
-    @Schedule(hour="*", minute="*", second="*", persistent = false)
-    public void tick(){
+    @Schedule(hour = "*", minute = "*", second = "*", persistent = false)
+    public void tick() {
         index++;
     }
 

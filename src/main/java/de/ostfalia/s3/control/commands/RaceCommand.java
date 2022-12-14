@@ -65,4 +65,5 @@ public class RaceCommand extends AbstractThreadCommand {
     public List<String> getConfig() {
         return List.of("Channel1: " + channel1 + ", " + color1.getName(), "Channel2: " + channel2 + ", " + color2.getName());
     }
+
 }

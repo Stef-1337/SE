@@ -10,7 +10,7 @@ import java.util.List;
 public class RainbowCommand extends AbstractThreadCommand {
     private int time;
 
-    public RainbowCommand(CommandParameterData data){
+    public RainbowCommand(CommandParameterData data) {
         this(data.getController(), data.getName(), data.getTime());
     }
 
@@ -48,6 +48,6 @@ public class RainbowCommand extends AbstractThreadCommand {
 
     @Override
     public List<String> getConfig() {
-        return List.of("Speed: " + time +"ms");
+        return List.of("Speed: " + time + "ms");
     }
 }

@@ -28,7 +28,7 @@ public class RaceCommandOld extends AbstractCommand {
 
     @Override
     public List<String> getConfig() {
-        return List.of("bicycle "+ bChannel1 + ":" + hueColor1.getName() + " bicyle" + bChannel2 + ":" + hueColor2.getName());
+        return List.of("bicycle " + bChannel1 + ":" + hueColor1.getName() + " bicyle" + bChannel2 + ":" + hueColor2.getName());
     }
 
     @Override
@@ -46,7 +46,7 @@ public class RaceCommandOld extends AbstractCommand {
             controller.colorChanged(String.valueOf(hueColor2));
             difference = rotation2 - rotation1;
             max = rotation2;
-        } else if(rotation1 >= rotation2) {
+        } else if (rotation1 >= rotation2) {
             controller.colorChanged(String.valueOf(hueColor1));
             difference = rotation1 - rotation2;
             max = rotation1;
@@ -57,7 +57,7 @@ public class RaceCommandOld extends AbstractCommand {
 
         float brightness;
 
-        if(difference > 0 && max != 0) {
+        if (difference > 0 && max != 0) {
             brightness = (float) (difference / max * 100);
         } else {
             brightness = 1;

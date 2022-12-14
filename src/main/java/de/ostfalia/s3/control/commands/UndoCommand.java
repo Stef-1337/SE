@@ -28,4 +28,5 @@ public class UndoCommand extends AbstractCommand {
     public void execute(AbstractLampController controller) {
         processor.undo(index);
     }
+
 }

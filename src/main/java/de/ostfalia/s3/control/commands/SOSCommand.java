@@ -11,7 +11,7 @@ public class SOSCommand extends AbstractThreadCommand {
 
     private int time;
 
-    public SOSCommand(CommandParameterData data){
+    public SOSCommand(CommandParameterData data) {
         this(data.getController(), data.getName(), data.getTime());
     }
 
@@ -23,7 +23,7 @@ public class SOSCommand extends AbstractThreadCommand {
     @Override
     public void execute(AbstractLampController controller) {
         Thread thread = new Thread(() -> {
-            try{
+            try {
                 new StateCommand(controller, "off", false).execute(controller);
                 Thread.sleep(time);
                 while (!getThread().isInterrupted()) {
@@ -31,19 +31,19 @@ public class SOSCommand extends AbstractThreadCommand {
 
                     for (int i = 0; i < 3; i++) {
                         new StateCommand(controller, "on", true).execute(controller);
-                        Thread.sleep(time*2);
+                        Thread.sleep(time * 2);
                         new StateCommand(controller, "off", false).execute(controller);
                         Thread.sleep(time);
                     }
                     for (int i = 0; i < 3; i++) {
                         new StateCommand(controller, "on", true).execute(controller);
-                        Thread.sleep(time*4);
+                        Thread.sleep(time * 4);
                         new StateCommand(controller, "off", false).execute(controller);
                         Thread.sleep(time);
                     }
                     for (int i = 0; i < 3; i++) {
                         new StateCommand(controller, "on", true).execute(controller);
-                        Thread.sleep(time*2);
+                        Thread.sleep(time * 2);
                         new StateCommand(controller, "off", false).execute(controller);
                         Thread.sleep(time);
                     }

@@ -10,7 +10,7 @@ public class BrightnessCommand extends AbstractCommand {
 
     private float brightness;
 
-    public BrightnessCommand(CommandParameterData data){
+    public BrightnessCommand(CommandParameterData data) {
         this(data.getController(), data.getName(), data.getIntensity());
     }
 

@@ -35,7 +35,7 @@ public class stateColorChangeCommand extends AbstractThreadCommand {
                 new StateCommand(controller, "state", true).execute(controller);
 
                 while (!getThread().isInterrupted()) {
-                    for(int i = 0; i < colorList.size(); i ++) {
+                    for (int i = 0; i < colorList.size(); i++) {
                         new ColorCommand(controller, "color", colorList.get(i)).execute(controller);
                         Thread.sleep(time);
 

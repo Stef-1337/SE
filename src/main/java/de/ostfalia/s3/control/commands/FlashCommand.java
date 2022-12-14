@@ -9,7 +9,7 @@ import java.util.List;
 public class FlashCommand extends AbstractThreadCommand {
     private int time;
 
-    public FlashCommand(CommandParameterData data){
+    public FlashCommand(CommandParameterData data) {
         this(data.getController(), data.getName(), data.getTime());
     }
 

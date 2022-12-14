@@ -42,7 +42,7 @@ public abstract class AbstractCommand implements ICommand, Cloneable {
         return null;
     }
 
-    public void undo(){
+    public void undo() {
         undo(controller);
 
         Java2NodeRedLampAdapter lamp = controller.getAdapter();
@@ -50,13 +50,13 @@ public abstract class AbstractCommand implements ICommand, Cloneable {
         lamp.putRequest();
     }
 
-    public void undo(AbstractLampController controller){
+    public void undo(AbstractLampController controller) {
 
     }
 
     public abstract List<String> getConfig();
 
-    public String toString(){
+    public String toString() {
         return getClass().getSimpleName() + " (" + name + ": " + getConfig() + ")";
     }
 

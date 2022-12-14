@@ -19,7 +19,7 @@ public abstract class AbstractThreadCommand extends AbstractCommand {
     }
 
     public void stopThread() {
-        if(thread != null) thread.stop();
+        if (thread != null) thread.stop();
     }
 
 }

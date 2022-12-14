@@ -12,7 +12,7 @@ public class LampCommand extends AbstractCommand {
     private Float brightness;
     private HueColor hueColor;
 
-    public LampCommand(CommandParameterData data){
+    public LampCommand(CommandParameterData data) {
         this(data.getController(), data.getName(), data.isOn(), (float) data.getIntensity(), data.getColor());
     }
 
@@ -33,6 +33,6 @@ public class LampCommand extends AbstractCommand {
 
     @Override
     public java.util.List<String> getConfig() {
-        return List.of("State:" + to  + "\n Brightness: " + brightness + "\n HueColor: " + hueColor.getName());
+        return List.of("State:" + to + "\n Brightness: " + brightness + "\n HueColor: " + hueColor.getName());
     }
 }

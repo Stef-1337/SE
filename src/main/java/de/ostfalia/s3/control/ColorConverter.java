@@ -1,4 +1,5 @@
 package de.ostfalia.s3.control;
+
 import de.ostfalia.s1.lamp.ColorSelector;
 import de.ostfalia.s1.lamp.HueColor;
 

@@ -123,6 +123,5 @@ public class RemoteControlView implements Serializable {
         PrimeFaces.current().dialog().openDynamic("/RemoteControl/commandView", options, null);
     }
 
-
 }
 

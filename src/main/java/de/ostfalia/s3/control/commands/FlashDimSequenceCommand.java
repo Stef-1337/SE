@@ -36,6 +36,7 @@ public class FlashDimSequenceCommand extends AbstractThreadCommand {
                 throw new RuntimeException(e);
             }
         });
+
         runThread(thread);
     }
 }

@@ -23,7 +23,8 @@ public class CommandFactory {
             Object commandObject = commanadClass.getConstructor(data.getClass()).newInstance(data);
 
             command = (ICommand) commandObject;
-        } catch (ClassCastException | ClassNotFoundException | NoSuchMethodException | InvocationTargetException | InstantiationException |
+        } catch (ClassCastException | ClassNotFoundException | NoSuchMethodException | InvocationTargetException |
+                 InstantiationException |
                  IllegalAccessException ex) {
             System.out.println("Can't build command for " + clazz);
             return null;

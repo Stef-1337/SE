@@ -14,7 +14,7 @@ public class PartyCommand extends AbstractThreadCommand {
     private int time;
     private Float brightness;
 
-    public PartyCommand(CommandParameterData data){
+    public PartyCommand(CommandParameterData data) {
         this(data.getController(), data.getName(), data.getColorList(), data.getTime());
     }
 
@@ -35,14 +35,14 @@ public class PartyCommand extends AbstractThreadCommand {
             Random random = new Random();
             int randomNum = random.nextInt(size);
             System.out.println(size);
-            new LampCommand(controller, "lamp", true,curBrightness, colors.get(randomNum)).execute(controller);
+            new LampCommand(controller, "lamp", true, curBrightness, colors.get(randomNum)).execute(controller);
             int change = 0;
             int count = 0;
             int amount = 0;
 
             try {
                 while (!getThread().isInterrupted()) {
-                    if (curBrightness <= 5){
+                    if (curBrightness <= 5) {
                         change = 2;
                     }
                     while (curBrightness > 5 && change == 0) {
@@ -51,7 +51,7 @@ public class PartyCommand extends AbstractThreadCommand {
                         Thread.sleep(1);
                         if (curBrightness == brightness - 15 || curBrightness <= 6) {
                             change = random.nextInt(3);
-                            amount =  random.nextInt((40 - 10) + 1) + 10;
+                            amount = random.nextInt((40 - 10) + 1) + 10;
                             if (curBrightness <= 5) {
                                 change = 1;
                             }
@@ -71,7 +71,7 @@ public class PartyCommand extends AbstractThreadCommand {
                         new BrightnessCommand(controller, "brightness", curBrightness += 10).execute(controller);
                         if (curBrightness >= 89) {
                             change = random.nextInt(3);
-                            amount =  random.nextInt((40 - 10) + 1) + 10;
+                            amount = random.nextInt((40 - 10) + 1) + 10;
                             if (change == 2) {
                                 change = 3;
                             }
@@ -89,9 +89,9 @@ public class PartyCommand extends AbstractThreadCommand {
                             change = random.nextInt(3);
                             System.out.println("fehler 2");
                             count = 0;
-                            amount =  random.nextInt((40 - 10) + 1) + 10;
+                            amount = random.nextInt((40 - 10) + 1) + 10;
                             System.out.println("fehler 3" + change);
-                            if (change == 2 && controller.getAdapter().getIntensity() >= 89){
+                            if (change == 2 && controller.getAdapter().getIntensity() >= 89) {
                                 System.out.println("fehler 4");
                                 change = 0;
                             }
@@ -108,7 +108,7 @@ public class PartyCommand extends AbstractThreadCommand {
 
     @Override
     public List<String> getConfig() {
-        List <String> colorNames = new ArrayList<>(colors.size());
+        List<String> colorNames = new ArrayList<>(colors.size());
         colors.forEach(c -> colorNames.add(c.getName()));
         return List.of("Party: " + time + "ms" + "\n Farben: " + colorNames.toString());
     }

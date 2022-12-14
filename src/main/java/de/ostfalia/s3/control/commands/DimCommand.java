@@ -9,7 +9,7 @@ import java.util.List;
 public class DimCommand extends AbstractCommand {
     private float change;
 
-    public DimCommand(CommandParameterData data){
+    public DimCommand(CommandParameterData data) {
         this(data.getController(), data.getName(), data.getIntensityStep());
     }
 

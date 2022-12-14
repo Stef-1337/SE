@@ -12,7 +12,7 @@ public class BikeDriveCommand extends AbstractThreadCommand {
 
     private int channel;
 
-    public BikeDriveCommand(CommandParameterData data){
+    public BikeDriveCommand(CommandParameterData data) {
         this(data.getController(), data.getName(), data.getChannel1());
     }
 

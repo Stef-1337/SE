@@ -8,7 +8,7 @@ import java.util.List;
 
 public class ToggleCommand extends AbstractCommand {
 
-    public ToggleCommand(CommandParameterData data){
+    public ToggleCommand(CommandParameterData data) {
         this(data.getController(), data.getName());
     }
 

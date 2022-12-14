@@ -12,7 +12,7 @@ public class ColorCommand extends AbstractCommand {
 
     private HueColor hueColor;
 
-    public ColorCommand(CommandParameterData data){
+    public ColorCommand(CommandParameterData data) {
         this(data.getController(), data.getName(), data.getColor());
     }
 

@@ -43,9 +43,9 @@ public class CommandProcessor {
 
             } else command.undo(controller);
 
-            if(undoList.size() > 0){
+            if (undoList.size() > 0) {
                 ICommand current = undoList.get(undoList.size() - 1);
-                if(current instanceof AbstractThreadCommand currentThread)
+                if (current instanceof AbstractThreadCommand currentThread)
                     currentThread.execute(controller);
             }
         } else System.out.println("Nothing left to undo..");

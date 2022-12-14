@@ -10,7 +10,7 @@ public class StateCommand extends AbstractCommand {
 
     private boolean to;
 
-    public StateCommand(CommandParameterData data){
+    public StateCommand(CommandParameterData data) {
         this(data.getController(), data.getName(), data.isOn());
     }
 

@@ -9,7 +9,7 @@ import java.util.List;
 public class TimeCommand extends AbstractThreadCommand {
     private int time;
 
-    public TimeCommand(CommandParameterData data){
+    public TimeCommand(CommandParameterData data) {
         this(data.getController(), data.getName(), data.getTime());
     }
 

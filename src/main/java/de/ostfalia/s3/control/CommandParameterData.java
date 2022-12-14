@@ -33,7 +33,7 @@ public class CommandParameterData {
     private Integer channel2;
     private HueColor color2;
 
-    public CommandParameterData (AbstractLampController controller, ColorSelector selector){
+    public CommandParameterData(AbstractLampController controller, ColorSelector selector) {
         this.controller = controller;
 
         this.colorSelector = selector;
@@ -51,9 +51,6 @@ public class CommandParameterData {
 //    public HueColor getColor(){
 //        return colorSelector.getColor(colorName);
 //    }
-
-
-
 
 
 }
